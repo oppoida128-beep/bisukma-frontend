@@ -1,19 +1,21 @@
+
 "use client"
 
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, LayoutGrid } from "lucide-react"
+import { Menu, LayoutGrid, Phone } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { MorphButton } from "@/components/ui/morph-button"
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuContent,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
@@ -21,17 +23,17 @@ const profilItems: { title: string; href: string; description: string }[] = [
   {
     title: "Visi & Misi",
     href: "/profil",
-    description: "Tujuan strategis kami untuk merevolusi ekosistem teknologi di Indonesia.",
+    description: "Tujuan strategis kami untuk merevolusi ekosistem teknologi.",
   },
   {
     title: "Tentang Kami",
     href: "/profil",
-    description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami dalam inovasi digital.",
+    description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami.",
   },
   {
     title: "Nilai Inti",
     href: "/profil",
-    description: "Prinsip integritas, kolaborasi, dan kualitas yang mendasari setiap karya kami.",
+    description: "Prinsip integritas, kolaborasi, dan kualitas kami.",
   },
 ]
 
@@ -39,22 +41,17 @@ const beritaItems: { title: string; href: string; description: string }[] = [
   {
     title: "Teknologi",
     href: "/berita?category=Teknologi",
-    description: "Update terbaru mengenai perkembangan teknologi dan inovasi digital.",
+    description: "Update terbaru mengenai perkembangan teknologi.",
   },
   {
     title: "Infrastruktur",
     href: "/berita?category=Infrastruktur",
-    description: "Berita seputar pengembangan infrastruktur IT dan cloud computing.",
+    description: "Berita seputar infrastruktur IT dan cloud.",
   },
   {
     title: "Keamanan",
     href: "/berita?category=Keamanan",
-    description: "Wawasan tentang keamanan siber dan perlindungan data perusahaan.",
-  },
-  {
-    title: "Event",
-    href: "/berita?category=Event",
-    description: "Informasi mengenai acara, seminar, dan konferensi Bisukma Digital.",
+    description: "Wawasan tentang keamanan siber dan data.",
   },
 ]
 
@@ -71,18 +68,18 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none px-3"
+  const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none px-2 text-xs"
 
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full border-b transition-all duration-300 bg-white",
-      isScrolled ? "shadow-sm border-b" : "shadow-none border-transparent"
+      isScrolled ? "h-14 shadow-sm border-b" : "h-14 shadow-none border-transparent"
     )}>
-      <div className="container mx-auto flex h-14 items-center px-4">
+      <div className="container mx-auto flex h-full items-center px-4">
         {/* Logo */}
         <div className="flex w-1/4 shrink-0">
-          <Link href="/" className="flex items-center gap-2 font-headline text-lg font-bold text-primary">
-            <LayoutGrid className="h-5 w-5 text-accent" />
+          <Link href="/" className="flex items-center gap-2 font-headline text-base font-bold text-primary">
+            <LayoutGrid className="h-4 w-4 text-accent" />
             <span>Bisukma<span className="text-accent">Digital</span></span>
           </Link>
         </div>
@@ -90,7 +87,7 @@ export function SiteHeader() {
         {/* Desktop Nav - Center */}
         <nav className="hidden md:flex flex-1 items-center justify-center">
           <NavigationMenu>
-            <NavigationMenuList className="gap-1">
+            <NavigationMenuList className="gap-0.5">
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/" && "text-accent")}>
                   <Link href="/">Beranda</Link>
@@ -99,10 +96,10 @@ export function SiteHeader() {
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger className={cn(navItemClasses, pathname === "/profil" && "text-accent")}>
-                  Profil Bisukma
+                  Profil
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                  <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
                     {profilItems.map((item) => (
                       <ListItem
                         key={item.title}
@@ -121,7 +118,7 @@ export function SiteHeader() {
                   Berita
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                  <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
                     {beritaItems.map((item) => (
                       <ListItem
                         key={item.title}
@@ -131,13 +128,6 @@ export function SiteHeader() {
                         {item.description}
                       </ListItem>
                     ))}
-                    <li className="md:col-span-2 pt-2 border-t">
-                      <NavigationMenuLink asChild>
-                        <Link href="/berita" className="flex items-center justify-center p-1.5 text-xs font-medium text-accent hover:underline">
-                          Lihat Semua Berita
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -153,12 +143,6 @@ export function SiteHeader() {
                   <Link href="/mitra">Mitra</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/gallery" && "text-accent")}>
-                  <Link href="/gallery">Gallery</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
@@ -166,9 +150,7 @@ export function SiteHeader() {
         {/* Action Button */}
         <div className="flex w-1/4 justify-end shrink-0">
           <div className="hidden md:block">
-            <Button variant="default" size="sm" className="bg-accent hover:bg-accent/90 shadow-none h-8 px-4 text-xs">
-              Hubungi Kami
-            </Button>
+            <MorphButton text="Hubungi Kami" icon={Phone} />
           </div>
 
           {/* Mobile Nav */}
@@ -182,11 +164,10 @@ export function SiteHeader() {
               <nav className="flex flex-col gap-4 pt-10">
                 {[
                   { name: "Beranda", href: "/" },
-                  { name: "Profil Bisukma", href: "/profil" },
+                  { name: "Profil", href: "/profil" },
                   { name: "Berita", href: "/berita" },
                   { name: "Layanan", href: "/layanan" },
                   { name: "Mitra", href: "/mitra" },
-                  { name: "Gallery", href: "/gallery" },
                 ].map((item) => (
                   <Link
                     key={item.href}
