@@ -13,7 +13,6 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const articles = [
   {
@@ -89,7 +88,6 @@ export default function BeritaPage() {
     })
   }, [activeCategory, searchQuery])
 
-  // On mobile, show only first 3 in the main tabs
   const visibleCategories = isMobile ? categories.slice(0, 3) : categories
   const hiddenCategories = isMobile ? categories.slice(3) : []
 
@@ -139,69 +137,77 @@ export default function BeritaPage() {
       <section className="container mx-auto px-4 mt-6">
         {/* Category Navigation Area */}
         <div className="mb-8">
-          <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
-            <div className="flex items-center gap-2">
-              <div className="flex-1 overflow-hidden">
-                <Tabs 
-                  value={activeCategory} 
-                  onValueChange={setActiveCategory}
-                  className="w-full"
-                >
-                  <div className="overflow-x-auto no-scrollbar">
-                    <TabsList variant="line" className="justify-start gap-4 md:gap-8 border-none h-auto p-0">
-                      {visibleCategories.map((cat) => (
-                        <TabsTrigger 
-                          key={cat} 
-                          value={cat} 
-                          variant="line"
-                          className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap pb-2 pt-0"
-                        >
-                          {cat}
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
-                  </div>
-                </Tabs>
-              </div>
-
-              {isMobile && (
-                <CollapsibleTrigger asChild>
-                  <Button 
-                    variant={isExpanded ? "default" : "outline"} 
-                    size="icon" 
-                    className={cn(
-                      "rounded-full shrink-0 h-9 w-9 transition-all duration-300",
-                      isExpanded ? "bg-accent border-accent text-white" : "border-muted-foreground/20 text-muted-foreground"
-                    )}
-                  >
-                    <Plus className={cn("h-4 w-4 transition-transform duration-300", isExpanded && "rotate-45")} />
-                  </Button>
-                </CollapsibleTrigger>
-              )}
+          <div className="flex items-center gap-2">
+            <div className="flex-1 overflow-hidden">
+              <Tabs 
+                value={activeCategory} 
+                onValueChange={setActiveCategory}
+                className="w-full"
+              >
+                <div className="overflow-x-auto no-scrollbar">
+                  <TabsList variant="line" className="justify-start gap-4 md:gap-8 border-none h-auto p-0">
+                    {visibleCategories.map((cat) => (
+                      <TabsTrigger 
+                        key={cat} 
+                        value={cat} 
+                        variant="line"
+                        className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap pb-2 pt-0"
+                      >
+                        {cat}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
+              </Tabs>
             </div>
 
-            <CollapsibleContent>
-              <div className="flex flex-wrap gap-2 pt-4 pb-2">
-                {hiddenCategories.map((cat) => (
-                  <Button
-                    key={cat}
-                    variant={activeCategory === cat ? "default" : "outline"}
-                    size="sm"
-                    className={cn(
-                      "rounded-full text-xs font-bold transition-all",
-                      activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/10 text-muted-foreground hover:border-accent/30"
-                    )}
-                    onClick={() => {
-                      setActiveCategory(cat)
-                      setIsExpanded(false)
-                    }}
-                  >
-                    {cat}
-                  </Button>
-                ))}
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
+            {isMobile && (
+              <Button 
+                variant={isExpanded ? "default" : "outline"} 
+                size="icon" 
+                onClick={() => setIsExpanded(!isExpanded)}
+                className={cn(
+                  "rounded-full shrink-0 h-9 w-9 transition-all duration-300",
+                  isExpanded ? "bg-accent border-accent text-white" : "border-muted-foreground/20 text-muted-foreground"
+                )}
+              >
+                <Plus className={cn("h-4 w-4 transition-transform duration-300", isExpanded && "rotate-45")} />
+              </Button>
+            )}
+          </div>
+
+          {/* Collapsible Content with Framer Motion for Smoothness */}
+          <AnimatePresence>
+            {isExpanded && isMobile && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="overflow-hidden"
+              >
+                <div className="flex flex-wrap gap-2 pt-4 pb-2">
+                  {hiddenCategories.map((cat) => (
+                    <Button
+                      key={cat}
+                      variant={activeCategory === cat ? "default" : "outline"}
+                      size="sm"
+                      className={cn(
+                        "rounded-full text-xs font-bold transition-all",
+                        activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/10 text-muted-foreground hover:border-accent/30"
+                      )}
+                      onClick={() => {
+                        setActiveCategory(cat)
+                        setIsExpanded(false)
+                      }}
+                    >
+                      {cat}
+                    </Button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         <motion.div 
@@ -215,8 +221,8 @@ export default function BeritaPage() {
                 <motion.div
                   key={article.id}
                   layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
                 >
@@ -269,7 +275,7 @@ export default function BeritaPage() {
             </div>
             <p className="text-lg font-bold text-primary">Tidak ada hasil ditemukan</p>
             <p className="text-muted-foreground text-sm max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
-            <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-2 text-xs">
+            <Button variant="outline" onClick={() => {setQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-2 text-xs">
               Atur ulang filter
             </Button>
           </motion.div>
