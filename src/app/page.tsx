@@ -55,7 +55,7 @@ export default function Home() {
       excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda."
     },
     {
-      title: "Masa Depan AI dalam Transformation Bisnis 2024",
+      title: "Masa Depan AI dalam Transformasi Bisnis 2024",
       category: "Teknologi",
       img: news1Img?.imageUrl,
       excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
@@ -159,10 +159,6 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* Left: Popular News (Carousel) */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terpopuler</Badge>
-              </div>
-              
               <Carousel 
                 setApi={setApi} 
                 opts={{ loop: true }}
@@ -199,10 +195,10 @@ export default function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-4 bg-white/10 border-none text-white hover:bg-white/20 hover:text-white" variant="ghost" />
-                <CarouselNext className="right-4 bg-white/10 border-none text-white hover:bg-white/20 hover:text-white" variant="ghost" />
+                <CarouselPrevious className="left-4 bg-transparent border-none text-white hover:bg-white/10 hover:text-white" variant="ghost" />
+                <CarouselNext className="right-4 bg-transparent border-none text-white hover:bg-white/10 hover:text-white" variant="ghost" />
 
-                {/* Pagination Pills - Now Inside Carousel */}
+                {/* Pagination Pills */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
                   {Array.from({ length: count }).map((_, i) => (
                     <button
@@ -253,21 +249,17 @@ export default function Home() {
                   </Link>
                 ))}
               </div>
-              
-              <Link href="/berita" className="inline-block w-full text-center py-4 border-2 border-dashed border-muted rounded-xl text-sm font-semibold text-muted-foreground hover:text-primary hover:border-accent transition-all">
-                Lihat berita lainnya
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* --- CORE SERVICES --- */}
-      <section className="py-24 bg-primary text-white">
+      <section className="py-24 bg-accent text-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
             <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight">Layanan kami</h2>
-            <p className="text-xl text-primary-foreground/60 leading-7">
+            <p className="text-xl text-white/70 leading-7">
               Ekosistem layanan lengkap untuk mendukung setiap tahap transformasi digital Anda.
             </p>
           </div>
@@ -293,19 +285,19 @@ export default function Home() {
                 img: service3Img?.imageUrl 
               }
             ].map((service, i) => (
-              <Card key={i} className="bg-white/5 border-white/10 text-white overflow-hidden group hover:bg-white/10 transition-all duration-500 rounded-2xl shadow-none">
+              <Card key={i} className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-2xl shadow-none">
                 <CardContent className="p-0">
                   <div className="relative h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
                     {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="software development" />}
-                    <div className="absolute inset-0 bg-primary/40"></div>
+                    <div className="absolute inset-0 bg-accent/40"></div>
                   </div>
                   <div className="p-8 space-y-3">
-                    <div className="text-accent mb-2">{service.icon}</div>
+                    <div className="text-white mb-2">{service.icon}</div>
                     <p className="text-xl font-bold">{service.title}</p>
-                    <p className="text-sm text-primary-foreground/60 leading-7">
+                    <p className="text-sm text-white/70 leading-7">
                       {service.desc}
                     </p>
-                    <Link href="/layanan" className="inline-flex items-center gap-2 text-accent font-bold pt-2 text-sm group-hover:gap-3 transition-all leading-7">
+                    <Link href="/layanan" className="inline-flex items-center gap-2 text-white font-bold pt-2 text-sm group-hover:gap-3 transition-all leading-7">
                       Detail layanan <ArrowRight className="h-3 w-3" />
                     </Link>
                   </div>
