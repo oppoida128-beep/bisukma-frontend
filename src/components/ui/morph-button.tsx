@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -41,7 +40,7 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -5 }}
             transition={{ duration: 0.2 }}
-            className="whitespace-nowrap text-[10px] font-bold uppercase tracking-wider"
+            className="whitespace-nowrap text-[10px] font-bold tracking-wider"
           >
             {text}
           </motion.span>

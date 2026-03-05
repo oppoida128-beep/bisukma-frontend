@@ -1,10 +1,9 @@
-
 "use client"
 
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, LayoutGrid, Phone } from "lucide-react"
+import { Menu, LayoutGrid, SquareArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -150,7 +149,7 @@ export function SiteHeader() {
         {/* Action Button */}
         <div className="flex w-1/4 justify-end shrink-0">
           <div className="hidden md:block">
-            <MorphButton text="Hubungi Kami" icon={Phone} />
+            <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
           </div>
 
           {/* Mobile Nav */}
