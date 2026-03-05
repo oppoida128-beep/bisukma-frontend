@@ -1,0 +1,107 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "Digital technology transformation hero image",
+      "imageUrl": "https://picsum.photos/seed/bisukma-hero/1920/1080",
+      "imageHint": "digital technology"
+    },
+    {
+      "id": "profile",
+      "description": "Modern office building for company profile",
+      "imageUrl": "https://picsum.photos/seed/bisukma-office/1200/800",
+      "imageHint": "modern office"
+    },
+    {
+      "id": "news-1",
+      "description": "Digital innovation news article thumbnail",
+      "imageUrl": "https://picsum.photos/seed/news1/600/400",
+      "imageHint": "digital innovation"
+    },
+    {
+      "id": "news-2",
+      "description": "Team collaboration news article thumbnail",
+      "imageUrl": "https://picsum.photos/seed/news2/600/400",
+      "imageHint": "team collaboration"
+    },
+    {
+      "id": "news-3",
+      "description": "Future technology news article thumbnail",
+      "imageUrl": "https://picsum.photos/seed/news3/600/400",
+      "imageHint": "future technology"
+    },
+    {
+      "id": "service-1",
+      "description": "Cloud computing services",
+      "imageUrl": "https://picsum.photos/seed/cloud/800/600",
+      "imageHint": "cloud computing"
+    },
+    {
+      "id": "service-2",
+      "description": "Software development services",
+      "imageUrl": "https://picsum.photos/seed/dev/800/600",
+      "imageHint": "software development"
+    },
+    {
+      "id": "service-3",
+      "description": "Digital marketing services",
+      "imageUrl": "https://picsum.photos/seed/marketing/800/600",
+      "imageHint": "digital marketing"
+    },
+    {
+      "id": "partner-1",
+      "description": "Global partner logo 1",
+      "imageUrl": "https://picsum.photos/seed/partner1/200/100",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "partner-2",
+      "description": "Global partner logo 2",
+      "imageUrl": "https://picsum.photos/seed/partner2/200/100",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "partner-3",
+      "description": "Global partner logo 3",
+      "imageUrl": "https://picsum.photos/seed/partner3/200/100",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Interactive tech exhibit",
+      "imageUrl": "https://picsum.photos/seed/gal1/800/800",
+      "imageHint": "tech exhibit"
+    },
+    {
+      "id": "gallery-2",
+      "description": "Modern workspace gallery",
+      "imageUrl": "https://picsum.photos/seed/gal2/800/800",
+      "imageHint": "modern workspace"
+    },
+    {
+      "id": "gallery-3",
+      "description": "Collaborative meeting",
+      "imageUrl": "https://picsum.photos/seed/gal3/800/800",
+      "imageHint": "collaborative meeting"
+    },
+    {
+      "id": "gallery-4",
+      "description": "Server room infrastructure",
+      "imageUrl": "https://picsum.photos/seed/gal4/800/800",
+      "imageHint": "server infrastructure"
+    },
+    {
+      "id": "gallery-5",
+      "description": "Digital interface design",
+      "imageUrl": "https://picsum.photos/seed/gal5/800/800",
+      "imageHint": "digital interface"
+    },
+    {
+      "id": "gallery-6",
+      "description": "Tech conference event",
+      "imageUrl": "https://picsum.photos/seed/gal6/800/800",
+      "imageHint": "tech event"
+    }
+  ]
+}
