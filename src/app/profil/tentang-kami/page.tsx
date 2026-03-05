@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -132,7 +131,7 @@ export default function TentangKamiPage() {
             <Accordion type="single" collapsible className="w-full space-y-4">
               <AccordionItem value="sejarah" className="border rounded-xl px-6 bg-white shadow-none">
                 <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
-                  1. Sejarah & Cikal Bakal
+                  Awal Perjalanan & Sejarah
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-6">
                   <p>
@@ -149,7 +148,7 @@ export default function TentangKamiPage() {
 
               <AccordionItem value="transformasi" className="border rounded-xl px-6 bg-white shadow-none">
                 <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
-                  2. Transformasi Menjadi "Bisukma Group"
+                  Transformasi Menjadi Bisukma Group
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-6">
                   <p>
@@ -165,7 +164,7 @@ export default function TentangKamiPage() {
 
               <AccordionItem value="identitas" className="border rounded-xl px-6 bg-white shadow-none">
                 <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
-                  I. Identitas Organisasi
+                  Identitas & Profil Organisasi
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="grid sm:grid-cols-2 gap-6 pt-2">
@@ -191,7 +190,7 @@ export default function TentangKamiPage() {
 
               <AccordionItem value="visi-misi" className="border rounded-xl px-6 bg-white shadow-none">
                 <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
-                  II. Visi & Misi
+                  Visi, Misi & Filosofi Pergerakan
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-6 pb-6">
                   <div className="bg-accent/5 p-6 rounded-xl border border-accent/10">
@@ -220,7 +219,7 @@ export default function TentangKamiPage() {
 
               <AccordionItem value="pilar" className="border rounded-xl px-6 bg-white shadow-none">
                 <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
-                  III. Pilar Program Utama
+                  Pilar Program & Fokus Utama
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="grid gap-4 pt-2">
