@@ -1,10 +1,9 @@
-
 'use client'
 
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
+import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar, ChevronRight, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -20,6 +19,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
+import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 
 export default function Home() {
   const [api, setApi] = React.useState<CarouselApi>()
@@ -219,8 +219,9 @@ export default function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-4 bg-transparent border-none text-white hover:bg-white/5 hover:text-white" variant="ghost" />
-                <CarouselNext className="right-4 bg-transparent border-none text-white hover:bg-white/5 hover:text-white" variant="ghost" />
+                
+                <CarouselPrevious className="left-4 bg-black/20 border-none text-white hover:bg-black/40 hover:text-white" variant="ghost" />
+                <CarouselNext className="right-4 bg-black/20 border-none text-white hover:bg-black/40 hover:text-white" variant="ghost" />
 
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
                   {Array.from({ length: count }).map((_, i) => (
@@ -351,13 +352,13 @@ export default function Home() {
 
       {/* --- ABOUT US SECTION --- */}
       <motion.section 
-        className="py-24"
+        className="py-16 md:py-24"
         {...fadeIn}
       >
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center bg-muted/30 rounded-[2rem] p-6 md:p-12 overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-muted/30 rounded-[2rem] p-6 md:p-10 overflow-hidden max-w-6xl mx-auto">
             <motion.div 
-              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border bg-black/5 w-full"
+              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border bg-black/5 w-full shadow-sm"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -378,7 +379,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div 
-              className="space-y-4 max-w-xl"
+              className="space-y-4 max-w-lg"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -389,15 +390,39 @@ export default function Home() {
                 <h2 className="scroll-m-20 text-2xl font-extrabold tracking-tight md:text-3xl">Katalis Inovasi Digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas.
+                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
               <p className="text-muted-foreground leading-relaxed text-sm">
                 Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
               </p>
-              <div className="pt-2">
-                <Button asChild variant="outline" className="rounded-full px-6 shadow-none h-9 text-xs">
-                  <Link href="/profil">Pelajari lebih lanjut</Link>
-                </Button>
+              
+              <div className="flex w-full flex-col gap-3 pt-2">
+                <Item asChild variant="default" className="p-3">
+                  <Link href="/profil">
+                    <ItemContent>
+                      <ItemTitle>Kunjungi dokumentasi profil</ItemTitle>
+                      <ItemDescription>
+                        Pelajari bagaimana kami memulai dan nilai-nilai inti kami.
+                      </ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                      <ChevronRight className="size-4" />
+                    </ItemActions>
+                  </Link>
+                </Item>
+                <Item variant="outline" asChild className="p-3">
+                  <a href="/layanan" target="_blank" rel="noopener noreferrer">
+                    <ItemContent>
+                      <ItemTitle>Sumber daya eksternal</ItemTitle>
+                      <ItemDescription>
+                        Lihat katalog layanan lengkap kami di tab baru.
+                      </ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                      <ExternalLink className="size-4" />
+                    </ItemActions>
+                  </a>
+                </Item>
               </div>
             </motion.div>
           </div>
