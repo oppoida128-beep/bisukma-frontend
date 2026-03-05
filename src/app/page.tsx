@@ -280,6 +280,14 @@ export default function Home() {
                   </motion.div>
                 ))}
               </div>
+
+              <div className="pt-2">
+                <Button variant="link" className="p-0 h-auto text-accent font-bold group/more" asChild>
+                  <Link href="/berita">
+                    Lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -390,7 +398,7 @@ export default function Home() {
                 <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl">Katalis Inovasi Digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm">
-                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
+                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi and kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
               <p className="text-muted-foreground leading-relaxed text-xs">
                 Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
