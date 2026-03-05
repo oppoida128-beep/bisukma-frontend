@@ -44,18 +44,21 @@ export default function Home() {
       title: "Strategi Cloud Computing untuk Startup Berkembang",
       date: "10 Mei 2024",
       category: "Infrastruktur",
+      img: news2Img?.imageUrl,
       excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
     },
     {
       title: "Trend Desain UI/UX yang Dominan di Tahun Ini",
       date: "01 Mei 2024",
       category: "Desain",
+      img: PlaceHolderImages.find(img => img.id === 'gallery-5')?.imageUrl,
       excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman terbaik..."
     },
     {
       title: "Implementasi Blockchain untuk Supply Chain",
       date: "28 April 2024",
       category: "Teknologi",
+      img: PlaceHolderImages.find(img => img.id === 'gallery-4')?.imageUrl,
       excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan teknologi blockchain."
     }
   ]
@@ -170,27 +173,36 @@ export default function Home() {
               </Carousel>
             </div>
 
-            {/* Right: Recently Added (Simple List) */}
+            {/* Right: Recently Added (List with Photos) */}
             <div className="lg:col-span-4 space-y-8">
               <div className="flex items-center gap-2 mb-6">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Terbaru</Badge>
               </div>
               
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-6">
                 {recentlyAddedNews.map((post, i) => (
-                  <Link key={i} href="/berita" className="group flex flex-col gap-3">
-                    <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
-                      <span className="text-accent">{post.category}</span>
-                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
+                  <Link key={i} href="/berita" className="group flex gap-4 items-start">
+                    <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-muted border">
+                      {post.img && (
+                        <Image 
+                          src={post.img} 
+                          alt={post.title} 
+                          fill 
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      )}
                     </div>
-                    <h3 className="text-lg font-bold leading-tight group-hover:text-accent transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                    <div className="pt-1 text-xs font-bold text-accent flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Selengkapnya <ArrowRight className="h-3 w-3" />
+                    <div className="flex flex-col gap-1 flex-1">
+                      <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
+                        <span className="text-accent">{post.category}</span>
+                        <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
+                      </div>
+                      <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                        {post.excerpt}
+                      </p>
                     </div>
                   </Link>
                 ))}
