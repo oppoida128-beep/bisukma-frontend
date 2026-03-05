@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator"
 import { motion, AnimatePresence } from "framer-motion"
 import { MorphButton } from "@/components/ui/morph-button"
 import { SocialIcon } from "react-social-icons"
+import { cn } from "@/lib/utils"
 import {
   Dialog,
   DialogContent,
@@ -59,9 +60,11 @@ export default function BeritaDetailPage() {
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    if (typeof window !== 'undefined') {
+      navigator.clipboard.writeText(window.location.href)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
   }
 
   const socialLinks = [
