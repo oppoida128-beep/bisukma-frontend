@@ -142,25 +142,25 @@
     {
       "id": "flip-1",
       "description": "Generasi Emas 2045",
-      "imageUrl": "/flip-card/flip_1.jpg",
+      "imageUrl": "/flip-card/flip_1.png",
       "imageHint": "healthy child"
     },
     {
       "id": "flip-2",
       "description": "Gizi untuk Pelajar",
-      "imageUrl": "/flip-card/flip_2.jpg",
+      "imageUrl": "/flip-card/flip_2.png",
       "imageHint": "modern farming"
     },
     {
       "id": "flip-3",
       "description": "Awal Kehidupan Sehat",
-      "imageUrl": "/flip-card/flip_3.jpg",
+      "imageUrl": "/flip-card/flip_3.png",
       "imageHint": "coding school"
     },
     {
       "id": "flip-4",
       "description": "Penguatan Ekonomi Lokal",
-      "imageUrl": "/flip-card/flip_4.jpg",
+      "imageUrl": "/flip-card/flip_4.png",
       "imageHint": "community help"
     }
   ]
