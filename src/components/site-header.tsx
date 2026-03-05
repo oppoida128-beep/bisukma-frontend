@@ -44,14 +44,14 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        {/* Desktop Nav - Terpusat di Tengah */}
+        {/* Desktop Nav - Terpusat di Tengah dengan Tipografi Standar Shadcn */}
         <nav className="hidden md:flex flex-1 items-center justify-center gap-8">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-accent",
+                "text-sm font-medium transition-colors hover:text-accent leading-7",
                 pathname === item.href ? "text-accent" : "text-muted-foreground"
               )}
             >
@@ -83,7 +83,7 @@ export function SiteHeader() {
                     href={item.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "text-lg font-medium transition-colors hover:text-accent",
+                      "text-lg font-medium transition-colors hover:text-accent leading-7",
                       pathname === item.href ? "text-accent" : "text-muted-foreground"
                     )}
                   >
