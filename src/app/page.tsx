@@ -51,6 +51,7 @@ export default function Home() {
                 fill 
                 className="object-cover"
                 priority
+                data-ai-hint="digital technology"
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -69,21 +70,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- NEWS SECTION (Replacing Feature Highlights) --- */}
+      {/* --- NEWS SECTION --- */}
       <section className="py-24 border-t bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div className="space-y-2">
-              <p className="text-sm font-semibold text-accent tracking-wider">BERITA & WAWASAN</p>
+              <p className="text-sm font-semibold text-accent tracking-wider leading-7">BERITA & WAWASAN</p>
               <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Eksplorasi Tren Digital</h2>
             </div>
-            <Link href="/berita" className="text-sm font-bold flex items-center text-accent hover:underline">
+            <Link href="/berita" className="text-sm font-bold flex items-center text-accent hover:underline leading-7">
               Lihat Semua Berita <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Left: Recently Added */}
+            {/* Left: Popular (Colossal) */}
+            <div className="lg:col-span-5 h-full">
+              <div className="flex items-center gap-2 mb-8">
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERPOPULER</Badge>
+              </div>
+              <Link href="/berita" className="group relative block aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-2xl">
+                {news3Img?.imageUrl && (
+                  <Image 
+                    src={news3Img.imageUrl} 
+                    alt="Pentingnya Cybersecurity" 
+                    fill 
+                    className="object-cover group-hover:scale-110 transition-transform duration-1000"
+                    data-ai-hint="future technology"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8 space-y-4">
+                  <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">KEAMANAN</Badge>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                    Pentingnya Cybersecurity di Era Kerja Remote
+                  </h3>
+                  <p className="text-white/70 text-sm line-clamp-3 leading-7">
+                    Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda. Pelajari langkah-langkah esensial untuk menjaga privasi digital Anda.
+                  </p>
+                  <div className="pt-4 flex items-center gap-2 text-white font-bold text-sm">
+                    Baca Artikel <ArrowUpRight className="h-4 w-4" />
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Right: Recently Added */}
             <div className="lg:col-span-7 space-y-6">
               <div className="flex items-center gap-2 mb-4">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERBARU</Badge>
@@ -107,7 +139,7 @@ export default function Home() {
                 ].map((post, i) => (
                   <Link key={i} href="/berita" className="group flex flex-col sm:flex-row gap-6 bg-white p-4 rounded-xl border border-transparent hover:border-accent/20 hover:shadow-md transition-all">
                     <div className="relative w-full sm:w-48 aspect-video sm:aspect-square shrink-0 rounded-lg overflow-hidden bg-muted">
-                      {post.img && <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />}
+                      {post.img && <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" data-ai-hint="digital innovation" />}
                     </div>
                     <div className="flex flex-col justify-center space-y-3">
                       <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
@@ -115,41 +147,11 @@ export default function Home() {
                         <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
                       </div>
                       <h3 className="text-xl font-bold leading-tight group-hover:text-accent transition-colors">{post.title}</h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{post.excerpt}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2 leading-7">{post.excerpt}</p>
                     </div>
                   </Link>
                 ))}
               </div>
-            </div>
-
-            {/* Right: Popular (Colossal) */}
-            <div className="lg:col-span-5 h-full">
-              <div className="flex items-center gap-2 mb-8">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERPOPULER</Badge>
-              </div>
-              <Link href="/berita" className="group relative block aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-2xl">
-                {news3Img?.imageUrl && (
-                  <Image 
-                    src={news3Img.imageUrl} 
-                    alt="Pentingnya Cybersecurity" 
-                    fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-1000"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-8 space-y-4">
-                  <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">KEAMANAN</Badge>
-                  <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
-                    Pentingnya Cybersecurity di Era Kerja Remote
-                  </h3>
-                  <p className="text-white/70 text-sm line-clamp-3 leading-relaxed">
-                    Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda. Pelajari langkah-langkah esensial untuk menjaga privasi digital Anda.
-                  </p>
-                  <div className="pt-4 flex items-center gap-2 text-white font-bold text-sm">
-                    Baca Artikel <ArrowUpRight className="h-4 w-4" />
-                  </div>
-                </div>
-              </Link>
             </div>
           </div>
         </div>
@@ -189,16 +191,16 @@ export default function Home() {
               <Card key={i} className="bg-white/5 border-white/10 text-white overflow-hidden group hover:bg-white/10 transition-all duration-500 rounded-2xl shadow-none">
                 <CardContent className="p-0">
                   <div className="relative h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
-                    {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" />}
+                    {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="software development" />}
                     <div className="absolute inset-0 bg-primary/40"></div>
                   </div>
                   <div className="p-8 space-y-3">
                     <div className="text-accent mb-2">{service.icon}</div>
                     <p className="text-xl font-bold">{service.title}</p>
-                    <p className="text-sm text-primary-foreground/60 leading-relaxed">
+                    <p className="text-sm text-primary-foreground/60 leading-7">
                       {service.desc}
                     </p>
-                    <Link href="/layanan" className="inline-flex items-center gap-2 text-accent font-bold pt-2 text-sm group-hover:gap-3 transition-all">
+                    <Link href="/layanan" className="inline-flex items-center gap-2 text-accent font-bold pt-2 text-sm group-hover:gap-3 transition-all leading-7">
                       Detail layanan <ArrowRight className="h-3 w-3" />
                     </Link>
                   </div>
@@ -216,12 +218,12 @@ export default function Home() {
             <div className="flex justify-center gap-1 text-accent">
               {[1, 2, 3, 4, 5].map(i => <Star key={i} className="h-4 w-4 fill-current" />)}
             </div>
-            <blockquote className="mt-6 italic text-xl md:text-3xl text-primary leading-relaxed max-w-4xl mx-auto border-none">
+            <blockquote className="mt-6 italic text-xl md:text-3xl text-primary leading-7 max-w-4xl mx-auto border-none">
               "Bisukma Digital bukan sekadar vendor, mereka adalah mitra strategis yang benar-benar memahami visi bisnis kami dan menerjemahkannya ke dalam solusi digital yang brilian."
             </blockquote>
             <div className="space-y-1">
-              <p className="text-lg font-semibold">Hendra Kusuma</p>
-              <p className="text-sm text-muted-foreground">CEO, Global Tech Solutions</p>
+              <p className="text-lg font-semibold leading-7">Hendra Kusuma</p>
+              <p className="text-sm text-muted-foreground leading-7">CEO, Global Tech Solutions</p>
             </div>
           </div>
         </div>
