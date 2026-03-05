@@ -12,7 +12,6 @@ import { Separator } from "@/components/ui/separator"
 import { motion } from "framer-motion"
 import { MorphButton } from "@/components/ui/morph-button"
 
-// Data dummy yang lebih terstruktur untuk mensimulasikan output CMS
 const articlesData = [
   {
     id: "news-1",
@@ -46,7 +45,6 @@ export default function BeritaDetailPage() {
   const params = useParams()
   const id = params.id as string
 
-  // Mencari artikel berdasarkan ID, jika tidak ketemu ambil news-1 sebagai fallback
   const article = articlesData.find(a => a.id === id) || articlesData[0]
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
@@ -54,7 +52,7 @@ export default function BeritaDetailPage() {
   return (
     <div className="bg-white min-h-screen pb-20">
       {/* Header & Main Image */}
-      <section className="container mx-auto px-4 pt-12">
+      <section className="container mx-auto px-4 pt-8 md:pt-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,7 +72,7 @@ export default function BeritaDetailPage() {
               {article.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-accent" />
                 <span>{article.date}</span>
@@ -86,7 +84,7 @@ export default function BeritaDetailPage() {
             </div>
           </div>
 
-          <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-muted border shadow-sm">
+          <div className="relative aspect-video w-full rounded-xl md:rounded-2xl overflow-hidden bg-muted border shadow-sm">
             {mainImage?.imageUrl && (
               <Image 
                 src={mainImage.imageUrl} 
@@ -101,24 +99,22 @@ export default function BeritaDetailPage() {
       </section>
 
       {/* Article Content Area */}
-      <section className="container mx-auto px-4 mt-12">
+      <section className="container mx-auto px-4 mt-8 md:mt-12">
         <div className="max-w-3xl mx-auto">
-          {/* Paragraf 1 */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-lg"
+            className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg"
           >
             {article.contentPart1}
           </motion.div>
 
-          {/* Foto Tambahan (Disisipkan di tengah artikel) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="my-10 relative aspect-[16/10] w-full rounded-2xl overflow-hidden border bg-muted shadow-sm"
+            className="my-8 md:my-12 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm"
           >
             {additionalImage?.imageUrl && (
               <Image 
@@ -135,33 +131,31 @@ export default function BeritaDetailPage() {
             )}
           </motion.div>
 
-          {/* Paragraf 2 */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-lg"
+            className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg"
           >
             {article.contentPart2}
           </motion.div>
 
-          {/* Tags Section */}
           <div className="mt-12 flex flex-wrap gap-2 items-center">
             <div className="flex items-center gap-2 mr-2">
               <Tag className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-semibold text-muted-foreground">Tags:</span>
             </div>
             {article.tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-xs">
+              <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">
                 {tag}
               </Badge>
             ))}
           </div>
 
-          <Separator className="my-12" />
+          <Separator className="my-10 md:my-12" />
 
           {/* Footer Actions */}
-          <div className="mt-16 pt-8 border-t flex items-center justify-between">
+          <div className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -175,12 +169,12 @@ export default function BeritaDetailPage() {
               <MorphButton 
                 text="Bagikan artikel" 
                 icon={Share2} 
-                className="h-10 bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent"
+                className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
               />
             </motion.div>
-            <div className="flex gap-2">
-              <Link href="/berita">
-                <Button variant="ghost" className="text-muted-foreground hover:text-accent">
+            <div className="flex gap-2 w-full sm:w-auto justify-center">
+              <Link href="/berita" className="w-full sm:w-auto text-center">
+                <Button variant="ghost" className="text-muted-foreground hover:text-accent w-full sm:w-auto">
                   Artikel berikutnya
                 </Button>
               </Link>

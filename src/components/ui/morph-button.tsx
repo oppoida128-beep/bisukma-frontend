@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface MorphButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
@@ -12,6 +13,10 @@ interface MorphButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export function MorphButton({ text, icon: Icon, className, ...props }: MorphButtonProps) {
   const [isHovered, setIsHovered] = React.useState(false)
+  const isMobile = useIsMobile()
+
+  // Pada mobile, kita ingin tombol tetap terbuka agar instruksi jelas
+  const showText = isHovered || isMobile
 
   return (
     <motion.button
@@ -19,8 +24,8 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "relative flex items-center justify-center bg-accent text-white rounded-full h-8 shadow-none border-none cursor-pointer outline-none",
-        isHovered ? "px-4 gap-2" : "w-8",
+        "relative flex items-center justify-center bg-accent text-white rounded-full h-10 shadow-none border-none cursor-pointer outline-none transition-colors",
+        showText ? "px-5 gap-2" : "w-10",
         className
       )}
       transition={{ 
@@ -30,17 +35,17 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
       {...props}
     >
       <motion.div layout className="flex items-center justify-center shrink-0">
-        <Icon size={14} />
+        <Icon size={16} />
       </motion.div>
 
       <AnimatePresence mode="popLayout" initial={false}>
-        {isHovered && (
+        {showText && (
           <motion.span
             initial={{ opacity: 0, x: -5 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -5 }}
             transition={{ duration: 0.2 }}
-            className="whitespace-nowrap text-[10px] font-bold tracking-wider"
+            className="whitespace-nowrap text-xs font-bold tracking-wider"
           >
             {text}
           </motion.span>
