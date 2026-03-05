@@ -19,14 +19,14 @@ import {
 
 const profilItems: { title: string; href: string; description: string }[] = [
   {
-    title: "Tentang Kami",
-    href: "/profil",
-    description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami dalam inovasi digital.",
-  },
-  {
     title: "Visi & Misi",
     href: "/profil",
     description: "Tujuan strategis kami untuk merevolusi ekosistem teknologi di Indonesia.",
+  },
+  {
+    title: "Tentang Kami",
+    href: "/profil",
+    description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami dalam inovasi digital.",
   },
   {
     title: "Nilai Inti",
@@ -62,22 +62,22 @@ export function SiteHeader() {
           </Link>
         </div>
 
-        {/* Desktop Nav - Navigation Menu Shadcn */}
+        {/* Desktop Nav - Center */}
         <nav className="hidden md:flex flex-1 items-center justify-center">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-white", pathname === "/" && "text-accent")}>
                   <Link href="/">Beranda</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn(pathname === "/profil" && "text-accent")}>
+                <NavigationMenuTrigger className={cn("bg-white", pathname === "/profil" && "text-accent")}>
                   Profil Bisukma
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
                     {profilItems.map((item) => (
                       <ListItem
                         key={item.title}
@@ -92,25 +92,25 @@ export function SiteHeader() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/berita" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-white", pathname === "/berita" && "text-accent")}>
                   <Link href="/berita">Berita</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/layanan" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-white", pathname === "/layanan" && "text-accent")}>
                   <Link href="/layanan">Layanan</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/mitra" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-white", pathname === "/mitra" && "text-accent")}>
                   <Link href="/mitra">Mitra</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), pathname === "/gallery" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-white", pathname === "/gallery" && "text-accent")}>
                   <Link href="/gallery">Gallery</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -133,7 +133,7 @@ export function SiteHeader() {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
               <nav className="flex flex-col gap-6 pt-10">
                 {[
                   { name: "Beranda", href: "/" },
