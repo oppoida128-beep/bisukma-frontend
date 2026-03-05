@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full bg-white">
       {/* --- REFINED HERO SECTION --- */}
-      <section className="relative pt-16 pb-16 md:pt-24 md:pb-24 overflow-hidden">
+      <section className="relative pt-4 pb-16 md:pt-8 md:pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,rgba(var(--accent),0.05)_0%,transparent_100%)]"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 border border-accent/20 px-4 py-1.5 mb-8 animate-in fade-in slide-in-from-top-4 duration-1000">
