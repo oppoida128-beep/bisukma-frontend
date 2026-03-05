@@ -83,10 +83,10 @@ export function SiteHeader() {
   return (
     <>
       <header className={cn(
-        "sticky top-0 z-[60] w-full transition-all duration-300",
-        isScrolled || isOpen ? "h-14 bg-white border-b shadow-sm" : "h-14 bg-white border-transparent"
+        "sticky top-0 z-[60] w-full transition-all duration-300 bg-white",
+        (isScrolled || isOpen) ? "h-14 border-b shadow-sm" : "h-14 border-transparent"
       )}>
-        <div className="container mx-auto flex h-full items-center px-4 relative z-[60]">
+        <div className="container mx-auto flex h-full items-center px-4 relative z-[70]">
           {/* Logo */}
           <div className="flex flex-1 md:w-1/4 shrink-0">
             <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
@@ -168,18 +168,18 @@ export function SiteHeader() {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="md:hidden h-10 w-10 text-primary hover:bg-transparent focus:bg-transparent relative"
+              className="md:hidden h-10 w-10 relative z-[80] hover:bg-transparent focus:bg-transparent"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <div className="relative w-6 h-4 flex flex-col justify-between items-center">
+              <div className="relative w-6 h-6 flex items-center justify-center">
                 <motion.span
-                  className="w-6 h-0.5 bg-current rounded-full"
-                  animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                  className="absolute w-6 h-0.5 bg-primary rounded-full"
+                  animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
                 <motion.span
-                  className="w-6 h-0.5 bg-current rounded-full"
-                  animate={isOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                  className="absolute w-6 h-0.5 bg-primary rounded-full"
+                  animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               </div>
