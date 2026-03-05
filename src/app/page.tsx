@@ -386,40 +386,40 @@ export default function Home() {
               transition={{ duration: 0.7 }}
             >
               <div className="space-y-1">
-                <p className="text-xs font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
-                <h2 className="scroll-m-20 text-2xl font-extrabold tracking-tight md:text-3xl">Katalis Inovasi Digital Anda</h2>
+                <p className="text-[10px] font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
+                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl">Katalis Inovasi Digital Anda</h2>
               </div>
-              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+              <p className="text-muted-foreground leading-relaxed text-xs md:text-sm">
                 Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
-              <p className="text-muted-foreground leading-relaxed text-sm">
+              <p className="text-muted-foreground leading-relaxed text-xs">
                 Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
               </p>
               
-              <div className="flex w-full flex-col gap-3 pt-2">
-                <Item asChild variant="default" className="p-3">
+              <div className="flex w-full flex-col gap-2 pt-1">
+                <Item asChild variant="default" className="p-2">
                   <Link href="/profil">
                     <ItemContent>
-                      <ItemTitle>Kunjungi dokumentasi profil</ItemTitle>
-                      <ItemDescription>
+                      <ItemTitle className="text-xs">Kunjungi dokumentasi profil</ItemTitle>
+                      <ItemDescription className="text-[10px]">
                         Pelajari bagaimana kami memulai dan nilai-nilai inti kami.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
-                      <ChevronRight className="size-4" />
+                      <ChevronRight className="size-3" />
                     </ItemActions>
                   </Link>
                 </Item>
-                <Item variant="outline" asChild className="p-3">
+                <Item variant="outline" asChild className="p-2">
                   <a href="/layanan" target="_blank" rel="noopener noreferrer">
                     <ItemContent>
-                      <ItemTitle>Sumber daya eksternal</ItemTitle>
-                      <ItemDescription>
+                      <ItemTitle className="text-xs">Sumber daya eksternal</ItemTitle>
+                      <ItemDescription className="text-[10px]">
                         Lihat katalog layanan lengkap kami di tab baru.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
-                      <ExternalLink className="size-4" />
+                      <ExternalLink className="size-3" />
                     </ItemActions>
                   </a>
                 </Item>
