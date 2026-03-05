@@ -18,11 +18,6 @@ export default function Home() {
       <section className="relative pt-4 pb-12 md:pt-6 md:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,rgba(var(--accent),0.05)_0%,transparent_100%)]"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 border border-accent/20 px-3 py-1 mb-4 animate-in fade-in slide-in-from-top-4 duration-1000">
-            <Badge variant="secondary" className="bg-accent text-white hover:bg-accent border-none text-[10px] h-5 px-2">Baru</Badge>
-            <span className="text-[10px] font-bold text-accent tracking-wider uppercase">Inovasi Digital Terdepan 2024</span>
-          </div>
-          
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary leading-[1.2] mb-4">
             Membangun Standar Baru <br className="hidden md:block" />
             <span className="text-accent">Dunia Digital.</span>
