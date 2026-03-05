@@ -1,8 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Users, Star, ArrowUpRight, Layout, Layers, Monitor } from "lucide-react"
+import { ArrowRight, CheckCircle2, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 export default function Home() {
@@ -11,6 +12,10 @@ export default function Home() {
   const service2Img = PlaceHolderImages.find(img => img.id === 'service-2')
   const service3Img = PlaceHolderImages.find(img => img.id === 'service-3')
   
+  const news1Img = PlaceHolderImages.find(img => img.id === 'news-1')
+  const news2Img = PlaceHolderImages.find(img => img.id === 'news-2')
+  const news3Img = PlaceHolderImages.find(img => img.id === 'news-3')
+
   return (
     <div className="flex flex-col w-full bg-white">
       {/* --- HERO SECTION --- */}
@@ -64,57 +69,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- FEATURE HIGHLIGHTS --- */}
-      <section className="py-24 border-t">
+      {/* --- NEWS SECTION (Replacing Feature Highlights) --- */}
+      <section className="py-24 border-t bg-muted/20">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <p className="text-sm font-medium leading-none text-accent">Eksklusivitas teknologi</p>
-              
-              <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-                Solusi yang dirancang khusus untuk ambisi Anda.
-              </h2>
-              
-              <p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
-                Kami tidak percaya pada satu solusi untuk semua. Setiap baris kode yang kami tulis adalah cerminan dari kebutuhan unik bisnis Anda, memastikan performa maksimal dan efisiensi biaya.
-              </p>
-              
-              <ul className="my-6 space-y-4 pt-2">
-                {[
-                  { title: "Arsitektur scalable", desc: "Sistem yang tumbuh seiring pertumbuhan pengguna Anda." },
-                  { title: "Keamanan militer", desc: "Perlindungan data end-to-end tanpa kompromi." },
-                  { title: "Interface intuitif", desc: "Desain yang memprioritaskan pengalaman pengguna." }
-                ].map((item, i) => (
-                  <li key={i} className="flex gap-4 group">
-                    <div className="mt-1 bg-accent/10 text-accent h-5 w-5 rounded-full flex items-center justify-center shrink-0 group-hover:bg-accent group-hover:text-white transition-colors">
-                      <CheckCircle2 className="h-3 w-3" />
-                    </div>
-                    <div>
-                      <p className="text-lg font-semibold">{item.title}</p>
-                      <p className="text-sm text-muted-foreground">{item.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-accent tracking-wider">BERITA & WAWASAN</p>
+              <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Eksplorasi Tren Digital</h2>
+            </div>
+            <Link href="/berita" className="text-sm font-bold flex items-center text-accent hover:underline">
+              Lihat Semua Berita <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </div>
 
-              <div className="pt-4">
-                <Button variant="ghost" className="p-0 text-accent font-bold hover:bg-transparent group h-auto shadow-none">
-                  Pelajari metodologi kami <ArrowUpRight className="ml-2 h-4 w-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </Button>
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Left: Recently Added */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERBARU</Badge>
+              </div>
+              <div className="grid gap-6">
+                {[
+                  {
+                    title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+                    date: "12 Mei 2024",
+                    category: "Teknologi",
+                    img: news1Img?.imageUrl,
+                    excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis..."
+                  },
+                  {
+                    title: "Strategi Cloud Computing untuk Startup Berkembang",
+                    date: "10 Mei 2024",
+                    category: "Infrastruktur",
+                    img: news2Img?.imageUrl,
+                    excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
+                  }
+                ].map((post, i) => (
+                  <Link key={i} href="/berita" className="group flex flex-col sm:flex-row gap-6 bg-white p-4 rounded-xl border border-transparent hover:border-accent/20 hover:shadow-md transition-all">
+                    <div className="relative w-full sm:w-48 aspect-video sm:aspect-square shrink-0 rounded-lg overflow-hidden bg-muted">
+                      {post.img && <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />}
+                    </div>
+                    <div className="flex flex-col justify-center space-y-3">
+                      <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
+                        <span className="text-accent">{post.category}</span>
+                        <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
+                      </div>
+                      <h3 className="text-xl font-bold leading-tight group-hover:text-accent transition-colors">{post.title}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{post.excerpt}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
 
-            <div className="relative">
-              <div className="relative aspect-square bg-muted rounded-[2rem] overflow-hidden border max-w-md mx-auto">
-                {service2Img?.imageUrl && (
+            {/* Right: Popular (Colossal) */}
+            <div className="lg:col-span-5 h-full">
+              <div className="flex items-center gap-2 mb-8">
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERPOPULER</Badge>
+              </div>
+              <Link href="/berita" className="group relative block aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-2xl">
+                {news3Img?.imageUrl && (
                   <Image 
-                    src={service2Img.imageUrl} 
-                    alt="Engineering Excellence" 
+                    src={news3Img.imageUrl} 
+                    alt="Pentingnya Cybersecurity" 
                     fill 
-                    className="object-cover"
+                    className="object-cover group-hover:scale-110 transition-transform duration-1000"
                   />
                 )}
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8 space-y-4">
+                  <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">KEAMANAN</Badge>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                    Pentingnya Cybersecurity di Era Kerja Remote
+                  </h3>
+                  <p className="text-white/70 text-sm line-clamp-3 leading-relaxed">
+                    Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda. Pelajari langkah-langkah esensial untuk menjaga privasi digital Anda.
+                  </p>
+                  <div className="pt-4 flex items-center gap-2 text-white font-bold text-sm">
+                    Baca Artikel <ArrowUpRight className="h-4 w-4" />
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
