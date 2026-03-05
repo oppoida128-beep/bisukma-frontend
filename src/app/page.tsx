@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, Zap, Shield, Globe } from "lucide-react"
@@ -13,14 +12,16 @@ export default function Home() {
     <div className="flex flex-col gap-20 pb-20">
       {/* Hero Section */}
       <section className="relative h-[85vh] w-full flex items-center overflow-hidden">
-        <Image 
-          src={heroImg?.imageUrl || ""} 
-          alt={heroImg?.description || "Hero"} 
-          fill 
-          className="object-cover brightness-50"
-          priority
-          data-ai-hint="digital technology"
-        />
+        {heroImg?.imageUrl && (
+          <Image 
+            src={heroImg.imageUrl} 
+            alt={heroImg.description || "Hero"} 
+            fill 
+            className="object-cover brightness-50"
+            priority
+            data-ai-hint="digital technology"
+          />
+        )}
         <div className="container mx-auto px-4 relative z-10 text-white">
           <div className="max-w-2xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <div className="inline-flex items-center rounded-full bg-accent/20 px-3 py-1 text-sm font-medium text-accent border border-accent/30 backdrop-blur-sm">
@@ -136,12 +137,14 @@ export default function Home() {
               </Button>
             </div>
             <div className="hidden md:block relative h-full min-h-[300px]">
-               <Image 
-                src={PlaceHolderImages.find(img => img.id === 'service-2')?.imageUrl || ""} 
-                alt="Working" 
-                fill 
-                className="object-cover rounded-2xl shadow-2xl"
-              />
+               {PlaceHolderImages.find(img => img.id === 'service-2')?.imageUrl && (
+                 <Image 
+                  src={PlaceHolderImages.find(img => img.id === 'service-2')!.imageUrl} 
+                  alt="Working" 
+                  fill 
+                  className="object-cover rounded-2xl shadow-2xl"
+                />
+               )}
             </div>
           </div>
         </div>

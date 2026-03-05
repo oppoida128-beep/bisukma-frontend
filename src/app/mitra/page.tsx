@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent } from "@/components/ui/card"
@@ -31,13 +30,15 @@ export default function MitraPage() {
               const img = PlaceHolderImages.find(im => im.id === p.logo)
               return (
                 <div key={i} className="grayscale hover:grayscale-0 transition-all duration-300">
-                  <Image 
-                    src={img?.imageUrl || ""} 
-                    alt={p.name} 
-                    width={150} 
-                    height={80} 
-                    className="object-contain"
-                  />
+                  {img?.imageUrl && (
+                    <Image 
+                      src={img.imageUrl} 
+                      alt={p.name} 
+                      width={150} 
+                      height={80} 
+                      className="object-contain"
+                    />
+                  )}
                 </div>
               )
             })}

@@ -1,10 +1,10 @@
-
 import Image from "next/image"
 import Link from "next/link"
 import { Calendar, User, ArrowRight } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 const articles = [
   {
@@ -82,12 +82,14 @@ export default function BeritaPage() {
             return (
               <Card key={article.id} className="overflow-hidden border-none shadow-lg group flex flex-col h-full bg-white">
                 <CardHeader className="p-0 relative h-56">
-                  <Image 
-                    src={img?.imageUrl || ""} 
-                    alt={article.title} 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {img?.imageUrl && (
+                    <Image 
+                      src={img.imageUrl} 
+                      alt={article.title} 
+                      fill 
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  )}
                   <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90">
                     {article.category}
                   </Badge>
@@ -129,8 +131,4 @@ export default function BeritaPage() {
       </section>
     </div>
   )
-}
-
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(" ")
 }

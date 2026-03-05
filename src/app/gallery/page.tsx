@@ -1,8 +1,8 @@
-
 import Image from "next/image"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card } from "@/components/ui/card"
 import { ZoomIn } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const galleryItems = [
   { id: "gallery-1", category: "Event" },
@@ -48,12 +48,14 @@ export default function GalleryPage() {
             const img = PlaceHolderImages.find(im => im.id === item.id)
             return (
               <Card key={i} className="group relative overflow-hidden rounded-xl border-none h-[300px] cursor-pointer shadow-md">
-                <Image 
-                  src={img?.imageUrl || ""} 
-                  alt={img?.description || "Gallery Item"} 
-                  fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                {img?.imageUrl && (
+                  <Image 
+                    src={img.imageUrl} 
+                    alt={img.description || "Gallery Item"} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                )}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-white space-y-3">
                   <div className="bg-accent p-3 rounded-full">
                     <ZoomIn className="h-6 w-6" />
@@ -70,8 +72,4 @@ export default function GalleryPage() {
       </section>
     </div>
   )
-}
-
-function cn(...classes: any[]) {
-  return classes.filter(Boolean).join(" ")
 }

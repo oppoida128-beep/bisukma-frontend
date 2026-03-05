@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import { CheckCircle2, Code, Database, Globe, Smartphone, Cloud, Search } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -63,12 +62,14 @@ export default function LayananPage() {
             return (
               <Card key={i} className="overflow-hidden border-none shadow-lg bg-white flex flex-col h-full hover:shadow-2xl transition-all duration-300">
                 <div className="relative h-48 w-full">
-                  <Image 
-                    src={img?.imageUrl || ""} 
-                    alt={service.title} 
-                    fill 
-                    className="object-cover"
-                  />
+                  {img?.imageUrl && (
+                    <Image 
+                      src={img.imageUrl} 
+                      alt={service.title} 
+                      fill 
+                      className="object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-primary/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                     <Button variant="secondary" className="bg-white text-primary">Detail Layanan</Button>
                   </div>

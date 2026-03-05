@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import { Shield, Target, Award, Users } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -24,12 +23,14 @@ export default function ProfilPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8 md:p-16 space-y-16">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-lg">
-              <Image 
-                src={profileImg?.imageUrl || ""} 
-                alt="Profile Office" 
-                fill 
-                className="object-cover"
-              />
+              {profileImg?.imageUrl && (
+                <Image 
+                  src={profileImg.imageUrl} 
+                  alt="Profile Office" 
+                  fill 
+                  className="object-cover"
+                />
+              )}
             </div>
             <div className="space-y-6">
               <h2 className="text-3xl font-bold">Tentang Kami</h2>
