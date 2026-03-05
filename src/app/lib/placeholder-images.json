@@ -138,6 +138,30 @@
       "description": "Head of Finance",
       "imageUrl": "https://picsum.photos/seed/finance/400/400",
       "imageHint": "professional woman"
+    },
+    {
+      "id": "prog-nutrition",
+      "description": "Makan Bergizi Gratis Illustration",
+      "imageUrl": "https://picsum.photos/seed/nutrition/600/800",
+      "imageHint": "healthy child"
+    },
+    {
+      "id": "prog-agri",
+      "description": "Modern Agriculture Illustration",
+      "imageUrl": "https://picsum.photos/seed/agri/600/800",
+      "imageHint": "modern farming"
+    },
+    {
+      "id": "prog-edu",
+      "description": "Education and Tech Illustration",
+      "imageUrl": "https://picsum.photos/seed/edu/600/800",
+      "imageHint": "coding school"
+    },
+    {
+      "id": "prog-social",
+      "description": "Social Humanity Illustration",
+      "imageUrl": "https://picsum.photos/seed/social/600/800",
+      "imageHint": "community help"
     }
   ]
 }

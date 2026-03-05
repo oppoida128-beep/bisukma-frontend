@@ -1,9 +1,10 @@
+
 'use client'
 
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar, ChevronRight, ExternalLink } from "lucide-react"
+import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar, ChevronRight, ExternalLink, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -90,6 +91,33 @@ export default function Home() {
       category: "Teknologi",
       img: PlaceHolderImages.find(img => img.id === 'gallery-4')?.imageUrl,
       excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan teknologi blockchain."
+    }
+  ]
+
+  const programs = [
+    {
+      id: "prog-1",
+      title: "Makan Bergizi Gratis",
+      desc: "Menjamin asupan gizi untuk generasi masa depan bangsa.",
+      img: PlaceHolderImages.find(img => img.id === 'prog-nutrition')?.imageUrl
+    },
+    {
+      id: "prog-2",
+      title: "Modernisasi Pertanian",
+      desc: "Digitalisasi sektor hulu untuk ketahanan pangan nasional.",
+      img: PlaceHolderImages.find(img => img.id === 'prog-agri')?.imageUrl
+    },
+    {
+      id: "prog-3",
+      title: "Vokasi & Teknologi",
+      desc: "Mencetak SDM unggul melalui pelatihan IT berkelanjutan.",
+      img: PlaceHolderImages.find(img => img.id === 'prog-edu')?.imageUrl
+    },
+    {
+      id: "prog-4",
+      title: "Kemanusiaan & Sosial",
+      desc: "Aksi nyata untuk membantu sesama di seluruh penjuru.",
+      img: PlaceHolderImages.find(img => img.id === 'prog-social')?.imageUrl
     }
   ]
 
@@ -291,6 +319,61 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* --- FEATURED PROGRAMS SECTION --- */}
+      <motion.section 
+        className="py-16 md:py-24 bg-muted/30 overflow-hidden"
+        {...fadeIn}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-16 space-y-3">
+            <div className="bg-accent/10 text-accent p-2 rounded-full">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <h2 className="scroll-m-20 text-2xl md:text-4xl font-extrabold tracking-tight text-primary">Program Unggulan</h2>
+            <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
+              Langkah nyata Bisukma Group dalam membangun kemandirian dan kecerdasan bangsa melalui pilar-pilar strategis.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {programs.map((prog, i) => (
+              <motion.div
+                key={prog.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <div className="group relative aspect-[3/4] overflow-hidden rounded-[2rem] bg-black shadow-sm">
+                  {prog.img && (
+                    <Image 
+                      src={prog.img} 
+                      alt={prog.title} 
+                      fill 
+                      className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 p-6 md:p-8 space-y-2">
+                    <h3 className="text-lg md:text-xl font-bold text-white leading-tight">
+                      {prog.title}
+                    </h3>
+                    <p className="text-white/70 text-[11px] md:text-xs leading-relaxed line-clamp-2">
+                      {prog.desc}
+                    </p>
+                    <div className="pt-2">
+                      <Link href="/profil" className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest flex items-center gap-1.5 group/link">
+                        Detail Program <ChevronRight className="h-3 w-3 group-hover/link:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
       {/* --- CORE SERVICES --- */}
       <motion.section 
         className="py-16 md:py-24 bg-accent text-white"
@@ -407,7 +490,7 @@ export default function Home() {
               
               <div className="flex w-full flex-col gap-3 pt-2">
                 <Item asChild variant="default" className="p-3">
-                  <Link href="/profil">
+                  <Link href="/profil/tentang-kami">
                     <ItemContent>
                       <ItemTitle className="text-xs md:text-sm">Kunjungi dokumentasi profil</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
