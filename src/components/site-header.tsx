@@ -64,11 +64,14 @@ export function SiteHeader() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
+    setMounted(true)
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
+    handleScroll() // Check initial scroll
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -83,8 +86,8 @@ export function SiteHeader() {
   return (
     <>
       <header className={cn(
-        "sticky top-0 z-[60] w-full transition-all duration-300 bg-white",
-        (isScrolled || isOpen) ? "h-14 border-b shadow-sm" : "h-14 border-transparent"
+        "sticky top-0 z-[60] w-full transition-all duration-300 bg-white h-14",
+        (mounted && (isScrolled || isOpen)) ? "border-b shadow-sm" : "border-transparent"
       )}>
         <div className="container mx-auto flex h-full items-center px-4 relative z-[70]">
           {/* Logo */}
@@ -164,7 +167,7 @@ export function SiteHeader() {
               <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
             </div>
 
-            {/* Mobile Nav Toggle Button with 2-line animated icon */}
+            {/* Mobile Nav Toggle Button */}
             <Button 
               variant="ghost" 
               size="icon" 
@@ -174,11 +177,13 @@ export function SiteHeader() {
               <div className="relative w-6 h-6 flex items-center justify-center">
                 <motion.span
                   className="absolute w-6 h-0.5 bg-primary rounded-full"
+                  initial={false}
                   animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
                 <motion.span
                   className="absolute w-6 h-0.5 bg-primary rounded-full"
+                  initial={false}
                   animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
@@ -200,7 +205,6 @@ export function SiteHeader() {
             >
               <nav className="container mx-auto py-6 px-4">
                 <Accordion type="single" collapsible className="w-full">
-                  {/* Beranda */}
                   <div className="py-2">
                     <Link 
                       href="/" 
@@ -213,7 +217,6 @@ export function SiteHeader() {
                     </Link>
                   </div>
 
-                  {/* Profil Accordion */}
                   <AccordionItem value="profil" className="border-none">
                     <AccordionTrigger className={cn(
                       "py-2 hover:no-underline font-semibold text-base transition-colors",
@@ -237,7 +240,6 @@ export function SiteHeader() {
                     </AccordionContent>
                   </AccordionItem>
 
-                  {/* Berita Accordion */}
                   <AccordionItem value="berita" className="border-none">
                     <AccordionTrigger className={cn(
                       "py-2 hover:no-underline font-semibold text-base transition-colors",
@@ -261,7 +263,6 @@ export function SiteHeader() {
                     </AccordionContent>
                   </AccordionItem>
 
-                  {/* Layanan */}
                   <div className="py-2">
                     <Link 
                       href="/layanan" 
@@ -274,7 +275,6 @@ export function SiteHeader() {
                     </Link>
                   </div>
 
-                  {/* Mitra */}
                   <div className="py-2">
                     <Link 
                       href="/mitra" 
@@ -290,7 +290,7 @@ export function SiteHeader() {
 
                 <div className="mt-8 pt-6 border-t border-muted">
                   <Button 
-                    className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold shadow-lg shadow-accent/10"
+                    className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold"
                     asChild
                   >
                     <Link href="/mitra">
@@ -305,7 +305,7 @@ export function SiteHeader() {
         </AnimatePresence>
       </header>
       
-      {/* Backdrop for mobile menu */}
+      {/* Backdrop */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
