@@ -133,7 +133,7 @@ export function SiteHeader() {
                     ))}
                     <li className="md:col-span-2 pt-2 border-t">
                       <NavigationMenuLink asChild>
-                        <Link href="/berita" className="flex items-center justify-center p-2 text-sm font-medium text-accent hover:underline">
+                        <Link href="/berita" className="flex items-center justify-center p-2 text-xs font-medium text-accent hover:underline">
                           Lihat Semua Berita
                         </Link>
                       </NavigationMenuLink>
