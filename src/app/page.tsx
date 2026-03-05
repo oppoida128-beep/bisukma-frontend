@@ -1,10 +1,18 @@
+
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
+import { ArrowRight, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 export default function Home() {
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero')
@@ -15,6 +23,30 @@ export default function Home() {
   const news1Img = PlaceHolderImages.find(img => img.id === 'news-1')
   const news2Img = PlaceHolderImages.find(img => img.id === 'news-2')
   const news3Img = PlaceHolderImages.find(img => img.id === 'news-3')
+
+  const recentlyAddedNews = [
+    {
+      title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+      date: "12 Mei 2024",
+      category: "Teknologi",
+      img: news1Img?.imageUrl,
+      excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis..."
+    },
+    {
+      title: "Strategi Cloud Computing untuk Startup Berkembang",
+      date: "10 Mei 2024",
+      category: "Infrastruktur",
+      img: news2Img?.imageUrl,
+      excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
+    },
+    {
+      title: "Tren Desain UI/UX yang Dominan di Tahun Ini",
+      date: "01 Mei 2024",
+      category: "Desain",
+      img: news3Img?.imageUrl,
+      excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman terbaik..."
+    }
+  ]
 
   return (
     <div className="flex flex-col w-full bg-white">
@@ -75,7 +107,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div className="space-y-2">
-              <p className="text-sm font-semibold text-accent tracking-wider leading-7">BERITA & WAWASAN</p>
+              <p className="text-sm font-semibold text-accent tracking-wider leading-7">Berita & Wawasan</p>
               <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Eksplorasi Tren Digital</h2>
             </div>
             <Link href="/berita" className="text-sm font-bold flex items-center text-accent hover:underline leading-7">
@@ -83,11 +115,11 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* Left: Popular (Colossal) */}
             <div className="lg:col-span-5 h-full">
               <div className="flex items-center gap-2 mb-8">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERPOPULER</Badge>
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Terpopuler</Badge>
               </div>
               <Link href="/berita" className="group relative block aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-2xl">
                 {news3Img?.imageUrl && (
@@ -101,12 +133,12 @@ export default function Home() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 p-8 space-y-4">
-                  <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">KEAMANAN</Badge>
+                  <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">Keamanan</Badge>
                   <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
                     Pentingnya Cybersecurity di Era Kerja Remote
                   </h3>
                   <p className="text-white/70 text-sm line-clamp-3 leading-7">
-                    Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda. Pelajari langkah-langkah esensial untuk menjaga privasi digital Anda.
+                    Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda.
                   </p>
                   <div className="pt-4 flex items-center gap-2 text-white font-bold text-sm">
                     Baca Artikel <ArrowUpRight className="h-4 w-4" />
@@ -115,42 +147,47 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Right: Recently Added */}
+            {/* Right: Recently Added Carousel */}
             <div className="lg:col-span-7 space-y-6">
               <div className="flex items-center gap-2 mb-4">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">TERBARU</Badge>
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Terbaru</Badge>
               </div>
-              <div className="grid gap-6">
-                {[
-                  {
-                    title: "Masa Depan AI dalam Transformasi Bisnis 2024",
-                    date: "12 Mei 2024",
-                    category: "Teknologi",
-                    img: news1Img?.imageUrl,
-                    excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis..."
-                  },
-                  {
-                    title: "Strategi Cloud Computing untuk Startup Berkembang",
-                    date: "10 Mei 2024",
-                    category: "Infrastruktur",
-                    img: news2Img?.imageUrl,
-                    excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
-                  }
-                ].map((post, i) => (
-                  <Link key={i} href="/berita" className="group flex flex-col sm:flex-row gap-6 bg-white p-4 rounded-xl border border-transparent hover:border-accent/20 hover:shadow-md transition-all">
-                    <div className="relative w-full sm:w-48 aspect-video sm:aspect-square shrink-0 rounded-lg overflow-hidden bg-muted">
-                      {post.img && <Image src={post.img} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" data-ai-hint="digital innovation" />}
-                    </div>
-                    <div className="flex flex-col justify-center space-y-3">
-                      <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
-                        <span className="text-accent">{post.category}</span>
-                        <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
-                      </div>
-                      <h3 className="text-xl font-bold leading-tight group-hover:text-accent transition-colors">{post.title}</h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2 leading-7">{post.excerpt}</p>
-                    </div>
-                  </Link>
-                ))}
+              
+              <div className="relative px-12">
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {recentlyAddedNews.map((post, i) => (
+                      <CarouselItem key={i}>
+                        <Link href="/berita" className="group block bg-white p-4 rounded-xl border border-transparent hover:border-accent/20 hover:shadow-md transition-all h-full">
+                          <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-muted mb-6">
+                            {post.img && (
+                              <Image 
+                                src={post.img} 
+                                alt={post.title} 
+                                fill 
+                                className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                                data-ai-hint="digital innovation" 
+                              />
+                            )}
+                          </div>
+                          <div className="flex flex-col space-y-3">
+                            <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
+                              <span className="text-accent">{post.category}</span>
+                              <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
+                            </div>
+                            <h3 className="text-2xl font-bold leading-tight group-hover:text-accent transition-colors">{post.title}</h3>
+                            <p className="text-base text-muted-foreground line-clamp-2 leading-7">{post.excerpt}</p>
+                            <div className="pt-4 text-sm font-bold text-accent flex items-center gap-2">
+                              Selengkapnya <ArrowRight className="h-4 w-4" />
+                            </div>
+                          </div>
+                        </Link>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="-left-6" />
+                  <CarouselNext className="-right-6" />
+                </Carousel>
               </div>
             </div>
           </div>
