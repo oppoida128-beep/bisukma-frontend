@@ -4,7 +4,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
+import { ArrowRight, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -308,19 +308,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- TESTIMONIAL --- */}
+      {/* --- ABOUT US SECTION --- */}
       <section className="py-24">
         <div className="container mx-auto px-4">
-          <div className="bg-muted/30 rounded-[2.5rem] p-8 md:p-16 text-center space-y-8">
-            <div className="flex justify-center gap-1 text-accent">
-              {[1, 2, 3, 4, 5].map(i => <Star key={i} className="h-4 w-4 fill-current" />)}
+          <div className="grid lg:grid-cols-2 gap-12 items-center bg-muted/30 rounded-[2.5rem] p-8 md:p-16 overflow-hidden">
+            {/* Left: Video Hero */}
+            <div className="relative aspect-video rounded-2xl overflow-hidden group cursor-pointer border bg-black/5">
+              {PlaceHolderImages.find(img => img.id === 'profile')?.imageUrl && (
+                <Image 
+                  src={PlaceHolderImages.find(img => img.id === 'profile')!.imageUrl} 
+                  alt="Company Video" 
+                  fill 
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              )}
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-accent shadow-xl group-hover:scale-110 transition-transform">
+                  <Play className="h-8 w-8 fill-current ml-1" />
+                </div>
+              </div>
             </div>
-            <blockquote className="mt-6 italic text-xl md:text-3xl text-primary leading-7 max-w-4xl mx-auto border-none">
-              "Bisukma Digital bukan sekadar vendor, mereka adalah mitra strategis yang benar-benar memahami visi bisnis kami dan menerjemahkannya ke dalam solusi digital yang brilian."
-            </blockquote>
-            <div className="space-y-1">
-              <p className="text-lg font-semibold leading-7">Hendra Kusuma</p>
-              <p className="text-sm text-muted-foreground leading-7">CEO, Global Tech Solutions</p>
+
+            {/* Right: Text Content */}
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
+                <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Katalis Inovasi Digital Anda</h2>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
+              </p>
+              <div className="pt-4">
+                <Button asChild variant="outline" className="rounded-full px-8 shadow-none">
+                  <Link href="/profil">Pelajari lebih lanjut</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
