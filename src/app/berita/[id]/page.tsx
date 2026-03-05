@@ -4,13 +4,21 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
-import { Calendar, User, Tag, ArrowLeft, Share2 } from "lucide-react"
+import { Calendar, User, Tag, ArrowLeft, Share2, Copy, Check } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { MorphButton } from "@/components/ui/morph-button"
+import { SocialIcon } from "react-social-icons"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const articlesData = [
   {
@@ -44,10 +52,24 @@ const articlesData = [
 export default function BeritaDetailPage() {
   const params = useParams()
   const id = params.id as string
+  const [copied, setCopied] = React.useState(false)
 
   const article = articlesData.find(a => a.id === id) || articlesData[0]
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const socialLinks = [
+    { network: "whatsapp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + (typeof window !== 'undefined' ? window.location.href : ""))}` },
+    { network: "facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : "")}` },
+    { network: "x", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : "")}` },
+    { network: "linkedin", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : "")}` },
+  ]
 
   return (
     <div className="bg-white min-h-screen pb-20">
@@ -166,11 +188,91 @@ export default function BeritaDetailPage() {
                 delay: 0.5 
               }}
             >
-              <MorphButton 
-                text="Bagikan artikel" 
-                icon={Share2} 
-                className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
-              />
+              <Dialog>
+                <DialogTrigger asChild>
+                  <MorphButton 
+                    text="Bagikan artikel" 
+                    icon={Share2} 
+                    className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
+                  />
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md rounded-2xl bg-white p-8">
+                  <DialogHeader className="space-y-3 mb-6">
+                    <DialogTitle className="text-2xl font-bold text-center">Bagikan Artikel Ini</DialogTitle>
+                    <p className="text-center text-muted-foreground text-sm">
+                      Sebarkan wawasan digital ini ke jejaring sosial Anda.
+                    </p>
+                  </DialogHeader>
+                  <div className="flex flex-col gap-8">
+                    <div className="grid grid-cols-4 gap-4 justify-items-center">
+                      {socialLinks.map((social) => (
+                        <motion.a
+                          key={social.network}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.15, rotate: 5 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="flex flex-col items-center gap-2 group"
+                        >
+                          <SocialIcon 
+                            network={social.network} 
+                            fgColor="#fff" 
+                            style={{ height: 48, width: 48 }}
+                            className="shadow-sm group-hover:shadow-lg transition-shadow"
+                          />
+                          <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-accent transition-colors capitalize">
+                            {social.network === 'x' ? 'X (Twitter)' : social.network}
+                          </span>
+                        </motion.a>
+                      ))}
+                    </div>
+                    
+                    <div className="relative">
+                      <Separator className="my-2" />
+                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Atau</span>
+                    </div>
+
+                    <div className="flex items-center gap-3 bg-muted/30 p-2 pl-4 rounded-xl border group hover:border-accent/30 transition-colors">
+                      <p className="flex-1 text-xs text-muted-foreground truncate font-medium">
+                        {typeof window !== 'undefined' ? window.location.href : 'Loading...'}
+                      </p>
+                      <Button 
+                        size="sm" 
+                        onClick={handleCopyLink}
+                        className={cn(
+                          "rounded-lg transition-all duration-300 min-w-[100px]",
+                          copied ? "bg-green-500 hover:bg-green-600 text-white" : "bg-accent hover:bg-accent/90 text-white"
+                        )}
+                      >
+                        <AnimatePresence mode="wait">
+                          {copied ? (
+                            <motion.div 
+                              key="check" 
+                              initial={{ opacity: 0, scale: 0.5 }} 
+                              animate={{ opacity: 1, scale: 1 }} 
+                              exit={{ opacity: 0, scale: 0.5 }}
+                              className="flex items-center gap-2"
+                            >
+                              <Check className="h-3 w-3" /> Tersalin
+                            </motion.div>
+                          ) : (
+                            <motion.div 
+                              key="copy" 
+                              initial={{ opacity: 0, scale: 0.5 }} 
+                              animate={{ opacity: 1, scale: 1 }} 
+                              exit={{ opacity: 0, scale: 0.5 }}
+                              className="flex items-center gap-2"
+                            >
+                              <Copy className="h-3 w-3" /> Salin Link
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </motion.div>
             <div className="flex gap-2 w-full sm:w-auto justify-center">
               <Link href="/berita" className="w-full sm:w-auto text-center">
