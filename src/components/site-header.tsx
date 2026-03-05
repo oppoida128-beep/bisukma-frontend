@@ -3,10 +3,10 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, LayoutGrid, SquareArrowUpRight, X } from "lucide-react"
+import { Menu, LayoutGrid, SquareArrowUpRight, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetClose } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { MorphButton } from "@/components/ui/morph-button"
 import {
   NavigationMenu,
@@ -17,6 +17,12 @@ import {
   NavigationMenuContent,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const profilItems: { title: string; href: string; description: string }[] = [
   {
@@ -68,14 +74,6 @@ export function SiteHeader() {
   }, [])
 
   const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none px-3 text-sm font-medium"
-
-  const mobileNavItems = [
-    { name: "Beranda", href: "/" },
-    { name: "Profil", href: "/profil" },
-    { name: "Berita", href: "/berita" },
-    { name: "Layanan", href: "/layanan" },
-    { name: "Mitra", href: "/mitra" },
-  ]
 
   return (
     <header className={cn(
@@ -163,12 +161,12 @@ export function SiteHeader() {
           {/* Mobile Nav Toggle */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="h-10 w-10 text-primary">
+              <Button variant="ghost" size="icon" className="h-10 w-10 text-primary hover:bg-accent/5">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[85%] sm:w-[350px] p-0 bg-white flex flex-col">
+            <SheetContent side="right" className="w-[85%] sm:w-[350px] p-0 bg-white flex flex-col border-l">
               <SheetHeader className="p-6 border-b text-left">
                 <SheetTitle className="flex items-center gap-2">
                   <LayoutGrid className="h-5 w-5 text-accent" />
@@ -176,28 +174,105 @@ export function SiteHeader() {
                 </SheetTitle>
               </SheetHeader>
               
-              <nav className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
-                {mobileNavItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(
-                      "flex items-center justify-between px-4 py-4 rounded-xl text-base font-semibold transition-all active:scale-[0.98]",
-                      pathname === item.href 
-                        ? "bg-accent/10 text-accent" 
-                        : "text-muted-foreground hover:bg-muted/50"
-                    )}
-                  >
-                    {item.name}
-                    {pathname === item.href && <div className="h-1.5 w-1.5 rounded-full bg-accent" />}
-                  </Link>
-                ))}
+              <nav className="flex-1 overflow-y-auto py-6 px-4">
+                <Accordion type="single" collapsible className="w-full">
+                  {/* Beranda */}
+                  <div className="py-2">
+                    <Link 
+                      href="/" 
+                      onClick={() => setIsOpen(false)} 
+                      className={cn(
+                        "flex items-center text-base font-semibold transition-colors py-2",
+                        pathname === "/" ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      )}
+                    >
+                      Beranda
+                    </Link>
+                  </div>
+
+                  {/* Profil Accordion */}
+                  <AccordionItem value="profil" className="border-none">
+                    <AccordionTrigger className={cn(
+                      "py-2 hover:no-underline font-semibold text-base transition-colors",
+                      pathname === "/profil" ? "text-accent" : "text-muted-foreground hover:text-accent"
+                    )}>
+                      Profil
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pl-4">
+                      <div className="flex flex-col gap-4 pt-3">
+                        {profilItems.map((item) => (
+                          <Link 
+                            key={item.title} 
+                            href={item.href} 
+                            onClick={() => setIsOpen(false)}
+                            className="text-sm font-medium text-muted-foreground hover:text-accent flex items-center justify-between group"
+                          >
+                            {item.title}
+                            <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all" />
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  {/* Berita Accordion */}
+                  <AccordionItem value="berita" className="border-none">
+                    <AccordionTrigger className={cn(
+                      "py-2 hover:no-underline font-semibold text-base transition-colors",
+                      pathname.startsWith("/berita") ? "text-accent" : "text-muted-foreground hover:text-accent"
+                    )}>
+                      Berita
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pl-4">
+                      <div className="flex flex-col gap-4 pt-3">
+                        {beritaItems.map((item) => (
+                          <Link 
+                            key={item.title} 
+                            href={item.href} 
+                            onClick={() => setIsOpen(false)}
+                            className="text-sm font-medium text-muted-foreground hover:text-accent flex items-center justify-between group"
+                          >
+                            {item.title}
+                            <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all" />
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  {/* Layanan */}
+                  <div className="py-2">
+                    <Link 
+                      href="/layanan" 
+                      onClick={() => setIsOpen(false)} 
+                      className={cn(
+                        "flex items-center text-base font-semibold transition-colors py-2",
+                        pathname === "/layanan" ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      )}
+                    >
+                      Layanan
+                    </Link>
+                  </div>
+
+                  {/* Mitra */}
+                  <div className="py-2">
+                    <Link 
+                      href="/mitra" 
+                      onClick={() => setIsOpen(false)} 
+                      className={cn(
+                        "flex items-center text-base font-semibold transition-colors py-2",
+                        pathname === "/mitra" ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      )}
+                    >
+                      Mitra
+                    </Link>
+                  </div>
+                </Accordion>
               </nav>
 
               <div className="p-6 border-t bg-muted/20">
                 <Button 
-                  className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold shadow-lg shadow-accent/20"
+                  className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold shadow-lg shadow-accent/10"
                   onClick={() => setIsOpen(false)}
                   asChild
                 >
@@ -206,7 +281,7 @@ export function SiteHeader() {
                     <SquareArrowUpRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <p className="mt-4 text-center text-xs text-muted-foreground">
+                <p className="mt-4 text-center text-[10px] uppercase tracking-widest font-bold text-muted-foreground/60">
                   Transformasi Digital Bersama Kami
                 </p>
               </div>
