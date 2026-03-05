@@ -152,7 +152,7 @@ export default function Home() {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 p-8 md:p-12 space-y-4 max-w-2xl">
+                        <div className="absolute bottom-0 left-0 p-12 md:p-16 md:pl-20 space-y-4 max-w-2xl">
                           <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold uppercase">{post.category}</Badge>
                           <h3 className="text-2xl md:text-4xl font-extrabold text-white leading-tight">
                             {post.title}
