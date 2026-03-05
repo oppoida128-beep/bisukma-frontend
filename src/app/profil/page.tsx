@@ -1,4 +1,3 @@
-
 'use client'
 
 import Image from "next/image"
@@ -67,7 +66,13 @@ export default function ProfilPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+            <motion.div 
+              whileHover={{ y: -5 }} 
+              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
               <Card className="border-none bg-accent/5 p-8 h-full">
                 <CardContent className="p-0 space-y-4">
                   <div className="bg-accent/20 p-3 rounded-xl inline-block">
@@ -80,7 +85,14 @@ export default function ProfilPage() {
                 </CardContent>
               </Card>
             </motion.div>
-            <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+            <motion.div 
+              whileHover={{ y: -5 }} 
+              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
               <Card className="border-none bg-primary/5 p-8 h-full">
                 <CardContent className="p-0 space-y-4">
                   <div className="bg-primary/20 p-3 rounded-xl inline-block">

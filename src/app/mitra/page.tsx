@@ -1,4 +1,3 @@
-
 'use client'
 
 import Image from "next/image"
@@ -86,6 +85,10 @@ export default function MitraPage() {
                   key={i}
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
                 >
                   <Card className="border-none bg-muted/50 p-8 text-center hover:bg-accent/5 transition-colors h-full">
                     <CardContent className="p-0 space-y-4">
