@@ -3,11 +3,11 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, LayoutGrid, SquareArrowUpRight, ChevronRight } from "lucide-react"
+import { Menu, X, LayoutGrid, SquareArrowUpRight, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { MorphButton } from "@/components/ui/morph-button"
+import { motion, AnimatePresence } from "framer-motion"
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -73,114 +73,126 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Close menu when route changes
+  React.useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
+
   const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none px-3 text-sm font-medium"
 
   return (
-    <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
-      isScrolled ? "h-14 bg-white/95 backdrop-blur-md border-b shadow-sm" : "h-14 bg-white border-transparent"
-    )}>
-      <div className="container mx-auto flex h-full items-center px-4">
-        {/* Logo */}
-        <div className="flex flex-1 md:w-1/4 shrink-0">
-          <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
-            <LayoutGrid className="h-5 w-5 text-accent" />
-            <span>Bisukma<span className="text-accent">digital</span></span>
-          </Link>
-        </div>
-
-        {/* Desktop Nav - Center */}
-        <nav className="hidden md:flex flex-1 items-center justify-center">
-          <NavigationMenu>
-            <NavigationMenuList className="gap-1">
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/" && "text-accent")}>
-                  <Link href="/">Beranda</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/profil") && "text-accent")}>
-                  Profil
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
-                    {profilItems.map((item) => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/berita") && "text-accent")}>
-                  Berita
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
-                    {beritaItems.map((item) => (
-                      <ListItem
-                        key={item.title}
-                        title={item.title}
-                        href={item.href}
-                      >
-                        {item.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/layanan" && "text-accent")}>
-                  <Link href="/layanan">Layanan</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/mitra" && "text-accent")}>
-                  <Link href="/mitra">Mitra</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </nav>
-
-        {/* Action Button */}
-        <div className="flex flex-1 md:w-1/4 justify-end shrink-0 items-center gap-2">
-          <div className="hidden md:block">
-            <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
+    <>
+      <header className={cn(
+        "sticky top-0 z-[60] w-full transition-all duration-300",
+        isScrolled || isOpen ? "h-14 bg-white border-b shadow-sm" : "h-14 bg-white border-transparent"
+      )}>
+        <div className="container mx-auto flex h-full items-center px-4 relative z-[60]">
+          {/* Logo */}
+          <div className="flex flex-1 md:w-1/4 shrink-0">
+            <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
+              <LayoutGrid className="h-5 w-5 text-accent" />
+              <span>Bisukma<span className="text-accent">digital</span></span>
+            </Link>
           </div>
 
-          {/* Mobile Nav Toggle */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" className="h-10 w-10 text-primary hover:bg-accent/5">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[85%] sm:w-[350px] p-0 bg-white flex flex-col border-l">
-              <SheetHeader className="p-6 border-b text-left">
-                <SheetTitle className="flex items-center gap-2">
-                  <LayoutGrid className="h-5 w-5 text-accent" />
-                  <span>Bisukma<span className="text-accent">digital</span></span>
-                </SheetTitle>
-              </SheetHeader>
-              
-              <nav className="flex-1 overflow-y-auto py-6 px-4">
+          {/* Desktop Nav - Center */}
+          <nav className="hidden md:flex flex-1 items-center justify-center">
+            <NavigationMenu>
+              <NavigationMenuList className="gap-1">
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/" && "text-accent")}>
+                    <Link href="/">Beranda</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/profil") && "text-accent")}>
+                    Profil
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                      {profilItems.map((item) => (
+                        <ListItem
+                          key={item.title}
+                          title={item.title}
+                          href={item.href}
+                        >
+                          {item.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/berita") && "text-accent")}>
+                    Berita
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                      {beritaItems.map((item) => (
+                        <ListItem
+                          key={item.title}
+                          title={item.title}
+                          href={item.href}
+                        >
+                          {item.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/layanan" && "text-accent")}>
+                    <Link href="/layanan">Layanan</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/mitra" && "text-accent")}>
+                    <Link href="/mitra">Mitra</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </nav>
+
+          {/* Action Button */}
+          <div className="flex flex-1 md:w-1/4 justify-end shrink-0 items-center gap-2">
+            <div className="hidden md:block">
+              <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
+            </div>
+
+            {/* Mobile Nav Toggle Button */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden h-10 w-10 text-primary hover:bg-accent/5 focus:bg-transparent"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <span className="sr-only">Toggle Menu</span>
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0 }}
+              className="absolute top-14 left-0 w-full bg-white border-b z-50 overflow-hidden md:hidden shadow-xl"
+            >
+              <nav className="container mx-auto py-6 px-4">
                 <Accordion type="single" collapsible className="w-full">
                   {/* Beranda */}
                   <div className="py-2">
                     <Link 
                       href="/" 
-                      onClick={() => setIsOpen(false)} 
                       className={cn(
                         "flex items-center text-base font-semibold transition-colors py-2",
                         pathname === "/" ? "text-accent" : "text-muted-foreground hover:text-accent"
@@ -204,7 +216,6 @@ export function SiteHeader() {
                           <Link 
                             key={item.title} 
                             href={item.href} 
-                            onClick={() => setIsOpen(false)}
                             className="text-sm font-medium text-muted-foreground hover:text-accent flex items-center justify-between group"
                           >
                             {item.title}
@@ -229,7 +240,6 @@ export function SiteHeader() {
                           <Link 
                             key={item.title} 
                             href={item.href} 
-                            onClick={() => setIsOpen(false)}
                             className="text-sm font-medium text-muted-foreground hover:text-accent flex items-center justify-between group"
                           >
                             {item.title}
@@ -244,7 +254,6 @@ export function SiteHeader() {
                   <div className="py-2">
                     <Link 
                       href="/layanan" 
-                      onClick={() => setIsOpen(false)} 
                       className={cn(
                         "flex items-center text-base font-semibold transition-colors py-2",
                         pathname === "/layanan" ? "text-accent" : "text-muted-foreground hover:text-accent"
@@ -258,7 +267,6 @@ export function SiteHeader() {
                   <div className="py-2">
                     <Link 
                       href="/mitra" 
-                      onClick={() => setIsOpen(false)} 
                       className={cn(
                         "flex items-center text-base font-semibold transition-colors py-2",
                         pathname === "/mitra" ? "text-accent" : "text-muted-foreground hover:text-accent"
@@ -268,28 +276,37 @@ export function SiteHeader() {
                     </Link>
                   </div>
                 </Accordion>
-              </nav>
 
-              <div className="p-6 border-t bg-muted/20">
-                <Button 
-                  className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold shadow-lg shadow-accent/10"
-                  onClick={() => setIsOpen(false)}
-                  asChild
-                >
-                  <Link href="/mitra">
-                    Daftar kemitraan
-                    <SquareArrowUpRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <p className="mt-4 text-center text-[10px] tracking-widest font-bold text-muted-foreground/60">
-                  Transformasi digital bersama kami
-                </p>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </header>
+                <div className="mt-8 pt-6 border-t border-muted">
+                  <Button 
+                    className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold shadow-lg shadow-accent/10"
+                    asChild
+                  >
+                    <Link href="/mitra">
+                      Daftar kemitraan
+                      <SquareArrowUpRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+      
+      {/* Backdrop for mobile menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+          />
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
