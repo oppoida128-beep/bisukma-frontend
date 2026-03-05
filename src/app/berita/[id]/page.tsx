@@ -18,7 +18,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 
 const articlesData = [
@@ -55,6 +54,7 @@ export default function BeritaDetailPage() {
   const id = params.id as string
   const [copied, setCopied] = React.useState(false)
   const [currentUrl, setCurrentUrl] = React.useState("")
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
 
   React.useEffect(() => {
     setCurrentUrl(window.location.href)
@@ -69,6 +69,25 @@ export default function BeritaDetailPage() {
       navigator.clipboard.writeText(window.location.href)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: article.title,
+          text: `Baca artikel menarik ini: ${article.title}`,
+          url: currentUrl,
+        })
+      } catch (err) {
+        // Jika user membatalkan share, abaikan saja
+        if ((err as Error).name !== 'AbortError') {
+          setIsDialogOpen(true)
+        }
+      }
+    } else {
+      setIsDialogOpen(true)
     }
   }
 
@@ -196,14 +215,14 @@ export default function BeritaDetailPage() {
                 delay: 0.5 
               }}
             >
-              <Dialog>
-                <DialogTrigger asChild>
-                  <MorphButton 
-                    text="Bagikan artikel" 
-                    icon={Share2} 
-                    className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
-                  />
-                </DialogTrigger>
+              <MorphButton 
+                text="Bagikan artikel" 
+                icon={Share2} 
+                onClick={handleShare}
+                className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
+              />
+
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogContent className="sm:max-w-md rounded-2xl bg-white p-6 md:p-8">
                   <DialogHeader className="space-y-3 mb-6">
                     <DialogTitle className="text-xl md:text-2xl font-bold text-center">Bagikan Artikel Ini</DialogTitle>
