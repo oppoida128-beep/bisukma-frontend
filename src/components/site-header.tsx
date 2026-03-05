@@ -27,17 +27,17 @@ import {
 const profilItems: { title: string; href: string; description: string }[] = [
   {
     title: "Visi & Misi",
-    href: "/profil",
+    href: "/profil/visi-misi",
     description: "Tujuan strategis kami untuk merevolusi ekosistem teknologi.",
   },
   {
     title: "Tentang Kami",
-    href: "/profil",
+    href: "/profil/tentang-kami",
     description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami.",
   },
   {
     title: "Nilai Inti",
-    href: "/profil",
+    href: "/profil/nilai-inti",
     description: "Prinsip integritas, kolaborasi, dan kualitas kami.",
   },
 ]
@@ -100,7 +100,7 @@ export function SiteHeader() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn(navItemClasses, pathname === "/profil" && "text-accent")}>
+                <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/profil") && "text-accent")}>
                   Profil
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -194,7 +194,7 @@ export function SiteHeader() {
                   <AccordionItem value="profil" className="border-none">
                     <AccordionTrigger className={cn(
                       "py-2 hover:no-underline font-semibold text-base transition-colors",
-                      pathname === "/profil" ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      pathname.startsWith("/profil") ? "text-accent" : "text-muted-foreground hover:text-accent"
                     )}>
                       Profil
                     </AccordionTrigger>
