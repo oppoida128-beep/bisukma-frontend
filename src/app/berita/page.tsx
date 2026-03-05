@@ -14,7 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 const articles = [
   {
     id: "news-1",
-    title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+    title: "Masa depan AI dalam transformasi bisnis 2024",
     excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis sehari-hari secara otomatis.",
     date: "12 Mei 2024",
     author: "Budi Santoso",
@@ -23,7 +23,7 @@ const articles = [
   },
   {
     id: "news-2",
-    title: "Strategi Cloud Computing untuk Startup Berkembang",
+    title: "Strategi cloud computing untuk startup berkembang",
     excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif.",
     date: "10 Mei 2024",
     author: "Siti Aminah",
@@ -32,7 +32,7 @@ const articles = [
   },
   {
     id: "news-3",
-    title: "Pentingnya Cybersecurity di Era Kerja Remote",
+    title: "Pentingnya cybersecurity di era kerja remote",
     excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda.",
     date: "05 Mei 2024",
     author: "Andi Wijaya",
@@ -41,7 +41,7 @@ const articles = [
   },
   {
     id: "news-4",
-    title: "Trend Desain UI/UX yang Dominan di Tahun Ini",
+    title: "Trend desain UI/UX yang dominan di tahun ini",
     excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman pengguna terbaik di perangkat mobile.",
     date: "01 Mei 2024",
     author: "Dewi Lestari",
@@ -50,7 +50,7 @@ const articles = [
   },
   {
     id: "news-5",
-    title: "Implementasi Blockchain untuk Supply Chain",
+    title: "Implementasi blockchain untuk supply chain",
     excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan pemanfaatan teknologi buku besar terdistribusi.",
     date: "28 April 2024",
     author: "Reza Fahlevi",
@@ -59,7 +59,7 @@ const articles = [
   },
   {
     id: "news-6",
-    title: "Event Bisukma Digital Conference 2024",
+    title: "Event Bisukma digital conference 2024",
     excerpt: "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri dan pakar teknologi ternama.",
     date: "20 April 2024",
     author: "Admin Bisukma",
@@ -79,23 +79,24 @@ export default function BeritaPage() {
 
   return (
     <div className="pb-20 bg-white">
-      <section className="bg-primary py-24 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.1)_0%,transparent_70%)]"></div>
+      {/* Minimalist Header */}
+      <section className="bg-white pt-16 md:pt-24 pb-12 text-primary border-b border-muted">
         <motion.div 
-          className="container mx-auto px-4 relative z-10"
+          className="container mx-auto px-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold text-center tracking-tight">Berita & Update</h1>
-          <p className="text-center mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-left tracking-tight">Berita & update</h1>
+          <p className="text-left mt-4 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
           </p>
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 -mt-8 relative z-20">
-        <div className="bg-white rounded-xl shadow-sm border p-4 mb-12">
+      <section className="container mx-auto px-4 mt-8 md:mt-12">
+        {/* Minimalist Tabs - No Background */}
+        <div className="mb-12">
           <Tabs 
             defaultValue="Semua" 
             value={activeCategory} 
@@ -109,7 +110,7 @@ export default function BeritaPage() {
                     key={cat} 
                     value={cat} 
                     variant="line"
-                    className="flex-shrink-0 text-xs md:text-sm font-bold uppercase tracking-wider"
+                    className="flex-shrink-0 text-sm font-bold tracking-tight"
                   >
                     {cat}
                   </TabsTrigger>
@@ -130,12 +131,12 @@ export default function BeritaPage() {
                 <motion.div
                   key={article.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="overflow-hidden border-none shadow-lg group flex flex-col h-full bg-white hover:shadow-xl transition-shadow duration-300">
+                  <Card className="overflow-hidden border border-muted shadow-sm group flex flex-col h-full bg-white hover:shadow-md transition-shadow duration-300">
                     <CardHeader className="p-0 relative h-56">
                       {img?.imageUrl && (
                         <Image 
@@ -145,12 +146,12 @@ export default function BeritaPage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                       )}
-                      <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90 border-none px-3 py-1 font-bold text-[10px] uppercase">
+                      <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90 border-none px-3 py-1 font-bold text-[10px]">
                         {article.category}
                       </Badge>
                     </CardHeader>
                     <CardContent className="p-6 space-y-4 flex-1">
-                      <div className="flex items-center gap-4 text-[10px] md:text-xs font-semibold text-muted-foreground/70 uppercase tracking-widest">
+                      <div className="flex items-center gap-4 text-[10px] md:text-xs font-semibold text-muted-foreground/70 tracking-wider">
                         <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-accent" /> {article.date}</span>
                         <span className="flex items-center gap-1.5"><User className="h-3 w-3 text-accent" /> {article.author}</span>
                       </div>
@@ -163,7 +164,7 @@ export default function BeritaPage() {
                     </CardContent>
                     <CardFooter className="p-6 pt-0">
                       <Link href={`/berita/${article.id}`} className="text-xs md:text-sm font-bold flex items-center text-accent group/link">
-                        Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                        Baca selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
                       </Link>
                     </CardFooter>
                   </Card>

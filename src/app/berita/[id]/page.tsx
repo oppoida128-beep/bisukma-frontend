@@ -23,7 +23,7 @@ import {
 const articlesData = [
   {
     id: "news-1",
-    title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+    title: "Masa depan AI dalam transformasi bisnis 2024",
     contentPart1: `Kecerdasan Buatan (AI) bukan lagi sekadar tren teknologi, melainkan fondasi baru bagi efisiensi operasional bisnis. Di tahun 2024, kita melihat pergeseran dari sekadar eksperimen menjadi integrasi penuh dalam proses pengambilan keputusan. 
     
     Bisukma Digital berkomitmen untuk menjembatani kesenjangan teknologi ini dengan menghadirkan solusi cerdas yang dapat diadaptasi oleh berbagai skala industri. Dengan pemanfaatan model bahasa besar dan analitik prediktif, perusahaan dapat menghemat waktu hingga 40% dalam tugas-tugas administratif yang repetitif.`,
@@ -37,7 +37,7 @@ const articlesData = [
   },
   {
     id: "news-2",
-    title: "Strategi Cloud Computing untuk Startup Berkembang",
+    title: "Strategi cloud computing untuk startup berkembang",
     contentPart1: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif. Dengan model pay-as-you-go, perusahaan baru dapat mengelola anggaran dengan lebih fleksibel tanpa mengorbankan performa sistem.",
     contentPart2: "Selain efisiensi biaya, keamanan data di cloud juga menjadi prioritas utama. Implementasi sistem backup otomatis dan enkripsi end-to-end akan memberikan rasa aman bagi pelanggan startup dalam menitipkan data mereka.",
     date: "10 Mei 2024",
@@ -73,7 +73,6 @@ export default function BeritaDetailPage() {
   }
 
   const handleShare = async () => {
-    // Gunakan Native Share jika tersedia di mobile
     if (navigator.share) {
       try {
         await navigator.share({
@@ -82,13 +81,11 @@ export default function BeritaDetailPage() {
           url: currentUrl,
         })
       } catch (err) {
-        // Abaikan AbortError (saat user membatalkan share)
         if ((err as Error).name !== 'AbortError') {
           setIsDialogOpen(true)
         }
       }
     } else {
-      // Tampilkan Dialog di desktop
       setIsDialogOpen(true)
     }
   }
@@ -205,7 +202,7 @@ export default function BeritaDetailPage() {
 
           <Separator className="my-10 md:my-12" />
 
-          {/* Footer Actions - Redesigned for Mobile Inline */}
+          {/* Footer Actions - Inline Horizontal */}
           <div className="mt-12 pt-8 flex items-center justify-between gap-4">
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
@@ -228,9 +225,9 @@ export default function BeritaDetailPage() {
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogContent className="sm:max-w-md rounded-2xl bg-white p-6 md:p-8">
                   <DialogHeader className="space-y-3 mb-6">
-                    <DialogTitle className="text-xl md:text-2xl font-bold text-center">Bagikan Artikel Ini</DialogTitle>
+                    <DialogTitle className="text-xl md:text-2xl font-bold text-center">Bagikan artikel ini</DialogTitle>
                     <p className="text-center text-muted-foreground text-xs md:text-sm">
-                      Sebarkan wawasan digital ini ke jejaring sosial Anda.
+                      Sebarkan wawasan digital ini ke jejaring sosial anda.
                     </p>
                   </DialogHeader>
                   <div className="flex flex-col gap-6 md:gap-8">
@@ -261,7 +258,7 @@ export default function BeritaDetailPage() {
                     
                     <div className="relative">
                       <Separator className="my-2" />
-                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Atau</span>
+                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-[10px] font-bold text-muted-foreground/40 tracking-widest">atau</span>
                     </div>
 
                     <div className="flex items-center gap-2 md:gap-3 bg-muted/30 p-2 pl-3 md:pl-4 rounded-xl border group hover:border-accent/30 transition-colors">
@@ -295,7 +292,7 @@ export default function BeritaDetailPage() {
                               exit={{ opacity: 0, scale: 0.5 }}
                               className="flex items-center gap-1.5 md:gap-2"
                             >
-                              <Copy className="h-3 w-3" /> Salin Link
+                              <Copy className="h-3 w-3" /> Salin link
                             </motion.div>
                           )}
                         </AnimatePresence>
