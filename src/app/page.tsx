@@ -18,21 +18,24 @@ export default function Home() {
       <section className="relative pt-4 pb-12 md:pt-6 md:pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,rgba(var(--accent),0.05)_0%,transparent_100%)]"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary leading-[1.2] mb-4">
+          {/* Typography H1 style */}
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-primary leading-[1.2] mb-4">
             Membangun Standar Baru <br className="hidden md:block" />
             <span className="text-accent">Dunia Digital.</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
+          {/* Typography Lead style */}
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
             Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
           </p>
           
           <div className="flex flex-wrap justify-center gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-            <p className="text-accent font-bold cursor-pointer hover:opacity-80 transition-all flex items-center gap-2 text-xs uppercase tracking-[0.2em]">
+            {/* Typography Small style for CTA links */}
+            <p className="text-sm font-medium leading-none text-accent cursor-pointer hover:opacity-80 transition-all flex items-center gap-2 uppercase tracking-widest">
               Konsultasi Gratis
               <ArrowRight className="h-4 w-4" />
             </p>
-            <p className="text-muted-foreground font-bold cursor-pointer hover:text-primary transition-all text-xs uppercase tracking-[0.2em]">
+            <p className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all uppercase tracking-widest">
               Lihat Katalog Produk
             </p>
           </div>
@@ -95,12 +98,15 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
               <Badge variant="outline" className="rounded-full px-3 py-1 text-accent border-accent/20 font-bold uppercase tracking-widest text-[9px]">Eksklusivitas</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight">Solusi yang Dirancang Khusus untuk Ambisi Anda.</h2>
-              <p className="text-base text-muted-foreground leading-relaxed">
+              {/* Typography H2 style */}
+              <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 transition-colors">
+                Solusi yang Dirancang Khusus untuk Ambisi Anda.
+              </h2>
+              <p className="leading-7 [&:not(:first-child)]:mt-6 text-muted-foreground">
                 Kami tidak percaya pada satu solusi untuk semua. Setiap baris kode yang kami tulis adalah cerminan dari kebutuhan unik bisnis Anda, memastikan performa maksimal dan efisiensi biaya.
               </p>
               
-              <ul className="space-y-4 pt-2">
+              <ul className="my-6 ml-6 list-disc [&>li]:mt-2 space-y-4 pt-2 list-none ml-0">
                 {[
                   { title: "Arsitektur Scalable", desc: "Sistem yang tumbuh seiring pertumbuhan pengguna Anda." },
                   { title: "Keamanan Militer", desc: "Perlindungan data end-to-end tanpa kompromi." },
@@ -111,8 +117,10 @@ export default function Home() {
                       <CheckCircle2 className="h-3 w-3" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm text-primary">{item.title}</h4>
-                      <p className="text-xs text-muted-foreground">{item.desc}</p>
+                      {/* Typography Large style for sub-headings */}
+                      <h4 className="text-lg font-semibold text-primary">{item.title}</h4>
+                      {/* Typography Muted style for descriptions */}
+                      <p className="text-sm text-muted-foreground">{item.desc}</p>
                     </div>
                   </li>
                 ))}
@@ -150,8 +158,8 @@ export default function Home() {
       <section className="py-24 bg-primary text-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">Layanan Kami</h2>
-            <p className="text-primary-foreground/60 text-base leading-relaxed">
+            <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight">Layanan Kami</h2>
+            <p className="text-xl text-primary-foreground/60">
               Ekosistem layanan lengkap untuk mendukung setiap tahap transformasi digital Anda.
             </p>
           </div>
@@ -186,10 +194,10 @@ export default function Home() {
                   <div className="p-8 space-y-3">
                     <div className="text-accent mb-2">{service.icon}</div>
                     <h3 className="text-xl font-bold">{service.title}</h3>
-                    <p className="text-primary-foreground/60 leading-relaxed text-xs">
+                    <p className="text-sm text-primary-foreground/60 leading-relaxed">
                       {service.desc}
                     </p>
-                    <Link href="/layanan" className="inline-flex items-center gap-2 text-accent font-bold pt-2 text-xs group-hover:gap-3 transition-all">
+                    <Link href="/layanan" className="inline-flex items-center gap-2 text-accent font-bold pt-2 text-sm group-hover:gap-3 transition-all">
                       Detail Layanan <ArrowRight className="h-3 w-3" />
                     </Link>
                   </div>
@@ -226,9 +234,10 @@ export default function Home() {
             <div className="flex justify-center gap-1 text-accent">
               {[1, 2, 3, 4, 5].map(i => <Star key={i} className="h-4 w-4 fill-current" />)}
             </div>
-            <h3 className="text-xl md:text-3xl font-serif italic text-primary leading-relaxed max-w-3xl mx-auto">
+            {/* Typography Blockquote style */}
+            <blockquote className="mt-6 border-l-2 border-accent pl-6 italic text-xl md:text-3xl text-primary leading-relaxed max-w-3xl mx-auto border-none">
               "Bisukma Digital bukan sekadar vendor, mereka adalah mitra strategis yang benar-benar memahami visi bisnis kami dan menerjemahkannya ke dalam solusi digital yang brilian."
-            </h3>
+            </blockquote>
             <div className="space-y-1">
               <div className="font-bold text-base">Hendra Kusuma</div>
               <p className="text-xs text-muted-foreground">CEO, Global Tech Solutions</p>
@@ -242,7 +251,7 @@ export default function Home() {
         <div className="bg-accent rounded-[2.5rem] p-8 md:p-20 relative overflow-hidden text-white group">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_70%)]"></div>
           <div className="relative z-10 max-w-3xl space-y-8">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.1]">
+            <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl leading-[1.1]">
               Wujudkan Masa Depan <br /> Digital Anda Sekarang.
             </h2>
             <p className="text-lg text-white/80 max-w-2xl">
