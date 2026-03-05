@@ -99,25 +99,25 @@ export default function Home() {
       id: "prog-1",
       title: "Generasi Emas 2045",
       desc: "Membangun fondasi masa depan Indonesia melalui pemenuhan gizi yang berkualitas sejak dini. Program ini mendukung terciptanya generasi sehat, cerdas, dan produktif sebagai pilar pembangunan menuju Indonesia 2045.",
-      img: PlaceHolderImages.find(img => img.id === 'prog-nutrition')?.imageUrl
+      img: PlaceHolderImages.find(img => img.id === 'flip-1')?.imageUrl
     },
     {
       id: "prog-2",
       title: "Gizi untuk Pelajar",
       desc: "Pemenuhan gizi yang baik membantu meningkatkan konsentrasi belajar, kesehatan, serta perkembangan fisik dan mental bagi siswa dari tingkat TK hingga SMA.",
-      img: PlaceHolderImages.find(img => img.id === 'prog-agri')?.imageUrl
+      img: PlaceHolderImages.find(img => img.id === 'flip-2')?.imageUrl
     },
     {
       id: "prog-3",
       title: "Awal Kehidupan Sehat",
       desc: "Dukungan gizi bagi ibu hamil dan balita menjadi kunci tumbuh kembang optimal, sekaligus mencegah risiko stunting serta meningkatkan kualitas kesehatan generasi mendatang.",
-      img: PlaceHolderImages.find(img => img.id === 'prog-edu')?.imageUrl
+      img: PlaceHolderImages.find(img => img.id === 'flip-3')?.imageUrl
     },
     {
       id: "prog-4",
       title: "Penguatan Ekonomi Lokal",
       desc: "Program ini turut mendorong pertumbuhan ekonomi masyarakat dengan melibatkan UMKM dan petani lokal sebagai bagian dari rantai pasok pangan yang berkelanjutan.",
-      img: PlaceHolderImages.find(img => img.id === 'prog-social')?.imageUrl
+      img: PlaceHolderImages.find(img => img.id === 'flip-4')?.imageUrl
     }
   ]
 

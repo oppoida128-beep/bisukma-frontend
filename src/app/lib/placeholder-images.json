@@ -140,27 +140,27 @@
       "imageHint": "professional woman"
     },
     {
-      "id": "prog-nutrition",
-      "description": "Makan Bergizi Gratis Illustration",
-      "imageUrl": "https://picsum.photos/seed/nutrition/600/800",
+      "id": "flip-1",
+      "description": "Generasi Emas 2045",
+      "imageUrl": "/flip-card/flip_1.jpg",
       "imageHint": "healthy child"
     },
     {
-      "id": "prog-agri",
-      "description": "Modern Agriculture Illustration",
-      "imageUrl": "https://picsum.photos/seed/agri/600/800",
+      "id": "flip-2",
+      "description": "Gizi untuk Pelajar",
+      "imageUrl": "/flip-card/flip_2.jpg",
       "imageHint": "modern farming"
     },
     {
-      "id": "prog-edu",
-      "description": "Education and Tech Illustration",
-      "imageUrl": "https://picsum.photos/seed/edu/600/800",
+      "id": "flip-3",
+      "description": "Awal Kehidupan Sehat",
+      "imageUrl": "/flip-card/flip_3.jpg",
       "imageHint": "coding school"
     },
     {
-      "id": "prog-social",
-      "description": "Social Humanity Illustration",
-      "imageUrl": "https://picsum.photos/seed/social/600/800",
+      "id": "flip-4",
+      "description": "Penguatan Ekonomi Lokal",
+      "imageUrl": "/flip-card/flip_4.jpg",
       "imageHint": "community help"
     }
   ]
