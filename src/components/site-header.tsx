@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, LayoutGrid, SquareArrowUpRight, ChevronRight } from "lucide-react"
+import { LayoutGrid, SquareArrowUpRight, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { MorphButton } from "@/components/ui/morph-button"
@@ -19,9 +19,9 @@ import {
 } from "@/components/ui/navigation-menu"
 import {
   Accordion,
-  AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AccordionContent,
 } from "@/components/ui/accordion"
 
 const profilItems: { title: string; href: string; description: string }[] = [
@@ -164,14 +164,25 @@ export function SiteHeader() {
               <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
             </div>
 
-            {/* Mobile Nav Toggle Button */}
+            {/* Mobile Nav Toggle Button with 2-line animated icon */}
             <Button 
               variant="ghost" 
               size="icon" 
-              className="md:hidden h-10 w-10 text-primary hover:bg-accent/5 focus:bg-transparent"
+              className="md:hidden h-10 w-10 text-primary hover:bg-transparent focus:bg-transparent relative"
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <div className="relative w-6 h-4 flex flex-col justify-between items-center">
+                <motion.span
+                  className="w-6 h-0.5 bg-current rounded-full"
+                  animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+                <motion.span
+                  className="w-6 h-0.5 bg-current rounded-full"
+                  animate={isOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              </div>
               <span className="sr-only">Toggle Menu</span>
             </Button>
           </div>
