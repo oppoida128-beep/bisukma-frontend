@@ -4,12 +4,13 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar, Play } from "lucide-react"
+import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import Autoplay from "embla-carousel-autoplay"
+import { motion } from "framer-motion"
 import {
   Carousel,
   CarouselContent,
@@ -55,7 +56,7 @@ export default function Home() {
       excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda."
     },
     {
-      title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+      title: "Masa Depan AI dalam Transformation Bisnis 2024",
       category: "Teknologi",
       img: news1Img?.imageUrl,
       excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
@@ -92,12 +93,24 @@ export default function Home() {
     }
   ]
 
+  const fadeIn = {
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.6 }
+  }
+
   return (
     <div className="flex flex-col w-full bg-white">
       {/* --- HERO SECTION --- */}
       <section className="relative pt-12 pb-16 md:pt-24 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.05)_0%,transparent_100%)]"></div>
-        <div className="container mx-auto px-4 relative z-10 text-center">
+        <motion.div 
+          className="container mx-auto px-4 relative z-10 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-primary mb-6">
             Membangun standar baru <br className="hidden md:block" />
             <span className="text-accent">dunia digital.</span>
@@ -116,9 +129,14 @@ export default function Home() {
               Lihat katalog produk
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="container mx-auto px-4 mt-16 relative">
+        <motion.div 
+          className="container mx-auto px-4 mt-16 relative"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
           <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-[1.5rem] overflow-hidden border bg-muted">
             {heroImg?.imageUrl && (
               <Image 
@@ -132,7 +150,11 @@ export default function Home() {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
-          <div className="absolute -bottom-8 -right-4 md:right-32 bg-white p-6 rounded-xl shadow-xl hidden sm:block border max-w-[240px] animate-bounce-slow">
+          <motion.div 
+            className="absolute -bottom-8 -right-4 md:right-32 bg-white p-6 rounded-xl shadow-xl hidden sm:block border max-w-[240px]"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
             <div className="flex items-center gap-3 mb-2">
               <div className="bg-accent/10 p-2 rounded-lg text-accent">
                 <Users className="h-5 w-5" />
@@ -142,12 +164,15 @@ export default function Home() {
             <p className="text-xs text-muted-foreground leading-relaxed">
               50+ Insinyur berpengalaman siap mendukung pertumbuhan bisnis Anda secara eksklusif.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* --- NEWS SECTION --- */}
-      <section className="py-24 border-t bg-white">
+      <motion.section 
+        className="py-24 border-t bg-white"
+        {...fadeIn}
+      >
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div className="space-y-2">
@@ -157,7 +182,6 @@ export default function Home() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 items-start">
-            {/* Left: Popular News (Carousel) */}
             <div className="lg:col-span-8 space-y-6">
               <Carousel 
                 setApi={setApi} 
@@ -198,7 +222,6 @@ export default function Home() {
                 <CarouselPrevious className="left-4 bg-transparent border-none text-white hover:bg-white/5 hover:text-white" variant="ghost" />
                 <CarouselNext className="right-4 bg-transparent border-none text-white hover:bg-white/5 hover:text-white" variant="ghost" />
 
-                {/* Pagination Pills */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
                   {Array.from({ length: count }).map((_, i) => (
                     <button
@@ -215,7 +238,6 @@ export default function Home() {
               </Carousel>
             </div>
 
-            {/* Right: Recently Added (List with Photos) */}
             <div className="lg:col-span-4 space-y-8">
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terbaru</Badge>
@@ -223,39 +245,50 @@ export default function Home() {
               
               <div className="flex flex-col gap-6">
                 {recentlyAddedNews.map((post, i) => (
-                  <Link key={i} href="/berita" className="group flex gap-4 items-start">
-                    <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-muted border">
-                      {post.img && (
-                        <Image 
-                          src={post.img} 
-                          alt={post.title} 
-                          fill 
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-col gap-1 flex-1">
-                      <div className="flex items-center gap-3">
-                        <span className="text-accent font-semibold text-xs leading-none">{post.category}</span>
-                        <span className="flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <Link href="/berita" className="group flex gap-4 items-start">
+                      <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-muted border">
+                        {post.img && (
+                          <Image 
+                            src={post.img} 
+                            alt={post.title} 
+                            fill 
+                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        )}
                       </div>
-                      <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed opacity-90">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                  </Link>
+                      <div className="flex flex-col gap-1 flex-1">
+                        <div className="flex items-center gap-3">
+                          <span className="text-accent font-semibold text-xs leading-none">{post.category}</span>
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
+                        </div>
+                        <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
+                          {post.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed opacity-90">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* --- CORE SERVICES --- */}
-      <section className="py-24 bg-accent text-white">
+      <motion.section 
+        className="py-24 bg-accent text-white"
+        {...fadeIn}
+      >
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
             <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight">Layanan kami</h2>
@@ -285,35 +318,51 @@ export default function Home() {
                 img: service3Img?.imageUrl 
               }
             ].map((service, i) => (
-              <Card key={i} className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-2xl shadow-none">
-                <CardContent className="p-0">
-                  <div className="relative h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
-                    {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="software development" />}
-                    <div className="absolute inset-0 bg-accent/40"></div>
-                  </div>
-                  <div className="p-8 space-y-3">
-                    <div className="text-white mb-2">{service.icon}</div>
-                    <p className="text-xl font-bold">{service.title}</p>
-                    <p className="text-sm text-white/70 leading-7">
-                      {service.desc}
-                    </p>
-                    <Link href="/layanan" className="mt-4 inline-flex items-center gap-2 text-white font-bold text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all leading-7 group/btn">
-                      Detail layanan <ArrowUpRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-2xl shadow-none">
+                  <CardContent className="p-0">
+                    <div className="relative h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
+                      {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="software development" />}
+                      <div className="absolute inset-0 bg-accent/40"></div>
+                    </div>
+                    <div className="p-8 space-y-3">
+                      <div className="text-white mb-2">{service.icon}</div>
+                      <p className="text-xl font-bold">{service.title}</p>
+                      <p className="text-sm text-white/70 leading-7">
+                        {service.desc}
+                      </p>
+                      <Link href="/layanan" className="mt-4 inline-flex items-center gap-2 text-white font-bold text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all leading-7 group/btn">
+                        Detail layanan <ArrowUpRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* --- ABOUT US SECTION --- */}
-      <section className="py-24">
+      <motion.section 
+        className="py-24"
+        {...fadeIn}
+      >
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center bg-muted/30 rounded-[2.5rem] p-8 md:p-16 overflow-hidden">
-            {/* Left: Video Hero */}
-            <div className="relative aspect-video rounded-2xl overflow-hidden group cursor-pointer border bg-black/5">
+            <motion.div 
+              className="relative aspect-video rounded-2xl overflow-hidden group cursor-pointer border bg-black/5"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
               <video 
                 autoPlay 
                 muted 
@@ -326,10 +375,15 @@ export default function Home() {
                 Your browser does not support the video tag.
               </video>
               <div className="absolute inset-0 bg-black/10"></div>
-            </div>
+            </motion.div>
 
-            {/* Right: Text Content */}
-            <div className="space-y-6">
+            <motion.div 
+              className="space-y-6"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
               <div className="space-y-2">
                 <p className="text-sm font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
                 <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Katalis Inovasi Digital Anda</h2>
@@ -345,10 +399,10 @@ export default function Home() {
                   <Link href="/profil">Pelajari lebih lanjut</Link>
                 </Button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   )
 }

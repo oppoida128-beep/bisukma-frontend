@@ -1,3 +1,6 @@
+
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import { Calendar, User, ArrowRight } from "lucide-react"
@@ -5,6 +8,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
 
 const articles = [
   {
@@ -67,56 +71,75 @@ export default function BeritaPage() {
   return (
     <div className="pb-20">
       <section className="bg-primary py-24 text-white">
-        <div className="container mx-auto px-4">
+        <motion.div 
+          className="container mx-auto px-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-4xl md:text-6xl font-bold text-center">Berita & Update</h1>
           <p className="text-center mt-6 text-xl text-gray-300 max-w-2xl mx-auto">
             Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       <section className="container mx-auto px-4 -mt-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((article) => {
+          {articles.map((article, i) => {
             const img = PlaceHolderImages.find(i => i.id === article.imgId)
             return (
-              <Card key={article.id} className="overflow-hidden border-none shadow-lg group flex flex-col h-full bg-white">
-                <CardHeader className="p-0 relative h-56">
-                  {img?.imageUrl && (
-                    <Image 
-                      src={img.imageUrl} 
-                      alt={article.title} 
-                      fill 
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  )}
-                  <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90">
-                    {article.category}
-                  </Badge>
-                </CardHeader>
-                <CardContent className="p-6 space-y-4 flex-1">
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {article.date}</span>
-                    <span className="flex items-center gap-1"><User className="h-3 w-3" /> {article.author}</span>
-                  </div>
-                  <h3 className="text-xl font-bold leading-tight group-hover:text-accent transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                </CardContent>
-                <CardFooter className="p-6 pt-0">
-                  <Link href={`/berita/${article.id}`} className="text-sm font-bold flex items-center text-accent">
-                    Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </CardFooter>
-              </Card>
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <Card className="overflow-hidden border-none shadow-lg group flex flex-col h-full bg-white">
+                  <CardHeader className="p-0 relative h-56">
+                    {img?.imageUrl && (
+                      <Image 
+                        src={img.imageUrl} 
+                        alt={article.title} 
+                        fill 
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    )}
+                    <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90">
+                      {article.category}
+                    </Badge>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4 flex-1">
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {article.date}</span>
+                      <span className="flex items-center gap-1"><User className="h-3 w-3" /> {article.author}</span>
+                    </div>
+                    <h3 className="text-xl font-bold leading-tight group-hover:text-accent transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {article.excerpt}
+                    </p>
+                  </CardContent>
+                  <CardFooter className="p-6 pt-0">
+                    <Link href={`/berita/${article.id}`} className="text-sm font-bold flex items-center text-accent">
+                      Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </CardFooter>
+                </Card>
+              </motion.div>
             )
           })}
         </div>
         
-        <div className="mt-16 flex justify-center">
+        <motion.div 
+          className="mt-16 flex justify-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
           <div className="flex gap-2">
             {[1, 2, 3].map(n => (
               <button key={n} className={cn(
@@ -127,7 +150,7 @@ export default function BeritaPage() {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   )
