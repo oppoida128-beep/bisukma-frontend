@@ -26,17 +26,17 @@ import {
 
 const profilItems: { title: string; href: string; description: string }[] = [
   {
-    title: "Visi & Misi",
+    title: "Visi & misi",
     href: "/profil/visi-misi",
     description: "Tujuan strategis kami untuk merevolusi ekosistem teknologi.",
   },
   {
-    title: "Tentang Kami",
+    title: "Tentang kami",
     href: "/profil/tentang-kami",
     description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami.",
   },
   {
-    title: "Nilai Inti",
+    title: "Nilai inti",
     href: "/profil/nilai-inti",
     description: "Prinsip integritas, kolaborasi, dan kualitas kami.",
   },
@@ -78,14 +78,14 @@ export function SiteHeader() {
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
-      isScrolled ? "h-16 bg-white/95 backdrop-blur-md border-b shadow-sm" : "h-20 bg-white border-transparent"
+      isScrolled ? "h-14 bg-white/95 backdrop-blur-md border-b shadow-sm" : "h-16 bg-white border-transparent"
     )}>
       <div className="container mx-auto flex h-full items-center px-4">
         {/* Logo */}
         <div className="flex flex-1 md:w-1/4 shrink-0">
           <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
             <LayoutGrid className="h-5 w-5 text-accent" />
-            <span>Bisukma<span className="text-accent">Digital</span></span>
+            <span>Bisukma<span className="text-accent">digital</span></span>
           </Link>
         </div>
 
@@ -170,7 +170,7 @@ export function SiteHeader() {
               <SheetHeader className="p-6 border-b text-left">
                 <SheetTitle className="flex items-center gap-2">
                   <LayoutGrid className="h-5 w-5 text-accent" />
-                  <span>Bisukma<span className="text-accent">Digital</span></span>
+                  <span>Bisukma<span className="text-accent">digital</span></span>
                 </SheetTitle>
               </SheetHeader>
               
@@ -277,12 +277,12 @@ export function SiteHeader() {
                   asChild
                 >
                   <Link href="/mitra">
-                    Daftar Kemitraan
+                    Daftar kemitraan
                     <SquareArrowUpRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <p className="mt-4 text-center text-[10px] uppercase tracking-widest font-bold text-muted-foreground/60">
-                  Transformasi Digital Bersama Kami
+                <p className="mt-4 text-center text-[10px] tracking-widest font-bold text-muted-foreground/60">
+                  Transformasi digital bersama kami
                 </p>
               </div>
             </SheetContent>

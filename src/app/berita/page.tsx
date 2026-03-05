@@ -3,13 +3,15 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, User, ArrowRight } from "lucide-react"
+import { Calendar, User, ArrowRight, ChevronDown } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const articles = [
   {
@@ -72,45 +74,51 @@ const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain",
 
 export default function BeritaPage() {
   const [activeCategory, setActiveCategory] = React.useState("Semua")
+  const [showAllCategories, setShowAllCategories] = React.useState(false)
+  const isMobile = useIsMobile()
 
   const filteredArticles = activeCategory === "Semua" 
     ? articles 
     : articles.filter(article => article.category === activeCategory)
 
+  const visibleCategories = isMobile && !showAllCategories 
+    ? categories.slice(0, 3) 
+    : categories
+
   return (
     <div className="pb-20 bg-white">
-      {/* Minimalist Header */}
-      <section className="bg-white pt-16 md:pt-24 pb-12 text-primary border-b border-muted">
+      {/* Minimalist Header - Tighter spacing */}
+      <section className="bg-white pt-8 md:pt-12 pb-6 text-primary">
         <motion.div 
           className="container mx-auto px-4"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <h1 className="text-3xl md:text-5xl font-extrabold text-left tracking-tight">Berita & update</h1>
-          <p className="text-left mt-4 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
+          <p className="text-left mt-3 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
           </p>
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 mt-8 md:mt-12">
-        {/* Minimalist Tabs - No Background */}
-        <div className="mb-12">
+      <section className="container mx-auto px-4 mt-4">
+        {/* Minimalist Tabs - Limited on mobile with expand button */}
+        <div className="mb-10 flex items-center gap-2">
           <Tabs 
             defaultValue="Semua" 
             value={activeCategory} 
             onValueChange={setActiveCategory}
-            className="w-full"
+            className="flex-1"
           >
             <div className="overflow-x-auto no-scrollbar pb-1">
-              <TabsList variant="line" className="w-full flex">
-                {categories.map((cat) => (
+              <TabsList variant="line" className="flex flex-nowrap w-full justify-start">
+                {visibleCategories.map((cat) => (
                   <TabsTrigger 
                     key={cat} 
                     value={cat} 
                     variant="line"
-                    className="flex-shrink-0 text-sm font-bold tracking-tight"
+                    className="flex-shrink-0 text-sm font-bold tracking-tight whitespace-nowrap"
                   >
                     {cat}
                   </TabsTrigger>
@@ -118,6 +126,21 @@ export default function BeritaPage() {
               </TabsList>
             </div>
           </Tabs>
+
+          {/* Show More Button */}
+          {categories.length > 3 && (
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className={cn(
+                "rounded-full shrink-0 border-muted hover:border-accent hover:text-accent transition-all",
+                showAllCategories && "rotate-180"
+              )}
+              onClick={() => setShowAllCategories(!showAllCategories)}
+            >
+              <ChevronDown className="h-4 w-4" />
+            </Button>
+          )}
         </div>
 
         <motion.div 
