@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Calendar, User, ArrowRight } from "lucide-react"
@@ -7,7 +8,8 @@ import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const articles = [
   {
@@ -66,90 +68,136 @@ const articles = [
   }
 ]
 
+const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain", "Event"]
+
 export default function BeritaPage() {
+  const [activeCategory, setActiveCategory] = React.useState("Semua")
+
+  const filteredArticles = activeCategory === "Semua" 
+    ? articles 
+    : articles.filter(article => article.category === activeCategory)
+
   return (
-    <div className="pb-20">
-      <section className="bg-primary py-24 text-white">
+    <div className="pb-20 bg-white">
+      <section className="bg-primary py-24 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.1)_0%,transparent_70%)]"></div>
         <motion.div 
-          className="container mx-auto px-4"
+          className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-center">Berita & Update</h1>
-          <p className="text-center mt-6 text-xl text-gray-300 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-center tracking-tight">Berita & Update</h1>
+          <p className="text-center mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
             Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
           </p>
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 -mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((article, i) => {
-            const img = PlaceHolderImages.find(i => i.id === article.imgId)
-            return (
-              <motion.div
-                key={article.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <Card className="overflow-hidden border-none shadow-lg group flex flex-col h-full bg-white">
-                  <CardHeader className="p-0 relative h-56">
-                    {img?.imageUrl && (
-                      <Image 
-                        src={img.imageUrl} 
-                        alt={article.title} 
-                        fill 
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    )}
-                    <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90">
-                      {article.category}
-                    </Badge>
-                  </CardHeader>
-                  <CardContent className="p-6 space-y-4 flex-1">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {article.date}</span>
-                      <span className="flex items-center gap-1"><User className="h-3 w-3" /> {article.author}</span>
-                    </div>
-                    <h3 className="text-xl font-bold leading-tight group-hover:text-accent transition-colors">
-                      {article.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3">
-                      {article.excerpt}
-                    </p>
-                  </CardContent>
-                  <CardFooter className="p-6 pt-0">
-                    <Link href={`/berita/${article.id}`} className="text-sm font-bold flex items-center text-accent">
-                      Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-            )
-          })}
+      <section className="container mx-auto px-4 -mt-8 relative z-20">
+        <div className="bg-white rounded-xl shadow-sm border p-4 mb-12">
+          <Tabs 
+            defaultValue="Semua" 
+            value={activeCategory} 
+            onValueChange={setActiveCategory}
+            className="w-full"
+          >
+            <div className="overflow-x-auto no-scrollbar pb-1">
+              <TabsList variant="line" className="w-full flex">
+                {categories.map((cat) => (
+                  <TabsTrigger 
+                    key={cat} 
+                    value={cat} 
+                    variant="line"
+                    className="flex-shrink-0 text-xs md:text-sm font-bold uppercase tracking-wider"
+                  >
+                    {cat}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+          </Tabs>
         </div>
-        
+
         <motion.div 
-          className="mt-16 flex justify-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          <div className="flex gap-2">
-            {[1, 2, 3].map(n => (
-              <button key={n} className={cn(
-                "w-10 h-10 rounded-md border text-sm font-medium transition-colors",
-                n === 1 ? "bg-accent text-white border-accent" : "bg-white hover:bg-muted"
-              )}>
-                {n}
-              </button>
-            ))}
-          </div>
+          <AnimatePresence mode="popLayout">
+            {filteredArticles.map((article, i) => {
+              const img = PlaceHolderImages.find(item => item.id === article.imgId)
+              return (
+                <motion.div
+                  key={article.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Card className="overflow-hidden border-none shadow-lg group flex flex-col h-full bg-white hover:shadow-xl transition-shadow duration-300">
+                    <CardHeader className="p-0 relative h-56">
+                      {img?.imageUrl && (
+                        <Image 
+                          src={img.imageUrl} 
+                          alt={article.title} 
+                          fill 
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      )}
+                      <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90 border-none px-3 py-1 font-bold text-[10px] uppercase">
+                        {article.category}
+                      </Badge>
+                    </CardHeader>
+                    <CardContent className="p-6 space-y-4 flex-1">
+                      <div className="flex items-center gap-4 text-[10px] md:text-xs font-semibold text-muted-foreground/70 uppercase tracking-widest">
+                        <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-accent" /> {article.date}</span>
+                        <span className="flex items-center gap-1.5"><User className="h-3 w-3 text-accent" /> {article.author}</span>
+                      </div>
+                      <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                        {article.excerpt}
+                      </p>
+                    </CardContent>
+                    <CardFooter className="p-6 pt-0">
+                      <Link href={`/berita/${article.id}`} className="text-xs md:text-sm font-bold flex items-center text-accent group/link">
+                        Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                      </Link>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
         </motion.div>
+        
+        {filteredArticles.length > 0 && (
+          <motion.div 
+            className="mt-16 flex justify-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex gap-2">
+              {[1, 2, 3].map(n => (
+                <button key={n} className={cn(
+                  "w-10 h-10 rounded-lg border text-xs font-bold transition-all",
+                  n === 1 ? "bg-accent text-white border-accent shadow-lg shadow-accent/20" : "bg-white hover:bg-muted text-muted-foreground"
+                )}>
+                  {n}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {filteredArticles.length === 0 && (
+          <div className="py-20 text-center">
+            <p className="text-muted-foreground">Tidak ada berita dalam kategori ini.</p>
+          </div>
+        )}
       </section>
     </div>
   )
