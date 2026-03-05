@@ -99,7 +99,7 @@ export default function TentangKamiPage() {
                 Bersama <span className="text-accent">Bisukma Group</span>
               </h1>
               <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
-                Yayasan Bisukma Bangun Bangsa (Bisukma Group) hadir sebagai partner strategis nasional untuk pemberdayaan masyarakat yang mandiri dan berdaya saing.
+                Yayasan Bisukma Bangun Bangsa hadir sebagai partner strategis nasional untuk pemberdayaan masyarakat yang mandiri dan berdaya saing.
               </p>
               <div className="flex gap-4 pt-4">
                 <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/5">
@@ -138,7 +138,7 @@ export default function TentangKamiPage() {
                     <strong>Awal Berdiri (2009):</strong> Bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digagas oleh Erickson Sianipar. Fokus awalnya adalah pada dua sektor vital: Pendidikan dan Pertanian.
                   </p>
                   <p>
-                    <strong>Lembaga Formal:</strong> Yayasan Bisukma Bangun Bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan SDM (Sumber Dasar Manusia) dan ekonomi kerakyatan.
+                    <strong>Lembaga Formal:</strong> Yayasan Bisukma Bangun Bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan SDM (Sumber Daya Manusia) dan ekonomi kerakyatan.
                   </p>
                   <p>
                     <strong>Rekam Jejak:</strong> Hingga saat ini, kami telah melatih lebih dari 6.000 masyarakat, termasuk pelatihan teknologi informasi untuk petani agar bisa mengakses aplikasi pertanian dan peternakan modern.
@@ -188,35 +188,6 @@ export default function TentangKamiPage() {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="visi-misi" className="border rounded-xl px-6 bg-white shadow-none">
-                <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
-                  Visi, Misi & Filosofi Pergerakan
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed space-y-6 pb-6">
-                  <div className="bg-accent/5 p-6 rounded-xl border border-accent/10">
-                    <p className="text-xs font-bold text-accent uppercase tracking-wider mb-2">Visi</p>
-                    <p className="text-lg font-bold text-primary italic">"Membangun bangsa melalui pemberdayaan masyarakat yang mandiri, cerdas (bisuk), dan berdaya saing tinggi."</p>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-xs font-bold text-accent uppercase tracking-wider">Misi Utama</p>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3 text-sm">
-                        <div className="h-5 w-5 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 mt-0.5">1</div>
-                        <span>Meningkatkan kualitas SDM melalui pelatihan vokasi dan teknologi.</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm">
-                        <div className="h-5 w-5 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 mt-0.5">2</div>
-                        <span>Mendukung ketahanan pangan melalui pendampingan sektor pertanian dan peternakan.</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm">
-                        <div className="h-5 w-5 rounded-full bg-accent/20 text-accent flex items-center justify-center shrink-0 mt-0.5">3</div>
-                        <span>Menjamin pemenuhan gizi generasi muda melalui program pangan yang berkelanjutan.</span>
-                      </li>
-                    </ul>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
               <AccordionItem value="pilar" className="border rounded-xl px-6 bg-white shadow-none">
                 <AccordionTrigger className="hover:no-underline font-bold text-lg py-6">
                   Pilar Program & Fokus Utama
@@ -261,7 +232,7 @@ export default function TentangKamiPage() {
           >
             <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Struktur Organisasi</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Tim kepemimpinan kami membawa pengalaman bertahun-tahun dalam industri teknologi untuk membimbing Bisukma Digital.
+              Tim kepemimpinan kami membawa pengalaman bertahun-tahun untuk membimbing Bisukma Group.
             </p>
           </motion.div>
 

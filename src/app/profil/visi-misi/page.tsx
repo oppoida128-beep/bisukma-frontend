@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -33,7 +32,7 @@ export default function VisiMisiPage() {
             Visi & <span className="text-accent">Misi Kami</span>
           </h1>
           <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-            Menjadi katalis utama pemberdayaan masyarakat untuk membangun bangsa yang mandiri dan berdaya saing tinggi.
+            Membangun bangsa melalui pemberdayaan masyarakat yang mandiri, cerdas, dan berdaya saing tinggi.
           </p>
         </motion.div>
       </section>
@@ -47,21 +46,21 @@ export default function VisiMisiPage() {
               {...fadeIn}
             >
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-xs font-bold uppercase tracking-wider">
-                Visi Kami
+                Visi Organisasi
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-primary leading-tight">
-                Membangun bangsa melalui pemberdayaan masyarakat yang mandiri, cerdas, dan kompetitif.
+                Membangun bangsa melalui pemberdayaan masyarakat yang mandiri, cerdas (bisuk), dan berdaya saing tinggi.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Visi "Bisukma" (Bisuk - Cerdas, Ma - Berdaya) adalah filosofi kami untuk menciptakan generasi Indonesia yang tidak hanya berilmu, tetapi juga memiliki kemandirian ekonomi dan sosial.
+                Visi ini menjadi kompas bagi Bisukma Group untuk menciptakan ekosistem sosial dan ekonomi yang berkelanjutan, di mana setiap individu memiliki kesempatan untuk tumbuh dan berkontribusi secara cerdas bagi kemajuan nasional.
               </p>
               <div className="flex items-center gap-6 pt-4">
                 <div className="bg-accent p-4 rounded-2xl text-white shadow-lg shadow-accent/20">
                   <Rocket className="h-7 w-7" />
                 </div>
                 <div>
-                  <p className="font-bold text-xl text-primary">Impact Driven</p>
-                  <p className="text-sm text-muted-foreground">Berorientasi pada hasil nyata di lapangan.</p>
+                  <p className="font-bold text-xl text-primary">Mandiri & Cerdas</p>
+                  <p className="text-sm text-muted-foreground">Filosofi Bisuk (Cerdas) dan Ma (Berdaya).</p>
                 </div>
               </div>
             </motion.div>
@@ -87,10 +86,10 @@ export default function VisiMisiPage() {
           <div className="space-y-16">
             <div className="text-center space-y-4 max-w-2xl mx-auto">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 text-accent text-xs font-bold uppercase tracking-wider">
-                Misi Utama
+                Misi Strategis
               </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Tiga Pilar Pergerakan Bisukma</h2>
-              <p className="text-muted-foreground italic">"Langkah strategis kami untuk mewujudkan transformasi sosial dan ekonomi."</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Tiga Pilar Utama Pergerakan</h2>
+              <p className="text-muted-foreground italic">"Langkah konkret kami dalam mewujudkan visi kemandirian bangsa."</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -98,17 +97,17 @@ export default function VisiMisiPage() {
                 {
                   icon: <Briefcase className="h-10 w-10" />,
                   title: "Kualitas SDM",
-                  desc: "Meningkatkan kualitas SDM melalui pelatihan vokasi yang terintegrasi dengan kebutuhan industri dan teknologi masa kini."
+                  desc: "Meningkatkan kualitas SDM melalui pelatihan vokasi dan teknologi untuk mencetak tenaga kerja yang kompetitif di era digital."
                 },
                 {
                   icon: <Target className="h-10 w-10" />,
                   title: "Ketahanan Pangan",
-                  desc: "Mendukung ketahanan pangan nasional melalui pendampingan intensif pada sektor pertanian dan peternakan modern."
+                  desc: "Mendukung ketahanan pangan melalui pendampingan intensif pada sektor pertanian dan peternakan rakyat secara modern."
                 },
                 {
                   icon: <Zap className="h-10 w-10" />,
                   title: "Pemenuhan Gizi",
-                  desc: "Menjamin pemenuhan gizi generasi muda melalui pengelolaan pangan yang berkelanjutan dan program gizi terpadu."
+                  desc: "Menjamin pemenuhan gizi generasi muda melalui program pangan yang berkelanjutan dan pengelolaan dapur umum yang higienis."
                 }
               ].map((misi, i) => (
                 <motion.div
