@@ -78,7 +78,7 @@ export function SiteHeader() {
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
-      isScrolled ? "h-14 bg-white/95 backdrop-blur-md border-b shadow-sm" : "h-16 bg-white border-transparent"
+      isScrolled ? "h-14 bg-white/95 backdrop-blur-md border-b shadow-sm" : "h-14 bg-white border-transparent"
     )}>
       <div className="container mx-auto flex h-full items-center px-4">
         {/* Logo */}

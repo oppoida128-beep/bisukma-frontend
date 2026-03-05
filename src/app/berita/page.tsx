@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, User, ArrowRight, ChevronDown } from "lucide-react"
+import { Calendar, User, ArrowRight, Plus, X } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -81,66 +81,102 @@ export default function BeritaPage() {
     ? articles 
     : articles.filter(article => article.category === activeCategory)
 
+  // On mobile, if not showing all, just show the first few
   const visibleCategories = isMobile && !showAllCategories 
     ? categories.slice(0, 3) 
     : categories
 
   return (
     <div className="pb-20 bg-white">
-      {/* Minimalist Header - Tighter spacing */}
-      <section className="bg-white pt-8 md:pt-12 pb-6 text-primary">
+      {/* Minimalist Header - Even tighter spacing */}
+      <section className="bg-white pt-6 md:pt-10 pb-4 text-primary border-none">
         <motion.div 
           className="container mx-auto px-4"
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
         >
           <h1 className="text-3xl md:text-5xl font-extrabold text-left tracking-tight">Berita & update</h1>
-          <p className="text-left mt-3 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
+          <p className="text-left mt-2 text-sm md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
           </p>
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 mt-4">
-        {/* Minimalist Tabs - Limited on mobile with expand button */}
-        <div className="mb-10 flex items-center gap-2">
-          <Tabs 
-            defaultValue="Semua" 
-            value={activeCategory} 
-            onValueChange={setActiveCategory}
-            className="flex-1"
-          >
-            <div className="overflow-x-auto no-scrollbar pb-1">
-              <TabsList variant="line" className="flex flex-nowrap w-full justify-start">
-                {visibleCategories.map((cat) => (
-                  <TabsTrigger 
-                    key={cat} 
-                    value={cat} 
-                    variant="line"
-                    className="flex-shrink-0 text-sm font-bold tracking-tight whitespace-nowrap"
+      <section className="container mx-auto px-4 mt-2">
+        {/* Category Navigation Area */}
+        <div className="mb-8 relative">
+          <div className="flex items-center gap-3">
+            <div className="flex-1 overflow-hidden">
+              <Tabs 
+                defaultValue="Semua" 
+                value={activeCategory} 
+                onValueChange={setActiveCategory}
+                className="w-full"
+              >
+                <div className={cn(
+                  "overflow-x-auto no-scrollbar",
+                  showAllCategories && isMobile ? "hidden" : "block"
+                )}>
+                  <TabsList variant="line" className="flex flex-nowrap w-full justify-start border-none">
+                    {visibleCategories.map((cat) => (
+                      <TabsTrigger 
+                        key={cat} 
+                        value={cat} 
+                        variant="line"
+                        className="flex-shrink-0 text-sm font-bold tracking-tight whitespace-nowrap"
+                      >
+                        {cat}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
+              </Tabs>
+              
+              {/* Vertical Stack for mobile when showAll is true */}
+              <AnimatePresence>
+                {showAllCategories && isMobile && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="flex flex-wrap gap-2 py-4"
                   >
-                    {cat}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+                    {categories.map((cat) => (
+                      <Button
+                        key={cat}
+                        variant={activeCategory === cat ? "default" : "outline"}
+                        size="sm"
+                        className={cn(
+                          "rounded-full text-xs font-bold transition-all",
+                          activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/20 text-muted-foreground"
+                        )}
+                        onClick={() => {
+                          setActiveCategory(cat)
+                          setShowAllCategories(false)
+                        }}
+                      >
+                        {cat}
+                      </Button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-          </Tabs>
 
-          {/* Show More Button */}
-          {categories.length > 3 && (
+            {/* Plus / Expand Button */}
             <Button 
               variant="outline" 
               size="icon" 
               className={cn(
-                "rounded-full shrink-0 border-muted hover:border-accent hover:text-accent transition-all",
-                showAllCategories && "rotate-180"
+                "rounded-full shrink-0 border-muted-foreground/20 hover:border-accent hover:text-accent transition-all h-8 w-8",
+                showAllCategories && "rotate-45"
               )}
               onClick={() => setShowAllCategories(!showAllCategories)}
             >
-              <ChevronDown className="h-4 w-4" />
+              {showAllCategories ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
             </Button>
-          )}
+          </div>
         </div>
 
         <motion.div 
@@ -154,12 +190,12 @@ export default function BeritaPage() {
                 <motion.div
                   key={article.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="overflow-hidden border border-muted shadow-sm group flex flex-col h-full bg-white hover:shadow-md transition-shadow duration-300">
+                  <Card className="overflow-hidden border border-muted shadow-sm group flex flex-col h-full bg-white hover:shadow-md transition-shadow duration-300 rounded-xl">
                     <CardHeader className="p-0 relative h-56">
                       {img?.imageUrl && (
                         <Image 
@@ -169,7 +205,7 @@ export default function BeritaPage() {
                           className="object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                       )}
-                      <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90 border-none px-3 py-1 font-bold text-[10px]">
+                      <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90 border-none px-3 py-1 font-bold text-[10px] rounded-full">
                         {article.category}
                       </Badge>
                     </CardHeader>
@@ -208,7 +244,7 @@ export default function BeritaPage() {
               {[1, 2, 3].map(n => (
                 <button key={n} className={cn(
                   "w-10 h-10 rounded-lg border text-xs font-bold transition-all",
-                  n === 1 ? "bg-accent text-white border-accent shadow-lg shadow-accent/20" : "bg-white hover:bg-muted text-muted-foreground"
+                  n === 1 ? "bg-accent text-white border-accent shadow-lg shadow-accent/20" : "bg-white hover:bg-muted text-muted-foreground border-muted"
                 )}>
                   {n}
                 </button>
@@ -219,7 +255,7 @@ export default function BeritaPage() {
 
         {filteredArticles.length === 0 && (
           <div className="py-20 text-center">
-            <p className="text-muted-foreground">Tidak ada berita dalam kategori ini.</p>
+            <p className="text-muted-foreground font-medium">Tidak ada berita dalam kategori ini.</p>
           </div>
         )}
       </section>
