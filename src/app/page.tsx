@@ -94,7 +94,7 @@ export default function Home() {
   ]
 
   const fadeIn = {
-    initial: { opacity: 0, y: 40 },
+    initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
     transition: { duration: 0.6 }
@@ -111,33 +111,33 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-primary mb-6">
+          <h1 className="scroll-m-20 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary mb-6 leading-tight">
             Membangun standar baru <br className="hidden md:block" />
             <span className="text-accent">dunia digital.</span>
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-7">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4">
             Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
           </p>
           
-          <div className="flex flex-wrap justify-center items-center gap-6">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto">
               Konsultasi gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <p className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all border-b border-transparent hover:border-muted-foreground pb-1">
+            <Link href="/layanan" className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all border-b border-transparent hover:border-muted-foreground pb-1">
               Lihat katalog produk
-            </p>
+            </Link>
           </div>
         </motion.div>
 
         <motion.div 
-          className="container mx-auto px-4 mt-16 relative"
+          className="container mx-auto px-4 mt-12 md:mt-16 relative"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-[1.5rem] overflow-hidden border bg-muted">
+          <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm">
             {heroImg?.imageUrl && (
               <Image 
                 src={heroImg.imageUrl} 
@@ -151,17 +151,17 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
           <motion.div 
-            className="absolute -bottom-8 -right-4 md:right-32 bg-white p-6 rounded-xl shadow-xl hidden sm:block border max-w-[240px]"
+            className="absolute -bottom-6 -right-2 md:-bottom-8 md:right-32 bg-white p-4 md:p-6 rounded-xl shadow-xl hidden sm:block border max-w-[200px] md:max-w-[240px]"
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="bg-accent/10 p-2 rounded-lg text-accent">
-                <Users className="h-5 w-5" />
+            <div className="flex items-center gap-2 md:gap-3 mb-2">
+              <div className="bg-accent/10 p-1.5 md:p-2 rounded-lg text-accent">
+                <Users className="h-4 w-4 md:h-5 md:h-5" />
               </div>
-              <p className="text-sm font-semibold leading-none">Tim ahli kami</p>
+              <p className="text-xs md:text-sm font-semibold leading-none">Tim ahli kami</p>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed">
               50+ Insinyur berpengalaman siap mendukung pertumbuhan bisnis Anda secara eksklusif.
             </p>
           </motion.div>
@@ -170,29 +170,27 @@ export default function Home() {
 
       {/* --- NEWS SECTION --- */}
       <motion.section 
-        className="py-24 border-t bg-white"
+        className="py-16 md:py-24 border-t bg-white"
         {...fadeIn}
       >
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div className="space-y-2">
-              <p className="text-sm font-semibold text-accent tracking-wider leading-7">Berita & Wawasan</p>
-              <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Eksplorasi Tren Digital</h2>
-            </div>
+          <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
+            <p className="text-sm font-semibold text-accent tracking-wider">Berita & Wawasan</p>
+            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Eksplorasi Tren Digital</h2>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
             <div className="lg:col-span-8 space-y-6">
               <Carousel 
                 setApi={setApi} 
                 opts={{ loop: true }}
                 plugins={[Autoplay({ delay: 5000 })]}
-                className="w-full relative overflow-hidden rounded-2xl"
+                className="w-full relative overflow-hidden rounded-xl md:rounded-2xl"
               >
                 <CarouselContent>
                   {popularNews.map((post, i) => (
                     <CarouselItem key={i}>
-                      <Link href="/berita" className="group relative block aspect-[16/9] w-full overflow-hidden shadow-sm">
+                      <Link href="/berita" className="group relative block aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden shadow-sm">
                         {post.img && (
                           <Image 
                             src={post.img} 
@@ -203,15 +201,15 @@ export default function Home() {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 p-12 md:p-16 md:pl-20 pb-16 md:pb-20 space-y-4 max-w-2xl">
+                        <div className="absolute bottom-0 left-0 p-6 md:p-12 md:pl-16 pb-12 md:pb-16 space-y-3 md:space-y-4 max-w-2xl">
                           <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold uppercase">{post.category}</Badge>
-                          <h3 className="text-2xl md:text-4xl font-extrabold text-white leading-tight">
+                          <h3 className="text-xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight">
                             {post.title}
                           </h3>
-                          <p className="text-white/80 text-sm md:text-base line-clamp-2 leading-relaxed">
+                          <p className="text-white/80 text-xs md:text-sm line-clamp-2 leading-relaxed hidden sm:block">
                             {post.excerpt}
                           </p>
-                          <div className="pt-4 flex items-center gap-2 text-white font-bold text-sm">
+                          <div className="pt-2 flex items-center gap-2 text-white font-bold text-xs md:text-sm">
                             Baca Artikel <ArrowUpRight className="h-4 w-4" />
                           </div>
                         </div>
@@ -220,17 +218,17 @@ export default function Home() {
                   ))}
                 </CarouselContent>
                 
-                <CarouselPrevious className="left-4 bg-black/20 border-none text-white hover:bg-black/40 hover:text-white" variant="ghost" />
-                <CarouselNext className="right-4 bg-black/20 border-none text-white hover:bg-black/40 hover:text-white" variant="ghost" />
+                <CarouselPrevious className="left-2 bg-black/20 border-none text-white hover:bg-black/40 hover:text-white h-8 w-8" variant="ghost" />
+                <CarouselNext className="right-2 bg-black/20 border-none text-white hover:bg-black/40 hover:text-white h-8 w-8" variant="ghost" />
 
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-1.5 md:gap-2">
                   {Array.from({ length: count }).map((_, i) => (
                     <button
                       key={i}
                       onClick={() => api?.scrollTo(i)}
                       className={cn(
-                        "h-1.5 rounded-full transition-all duration-300",
-                        current === i ? "w-8 bg-accent" : "w-1.5 bg-white/40 hover:bg-white/60"
+                        "h-1 md:h-1.5 rounded-full transition-all duration-300",
+                        current === i ? "w-6 md:w-8 bg-accent" : "w-1 md:w-1.5 bg-white/40 hover:bg-white/60"
                       )}
                       aria-label={`Go to slide ${i + 1}`}
                     />
@@ -239,12 +237,12 @@ export default function Home() {
               </Carousel>
             </div>
 
-            <div className="lg:col-span-4 space-y-8">
+            <div className="lg:col-span-4 space-y-6 md:space-y-8">
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terbaru</Badge>
               </div>
               
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5 md:gap-6">
                 {recentlyAddedNews.map((post, i) => (
                   <motion.div
                     key={i}
@@ -253,8 +251,8 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <Link href="/berita" className="group flex gap-4 items-start">
-                      <div className="relative w-24 h-24 shrink-0 rounded-xl overflow-hidden bg-muted border">
+                    <Link href="/berita" className="group flex gap-3 md:gap-4 items-start">
+                      <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-lg md:rounded-xl overflow-hidden bg-muted border">
                         {post.img && (
                           <Image 
                             src={post.img} 
@@ -264,15 +262,15 @@ export default function Home() {
                           />
                         )}
                       </div>
-                      <div className="flex flex-col gap-1 flex-1">
-                        <div className="flex items-center gap-3">
-                          <span className="text-accent font-semibold text-xs leading-none">{post.category}</span>
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
+                      <div className="flex flex-col gap-0.5 md:gap-1 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-accent font-semibold text-[10px] md:text-xs">{post.category}</span>
+                          <span className="flex items-center gap-1 text-[10px] text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
                         </div>
-                        <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
+                        <h3 className="text-sm md:text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
                           {post.title}
                         </h3>
-                        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed opacity-90">
+                        <p className="text-[10px] text-muted-foreground line-clamp-1 opacity-90 leading-relaxed">
                           {post.excerpt}
                         </p>
                       </div>
@@ -282,7 +280,7 @@ export default function Home() {
               </div>
 
               <div className="pt-2">
-                <Button variant="link" className="p-0 h-auto text-accent font-bold group/more" asChild>
+                <Button variant="link" className="p-0 h-auto text-accent font-bold group/more text-sm" asChild>
                   <Link href="/berita">
                     Lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
                   </Link>
@@ -295,33 +293,33 @@ export default function Home() {
 
       {/* --- CORE SERVICES --- */}
       <motion.section 
-        className="py-24 bg-accent text-white"
+        className="py-16 md:py-24 bg-accent text-white"
         {...fadeIn}
       >
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight">Layanan kami</h2>
-            <p className="text-xl text-white/70 leading-7">
+          <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16 space-y-3 md:space-y-4">
+            <h2 className="scroll-m-20 text-2xl md:text-3xl font-semibold tracking-tight">Layanan kami</h2>
+            <p className="text-base md:text-lg text-white/70 leading-relaxed">
               Ekosistem layanan lengkap untuk mendukung setiap tahap transformasi digital Anda.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               { 
-                icon: <Layout className="h-8 w-8" />, 
+                icon: <Layout className="h-6 w-6 md:h-8 md:w-8" />, 
                 title: "App development", 
                 desc: "Pengembangan aplikasi web dan mobile dengan performa tinggi menggunakan stack modern.",
                 img: service1Img?.imageUrl 
               },
               { 
-                icon: <Layers className="h-8 w-8" />, 
+                icon: <Layers className="h-6 w-6 md:h-8 md:w-8" />, 
                 title: "Cloud migration", 
                 desc: "Transisi aman ke infrastruktur cloud untuk skalabilitas tak terbatas dan efisiensi biaya.",
                 img: service2Img?.imageUrl 
               },
               { 
-                icon: <Monitor className="h-8 w-8" />, 
+                icon: <Monitor className="h-6 w-6 md:h-8 md:w-8" />, 
                 title: "Consulting", 
                 desc: "Strategi digital berbasis data untuk membantu Anda menavigasi pasar yang kompetitif.",
                 img: service3Img?.imageUrl 
@@ -333,22 +331,25 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
+                className={cn(i === 2 && "sm:col-span-2 lg:col-span-1")}
               >
-                <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-2xl shadow-none">
-                  <CardContent className="p-0">
-                    <div className="relative h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
+                <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-xl md:rounded-2xl shadow-none h-full flex flex-col">
+                  <CardContent className="p-0 flex flex-col h-full">
+                    <div className="relative h-32 md:h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
                       {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="software development" />}
                       <div className="absolute inset-0 bg-accent/40"></div>
                     </div>
-                    <div className="p-8 space-y-3">
-                      <div className="text-white mb-2">{service.icon}</div>
-                      <p className="text-xl font-bold">{service.title}</p>
-                      <p className="text-sm text-white/70 leading-7">
+                    <div className="p-6 md:p-8 space-y-3 md:space-y-4 flex-1 flex flex-col">
+                      <div className="text-white mb-1 md:mb-2">{service.icon}</div>
+                      <p className="text-lg md:text-xl font-bold">{service.title}</p>
+                      <p className="text-xs md:text-sm text-white/70 leading-relaxed flex-1">
                         {service.desc}
                       </p>
-                      <Link href="/layanan" className="mt-4 inline-flex items-center gap-2 text-white font-bold text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all leading-7 group/btn">
-                        Detail layanan <ArrowUpRight className="h-4 w-4" />
-                      </Link>
+                      <div className="pt-4">
+                        <Link href="/layanan" className="inline-flex items-center gap-2 text-white font-bold text-xs md:text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all group/btn">
+                          Detail layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
+                        </Link>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -364,7 +365,7 @@ export default function Home() {
         {...fadeIn}
       >
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-muted/30 rounded-[2rem] p-6 md:p-10 overflow-hidden max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-muted/30 rounded-2xl md:rounded-[2rem] p-6 md:p-10 overflow-hidden max-w-6xl mx-auto">
             <motion.div 
               className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border bg-black/5 w-full shadow-sm"
               initial={{ opacity: 0, x: -30 }}
@@ -387,47 +388,47 @@ export default function Home() {
             </motion.div>
 
             <motion.div 
-              className="space-y-4 max-w-lg"
+              className="space-y-4 md:space-y-6 max-w-lg"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <div className="space-y-1">
-                <p className="text-[10px] font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
-                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl">Katalis Inovasi Digital Anda</h2>
+              <div className="space-y-1 md:space-y-2">
+                <p className="text-[10px] md:text-xs font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
+                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl">Katalis Inovasi Digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm">
                 Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
-              <p className="text-muted-foreground leading-relaxed text-xs">
+              <p className="text-muted-foreground leading-relaxed text-[11px] md:text-xs hidden sm:block">
                 Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
               </p>
               
-              <div className="flex w-full flex-col gap-2 pt-1">
-                <Item asChild variant="default" className="p-2">
+              <div className="flex w-full flex-col gap-3 pt-2">
+                <Item asChild variant="default" className="p-3">
                   <Link href="/profil">
                     <ItemContent>
-                      <ItemTitle className="text-xs">Kunjungi dokumentasi profil</ItemTitle>
-                      <ItemDescription className="text-[10px]">
+                      <ItemTitle className="text-xs md:text-sm">Kunjungi dokumentasi profil</ItemTitle>
+                      <ItemDescription className="text-[10px] md:text-xs">
                         Pelajari bagaimana kami memulai dan nilai-nilai inti kami.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
-                      <ChevronRight className="size-3" />
+                      <ChevronRight className="size-4" />
                     </ItemActions>
                   </Link>
                 </Item>
-                <Item variant="outline" asChild className="p-2">
+                <Item variant="outline" asChild className="p-3">
                   <a href="/layanan" target="_blank" rel="noopener noreferrer">
                     <ItemContent>
-                      <ItemTitle className="text-xs">Sumber daya eksternal</ItemTitle>
-                      <ItemDescription className="text-[10px]">
+                      <ItemTitle className="text-xs md:text-sm">Sumber daya eksternal</ItemTitle>
+                      <ItemDescription className="text-[10px] md:text-xs">
                         Lihat katalog layanan lengkap kami di tab baru.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
-                      <ExternalLink className="size-3" />
+                      <ExternalLink className="size-4" />
                     </ItemActions>
                   </a>
                 </Item>
