@@ -48,6 +48,9 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Utility classes to suppress background colors and enable text-only hover
+  const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none"
+
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full border-b transition-all duration-300 bg-white",
@@ -67,13 +70,13 @@ export function SiteHeader() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent hover:text-accent transition-colors", pathname === "/" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/" && "text-accent")}>
                   <Link href="/">Beranda</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn("bg-transparent hover:bg-transparent hover:text-accent transition-colors", pathname === "/profil" && "text-accent")}>
+                <NavigationMenuTrigger className={cn(navItemClasses, pathname === "/profil" && "text-accent")}>
                   Profil Bisukma
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -92,25 +95,25 @@ export function SiteHeader() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent hover:text-accent transition-colors", pathname === "/berita" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/berita" && "text-accent")}>
                   <Link href="/berita">Berita</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent hover:text-accent transition-colors", pathname === "/layanan" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/layanan" && "text-accent")}>
                   <Link href="/layanan">Layanan</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent hover:text-accent transition-colors", pathname === "/mitra" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/mitra" && "text-accent")}>
                   <Link href="/mitra">Mitra</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent hover:text-accent transition-colors", pathname === "/gallery" && "text-accent")}>
+                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/gallery" && "text-accent")}>
                   <Link href="/gallery">Gallery</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
