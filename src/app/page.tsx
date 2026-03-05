@@ -55,7 +55,7 @@ export default function Home() {
       excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda."
     },
     {
-      title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+      title: "Masa Depan AI dalam Transformation Bisnis 2024",
       category: "Teknologi",
       img: news1Img?.imageUrl,
       excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
@@ -154,9 +154,6 @@ export default function Home() {
               <p className="text-sm font-semibold text-accent tracking-wider leading-7">Berita & Wawasan</p>
               <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Eksplorasi Tren Digital</h2>
             </div>
-            <Link href="/berita" className="text-sm font-bold flex items-center text-accent hover:underline leading-7">
-              Lihat Semua Berita <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-12 items-start">
