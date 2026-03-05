@@ -21,8 +21,8 @@ export default function GalleryPage() {
     <div className="pb-20">
       <section className="bg-primary py-24 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold">Gallery Bisukma</h1>
-          <p className="mt-6 text-xl text-gray-300 max-w-2xl mx-auto">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Gallery Bisukma</h1>
+          <p className="mt-6 text-xl text-primary-foreground/60 max-w-2xl mx-auto leading-7">
             Melihat lebih dekat aktivitas, proyek, dan lingkungan kerja kami melalui lensa visual.
           </p>
         </div>
@@ -34,8 +34,8 @@ export default function GalleryPage() {
             <button 
               key={i} 
               className={cn(
-                "px-6 py-2 rounded-full text-sm font-medium transition-all",
-                cat === "Semua" ? "bg-accent text-white" : "bg-white text-muted-foreground hover:bg-muted shadow-sm"
+                "px-6 py-2 rounded-full text-sm font-medium transition-all shadow-none",
+                cat === "Semua" ? "bg-accent text-white" : "bg-white text-muted-foreground hover:bg-muted border"
               )}
             >
               {cat}
@@ -47,7 +47,7 @@ export default function GalleryPage() {
           {galleryItems.map((item, i) => {
             const img = PlaceHolderImages.find(im => im.id === item.id)
             return (
-              <Card key={i} className="group relative overflow-hidden rounded-xl border-none h-[300px] cursor-pointer shadow-md">
+              <Card key={i} className="group relative overflow-hidden rounded-xl border-none h-[300px] cursor-pointer shadow-none bg-muted">
                 {img?.imageUrl && (
                   <Image 
                     src={img.imageUrl} 
@@ -61,7 +61,7 @@ export default function GalleryPage() {
                     <ZoomIn className="h-6 w-6" />
                   </div>
                   <div className="text-center">
-                    <span className="text-xs uppercase tracking-widest font-bold opacity-80">{item.category}</span>
+                    <p className="text-xs tracking-wide font-medium opacity-80">{item.category}</p>
                     <h3 className="text-lg font-bold">{img?.description}</h3>
                   </div>
                 </div>
