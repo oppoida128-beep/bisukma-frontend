@@ -196,19 +196,19 @@ export default function TentangKamiPage() {
                 <AccordionContent className="pb-8">
                   <div className="grid sm:grid-cols-2 gap-8 pt-4">
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-accent uppercase tracking-widest">Nama Resmi</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Nama Resmi</p>
                       <p className="text-base font-semibold text-primary">Yayasan Bisukma Bangun Bangsa</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-accent uppercase tracking-widest">Founder / Pendiri</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Founder / Pendiri</p>
                       <p className="text-base font-semibold text-primary">Erickson Sianipar</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-accent uppercase tracking-widest">Headquarter</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Headquarter</p>
                       <p className="text-base font-semibold text-primary">Jl. HM Joni No. 50 L, Medan, Sumut</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10px] font-bold text-accent uppercase tracking-widest">Coverage</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Coverage</p>
                       <p className="text-base font-semibold text-primary">Sumatera Utara (Taput, Toba, Medan)</p>
                     </div>
                   </div>
