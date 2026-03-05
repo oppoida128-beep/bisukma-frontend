@@ -165,11 +165,11 @@ export default function Home() {
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terpopuler</Badge>
               </div>
               
-              <Carousel setApi={setApi} className="w-full">
+              <Carousel setApi={setApi} className="w-full relative overflow-hidden rounded-2xl">
                 <CarouselContent>
                   {popularNews.map((post, i) => (
                     <CarouselItem key={i}>
-                      <Link href="/berita" className="group relative block aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-sm">
+                      <Link href="/berita" className="group relative block aspect-[16/9] w-full overflow-hidden shadow-sm">
                         {post.img && (
                           <Image 
                             src={post.img} 
@@ -180,7 +180,7 @@ export default function Home() {
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 p-12 md:p-16 md:pl-20 space-y-4 max-w-2xl">
+                        <div className="absolute bottom-0 left-0 p-12 md:p-16 md:pl-20 pb-16 md:pb-20 space-y-4 max-w-2xl">
                           <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold uppercase">{post.category}</Badge>
                           <h3 className="text-2xl md:text-4xl font-extrabold text-white leading-tight">
                             {post.title}
@@ -198,22 +198,22 @@ export default function Home() {
                 </CarouselContent>
                 <CarouselPrevious className="left-4" />
                 <CarouselNext className="right-4" />
+
+                {/* Pagination Pills - Now Inside Carousel */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
+                  {Array.from({ length: count }).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => api?.scrollTo(i)}
+                      className={cn(
+                        "h-1.5 rounded-full transition-all duration-300",
+                        current === i ? "w-8 bg-accent" : "w-1.5 bg-white/40 hover:bg-white/60"
+                      )}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
               </Carousel>
-              
-              {/* Pagination Pills */}
-              <div className="flex justify-center gap-2 py-2">
-                {Array.from({ length: count }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => api?.scrollTo(i)}
-                    className={cn(
-                      "h-1.5 rounded-full transition-all duration-300",
-                      current === i ? "w-8 bg-accent" : "w-1.5 bg-muted hover:bg-muted-foreground/30"
-                    )}
-                    aria-label={`Go to slide ${i + 1}`}
-                  />
-                ))}
-              </div>
             </div>
 
             {/* Right: Recently Added (List with Photos) */}
