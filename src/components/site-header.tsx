@@ -71,18 +71,18 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none"
+  const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none px-3"
 
   return (
     <header className={cn(
       "sticky top-0 z-50 w-full border-b transition-all duration-300 bg-white",
       isScrolled ? "shadow-sm border-b" : "shadow-none border-transparent"
     )}>
-      <div className="container mx-auto flex h-16 items-center px-4">
+      <div className="container mx-auto flex h-14 items-center px-4">
         {/* Logo */}
         <div className="flex w-1/4 shrink-0">
-          <Link href="/" className="flex items-center gap-2 font-headline text-xl font-bold text-primary">
-            <LayoutGrid className="h-6 w-6 text-accent" />
+          <Link href="/" className="flex items-center gap-2 font-headline text-lg font-bold text-primary">
+            <LayoutGrid className="h-5 w-5 text-accent" />
             <span>Bisukma<span className="text-accent">Digital</span></span>
           </Link>
         </div>
@@ -90,7 +90,7 @@ export function SiteHeader() {
         {/* Desktop Nav - Center */}
         <nav className="hidden md:flex flex-1 items-center justify-center">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="gap-1">
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/" && "text-accent")}>
                   <Link href="/">Beranda</Link>
@@ -102,7 +102,7 @@ export function SiteHeader() {
                   Profil Bisukma
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                  <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
                     {profilItems.map((item) => (
                       <ListItem
                         key={item.title}
@@ -121,7 +121,7 @@ export function SiteHeader() {
                   Berita
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                  <ul className="grid w-[400px] gap-2 p-3 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
                     {beritaItems.map((item) => (
                       <ListItem
                         key={item.title}
@@ -133,7 +133,7 @@ export function SiteHeader() {
                     ))}
                     <li className="md:col-span-2 pt-2 border-t">
                       <NavigationMenuLink asChild>
-                        <Link href="/berita" className="flex items-center justify-center p-2 text-xs font-medium text-accent hover:underline">
+                        <Link href="/berita" className="flex items-center justify-center p-1.5 text-xs font-medium text-accent hover:underline">
                           Lihat Semua Berita
                         </Link>
                       </NavigationMenuLink>
@@ -166,7 +166,7 @@ export function SiteHeader() {
         {/* Action Button */}
         <div className="flex w-1/4 justify-end shrink-0">
           <div className="hidden md:block">
-            <Button variant="default" className="bg-accent hover:bg-accent/90 shadow-none">
+            <Button variant="default" size="sm" className="bg-accent hover:bg-accent/90 shadow-none h-8 px-4 text-xs">
               Hubungi Kami
             </Button>
           </div>
@@ -174,12 +174,12 @@ export function SiteHeader() {
           {/* Mobile Nav */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
-              <nav className="flex flex-col gap-6 pt-10">
+              <nav className="flex flex-col gap-4 pt-10">
                 {[
                   { name: "Beranda", href: "/" },
                   { name: "Profil Bisukma", href: "/profil" },
@@ -193,7 +193,7 @@ export function SiteHeader() {
                     href={item.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "text-lg font-medium transition-colors hover:text-accent leading-7",
+                      "text-base font-medium transition-colors hover:text-accent leading-6",
                       pathname === item.href ? "text-accent" : "text-muted-foreground"
                     )}
                   >
@@ -224,13 +224,13 @@ function ListItem({
         <Link
           href={href}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted/50 hover:text-accent",
+            "block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-muted/50 hover:text-accent",
             props.className
           )}
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
             {children}
           </p>
         </Link>
