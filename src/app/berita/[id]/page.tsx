@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { motion } from "framer-motion"
+import { MorphButton } from "@/components/ui/morph-button"
 
 // Data dummy yang lebih terstruktur untuk mensimulasikan output CMS
 const articlesData = [
@@ -161,10 +162,22 @@ export default function BeritaDetailPage() {
 
           {/* Footer Actions */}
           <div className="mt-16 pt-8 border-t flex items-center justify-between">
-            <Button variant="outline" className="rounded-full gap-2 border-muted-foreground/20">
-              <Share2 className="h-4 w-4" />
-              Bagikan artikel
-            </Button>
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 260, 
+                damping: 20,
+                delay: 0.5 
+              }}
+            >
+              <MorphButton 
+                text="Bagikan artikel" 
+                icon={Share2} 
+                className="h-10 bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent"
+              />
+            </motion.div>
             <div className="flex gap-2">
               <Link href="/berita">
                 <Button variant="ghost" className="text-muted-foreground hover:text-accent">
