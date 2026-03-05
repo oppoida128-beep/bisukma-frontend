@@ -13,6 +13,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const articles = [
   {
@@ -76,7 +77,7 @@ const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain",
 export default function BeritaPage() {
   const [activeCategory, setActiveCategory] = React.useState("Semua")
   const [searchQuery, setSearchQuery] = React.useState("")
-  const [showAllCategories, setShowAllCategories] = React.useState(false)
+  const [isExpanded, setIsExpanded] = React.useState(false)
   const isMobile = useIsMobile()
 
   const filteredArticles = React.useMemo(() => {
@@ -88,31 +89,30 @@ export default function BeritaPage() {
     })
   }, [activeCategory, searchQuery])
 
-  // On mobile, if not showing all, just show the first few
-  const visibleCategories = isMobile && !showAllCategories 
-    ? categories.slice(0, 3) 
-    : categories
+  // On mobile, show only first 3 in the main tabs
+  const visibleCategories = isMobile ? categories.slice(0, 3) : categories
+  const hiddenCategories = isMobile ? categories.slice(3) : []
 
   return (
     <div className="pb-20 bg-white">
       {/* Minimalist Header */}
-      <section className="bg-white pt-8 md:pt-14 pb-6 text-primary border-none">
+      <section className="bg-white pt-8 md:pt-12 pb-4 text-primary">
         <motion.div 
           className="container mx-auto px-4"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="max-w-3xl space-y-4">
-            <h1 className="text-4xl md:text-6xl font-black text-left tracking-tight text-primary">
+          <div className="max-w-4xl space-y-4">
+            <h1 className="text-3xl md:text-5xl font-black text-left tracking-tight">
               Berita & <span className="text-accent">update</span>
             </h1>
-            <p className="text-left text-base md:text-xl text-muted-foreground/80 font-medium leading-relaxed max-w-2xl">
+            <p className="text-left text-sm md:text-lg text-muted-foreground font-medium max-w-2xl leading-relaxed">
               Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
             </p>
 
             {/* Search Input Group */}
-            <div className="relative max-w-md pt-4">
+            <div className="relative max-w-md pt-2">
               <div className="relative group">
                 <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-accent" />
                 <Input
@@ -120,7 +120,7 @@ export default function BeritaPage() {
                   placeholder="Cari artikel berita..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-11 pr-10 h-12 w-full rounded-2xl border-muted-foreground/10 bg-muted/30 focus:bg-white focus:ring-accent transition-all duration-300 font-medium"
+                  className="pl-11 pr-10 h-10 w-full rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white transition-all font-medium text-sm"
                 />
                 {searchQuery && (
                   <button 
@@ -136,86 +136,77 @@ export default function BeritaPage() {
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 mt-4">
+      <section className="container mx-auto px-4 mt-6">
         {/* Category Navigation Area */}
-        <div className="mb-10 relative">
-          <div className="flex items-center gap-4">
-            <div className="flex-1 overflow-hidden">
-              <Tabs 
-                defaultValue="Semua" 
-                value={activeCategory} 
-                onValueChange={setActiveCategory}
-                className="w-full"
-              >
-                <div className={cn(
-                  "overflow-x-auto no-scrollbar",
-                  showAllCategories && isMobile ? "hidden" : "block"
-                )}>
-                  <TabsList variant="line" className="flex flex-nowrap w-full justify-start border-none">
-                    {visibleCategories.map((cat) => (
-                      <TabsTrigger 
-                        key={cat} 
-                        value={cat} 
-                        variant="line"
-                        className="flex-shrink-0 text-sm md:text-base font-bold tracking-tight whitespace-nowrap transition-all duration-300"
-                      >
-                        {cat}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </div>
-              </Tabs>
-              
-              {/* Vertical Stack for mobile when showAll is true */}
-              <AnimatePresence>
-                {showAllCategories && isMobile && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0, y: -10 }}
-                    animate={{ opacity: 1, height: "auto", y: 0 }}
-                    exit={{ opacity: 0, height: 0, y: -10 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="flex flex-wrap gap-2 py-6"
+        <div className="mb-8">
+          <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 overflow-hidden">
+                <Tabs 
+                  value={activeCategory} 
+                  onValueChange={setActiveCategory}
+                  className="w-full"
+                >
+                  <div className="overflow-x-auto no-scrollbar">
+                    <TabsList variant="line" className="justify-start gap-4 md:gap-8 border-none h-auto p-0">
+                      {visibleCategories.map((cat) => (
+                        <TabsTrigger 
+                          key={cat} 
+                          value={cat} 
+                          variant="line"
+                          className="text-sm md:text-base font-bold tracking-tight whitespace-nowrap pb-2 pt-0"
+                        >
+                          {cat}
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
+                  </div>
+                </Tabs>
+              </div>
+
+              {isMobile && (
+                <CollapsibleTrigger asChild>
+                  <Button 
+                    variant={isExpanded ? "default" : "outline"} 
+                    size="icon" 
+                    className={cn(
+                      "rounded-full shrink-0 h-9 w-9 transition-all duration-300",
+                      isExpanded ? "bg-accent border-accent text-white" : "border-muted-foreground/20 text-muted-foreground"
+                    )}
                   >
-                    {categories.map((cat) => (
-                      <Button
-                        key={cat}
-                        variant={activeCategory === cat ? "default" : "outline"}
-                        size="sm"
-                        className={cn(
-                          "rounded-full text-xs font-bold transition-all duration-300",
-                          activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/10 text-muted-foreground hover:border-accent/30"
-                        )}
-                        onClick={() => {
-                          setActiveCategory(cat)
-                          setShowAllCategories(false)
-                        }}
-                      >
-                        {cat}
-                      </Button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <Plus className={cn("h-4 w-4 transition-transform duration-300", isExpanded && "rotate-45")} />
+                  </Button>
+                </CollapsibleTrigger>
+              )}
             </div>
 
-            {/* Plus / Expand Button */}
-            <Button 
-              variant="outline" 
-              size="icon" 
-              className={cn(
-                "rounded-full shrink-0 border-muted-foreground/10 hover:border-accent/30 hover:text-accent transition-all duration-500 h-10 w-10",
-                showAllCategories && "rotate-45"
-              )}
-              onClick={() => setShowAllCategories(!showAllCategories)}
-            >
-              <Plus className="h-5 w-5" />
-            </Button>
-          </div>
+            <CollapsibleContent>
+              <div className="flex flex-wrap gap-2 pt-4 pb-2">
+                {hiddenCategories.map((cat) => (
+                  <Button
+                    key={cat}
+                    variant={activeCategory === cat ? "default" : "outline"}
+                    size="sm"
+                    className={cn(
+                      "rounded-full text-xs font-bold transition-all",
+                      activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/10 text-muted-foreground hover:border-accent/30"
+                    )}
+                    onClick={() => {
+                      setActiveCategory(cat)
+                      setIsExpanded(false)
+                    }}
+                  >
+                    {cat}
+                  </Button>
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
 
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           <AnimatePresence mode="popLayout">
             {filteredArticles.map((article) => {
@@ -227,38 +218,37 @@ export default function BeritaPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  transition={{ duration: 0.4 }}
                 >
-                  <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
-                    <CardHeader className="p-0 relative h-60 overflow-hidden">
+                  <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
+                    <CardHeader className="p-0 relative h-52 md:h-60 overflow-hidden">
                       {img?.imageUrl && (
                         <Image 
                           src={img.imageUrl} 
                           alt={article.title} 
                           fill 
-                          className="object-cover group-hover:scale-110 transition-transform duration-1000"
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <Badge className="absolute top-4 left-4 bg-accent/90 hover:bg-accent border-none px-4 py-1 font-bold text-[10px] rounded-full shadow-lg backdrop-blur-md">
+                      <Badge className="absolute top-4 left-4 bg-accent/90 hover:bg-accent border-none px-3 py-1 font-bold text-[10px] rounded-full">
                         {article.category}
                       </Badge>
                     </CardHeader>
-                    <CardContent className="p-8 space-y-4 flex-1">
-                      <div className="flex items-center gap-4 text-[10px] md:text-xs font-bold text-muted-foreground/60 tracking-wider">
+                    <CardContent className="p-6 md:p-8 space-y-3 flex-1">
+                      <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground/60 tracking-wider">
                         <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-accent" /> {article.date}</span>
                         <span className="flex items-center gap-1.5"><User className="h-3 w-3 text-accent" /> {article.author}</span>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-extrabold leading-tight group-hover:text-accent transition-colors duration-300">
+                      <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors">
                         {article.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed">
+                      <p className="text-xs md:text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed">
                         {article.excerpt}
                       </p>
                     </CardContent>
-                    <CardFooter className="p-8 pt-0">
+                    <CardFooter className="p-6 md:p-8 pt-0">
                       <Link href={`/berita/${article.id}`} className="text-xs md:text-sm font-bold flex items-center text-accent group/link">
-                        Baca selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform duration-300" />
+                        Baca selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
                       </Link>
                     </CardFooter>
                   </Card>
@@ -268,38 +258,18 @@ export default function BeritaPage() {
           </AnimatePresence>
         </motion.div>
         
-        {filteredArticles.length > 0 && !searchQuery && (
-          <motion.div 
-            className="mt-20 flex justify-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex gap-3">
-              {[1, 2, 3].map(n => (
-                <button key={n} className={cn(
-                  "w-11 h-11 rounded-xl border text-sm font-bold transition-all duration-300",
-                  n === 1 ? "bg-accent text-white border-accent shadow-xl shadow-accent/20" : "bg-white hover:bg-muted text-muted-foreground border-muted-foreground/10"
-                )}>
-                  {n}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
         {filteredArticles.length === 0 && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="py-32 text-center space-y-4"
+            className="py-24 text-center space-y-4"
           >
-            <div className="inline-flex p-6 rounded-full bg-muted/50 mb-4">
-              <SearchIcon className="h-8 w-8 text-muted-foreground/40" />
+            <div className="inline-flex p-6 rounded-full bg-muted/50 mb-2">
+              <SearchIcon className="h-6 w-6 text-muted-foreground/40" />
             </div>
-            <p className="text-xl font-bold text-primary">Tidak ada hasil ditemukan</p>
-            <p className="text-muted-foreground max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
-            <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-4">
+            <p className="text-lg font-bold text-primary">Tidak ada hasil ditemukan</p>
+            <p className="text-muted-foreground text-sm max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
+            <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-2 text-xs">
               Atur ulang filter
             </Button>
           </motion.div>
