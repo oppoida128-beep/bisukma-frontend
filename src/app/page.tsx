@@ -297,8 +297,8 @@ export default function Home() {
                     <p className="text-sm text-white/70 leading-7">
                       {service.desc}
                     </p>
-                    <Link href="/layanan" className="inline-flex items-center gap-2 text-white font-bold pt-2 text-sm group-hover:gap-3 transition-all leading-7">
-                      Detail layanan <ArrowRight className="h-3 w-3" />
+                    <Link href="/layanan" className="mt-4 inline-flex items-center gap-2 text-white font-bold text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all leading-7 group/btn">
+                      Detail layanan <ArrowUpRight className="h-3 w-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                     </Link>
                   </div>
                 </CardContent>
