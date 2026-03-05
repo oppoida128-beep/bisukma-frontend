@@ -202,8 +202,8 @@ export default function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-4" />
-                <CarouselNext className="right-4" />
+                <CarouselPrevious className="left-4 bg-white/10 border-none text-white hover:bg-white/20 hover:text-white" variant="ghost" />
+                <CarouselNext className="right-4 bg-white/10 border-none text-white hover:bg-white/20 hover:text-white" variant="ghost" />
 
                 {/* Pagination Pills - Now Inside Carousel */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
