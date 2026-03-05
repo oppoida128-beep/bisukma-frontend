@@ -1,4 +1,7 @@
 
+'use client'
+
+import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Users, Star, ArrowUpRight, Layout, Layers, Monitor, Calendar } from "lucide-react"
@@ -12,9 +15,28 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel"
+import { cn } from "@/lib/utils"
 
 export default function Home() {
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [current, setCurrent] = React.useState(0)
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
+
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero')
   const service1Img = PlaceHolderImages.find(img => img.id === 'service-1')
   const service2Img = PlaceHolderImages.find(img => img.id === 'service-2')
@@ -36,6 +58,12 @@ export default function Home() {
       category: "Teknologi",
       img: news1Img?.imageUrl,
       excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
+    },
+    {
+      title: "Event Bisukma Digital Conference 2024",
+      category: "Event",
+      img: PlaceHolderImages.find(img => img.id === 'gallery-6')?.imageUrl,
+      excerpt: "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri."
     }
   ]
 
@@ -132,12 +160,12 @@ export default function Home() {
 
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             {/* Left: Popular News (Carousel) */}
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-2 mb-6">
+            <div className="lg:col-span-8 space-y-6">
+              <div className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terpopuler</Badge>
               </div>
               
-              <Carousel className="w-full">
+              <Carousel setApi={setApi} className="w-full">
                 <CarouselContent>
                   {popularNews.map((post, i) => (
                     <CarouselItem key={i}>
@@ -151,7 +179,7 @@ export default function Home() {
                             data-ai-hint="digital innovation"
                           />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
                         <div className="absolute bottom-0 left-0 p-12 md:p-16 md:pl-20 space-y-4 max-w-2xl">
                           <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold uppercase">{post.category}</Badge>
                           <h3 className="text-2xl md:text-4xl font-extrabold text-white leading-tight">
@@ -171,11 +199,26 @@ export default function Home() {
                 <CarouselPrevious className="left-4" />
                 <CarouselNext className="right-4" />
               </Carousel>
+              
+              {/* Pagination Pills */}
+              <div className="flex justify-center gap-2 py-2">
+                {Array.from({ length: count }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => api?.scrollTo(i)}
+                    className={cn(
+                      "h-1.5 rounded-full transition-all duration-300",
+                      current === i ? "w-8 bg-accent" : "w-1.5 bg-muted hover:bg-muted-foreground/30"
+                    )}
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Right: Recently Added (List with Photos) */}
             <div className="lg:col-span-4 space-y-8">
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terbaru</Badge>
               </div>
               
@@ -193,9 +236,9 @@ export default function Home() {
                       )}
                     </div>
                     <div className="flex flex-col gap-1 flex-1">
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-3 text-xs">
                         <span className="text-accent font-semibold">{post.category}</span>
-                        <span className="flex items-center gap-1 opacity-80"><Calendar className="h-3 w-3" /> {post.date}</span>
+                        <span className="flex items-center gap-1 text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
                       </div>
                       <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
                         {post.title}
