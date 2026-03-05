@@ -7,4 +7,5 @@ export type ImagePlaceholder = {
   imageHint: string;
 };
 
-export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;
+// Menambahkan fallback array kosong untuk mencegah error jika data.placeholderImages tidak terdefinisi
+export const PlaceHolderImages: ImagePlaceholder[] = data?.placeholderImages || [];
