@@ -204,15 +204,15 @@ export default function BeritaDetailPage() {
                     className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
                   />
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md rounded-2xl bg-white p-8">
+                <DialogContent className="sm:max-w-md rounded-2xl bg-white p-6 md:p-8">
                   <DialogHeader className="space-y-3 mb-6">
-                    <DialogTitle className="text-2xl font-bold text-center">Bagikan Artikel Ini</DialogTitle>
-                    <p className="text-center text-muted-foreground text-sm">
+                    <DialogTitle className="text-xl md:text-2xl font-bold text-center">Bagikan Artikel Ini</DialogTitle>
+                    <p className="text-center text-muted-foreground text-xs md:text-sm">
                       Sebarkan wawasan digital ini ke jejaring sosial Anda.
                     </p>
                   </DialogHeader>
-                  <div className="flex flex-col gap-8">
-                    <div className="grid grid-cols-4 gap-4 justify-items-center">
+                  <div className="flex flex-col gap-6 md:gap-8">
+                    <div className="grid grid-cols-4 gap-2 md:gap-4 justify-items-center">
                       {socialLinks.map((social) => (
                         <motion.a
                           key={social.network}
@@ -226,11 +226,11 @@ export default function BeritaDetailPage() {
                           <SocialIcon 
                             network={social.network} 
                             fgColor="#fff" 
-                            style={{ height: 48, width: 48 }}
+                            style={{ height: 44, width: 44 }}
                             className="shadow-sm group-hover:shadow-lg transition-shadow"
                             as="div"
                           />
-                          <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-accent transition-colors capitalize">
+                          <span className="text-[9px] md:text-[10px] font-semibold text-muted-foreground group-hover:text-accent transition-colors capitalize">
                             {social.network === 'x' ? 'X (Twitter)' : social.network}
                           </span>
                         </motion.a>
@@ -242,15 +242,15 @@ export default function BeritaDetailPage() {
                       <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">Atau</span>
                     </div>
 
-                    <div className="flex items-center gap-3 bg-muted/30 p-2 pl-4 rounded-xl border group hover:border-accent/30 transition-colors">
-                      <p className="flex-1 text-xs text-muted-foreground truncate font-medium">
+                    <div className="flex items-center gap-2 md:gap-3 bg-muted/30 p-2 pl-3 md:pl-4 rounded-xl border group hover:border-accent/30 transition-colors">
+                      <p className="flex-1 text-[10px] md:text-xs text-muted-foreground truncate font-medium">
                         {currentUrl || 'Loading...'}
                       </p>
                       <Button 
                         size="sm" 
                         onClick={handleCopyLink}
                         className={cn(
-                          "rounded-lg transition-all duration-300 min-w-[100px]",
+                          "rounded-lg transition-all duration-300 min-w-[90px] md:min-w-[100px] h-8 md:h-10 text-[10px] md:text-xs",
                           copied ? "bg-green-500 hover:bg-green-600 text-white" : "bg-accent hover:bg-accent/90 text-white"
                         )}
                       >
@@ -261,7 +261,7 @@ export default function BeritaDetailPage() {
                               initial={{ opacity: 0, scale: 0.5 }} 
                               animate={{ opacity: 1, scale: 1 }} 
                               exit={{ opacity: 0, scale: 0.5 }}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-1.5 md:gap-2"
                             >
                               <Check className="h-3 w-3" /> Tersalin
                             </motion.div>
@@ -271,7 +271,7 @@ export default function BeritaDetailPage() {
                               initial={{ opacity: 0, scale: 0.5 }} 
                               animate={{ opacity: 1, scale: 1 }} 
                               exit={{ opacity: 0, scale: 0.5 }}
-                              className="flex items-center gap-2"
+                              className="flex items-center gap-1.5 md:gap-2"
                             >
                               <Copy className="h-3 w-3" /> Salin Link
                             </motion.div>
