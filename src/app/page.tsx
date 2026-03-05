@@ -195,8 +195,8 @@ export default function Home() {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-4 bg-transparent border-none text-white hover:bg-white/10 hover:text-white" variant="ghost" />
-                <CarouselNext className="right-4 bg-transparent border-none text-white hover:bg-white/10 hover:text-white" variant="ghost" />
+                <CarouselPrevious className="left-4 bg-transparent border-none text-white hover:bg-white/5 hover:text-white" variant="ghost" />
+                <CarouselNext className="right-4 bg-transparent border-none text-white hover:bg-white/5 hover:text-white" variant="ghost" />
 
                 {/* Pagination Pills */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex justify-center gap-2">
@@ -235,9 +235,9 @@ export default function Home() {
                       )}
                     </div>
                     <div className="flex flex-col gap-1 flex-1">
-                      <div className="flex items-center gap-3 text-xs">
-                        <span className="text-accent font-semibold">{post.category}</span>
-                        <span className="flex items-center gap-1 text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-accent font-semibold text-xs leading-none">{post.category}</span>
+                        <span className="flex items-center gap-1 text-xs text-muted-foreground"><Calendar className="h-3 w-3" /> {post.date}</span>
                       </div>
                       <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
                         {post.title}
@@ -298,7 +298,7 @@ export default function Home() {
                       {service.desc}
                     </p>
                     <Link href="/layanan" className="mt-4 inline-flex items-center gap-2 text-white font-bold text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all leading-7 group/btn">
-                      Detail layanan <ArrowUpRight className="h-3 w-3 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      Detail layanan <ArrowUpRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </CardContent>
