@@ -134,7 +134,7 @@ export default function Home() {
             {/* Left: Popular News (Carousel) */}
             <div className="lg:col-span-8">
               <div className="flex items-center gap-2 mb-6">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Berita Terpopuler</Badge>
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terpopuler</Badge>
               </div>
               
               <Carousel className="w-full">
@@ -153,7 +153,7 @@ export default function Home() {
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
                         <div className="absolute bottom-0 left-0 p-8 md:p-12 space-y-4 max-w-2xl">
-                          <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">{post.category}</Badge>
+                          <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold uppercase">{post.category}</Badge>
                           <h3 className="text-2xl md:text-4xl font-extrabold text-white leading-tight">
                             {post.title}
                           </h3>
@@ -176,7 +176,7 @@ export default function Home() {
             {/* Right: Recently Added (List with Photos) */}
             <div className="lg:col-span-4 space-y-8">
               <div className="flex items-center gap-2 mb-6">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Terbaru</Badge>
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terbaru</Badge>
               </div>
               
               <div className="flex flex-col gap-6">
@@ -193,14 +193,14 @@ export default function Home() {
                       )}
                     </div>
                     <div className="flex flex-col gap-1 flex-1">
-                      <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground">
-                        <span className="text-accent">{post.category}</span>
-                        <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {post.date}</span>
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                        <span className="text-accent font-semibold">{post.category}</span>
+                        <span className="flex items-center gap-1 opacity-80"><Calendar className="h-3 w-3" /> {post.date}</span>
                       </div>
                       <h3 className="text-base font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
                         {post.title}
                       </h3>
-                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed opacity-90">
                         {post.excerpt}
                       </p>
                     </div>
