@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, User, ArrowRight, Plus, X } from "lucide-react"
+import { Calendar, User, ArrowRight, Plus, X, Search as SearchIcon } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 const articles = [
@@ -74,12 +75,18 @@ const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain",
 
 export default function BeritaPage() {
   const [activeCategory, setActiveCategory] = React.useState("Semua")
+  const [searchQuery, setSearchQuery] = React.useState("")
   const [showAllCategories, setShowAllCategories] = React.useState(false)
   const isMobile = useIsMobile()
 
-  const filteredArticles = activeCategory === "Semua" 
-    ? articles 
-    : articles.filter(article => article.category === activeCategory)
+  const filteredArticles = React.useMemo(() => {
+    return articles.filter(article => {
+      const matchesCategory = activeCategory === "Semua" || article.category === activeCategory
+      const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                           article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+      return matchesCategory && matchesSearch
+    })
+  }, [activeCategory, searchQuery])
 
   // On mobile, if not showing all, just show the first few
   const visibleCategories = isMobile && !showAllCategories 
@@ -88,25 +95,51 @@ export default function BeritaPage() {
 
   return (
     <div className="pb-20 bg-white">
-      {/* Minimalist Header - Even tighter spacing */}
-      <section className="bg-white pt-6 md:pt-10 pb-4 text-primary border-none">
+      {/* Minimalist Header */}
+      <section className="bg-white pt-8 md:pt-14 pb-6 text-primary border-none">
         <motion.div 
           className="container mx-auto px-4"
-          initial={{ opacity: 0, y: -5 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <h1 className="text-3xl md:text-5xl font-extrabold text-left tracking-tight">Berita & update</h1>
-          <p className="text-left mt-2 text-sm md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
-          </p>
+          <div className="max-w-3xl space-y-4">
+            <h1 className="text-4xl md:text-6xl font-black text-left tracking-tight text-primary">
+              Berita & <span className="text-accent">update</span>
+            </h1>
+            <p className="text-left text-base md:text-xl text-muted-foreground/80 font-medium leading-relaxed max-w-2xl">
+              Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
+            </p>
+
+            {/* Search Input Group */}
+            <div className="relative max-w-md pt-4">
+              <div className="relative group">
+                <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-accent" />
+                <Input
+                  type="text"
+                  placeholder="Cari artikel berita..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-11 pr-10 h-12 w-full rounded-2xl border-muted-foreground/10 bg-muted/30 focus:bg-white focus:ring-accent transition-all duration-300 font-medium"
+                />
+                {searchQuery && (
+                  <button 
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-accent"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 mt-2">
+      <section className="container mx-auto px-4 mt-4">
         {/* Category Navigation Area */}
-        <div className="mb-8 relative">
-          <div className="flex items-center gap-3">
+        <div className="mb-10 relative">
+          <div className="flex items-center gap-4">
             <div className="flex-1 overflow-hidden">
               <Tabs 
                 defaultValue="Semua" 
@@ -124,7 +157,7 @@ export default function BeritaPage() {
                         key={cat} 
                         value={cat} 
                         variant="line"
-                        className="flex-shrink-0 text-sm font-bold tracking-tight whitespace-nowrap"
+                        className="flex-shrink-0 text-sm md:text-base font-bold tracking-tight whitespace-nowrap transition-all duration-300"
                       >
                         {cat}
                       </TabsTrigger>
@@ -137,10 +170,11 @@ export default function BeritaPage() {
               <AnimatePresence>
                 {showAllCategories && isMobile && (
                   <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="flex flex-wrap gap-2 py-4"
+                    initial={{ opacity: 0, height: 0, y: -10 }}
+                    animate={{ opacity: 1, height: "auto", y: 0 }}
+                    exit={{ opacity: 0, height: 0, y: -10 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="flex flex-wrap gap-2 py-6"
                   >
                     {categories.map((cat) => (
                       <Button
@@ -148,8 +182,8 @@ export default function BeritaPage() {
                         variant={activeCategory === cat ? "default" : "outline"}
                         size="sm"
                         className={cn(
-                          "rounded-full text-xs font-bold transition-all",
-                          activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/20 text-muted-foreground"
+                          "rounded-full text-xs font-bold transition-all duration-300",
+                          activeCategory === cat ? "bg-accent border-accent text-white" : "border-muted-foreground/10 text-muted-foreground hover:border-accent/30"
                         )}
                         onClick={() => {
                           setActiveCategory(cat)
@@ -169,12 +203,12 @@ export default function BeritaPage() {
               variant="outline" 
               size="icon" 
               className={cn(
-                "rounded-full shrink-0 border-muted-foreground/20 hover:border-accent hover:text-accent transition-all h-8 w-8",
+                "rounded-full shrink-0 border-muted-foreground/10 hover:border-accent/30 hover:text-accent transition-all duration-500 h-10 w-10",
                 showAllCategories && "rotate-45"
               )}
               onClick={() => setShowAllCategories(!showAllCategories)}
             >
-              {showAllCategories ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+              <Plus className="h-5 w-5" />
             </Button>
           </div>
         </div>
@@ -184,46 +218,47 @@ export default function BeritaPage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
-            {filteredArticles.map((article, i) => {
+            {filteredArticles.map((article) => {
               const img = PlaceHolderImages.find(item => item.id === article.imgId)
               return (
                 <motion.div
                   key={article.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                  <Card className="overflow-hidden border border-muted shadow-sm group flex flex-col h-full bg-white hover:shadow-md transition-shadow duration-300 rounded-xl">
-                    <CardHeader className="p-0 relative h-56">
+                  <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
+                    <CardHeader className="p-0 relative h-60 overflow-hidden">
                       {img?.imageUrl && (
                         <Image 
                           src={img.imageUrl} 
                           alt={article.title} 
                           fill 
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                          className="object-cover group-hover:scale-110 transition-transform duration-1000"
                         />
                       )}
-                      <Badge className="absolute top-4 left-4 bg-accent hover:bg-accent/90 border-none px-3 py-1 font-bold text-[10px] rounded-full">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <Badge className="absolute top-4 left-4 bg-accent/90 hover:bg-accent border-none px-4 py-1 font-bold text-[10px] rounded-full shadow-lg backdrop-blur-md">
                         {article.category}
                       </Badge>
                     </CardHeader>
-                    <CardContent className="p-6 space-y-4 flex-1">
-                      <div className="flex items-center gap-4 text-[10px] md:text-xs font-semibold text-muted-foreground/70 tracking-wider">
+                    <CardContent className="p-8 space-y-4 flex-1">
+                      <div className="flex items-center gap-4 text-[10px] md:text-xs font-bold text-muted-foreground/60 tracking-wider">
                         <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-accent" /> {article.date}</span>
                         <span className="flex items-center gap-1.5"><User className="h-3 w-3 text-accent" /> {article.author}</span>
                       </div>
-                      <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors">
+                      <h3 className="text-xl md:text-2xl font-extrabold leading-tight group-hover:text-accent transition-colors duration-300">
                         {article.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed">
                         {article.excerpt}
                       </p>
                     </CardContent>
-                    <CardFooter className="p-6 pt-0">
+                    <CardFooter className="p-8 pt-0">
                       <Link href={`/berita/${article.id}`} className="text-xs md:text-sm font-bold flex items-center text-accent group/link">
-                        Baca selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                        Baca selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform duration-300" />
                       </Link>
                     </CardFooter>
                   </Card>
@@ -233,18 +268,18 @@ export default function BeritaPage() {
           </AnimatePresence>
         </motion.div>
         
-        {filteredArticles.length > 0 && (
+        {filteredArticles.length > 0 && !searchQuery && (
           <motion.div 
-            className="mt-16 flex justify-center"
+            className="mt-20 flex justify-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {[1, 2, 3].map(n => (
                 <button key={n} className={cn(
-                  "w-10 h-10 rounded-lg border text-xs font-bold transition-all",
-                  n === 1 ? "bg-accent text-white border-accent shadow-lg shadow-accent/20" : "bg-white hover:bg-muted text-muted-foreground border-muted"
+                  "w-11 h-11 rounded-xl border text-sm font-bold transition-all duration-300",
+                  n === 1 ? "bg-accent text-white border-accent shadow-xl shadow-accent/20" : "bg-white hover:bg-muted text-muted-foreground border-muted-foreground/10"
                 )}>
                   {n}
                 </button>
@@ -254,9 +289,20 @@ export default function BeritaPage() {
         )}
 
         {filteredArticles.length === 0 && (
-          <div className="py-20 text-center">
-            <p className="text-muted-foreground font-medium">Tidak ada berita dalam kategori ini.</p>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="py-32 text-center space-y-4"
+          >
+            <div className="inline-flex p-6 rounded-full bg-muted/50 mb-4">
+              <SearchIcon className="h-8 w-8 text-muted-foreground/40" />
+            </div>
+            <p className="text-xl font-bold text-primary">Tidak ada hasil ditemukan</p>
+            <p className="text-muted-foreground max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
+            <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-4">
+              Atur ulang filter
+            </Button>
+          </motion.div>
         )}
       </section>
     </div>
