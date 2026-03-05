@@ -102,6 +102,42 @@
       "description": "Tech conference event",
       "imageUrl": "https://picsum.photos/seed/gal6/800/800",
       "imageHint": "tech event"
+    },
+    {
+      "id": "team-founder",
+      "description": "Founder of Bisukma Digital",
+      "imageUrl": "https://picsum.photos/seed/founder/400/400",
+      "imageHint": "professional man"
+    },
+    {
+      "id": "team-deputy1",
+      "description": "Deputy I of Bisukma Digital",
+      "imageUrl": "https://picsum.photos/seed/deputy1/400/400",
+      "imageHint": "professional woman"
+    },
+    {
+      "id": "team-deputy2",
+      "description": "Deputy II of Bisukma Digital",
+      "imageUrl": "https://picsum.photos/seed/deputy2/400/400",
+      "imageHint": "professional man"
+    },
+    {
+      "id": "team-sdm",
+      "description": "Head of SDM",
+      "imageUrl": "https://picsum.photos/seed/sdm/400/400",
+      "imageHint": "professional woman"
+    },
+    {
+      "id": "team-ops",
+      "description": "Head of Operations",
+      "imageUrl": "https://picsum.photos/seed/ops/400/400",
+      "imageHint": "professional man"
+    },
+    {
+      "id": "team-finance",
+      "description": "Head of Finance",
+      "imageUrl": "https://picsum.photos/seed/finance/400/400",
+      "imageHint": "professional woman"
     }
   ]
 }
