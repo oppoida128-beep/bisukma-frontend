@@ -355,9 +355,9 @@ export default function Home() {
         {...fadeIn}
       >
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center bg-muted/30 rounded-[2.5rem] p-8 md:p-16 overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center bg-muted/30 rounded-[2rem] p-6 md:p-12 overflow-hidden">
             <motion.div 
-              className="relative aspect-video rounded-2xl overflow-hidden group cursor-pointer border bg-black/5"
+              className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border bg-black/5 w-full"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -378,24 +378,24 @@ export default function Home() {
             </motion.div>
 
             <motion.div 
-              className="space-y-6"
+              className="space-y-4 max-w-xl"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <div className="space-y-2">
-                <p className="text-sm font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
-                <h2 className="scroll-m-20 text-3xl font-extrabold tracking-tight">Katalis Inovasi Digital Anda</h2>
+              <div className="space-y-1">
+                <p className="text-xs font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
+                <h2 className="scroll-m-20 text-2xl font-extrabold tracking-tight md:text-3xl">Katalis Inovasi Digital Anda</h2>
               </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
+              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas.
               </p>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
               </p>
-              <div className="pt-4">
-                <Button asChild variant="outline" className="rounded-full px-8 shadow-none">
+              <div className="pt-2">
+                <Button asChild variant="outline" className="rounded-full px-6 shadow-none h-9 text-xs">
                   <Link href="/profil">Pelajari lebih lanjut</Link>
                 </Button>
               </div>
