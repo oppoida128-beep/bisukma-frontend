@@ -97,26 +97,26 @@ export default function Home() {
   const programs = [
     {
       id: "prog-1",
-      title: "Makan Bergizi Gratis",
-      desc: "Menjamin asupan gizi untuk generasi masa depan bangsa melalui infrastruktur dapur umum SPPG yang higienis.",
+      title: "Generasi Emas 2045",
+      desc: "Membangun fondasi masa depan Indonesia melalui pemenuhan gizi yang berkualitas sejak dini. Program ini mendukung terciptanya generasi sehat, cerdas, dan produktif sebagai pilar pembangunan menuju Indonesia 2045.",
       img: PlaceHolderImages.find(img => img.id === 'prog-nutrition')?.imageUrl
     },
     {
       id: "prog-2",
-      title: "Modernisasi Pertanian",
-      desc: "Digitalisasi sektor hulu untuk ketahanan pangan nasional melalui pendampingan teknologi bagi petani lokal.",
+      title: "Gizi untuk Pelajar",
+      desc: "Pemenuhan gizi yang baik membantu meningkatkan konsentrasi belajar, kesehatan, serta perkembangan fisik dan mental bagi siswa dari tingkat TK hingga SMA.",
       img: PlaceHolderImages.find(img => img.id === 'prog-agri')?.imageUrl
     },
     {
       id: "prog-3",
-      title: "Vokasi & Teknologi",
-      desc: "Mencetak SDM unggul melalui pelatihan IT berkelanjutan dan sertifikasi industri bagi generasi muda.",
+      title: "Awal Kehidupan Sehat",
+      desc: "Dukungan gizi bagi ibu hamil dan balita menjadi kunci tumbuh kembang optimal, sekaligus mencegah risiko stunting serta meningkatkan kualitas kesehatan generasi mendatang.",
       img: PlaceHolderImages.find(img => img.id === 'prog-edu')?.imageUrl
     },
     {
       id: "prog-4",
-      title: "Kemanusiaan & Sosial",
-      desc: "Aksi nyata dalam tanggap darurat dan bantuan sosial kemanusiaan di berbagai penjuru wilayah nusantara.",
+      title: "Penguatan Ekonomi Lokal",
+      desc: "Program ini turut mendorong pertumbuhan ekonomi masyarakat dengan melibatkan UMKM dan petani lokal sebagai bagian dari rantai pasok pangan yang berkelanjutan.",
       img: PlaceHolderImages.find(img => img.id === 'prog-social')?.imageUrl
     }
   ]
@@ -230,7 +230,7 @@ export default function Home() {
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
                         <div className="absolute bottom-0 left-0 p-6 md:p-12 md:pl-16 pb-12 md:pb-16 space-y-3 md:space-y-4 max-w-2xl">
-                          <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold uppercase">{post.category}</Badge>
+                          <Badge className="bg-accent hover:bg-accent border-none text-[10px] font-bold">{post.category}</Badge>
                           <h3 className="text-xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight">
                             {post.title}
                           </h3>
@@ -267,7 +267,7 @@ export default function Home() {
 
             <div className="lg:col-span-4 space-y-6 md:space-y-8">
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terbaru</Badge>
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold tracking-wider">Terbaru</Badge>
               </div>
               
               <div className="flex flex-col gap-5 md:gap-6">
@@ -363,7 +363,7 @@ export default function Home() {
                       <h3 className="text-xl font-bold text-white leading-tight">
                         {prog.title}
                       </h3>
-                      <div className="flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase">
+                      <div className="flex items-center gap-2 text-accent text-xs font-bold tracking-widest">
                         Detail <ChevronRight className="h-3 w-3" />
                       </div>
                     </div>
@@ -377,9 +377,6 @@ export default function Home() {
                     <p className="text-sm leading-relaxed opacity-90">
                       {prog.desc}
                     </p>
-                    <Button variant="outline" className="border-white text-white hover:bg-white hover:text-accent rounded-full font-bold px-6 border-2" asChild>
-                      <Link href="/profil">PELAJARI LEBIH LANJUT</Link>
-                    </Button>
                   </div>
                 </motion.div>
               </motion.div>
@@ -492,7 +489,7 @@ export default function Home() {
               transition={{ duration: 0.7 }}
             >
               <div className="space-y-1 md:space-y-2">
-                <p className="text-[10px] md:text-xs font-semibold text-accent tracking-wider uppercase">Tentang Kami</p>
+                <p className="text-[10px] md:text-xs font-semibold text-accent tracking-wider">Tentang Kami</p>
                 <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl">Katalis Inovasi Digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm">
