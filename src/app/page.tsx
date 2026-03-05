@@ -98,25 +98,25 @@ export default function Home() {
     {
       id: "prog-1",
       title: "Makan Bergizi Gratis",
-      desc: "Menjamin asupan gizi untuk generasi masa depan bangsa.",
+      desc: "Menjamin asupan gizi untuk generasi masa depan bangsa melalui infrastruktur dapur umum SPPG yang higienis.",
       img: PlaceHolderImages.find(img => img.id === 'prog-nutrition')?.imageUrl
     },
     {
       id: "prog-2",
       title: "Modernisasi Pertanian",
-      desc: "Digitalisasi sektor hulu untuk ketahanan pangan nasional.",
+      desc: "Digitalisasi sektor hulu untuk ketahanan pangan nasional melalui pendampingan teknologi bagi petani lokal.",
       img: PlaceHolderImages.find(img => img.id === 'prog-agri')?.imageUrl
     },
     {
       id: "prog-3",
       title: "Vokasi & Teknologi",
-      desc: "Mencetak SDM unggul melalui pelatihan IT berkelanjutan.",
+      desc: "Mencetak SDM unggul melalui pelatihan IT berkelanjutan dan sertifikasi industri bagi generasi muda.",
       img: PlaceHolderImages.find(img => img.id === 'prog-edu')?.imageUrl
     },
     {
       id: "prog-4",
       title: "Kemanusiaan & Sosial",
-      desc: "Aksi nyata untuk membantu sesama di seluruh penjuru.",
+      desc: "Aksi nyata dalam tanggap darurat dan bantuan sosial kemanusiaan di berbagai penjuru wilayah nusantara.",
       img: PlaceHolderImages.find(img => img.id === 'prog-social')?.imageUrl
     }
   ]
@@ -319,7 +319,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* --- FEATURED PROGRAMS SECTION --- */}
+      {/* --- FEATURED PROGRAMS SECTION (WITH FLIP EFFECT) --- */}
       <motion.section 
         className="py-16 md:py-24 bg-muted/30 overflow-hidden"
         {...fadeIn}
@@ -343,31 +343,45 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="group h-[400px] w-full [perspective:1000px]"
               >
-                <div className="group relative aspect-[3/4] overflow-hidden rounded-[2rem] bg-black shadow-sm">
-                  {prog.img && (
-                    <Image 
-                      src={prog.img} 
-                      alt={prog.title} 
-                      fill 
-                      className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-6 md:p-8 space-y-2">
-                    <h3 className="text-lg md:text-xl font-bold text-white leading-tight">
-                      {prog.title}
-                    </h3>
-                    <p className="text-white/70 text-[11px] md:text-xs leading-relaxed line-clamp-2">
-                      {prog.desc}
-                    </p>
-                    <div className="pt-2">
-                      <Link href="/profil" className="text-[10px] md:text-xs font-bold text-accent uppercase tracking-widest flex items-center gap-1.5 group/link">
-                        Detail Program <ChevronRight className="h-3 w-3 group-hover/link:translate-x-1 transition-transform" />
-                      </Link>
+                <motion.div 
+                  className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                >
+                  {/* Front Side */}
+                  <div className="absolute inset-0 h-full w-full rounded-xl overflow-hidden [backface-visibility:hidden]">
+                    {prog.img && (
+                      <Image 
+                        src={prog.img} 
+                        alt={prog.title} 
+                        fill 
+                        className="object-cover"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-8 space-y-2">
+                      <h3 className="text-xl font-bold text-white leading-tight">
+                        {prog.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase">
+                        Detail <ChevronRight className="h-3 w-3" />
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  {/* Back Side */}
+                  <div className="absolute inset-0 h-full w-full rounded-xl bg-accent p-8 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center space-y-6">
+                    <h3 className="text-2xl font-bold border-b border-white/30 pb-2 w-full">
+                      {prog.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed opacity-90">
+                      {prog.desc}
+                    </p>
+                    <Button variant="outline" className="border-white text-white hover:bg-white hover:text-accent rounded-full font-bold px-6 border-2" asChild>
+                      <Link href="/profil">PELAJARI LEBIH LANJUT</Link>
+                    </Button>
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
