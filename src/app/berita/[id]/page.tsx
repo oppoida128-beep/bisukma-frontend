@@ -54,6 +54,11 @@ export default function BeritaDetailPage() {
   const params = useParams()
   const id = params.id as string
   const [copied, setCopied] = React.useState(false)
+  const [currentUrl, setCurrentUrl] = React.useState("")
+
+  React.useEffect(() => {
+    setCurrentUrl(window.location.href)
+  }, [])
 
   const article = articlesData.find(a => a.id === id) || articlesData[0]
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
@@ -67,12 +72,12 @@ export default function BeritaDetailPage() {
     }
   }
 
-  const socialLinks = [
-    { network: "whatsapp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + (typeof window !== 'undefined' ? window.location.href : ""))}` },
-    { network: "facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : "")}` },
-    { network: "x", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : "")}` },
-    { network: "linkedin", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : "")}` },
-  ]
+  const socialLinks = React.useMemo(() => [
+    { network: "whatsapp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + currentUrl)}` },
+    { network: "facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` },
+    { network: "x", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(currentUrl)}` },
+    { network: "linkedin", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
+  ], [article.title, currentUrl])
 
   return (
     <div className="bg-white min-h-screen pb-20">
@@ -223,6 +228,7 @@ export default function BeritaDetailPage() {
                             fgColor="#fff" 
                             style={{ height: 48, width: 48 }}
                             className="shadow-sm group-hover:shadow-lg transition-shadow"
+                            as="div"
                           />
                           <span className="text-[10px] font-semibold text-muted-foreground group-hover:text-accent transition-colors capitalize">
                             {social.network === 'x' ? 'X (Twitter)' : social.network}
@@ -238,7 +244,7 @@ export default function BeritaDetailPage() {
 
                     <div className="flex items-center gap-3 bg-muted/30 p-2 pl-4 rounded-xl border group hover:border-accent/30 transition-colors">
                       <p className="flex-1 text-xs text-muted-foreground truncate font-medium">
-                        {typeof window !== 'undefined' ? window.location.href : 'Loading...'}
+                        {currentUrl || 'Loading...'}
                       </p>
                       <Button 
                         size="sm" 
