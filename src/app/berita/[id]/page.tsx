@@ -73,6 +73,7 @@ export default function BeritaDetailPage() {
   }
 
   const handleShare = async () => {
+    // Gunakan Native Share jika tersedia di mobile
     if (navigator.share) {
       try {
         await navigator.share({
@@ -81,12 +82,13 @@ export default function BeritaDetailPage() {
           url: currentUrl,
         })
       } catch (err) {
-        // Jika user membatalkan share, abaikan saja
+        // Abaikan AbortError (saat user membatalkan share)
         if ((err as Error).name !== 'AbortError') {
           setIsDialogOpen(true)
         }
       }
     } else {
+      // Tampilkan Dialog di desktop
       setIsDialogOpen(true)
     }
   }
@@ -203,8 +205,8 @@ export default function BeritaDetailPage() {
 
           <Separator className="my-10 md:my-12" />
 
-          {/* Footer Actions */}
-          <div className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Footer Actions - Redesigned for Mobile Inline */}
+          <div className="mt-12 pt-8 flex items-center justify-between gap-4">
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -214,12 +216,13 @@ export default function BeritaDetailPage() {
                 damping: 20,
                 delay: 0.5 
               }}
+              className="shrink-0"
             >
               <MorphButton 
-                text="Bagikan artikel" 
+                text="Bagikan" 
                 icon={Share2} 
                 onClick={handleShare}
-                className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent w-full sm:w-auto"
+                className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent"
               />
 
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -302,10 +305,11 @@ export default function BeritaDetailPage() {
                 </DialogContent>
               </Dialog>
             </motion.div>
-            <div className="flex gap-2 w-full sm:w-auto justify-center">
-              <Link href="/berita" className="w-full sm:w-auto text-center">
-                <Button variant="ghost" className="text-muted-foreground hover:text-accent w-full sm:w-auto">
-                  Artikel berikutnya
+
+            <div className="flex items-center">
+              <Link href="/berita">
+                <Button variant="ghost" className="text-muted-foreground hover:text-accent text-xs md:text-sm font-semibold pr-0">
+                  Berikutnya <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
                 </Button>
               </Link>
             </div>
