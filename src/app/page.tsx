@@ -31,7 +31,7 @@ export default function Home() {
           
           <div className="flex flex-wrap justify-center items-center gap-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
             {/* Typography Small dengan Button */}
-            <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold shadow-lg group">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group">
               Konsultasi gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -271,7 +271,7 @@ export default function Home() {
               Jangan biarkan kompetitor melangkah lebih dulu. Mulai perjalanan transformasi digital Anda bersama tim ahli Bisukma hari ini dengan konsultasi tanpa biaya.
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
-              <Button size="lg" className="bg-white text-accent hover:bg-white/90 h-14 px-8 rounded-full text-lg font-bold shadow-2xl">
+              <Button size="lg" className="bg-white text-accent hover:bg-white/90 h-14 px-8 rounded-full text-lg font-bold">
                 Mulai kolaborasi
               </Button>
               <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 h-14 px-8 rounded-full text-lg font-bold backdrop-blur-sm">
