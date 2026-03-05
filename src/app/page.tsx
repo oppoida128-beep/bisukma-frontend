@@ -314,19 +314,18 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center bg-muted/30 rounded-[2.5rem] p-8 md:p-16 overflow-hidden">
             {/* Left: Video Hero */}
             <div className="relative aspect-video rounded-2xl overflow-hidden group cursor-pointer border bg-black/5">
-              {PlaceHolderImages.find(img => img.id === 'profile')?.imageUrl && (
-                <Image 
-                  src={PlaceHolderImages.find(img => img.id === 'profile')!.imageUrl} 
-                  alt="Company Video" 
-                  fill 
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              )}
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center text-accent shadow-xl group-hover:scale-110 transition-transform">
-                  <Play className="h-8 w-8 fill-current ml-1" />
-                </div>
-              </div>
+              <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                poster={PlaceHolderImages.find(img => img.id === 'profile')?.imageUrl}
+              >
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <div className="absolute inset-0 bg-black/10"></div>
             </div>
 
             {/* Right: Text Content */}
