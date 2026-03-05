@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import Autoplay from "embla-carousel-autoplay"
 import {
   Carousel,
   CarouselContent,
@@ -165,7 +166,12 @@ export default function Home() {
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">Terpopuler</Badge>
               </div>
               
-              <Carousel setApi={setApi} className="w-full relative overflow-hidden rounded-2xl">
+              <Carousel 
+                setApi={setApi} 
+                opts={{ loop: true }}
+                plugins={[Autoplay({ delay: 5000 })]}
+                className="w-full relative overflow-hidden rounded-2xl"
+              >
                 <CarouselContent>
                   {popularNews.map((post, i) => (
                     <CarouselItem key={i}>
