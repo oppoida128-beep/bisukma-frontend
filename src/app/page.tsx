@@ -27,14 +27,14 @@ export default function Home() {
             Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
           </p>
           
-          <div className="flex flex-wrap justify-center gap-3 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-            <Button size="default" className="px-6 rounded-full font-bold bg-primary hover:bg-primary/90 transition-transform hover:scale-105">
+          <div className="flex flex-wrap justify-center gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+            <p className="text-accent font-bold cursor-pointer hover:opacity-80 transition-all flex items-center gap-2 text-xs uppercase tracking-[0.2em]">
               Konsultasi Gratis
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button size="default" variant="outline" className="px-6 rounded-full font-bold border-primary/10 hover:bg-primary/5">
+              <ArrowRight className="h-4 w-4" />
+            </p>
+            <p className="text-muted-foreground font-bold cursor-pointer hover:text-primary transition-all text-xs uppercase tracking-[0.2em]">
               Lihat Katalog Produk
-            </Button>
+            </p>
           </div>
         </div>
 
