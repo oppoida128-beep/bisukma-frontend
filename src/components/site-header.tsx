@@ -35,6 +35,29 @@ const profilItems: { title: string; href: string; description: string }[] = [
   },
 ]
 
+const beritaItems: { title: string; href: string; description: string }[] = [
+  {
+    title: "Teknologi",
+    href: "/berita?category=Teknologi",
+    description: "Update terbaru mengenai perkembangan teknologi dan inovasi digital.",
+  },
+  {
+    title: "Infrastruktur",
+    href: "/berita?category=Infrastruktur",
+    description: "Berita seputar pengembangan infrastruktur IT dan cloud computing.",
+  },
+  {
+    title: "Keamanan",
+    href: "/berita?category=Keamanan",
+    description: "Wawasan tentang keamanan siber dan perlindungan data perusahaan.",
+  },
+  {
+    title: "Event",
+    href: "/berita?category=Event",
+    description: "Informasi mengenai acara, seminar, dan konferensi Bisukma Digital.",
+  },
+]
+
 export function SiteHeader() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
@@ -48,7 +71,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Utility classes to suppress background colors and enable text-only hover
   const navItemClasses = "bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent hover:text-accent focus:text-accent transition-colors shadow-none border-none"
 
   return (
@@ -95,9 +117,29 @@ export function SiteHeader() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/berita" && "text-accent")}>
-                  <Link href="/berita">Berita</Link>
-                </NavigationMenuLink>
+                <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/berita") && "text-accent")}>
+                  Berita
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
+                    {beritaItems.map((item) => (
+                      <ListItem
+                        key={item.title}
+                        title={item.title}
+                        href={item.href}
+                      >
+                        {item.description}
+                      </ListItem>
+                    ))}
+                    <li className="md:col-span-2 pt-2 border-t">
+                      <NavigationMenuLink asChild>
+                        <Link href="/berita" className="flex items-center justify-center p-2 text-sm font-medium text-accent hover:underline">
+                          Lihat Semua Berita
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
