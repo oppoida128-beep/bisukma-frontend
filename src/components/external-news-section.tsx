@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, ChevronDown, ChevronUp, ImageOff, Calendar, ArrowRight, RefreshCw } from "lucide-react"
+import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, ArrowRight, RefreshCw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -59,7 +59,7 @@ export function ExternalNewsSection() {
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari portal media nasional terpercaya.
+              Berita terbaru mengenai Bisukma Group dikurasi otomatis dari portal media nasional terpercaya.
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export function ExternalNewsSection() {
         {loading && !refreshing ? (
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="border border-muted/60 shadow-none bg-white/50 animate-pulse h-[450px] rounded-2xl" />
+              <Card key={i} className="border border-muted/60 shadow-none bg-white/50 animate-pulse h-[400px] rounded-2xl" />
             ))}
           </div>
         ) : error ? (
@@ -99,7 +99,7 @@ export function ExternalNewsSection() {
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {initialNews.map((item, i) => (
-                <NewsCard key={i} item={item} index={i} priority={i === 0} />
+                <NewsCard key={i} item={item} index={i} />
               ))}
             </div>
 
@@ -147,15 +147,12 @@ export function ExternalNewsSection() {
   )
 }
 
-function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput['news'][0], index: number, priority?: boolean }) {
-  const [imgError, setImgError] = React.useState(false)
-
+function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index: number }) {
   const formattedDate = React.useMemo(() => {
     try {
       const d = new Date(item.date);
       if (isNaN(d.getTime())) return item.date;
       return d.toLocaleDateString('id-ID', { 
-        weekday: 'short', 
         day: 'numeric', 
         month: 'short', 
         year: 'numeric' 
@@ -174,47 +171,38 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
       className="h-full"
     >
       <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
-        <CardHeader className="p-0 relative h-52 md:h-60 overflow-hidden bg-muted">
-          {!imgError ? (
+        <CardHeader className="p-0 relative h-32 md:h-40 overflow-hidden bg-accent/5 flex items-center justify-center">
+          <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-sm group-hover:scale-110 transition-transform duration-500">
             <Image
               src={item.thumbnailUrl}
-              alt={item.title}
+              alt={item.source}
               fill
-              priority={priority}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-              onError={() => setImgError(true)}
+              className="object-contain"
               unoptimized
             />
-          ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent/5 text-accent/20 gap-2 p-6 text-center">
-              <ImageOff className="h-8 w-8 opacity-20" />
-              <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Pratinjau Media</p>
-            </div>
-          )}
-          
-          <Badge className="absolute top-4 left-4 bg-accent/90 hover:bg-accent border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
-            {item.category.split(',')[0]}
+          </div>
+          <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
+            {item.category}
           </Badge>
         </CardHeader>
 
         <CardContent className="p-6 md:p-8 space-y-3 flex-1">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+            <p className="text-[10px] font-bold text-muted-foreground/60 flex items-center gap-1.5 uppercase tracking-wider">
               <Calendar className="h-3 w-3 text-accent" /> 
               {formattedDate}
             </p>
           </div>
-          <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
+          <h3 className="text-lg font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
             {item.title}
           </h3>
-          <p className="text-xs md:text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
+          <p className="text-xs text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
             {item.summary}
           </p>
           <div className="pt-2">
-            <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1.5">
-              <Globe className="h-3 w-3 text-accent/50" /> 
-              Sumber: {item.source}
+            <p className="text-[10px] font-bold text-accent/60 flex items-center gap-1.5">
+              <Globe className="h-3 w-3" /> 
+              {item.source}
             </p>
           </div>
         </CardContent>
@@ -224,9 +212,9 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
             href={item.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-xs md:text-sm font-bold flex items-center text-accent group/link"
+            className="text-xs font-bold flex items-center text-accent group/link"
           >
-            Baca sumber asli 
+            Baca selengkapnya 
             <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
           </a>
         </CardFooter>
