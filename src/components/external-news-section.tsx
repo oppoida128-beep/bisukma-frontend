@@ -59,7 +59,7 @@ export function ExternalNewsSection() {
             size="sm" 
             onClick={loadNews} 
             disabled={loading}
-            className="rounded-full font-bold text-xs"
+            className="rounded-full font-bold text-xs bg-white"
           >
             {loading ? (
               <RefreshCw className="h-3 w-3 mr-2 animate-spin" />
@@ -73,7 +73,7 @@ export function ExternalNewsSection() {
         {loading ? (
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="border-none shadow-none bg-white/50 animate-pulse h-80 rounded-2xl" />
+              <Card key={i} className="border-none shadow-none bg-white/50 animate-pulse h-96 rounded-2xl" />
             ))}
           </div>
         ) : error ? (
@@ -86,14 +86,12 @@ export function ExternalNewsSection() {
           </div>
         ) : (
           <div className="space-y-8">
-            {/* Grid Berita Utama (3 Berita Pertama) */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {initialNews.map((item, i) => (
-                <NewsCard key={i} item={item} index={i} />
+                <NewsCard key={i} item={item} index={i} priority={i === 0} />
               ))}
             </div>
 
-            {/* Grid Berita Tambahan (Collapsible) */}
             <AnimatePresence>
               {isExpanded && (
                 <motion.div
@@ -112,13 +110,12 @@ export function ExternalNewsSection() {
               )}
             </AnimatePresence>
 
-            {/* Tombol Lihat Lebih Banyak */}
             {news.length > 3 && (
               <div className="flex justify-center pt-8">
                 <Button
                   variant="ghost"
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="group text-accent font-bold hover:bg-accent/5 rounded-full px-8"
+                  className="group text-accent font-bold hover:bg-accent/5 rounded-full px-8 h-12"
                 >
                   {isExpanded ? (
                     <>
@@ -139,54 +136,61 @@ export function ExternalNewsSection() {
   )
 }
 
-function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index: number }) {
+function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput['news'][0], index: number, priority?: boolean }) {
+  const [imgSrc, setImgSrc] = React.useState(item.thumbnailUrl || `https://picsum.photos/seed/bisukma-news-${index}/800/600`)
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: (index % 3) * 0.1 }}
+      className="h-full"
     >
-      <Card className="h-full border border-muted-foreground/10 shadow-none hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300 group bg-white rounded-2xl flex flex-col overflow-hidden">
-        {/* Thumbnail Image */}
-        <div className="relative h-48 w-full overflow-hidden bg-muted">
+      <Card className="h-full border border-muted-foreground/10 shadow-none hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 group bg-white rounded-2xl flex flex-col overflow-hidden">
+        {/* Optimized Image with next/image */}
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
           <Image
-            src={item.thumbnailUrl || `https://picsum.photos/seed/${index}/600/400`}
+            src={imgSrc}
             alt={item.title}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            priority={priority}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            onError={() => setImgSrc(`https://picsum.photos/seed/fallback-${index}/800/600`)}
           />
-          <div className="absolute top-4 left-4">
-            <Badge className="bg-white/90 backdrop-blur-sm text-accent hover:bg-white border-none text-[10px] font-bold px-2.5 shadow-sm">
+          <div className="absolute top-4 left-4 z-10">
+            <Badge className="bg-white/95 backdrop-blur-sm text-accent hover:bg-white border-none text-[10px] font-bold px-3 py-1 shadow-sm rounded-full">
               {item.category}
             </Badge>
           </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
 
         <CardContent className="p-6 md:p-8 flex flex-col h-full flex-1">
-          <div className="flex justify-between items-center mb-4 text-[10px] font-bold text-muted-foreground/60">
+          <div className="flex justify-between items-center mb-5 text-[10px] font-bold text-muted-foreground/50 tracking-widest uppercase">
             <span>{item.source}</span>
             <span>{item.date}</span>
           </div>
           
           <div className="flex-1 space-y-3">
-            <h3 className="font-bold text-primary leading-tight group-hover:text-accent transition-colors line-clamp-2 text-base md:text-lg">
+            <h3 className="font-extrabold text-primary leading-tight group-hover:text-accent transition-colors line-clamp-2 text-base md:text-lg">
               {item.title}
             </h3>
-            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+            <p className="text-sm text-muted-foreground/80 leading-relaxed line-clamp-3 font-medium">
               {item.summary}
             </p>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-muted flex items-center justify-end">
+          <div className="mt-8 pt-5 border-t border-muted/50 flex items-center justify-end">
             <a 
               href={item.url} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-accent hover:text-accent/80 transition-all flex items-center gap-1.5 text-xs font-bold group/link"
+              className="text-accent hover:text-accent/80 transition-all flex items-center gap-2 text-xs font-bold group/link"
             >
               Baca sumber asli
-              <ExternalLink className="h-3 w-3 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+              <ExternalLink className="h-3.5 w-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
             </a>
           </div>
         </CardContent>
