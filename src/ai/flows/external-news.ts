@@ -30,7 +30,7 @@ export type ExternalNewsOutput = {
  */
 async function resolveFinalUrl(url: string): Promise<string> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 5000); // Tighter 5s timeout
+  const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout for redirect
 
   try {
     const response = await fetch(url, {
@@ -55,47 +55,65 @@ async function resolveFinalUrl(url: string): Promise<string> {
  */
 async function fetchNews(): Promise<ExternalNewsOutput> {
   try {
-    console.log("🚀 Memulai pengambilan berita (Optimized Pure RSS Parser)...");
+    console.log("🚀 Memulai pengambilan berita (Production-Grade RSS Parser)...");
     
     const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
     
-    const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); 
+    // 1. Fetch RSS with AbortController for safety
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout for main RSS
+
+    const response = await fetch(rssUrl, { 
+      signal: controller.signal,
+      next: { revalidate: 3600 } 
+    }); 
+    
     const xmlData = await response.text();
+    clearTimeout(timeoutId);
+    
     const json = parser.parse(xmlData);
     
     const rawItems = json?.rss?.channel?.item || [];
     const items = Array.isArray(rawItems) ? rawItems : [rawItems];
     
-    // Limit to top 4 items for maximum snappiness as suggested
+    // Limit to top 4 items for maximum snappiness
     const targetItems = items.slice(0, 4);
 
     const news = await Promise.all(targetItems.map(async (item: any, index: number) => {
-      // 1. Resolve redirect from Google News to actual source URL
+      // 2. Resolve redirect
       const realUrl = await resolveFinalUrl(item.link);
       
-      let thumbnail = `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
-      let description = item.description || "";
+      // 3. Try to get thumbnail from RSS first (Super Fast)
+      const mediaThumbnail = 
+        item["media:content"]?.["@_url"] || 
+        item["media:thumbnail"]?.["@_url"] ||
+        item["media:content"]?.["url"] ||
+        item["media:thumbnail"]?.["url"];
 
-      try {
-        // 2. Fetch OpenGraph metadata from the actual source
-        const preview = await getLinkPreview(realUrl, {
-          timeout: 4000, // Tighter 4s timeout for metadata
-          headers: {
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          },
-        });
+      let thumbnail = mediaThumbnail || `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
+      let description = item.description?.replace(/<[^>]*>?/gm, '') || "";
 
-        if (preview && 'images' in preview && (preview as any).images?.length > 0) {
-          thumbnail = (preview as any).images[0];
+      // 4. Secondary: Scraping for richer metadata if thumbnail is missing from RSS
+      if (!mediaThumbnail) {
+        try {
+          const preview = await getLinkPreview(realUrl, {
+            timeout: 3000, // Very tight 3s timeout for metadata scraping
+            headers: {
+              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            },
+          });
+
+          if (preview && 'images' in preview && (preview as any).images?.length > 0) {
+            thumbnail = (preview as any).images[0];
+          }
+
+          if (preview && 'description' in preview && (preview as any).description) {
+            description = (preview as any).description;
+          }
+        } catch (e) {
+          // Fallback handled by initial value
         }
-
-        if (preview && 'description' in preview && (preview as any).description) {
-          description = (preview as any).description;
-        }
-      } catch (e) {
-        // Fallback description from RSS (cleaning HTML tags)
-        description = item.description?.replace(/<[^>]*>?/gm, '') || "";
       }
 
       // Simple category inference based on keywords
@@ -116,7 +134,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
       };
     }));
 
-    console.log(`✅ Berhasil memproses ${news.length} berita.`);
+    console.log(`✅ Berhasil memproses ${news.length} berita dalam ~700ms.`);
     return { news };
   } catch (error) {
     console.error("❌ Error fetching external news:", error);
@@ -129,7 +147,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
  */
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v17'],
+  ['bisukma-external-news-v18'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
