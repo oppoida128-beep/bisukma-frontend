@@ -53,7 +53,7 @@ export function ExternalNewsSection() {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold text-sm">
               <Globe className="h-4 w-4" />
-              Sorotan media luar
+              sorotan media luar
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
               Bisukma dalam berita nasional
@@ -71,7 +71,7 @@ export function ExternalNewsSection() {
             className="rounded-full font-bold text-xs bg-white shadow-sm hover:shadow-md transition-all h-10 px-6 border-muted-foreground/10 group"
           >
             <RefreshCw className={cn("mr-2 h-3.5 w-3.5 text-accent transition-transform duration-700", (refreshing || loading) && "animate-spin")} />
-            {refreshing ? "Menyegarkan..." : "Segarkan berita"}
+            {refreshing ? "mengecek..." : "segarkan berita"}
           </Button>
         </div>
 
@@ -86,14 +86,14 @@ export function ExternalNewsSection() {
             <div className="inline-flex p-4 rounded-full bg-destructive/10 text-destructive">
               <AlertCircle className="h-6 w-6" />
             </div>
-            <p className="font-bold text-primary">Gagal memuat berita</p>
+            <p className="font-bold text-primary">gagal memuat berita</p>
             <p className="text-sm text-muted-foreground">Terjadi kendala saat menghubungkan ke sumber berita.</p>
-            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">Coba lagi</Button>
+            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">coba lagi</Button>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
             <p className="text-muted-foreground italic">Belum ada berita terbaru yang ditemukan hari ini.</p>
-            <Button variant="outline" onClick={() => loadNews(true)} className="rounded-full">Cari berita sekarang</Button>
+            <Button variant="outline" onClick={() => loadNews(true)} className="rounded-full">cari berita sekarang</Button>
           </div>
         ) : (
           <div className="space-y-8">
@@ -124,7 +124,7 @@ export function ExternalNewsSection() {
             {news.length > 3 && (
               <div className="flex justify-center pt-12">
                 <MorphButton
-                  text={isExpanded ? "Tampilkan lebih sedikit" : "Lihat berita lainnya"}
+                  text={isExpanded ? "tampilkan lebih sedikit" : "lihat berita lainnya"}
                   icon={isExpanded ? ArrowUp : ArrowDown}
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="bg-transparent text-muted-foreground border-none shadow-none"

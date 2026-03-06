@@ -15,15 +15,21 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
   const [isHovered, setIsHovered] = React.useState(false)
   const isMobile = useIsMobile()
 
-  // Tetap tampilkan teks di mobile agar user tahu fungsinya
+  // Tampilkan teks jika hover (desktop) atau selalu tampil di mobile
   const showText = isHovered || isMobile
 
-  // Spring transition yang lebih padat dan responsif
-  const springConfig = { type: "spring", stiffness: 500, damping: 35, mass: 1 }
+  // Konfigurasi spring yang smooth dan presisi
+  const springTransition = {
+    type: "spring",
+    stiffness: 400,
+    damping: 30,
+    mass: 1
+  }
 
   return (
     <motion.button
       layout
+      transition={springTransition}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
@@ -31,23 +37,24 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
         showText ? "px-5" : "w-10",
         className
       )}
-      transition={springConfig}
       {...props}
     >
       <motion.div layout className="flex items-center justify-center shrink-0">
         <Icon size={18} />
       </motion.div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         {showText && (
           <motion.span
             key="text"
-            initial={{ opacity: 0, x: -4, filter: "blur(4px)" }}
+            layout
+            initial={{ opacity: 0, x: -8, filter: "blur(4px)" }}
             animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, x: -4, filter: "blur(4px)" }}
-            transition={{ 
-              duration: 0.2,
-              ease: [0.23, 1, 0.32, 1] // easeOutQuint untuk kesan premium
+            exit={{ opacity: 0, x: -8, filter: "blur(4px)" }}
+            transition={{
+              opacity: { duration: 0.15 },
+              x: springTransition,
+              filter: { duration: 0.15 }
             }}
             className="whitespace-nowrap text-xs font-bold ml-2.5 overflow-hidden"
           >
