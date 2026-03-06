@@ -84,25 +84,25 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
       // 2. Resolve redirect
       const realUrl = await resolveFinalUrl(item.link);
       
-      // 3. Try to get thumbnail from RSS first (Super Fast)
-      const mediaThumbnail = 
+      // 3. Prioritized Thumbnail Logic (Fast-First Production Strategy)
+      // First: Try direct media tags in RSS
+      let thumbnail = 
         item["media:content"]?.["@_url"] || 
         item["media:thumbnail"]?.["@_url"] ||
         item["media:content"]?.["url"] ||
         item["media:thumbnail"]?.["url"];
 
-      let thumbnail = mediaThumbnail || `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
-      
-      // 4. Clean RSS description (No AI, Pure Logic)
-      let description = item.description
-        ?.replace(/<[^>]*>?/gm, '') // Remove HTML tags
-        ?.slice(0, 160) || ""; // Limit characters for clean UI
+      // Second: Try to extract from description HTML tag
+      if (!thumbnail) {
+        const match = item.description?.match(/<img[^>]+src="([^">]+)/);
+        if (match) thumbnail = match[1];
+      }
 
-      // 5. Secondary: Scraping for richer metadata if thumbnail is missing from RSS
-      if (!mediaThumbnail) {
+      // Third: Scraping for richer metadata (OpenGraph) as final resort
+      if (!thumbnail) {
         try {
           const preview = await getLinkPreview(realUrl, {
-            timeout: 3000, // Very tight 3s timeout for metadata scraping
+            timeout: 3000, // Very tight 3s timeout to maintain < 1s total performance
             headers: {
               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             },
@@ -113,14 +113,28 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
           }
 
           if (preview && 'description' in preview && (preview as any).description) {
-            description = (preview as any).description.slice(0, 160);
+            // If RSS description is generic, use scraped metadata
+            const scrapedDesc = (preview as any).description;
+            if (scrapedDesc && scrapedDesc.length > 30) {
+              item.description = scrapedDesc;
+            }
           }
         } catch (e) {
           // Fallback handled by initial value
         }
       }
 
-      // 6. Simple category inference based on keywords (No AI)
+      // Final: Fallback to high-quality placeholder if all methods fail
+      if (!thumbnail) {
+        thumbnail = `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
+      }
+
+      // 4. Clean RSS description (No AI, Pure Logic)
+      let description = item.description
+        ?.replace(/<[^>]*>?/gm, '') // Remove HTML tags
+        ?.slice(0, 160) || ""; // Limit characters for clean UI
+
+      // 5. Simple category inference based on keywords (No AI)
       let category = "Nasional";
       const titleLower = item.title.toLowerCase();
       if (titleLower.includes("gizi") || titleLower.includes("makan")) category = "Gizi";
@@ -151,7 +165,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
  */
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v19'],
+  ['bisukma-external-news-v20'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
