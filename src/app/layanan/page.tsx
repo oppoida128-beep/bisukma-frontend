@@ -114,7 +114,7 @@ export default function LayananPage() {
     transition: { duration: 0.6 }
   }
 
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero')
+  const heroImg = PlaceHolderImages.find(img => img.id === 'layanan-hero')
 
   return (
     <div className="pb-20 bg-white">

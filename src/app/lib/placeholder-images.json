@@ -162,6 +162,12 @@
       "description": "Penguatan Ekonomi Lokal",
       "imageUrl": "/flip-card/flip_4.png",
       "imageHint": "community help"
+    },
+    {
+      "id": "layanan-hero",
+      "description": "Bisukma Dapur MBG Hero Visual",
+      "imageUrl": "/flip-card/hero/home-hero.svg",
+      "imageHint": "kitchen planning"
     }
   ]
 }
