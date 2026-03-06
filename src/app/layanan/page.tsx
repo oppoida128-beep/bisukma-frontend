@@ -80,7 +80,7 @@ const services = [
     title: "Layanan rantai pasok pangan lokal",
     subtitle: "Bisukma local food supply network",
     icon: <Sprout className="h-6 w-6 md:h-8 md:w-8" />,
-    img: "gallery-4",
+    img: "/layanan-assets/Layanan rantai pasok pangan lokal.svg",
     description: "Menghubungkan dapur dengan ekosistem pangan lokal yang berkelanjutan.",
     features: [
       "Akses petani & peternak lokal",
