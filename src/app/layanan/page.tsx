@@ -24,7 +24,7 @@ const services = [
     title: "Layanan perencanaan dapur MBG",
     subtitle: "Bisukma kitchen planning service",
     icon: <Layout className="h-6 w-6 md:h-8 md:w-8" />,
-    img: "service-2",
+    img: "/layanan-assets/Layanan perencanaan dapur.svg",
     description: "Membantu calon pemilik dapur dalam tahap awal perancangan strategis dan teknis.",
     features: [
       "Studi kelayakan dapur",
