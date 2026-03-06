@@ -22,6 +22,73 @@ import { cn } from "@/lib/utils"
 import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { ExternalNewsSection } from "@/components/external-news-section"
 
+// Komponen Pembantu untuk Kartu Flip
+function ProgramFlipCard({ prog }: { prog: any }) {
+  const [isFlipped, setIsFlipped] = React.useState(false)
+
+  return (
+    <div 
+      className="relative aspect-[4/5] w-full group cursor-pointer"
+      style={{ perspective: "1000px" }}
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+    >
+      <motion.div
+        className="w-full h-full relative"
+        style={{ transformStyle: "preserve-3d" }}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
+        {/* Sisi Depan */}
+        <div 
+          className="absolute inset-0 rounded-2xl overflow-hidden bg-white shadow-sm border border-muted/20"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <div className="relative h-full w-full">
+            {prog.img && (
+              <Image 
+                src={prog.img} 
+                alt={prog.title} 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+              <h3 className="text-xl font-bold text-white leading-tight">
+                {prog.title}
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        {/* Sisi Belakang */}
+        <div 
+          className="absolute inset-0 rounded-2xl overflow-hidden bg-accent p-6 flex flex-col justify-between text-white"
+          style={{ 
+            backfaceVisibility: "hidden", 
+            transform: "rotateY(180deg)" 
+          }}
+        >
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold border-b border-white/20 pb-2">
+              {prog.title}
+            </h3>
+            <p className="text-sm text-white/90 leading-relaxed font-medium">
+              {prog.desc}
+            </p>
+          </div>
+          <Link 
+            href="/profil/tentang-kami" 
+            className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-white/80 transition-colors group/btn"
+          >
+            Pelajari selengkapnya <ChevronRight className="h-3 w-3 transition-transform group-hover/btn:translate-x-1" />
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
 export default function Home() {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
@@ -307,7 +374,7 @@ export default function Home() {
       {/* --- EXTERNAL NEWS SECTION --- */}
       <ExternalNewsSection />
 
-      {/* --- FEATURED PROGRAMS SECTION --- */}
+      {/* --- FEATURED PROGRAMS SECTION (DENGAN FLIP CARD) --- */}
       <motion.section 
         className="py-16 md:py-24 bg-muted/30 overflow-hidden"
         {...fadeIn}
@@ -333,33 +400,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="overflow-hidden border-none shadow-none bg-white rounded-2xl group hover:shadow-lg transition-all duration-300">
-                  <div className="relative aspect-[4/3] w-full">
-                    {prog.img && (
-                      <Image 
-                        src={prog.img} 
-                        alt={prog.title} 
-                        fill 
-                        className="object-cover"
-                      />
-                    )}
-                  </div>
-                  <CardContent className="p-6 space-y-3">
-                    <h3 className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                      {prog.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {prog.desc}
-                    </p>
-                    <div className="pt-2">
-                      <Button variant="link" className="p-0 h-auto text-accent text-xs font-bold" asChild>
-                        <Link href="/profil/tentang-kami">
-                          Pelajari selengkapnya <ChevronRight className="ml-1 h-3 w-3" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <ProgramFlipCard prog={prog} />
               </motion.div>
             ))}
           </div>
@@ -391,7 +432,7 @@ export default function Home() {
               { 
                 icon: <Utensils className="h-6 w-6 md:h-8 md:w-8" />, 
                 title: "Setup operasional", 
-                desc: "Pendampingan pengadaan alat profesional dan penyusunan SOP keamanan pangan.",
+                desc: "Pendampingan pengadaan alat profesional and penyusunan SOP keamanan pangan.",
                 img: service2Img?.imageUrl 
               },
               { 
