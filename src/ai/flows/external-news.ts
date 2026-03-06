@@ -15,7 +15,7 @@ const NewsItemSchema = z.object({
   date: z.string().describe('Tanggal terbit berita'),
   summary: z.string().describe('Ringkasan singkat berita dalam 1-2 kalimat'),
   category: z.string().describe('Kategori berita (Pendidikan, Pertanian, Gizi, Sosial)'),
-  thumbnailUrl: z.string().describe('URL gambar dari Unsplash (https://images.unsplash.com/...) yang paling merepresentasikan topik berita.'),
+  thumbnailUrl: z.string().describe('URL gambar asli dari portal berita tersebut jika tersedia, atau URL Unsplash (https://images.unsplash.com/...) yang sangat akurat mewakili konten jika URL asli tidak ditemukan.'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -39,17 +39,16 @@ const prompt = ai.definePrompt({
   3. Yayasan Bisukma.
   4. Kegiatan Erickson Sianipar yang membawa nama Bisukma.
 
-  Berita harus mencakup inisiatif seperti:
+  Berita harus mencakup inisiatif nyata seperti:
   - Program Makan Bergizi Gratis (MBG) di Tapanuli Utara/Toba.
   - Pelatihan vokasi bersama Kemnaker/BBPVP.
   - Sinergi ketahanan pangan dengan TNI/Polri.
   - Aksi kemanusiaan atau pemberdayaan ekonomi masyarakat.
 
-  Pastikan berita terlihat sangat nyata dengan sumber portal berita terpercaya. Berikan ringkasan yang profesional dalam Bahasa Indonesia.
-  Untuk setiap berita, sertakan thumbnailUrl yang SANGAT RELEVAN menggunakan URL Unsplash (misal: https://images.unsplash.com/photo-...).
-  - Gunakan foto bertema dapur/makanan untuk kategori Gizi.
-  - Gunakan foto bertema pertanian/sawah untuk kategori Pertanian.
-  - Gunakan foto bertema kelas/belajar untuk kategori Pendidikan.`,
+  PENTING:
+  - Gunakan URL asli berita dari portal terpercaya (Kompas, Detik, Antara, dll).
+  - Untuk 'thumbnailUrl', coba berikan URL gambar asli yang biasanya menyertai berita tersebut. Jika tidak mungkin, gunakan URL Unsplash yang SANGAT RELEVAN.
+  - Berikan ringkasan yang profesional dalam Bahasa Indonesia.`,
 });
 
 const externalNewsFlow = ai.defineFlow(

@@ -148,7 +148,6 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
       className="h-full"
     >
       <Card className="h-full border border-muted-foreground/10 shadow-none hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 group bg-white rounded-2xl flex flex-col overflow-hidden">
-        {/* Optimized Image with next/image */}
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
           <Image
             src={imgSrc}
@@ -157,7 +156,7 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
             priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700"
-            onError={() => setImgSrc(`https://picsum.photos/seed/fallback-${index}/800/600`)}
+            onError={() => setImgSrc(`https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop`)}
           />
           <div className="absolute top-4 left-4 z-10">
             <Badge className="bg-white/95 backdrop-blur-sm text-accent hover:bg-white border-none text-[10px] font-bold px-3 py-1 shadow-sm rounded-full">
