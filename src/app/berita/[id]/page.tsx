@@ -4,7 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
-import { Calendar, User, Tag, ArrowLeft, Share2, Copy, Check, ArrowRight } from "lucide-react"
+import { Calendar, User, Tag, ArrowLeft, Share2, Copy, Check, ArrowRight, Clock } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -117,9 +117,9 @@ export default function BeritaDetailPage() {
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
 
-  // Ambil 3 berita terbaru lainnya selain yang sedang dibuka
+  // Ambil 4 berita terbaru lainnya selain yang sedang dibuka untuk sidebar
   const recentNews = React.useMemo(() => {
-    return articlesData.filter(a => a.id !== id).slice(0, 3)
+    return articlesData.filter(a => a.id !== id).slice(0, 4)
   }, [id])
 
   const handleCopyLink = () => {
@@ -139,13 +139,13 @@ export default function BeritaDetailPage() {
 
   return (
     <div className="bg-white min-h-screen pb-20">
-      {/* Header & Main Image */}
+      {/* Header Area */}
       <section className="container mx-auto px-4 pt-8 md:pt-12">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto space-y-6"
+          className="max-w-6xl mx-auto space-y-6"
         >
           <Link href="/berita" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-accent transition-colors group">
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
@@ -156,7 +156,7 @@ export default function BeritaDetailPage() {
             <Badge variant="outline" className="border-accent/30 text-accent font-semibold rounded-full px-4 py-1">
               {article.category}
             </Badge>
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-primary leading-tight">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-primary leading-tight max-w-4xl">
               {article.title}
             </h1>
             
@@ -169,204 +169,225 @@ export default function BeritaDetailPage() {
                 <User className="h-4 w-4 text-accent" />
                 <span>oleh {article.author}</span>
               </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-accent" />
+                <span>5 Menit Baca</span>
+              </div>
             </div>
-          </div>
-
-          <div className="relative aspect-video w-full rounded-xl md:rounded-2xl overflow-hidden bg-muted border shadow-sm">
-            {mainImage?.imageUrl && (
-              <Image 
-                src={mainImage.imageUrl} 
-                alt={article.title} 
-                fill 
-                className="object-cover"
-                priority
-              />
-            )}
           </div>
         </motion.div>
       </section>
 
-      {/* Article Content Area */}
+      {/* Main Content & Sidebar Grid */}
       <section className="container mx-auto px-4 mt-8 md:mt-12">
-        <div className="max-w-3xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg"
-          >
-            {article.contentPart1}
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="my-8 md:my-12 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm"
-          >
-            {additionalImage?.imageUrl && (
-              <Image 
-                src={additionalImage.imageUrl} 
-                alt="detail tambahan artikel" 
-                fill 
-                className="object-cover"
-              />
-            )}
-            {additionalImage?.description && (
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <p className="text-white text-xs font-medium opacity-90">{additionalImage.description}</p>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            {/* LEFT: Main Content Area */}
+            <div className="lg:col-span-8">
+              <div className="relative aspect-video w-full rounded-xl md:rounded-2xl overflow-hidden bg-muted border shadow-sm mb-10">
+                {mainImage?.imageUrl && (
+                  <Image 
+                    src={mainImage.imageUrl} 
+                    alt={article.title} 
+                    fill 
+                    className="object-cover"
+                    priority
+                  />
+                )}
               </div>
-            )}
-          </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg"
-          >
-            {article.contentPart2}
-          </motion.div>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg mb-8"
+              >
+                {article.contentPart1}
+              </motion.div>
 
-          <div className="mt-12 flex flex-wrap gap-2 items-center">
-            <div className="flex items-center gap-2 mr-2 text-muted-foreground">
-              <Tag className="h-4 w-4" />
-              <span className="text-sm font-semibold">Tags:</span>
-            </div>
-            {article.tags.map(tag => (
-              <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-
-          <Separator className="my-10 md:my-12" />
-
-          {/* Footer Actions */}
-          <div className="mt-12 flex items-center justify-between gap-4">
-            <div className="shrink-0">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <div>
-                    <MorphButton 
-                      text="Bagikan" 
-                      icon={Share2} 
-                      className="text-muted-foreground border-none hover:text-accent"
-                    />
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="my-8 md:my-10 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm"
+              >
+                {additionalImage?.imageUrl && (
+                  <Image 
+                    src={additionalImage.imageUrl} 
+                    alt="detail tambahan artikel" 
+                    fill 
+                    className="object-cover"
+                  />
+                )}
+                {additionalImage?.description && (
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <p className="text-white text-xs font-medium opacity-90">{additionalImage.description}</p>
                   </div>
-                </PopoverTrigger>
-                <PopoverContent align="start" className="w-80 p-0 rounded-2xl border-none shadow-2xl bg-white overflow-hidden">
-                  <div className="p-6 space-y-6">
-                    <div className="space-y-1">
-                      <h4 className="font-bold text-primary">Bagikan Artikel</h4>
-                      <p className="text-xs text-muted-foreground font-medium">Sebarkan wawasan ini ke jejaring Anda.</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-4 gap-2">
-                      {socialLinks.map((social) => (
-                        <a
-                          key={social.network}
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex flex-col items-center gap-2 group p-2 rounded-xl hover:bg-muted/50 transition-colors"
-                        >
-                          <SocialIcon 
-                            network={social.network} 
-                            fgColor="#fff" 
-                            style={{ height: 32, width: 32 }}
-                            as="div"
-                          />
-                          <span className="text-[9px] font-bold text-muted-foreground group-hover:text-accent transition-colors">
-                            {social.network}
-                          </span>
-                        </a>
-                      ))}
-                    </div>
+                )}
+              </motion.div>
 
-                    <div className="space-y-3 pt-2">
-                      <div className="relative">
-                        <Separator />
-                        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-[9px] font-bold text-muted-foreground/40">Atau Salin Tautan</span>
-                      </div>
-                      <div className="flex items-center gap-2 bg-muted/40 p-1 pl-3 rounded-xl border border-border/50">
-                        <p className="flex-1 text-[10px] text-muted-foreground truncate font-medium">
-                          {currentUrl}
-                        </p>
-                        <Button 
-                          size="sm" 
-                          onClick={handleCopyLink}
-                          className={cn(
-                            "h-7 px-3 rounded-lg text-[10px] font-bold shadow-none transition-all duration-300",
-                            copied ? "bg-green-500 text-white" : "bg-accent text-white"
-                          )}
-                        >
-                          {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
-                          {copied ? "Tersalin" : "Salin"}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
-          </div>
-        </div>
-      </section>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg"
+              >
+                {article.contentPart2}
+              </motion.div>
 
-      {/* Recent News Section */}
-      <section className="container mx-auto px-4 mt-20 md:mt-24">
-        <div className="max-w-5xl mx-auto space-y-8 md:space-y-10">
-          <div className="flex items-center justify-between border-b pb-4">
-            <h2 className="text-xl md:text-3xl font-extrabold tracking-tight text-primary">Berita Terbaru</h2>
-            <Link href="/berita" className="text-xs md:text-sm font-bold text-accent hover:underline flex items-center gap-1">
-              Lihat Semua <ArrowRight className="h-3 w-3 md:h-4 md:w-4" />
-            </Link>
-          </div>
+              <div className="mt-12 flex flex-wrap gap-2 items-center">
+                <div className="flex items-center gap-2 mr-2 text-muted-foreground">
+                  <Tag className="h-4 w-4" />
+                  <span className="text-sm font-semibold">Tags:</span>
+                </div>
+                {article.tags.map(tag => (
+                  <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {recentNews.map((recent) => {
-              const img = PlaceHolderImages.find(item => item.id === recent.mainImgId)
-              return (
-                <motion.div
-                  key={recent.id}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
-                    <CardHeader className="p-0 relative h-40 overflow-hidden">
-                      {img?.imageUrl && (
-                        <Image 
-                          src={img.imageUrl} 
-                          alt={recent.title} 
-                          fill 
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+              <Separator className="my-10" />
+
+              {/* Footer Actions */}
+              <div className="flex items-center justify-between gap-4">
+                <div className="shrink-0">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <div>
+                        <MorphButton 
+                          text="Bagikan Artikel" 
+                          icon={Share2} 
+                          className="text-muted-foreground border-none hover:text-accent font-bold"
                         />
-                      )}
-                      <Badge className="absolute top-3 left-3 bg-accent/90 hover:bg-accent border-none px-2 py-0.5 font-bold text-[9px] rounded-full">
-                        {recent.category}
-                      </Badge>
-                    </CardHeader>
-                    <CardContent className="p-5 space-y-2 flex-1">
-                      <div className="flex items-center gap-2 text-[9px] font-bold text-muted-foreground/60 tracking-wider">
-                        <Calendar className="h-2.5 w-2.5 text-accent" /> {recent.date}
                       </div>
-                      <h3 className="text-sm md:text-base font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
-                        {recent.title}
-                      </h3>
-                      <p className="text-[10px] md:text-xs text-muted-foreground/80 line-clamp-2 leading-relaxed">
-                        {recent.excerpt}
-                      </p>
-                    </CardContent>
-                    <CardFooter className="p-5 pt-0">
-                      <Link href={`/berita/${recent.id}`} className="text-[10px] md:text-xs font-bold flex items-center text-accent group/link">
-                        Baca Selengkapnya <ArrowRight className="ml-1.5 h-3 w-3 group-hover/link:translate-x-1 transition-transform" />
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                </motion.div>
-              )
-            })}
+                    </PopoverTrigger>
+                    <PopoverContent align="start" className="w-80 p-0 rounded-2xl border-none shadow-2xl bg-white overflow-hidden">
+                      <div className="p-6 space-y-6">
+                        <div className="space-y-1">
+                          <h4 className="font-bold text-primary">Bagikan Artikel</h4>
+                          <p className="text-xs text-muted-foreground font-medium">Sebarkan wawasan ini ke jejaring Anda.</p>
+                        </div>
+                        
+                        <div className="grid grid-cols-4 gap-2">
+                          {socialLinks.map((social) => (
+                            <a
+                              key={social.network}
+                              href={social.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex flex-col items-center gap-2 group p-2 rounded-xl hover:bg-muted/50 transition-colors"
+                            >
+                              <SocialIcon 
+                                network={social.network} 
+                                fgColor="#fff" 
+                                style={{ height: 32, width: 32 }}
+                                as="div"
+                              />
+                              <span className="text-[9px] font-bold text-muted-foreground group-hover:text-accent transition-colors">
+                                {social.network}
+                              </span>
+                            </a>
+                          ))}
+                        </div>
+
+                        <div className="space-y-3 pt-2">
+                          <div className="relative">
+                            <Separator />
+                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-[9px] font-bold text-muted-foreground/40">Atau Salin Tautan</span>
+                          </div>
+                          <div className="flex items-center gap-2 bg-muted/40 p-1 pl-3 rounded-xl border border-border/50">
+                            <p className="flex-1 text-[10px] text-muted-foreground truncate font-medium">
+                              {currentUrl}
+                            </p>
+                            <Button 
+                              size="sm" 
+                              onClick={handleCopyLink}
+                              className={cn(
+                                "h-7 px-3 rounded-lg text-[10px] font-bold shadow-none transition-all duration-300",
+                                copied ? "bg-green-500 text-white" : "bg-accent text-white"
+                              )}
+                            >
+                              {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
+                              {copied ? "Tersalin" : "Salin"}
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT: Sidebar Area */}
+            <aside className="lg:col-span-4 space-y-8">
+              <div className="sticky top-24">
+                <div className="flex items-center justify-between border-b pb-4 mb-6">
+                  <h2 className="text-xl font-extrabold tracking-tight text-primary">Berita Terbaru</h2>
+                  <Link href="/berita" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
+                    Lihat Semua
+                  </Link>
+                </div>
+
+                <div className="flex flex-col gap-6">
+                  {recentNews.map((recent) => {
+                    const img = PlaceHolderImages.find(item => item.id === recent.mainImgId)
+                    return (
+                      <motion.div
+                        key={recent.id}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Link href={`/berita/${recent.id}`} className="group flex gap-4 items-start">
+                          <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-muted border">
+                            {img?.imageUrl && (
+                              <Image 
+                                src={img.imageUrl} 
+                                alt={recent.title} 
+                                fill 
+                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                              />
+                            )}
+                          </div>
+                          <div className="flex flex-col gap-1.5 flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-accent font-bold text-[10px] uppercase tracking-wider">{recent.category}</span>
+                            </div>
+                            <h3 className="text-sm font-bold leading-snug group-hover:text-accent transition-colors line-clamp-2">
+                              {recent.title}
+                            </h3>
+                            <div className="flex items-center gap-1.5 text-[9px] font-bold text-muted-foreground/60 uppercase">
+                              <Calendar className="h-2.5 w-2.5" /> {recent.date}
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    )
+                  })}
+                </div>
+
+                {/* Newsletter Box in Sidebar */}
+                <div className="mt-12 p-6 rounded-2xl bg-muted/30 border border-muted-foreground/5 space-y-4">
+                  <h3 className="text-sm font-bold text-primary">Dapatkan Update Mingguan</h3>
+                  <p className="text-xs text-muted-foreground font-medium leading-relaxed">
+                    Berlangganan buletin kami untuk mendapatkan wawasan teknologi terbaru langsung di email Anda.
+                  </p>
+                  <div className="space-y-2">
+                    <input 
+                      type="email" 
+                      placeholder="Email Anda" 
+                      className="w-full bg-white border-muted-foreground/10 rounded-xl px-4 py-2 text-xs font-medium focus:outline-none focus:ring-1 focus:ring-accent"
+                    />
+                    <Button className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl text-xs font-bold h-9">
+                      Berlangganan
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
           </div>
         </div>
       </section>
