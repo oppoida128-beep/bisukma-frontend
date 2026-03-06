@@ -21,8 +21,8 @@ import { motion } from "framer-motion"
 
 const services = [
   {
-    title: "Layanan perencanaan dapur MBG",
-    subtitle: "Bisukma kitchen planning service",
+    title: "Layanan Perencanaan Dapur MBG",
+    subtitle: "Bisukma Kitchen Planning Service",
     icon: <Layout className="h-6 w-6 md:h-8 md:w-8" />,
     img: "/layanan-assets/Layanan perencanaan dapur.svg",
     description: "Membantu calon pemilik dapur dalam tahap awal perancangan strategis dan teknis.",
@@ -35,10 +35,10 @@ const services = [
     output: "Blueprint dapur, estimasi biaya operasional, dan standar fasilitas dapur."
   },
   {
-    title: "Layanan registrasi & legalitas MBG",
-    subtitle: "Bisukma compliance service",
+    title: "Layanan Registrasi & Legalitas MBG",
+    subtitle: "Bisukma Compliance Service",
     icon: <FileText className="h-6 w-6 md:h-8 md:w-8" />,
-    img: "news-3",
+    img: "/layanan-assets/Layanan registrasi & legalitas.svg",
     description: "Pendampingan administrasi penuh untuk memastikan kepatuhan hukum dan kemitraan.",
     features: [
       "Registrasi mitra MBG",
@@ -49,8 +49,8 @@ const services = [
     output: "Dapur siap terdaftar secara resmi sebagai mitra MBG."
   },
   {
-    title: "Layanan setup operasional dapur",
-    subtitle: "Bisukma kitchen setup service",
+    title: "Layanan Setup Operasional Dapur",
+    subtitle: "Bisukma Kitchen Setup Service",
     icon: <Utensils className="h-6 w-6 md:h-8 md:w-8" />,
     img: "/layanan-assets/Layanan setup operasional dapur.svg",
     description: "Pendampingan teknis membangun infrastruktur dapur hingga siap beroperasi penuh.",
@@ -63,8 +63,8 @@ const services = [
     output: "Fasilitas dapur yang siap untuk produksi massal."
   },
   {
-    title: "Layanan rekrutmen & pelatihan SDM",
-    subtitle: "Bisukma human capital program",
+    title: "Layanan Rekrutmen & Pelatihan SDM",
+    subtitle: "Bisukma Human Capital Program",
     icon: <Users className="h-6 w-6 md:h-8 md:w-8" />,
     img: "/layanan-assets/Layanan rekrutmen & pelatihan SDM.svg",
     description: "Program pengembangan kapasitas untuk menciptakan tim dapur yang kompeten.",
@@ -77,8 +77,8 @@ const services = [
     output: "SDM kompeten yang siap mengelola operasional harian."
   },
   {
-    title: "Layanan rantai pasok pangan lokal",
-    subtitle: "Bisukma local food supply network",
+    title: "Layanan Rantai Pasok Pangan Lokal",
+    subtitle: "Bisukma Local Food Supply Network",
     icon: <Sprout className="h-6 w-6 md:h-8 md:w-8" />,
     img: "/layanan-assets/Layanan rantai pasok pangan lokal.svg",
     description: "Menghubungkan dapur dengan ekosistem pangan lokal yang berkelanjutan.",
@@ -91,8 +91,8 @@ const services = [
     output: "Jaminan bahan pangan lokal dan stabilitas rantai pasok."
   },
   {
-    title: "Layanan monitoring & evaluasi",
-    subtitle: "Bisukma impact monitoring service",
+    title: "Layanan Monitoring & Evaluasi",
+    subtitle: "Bisukma Impact Monitoring Service",
     icon: <Activity className="h-6 w-6 md:h-8 md:w-8" />,
     img: "/layanan-assets/evaluasi.svg",
     description: "Sistem pengawasan kualitas dan pelaporan dampak sosial yang transparan.",
@@ -130,18 +130,18 @@ export default function LayananPage() {
             >
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-6xl font-black text-left tracking-tight leading-tight">
-                  Layanan <span className="text-accent">kami</span>
+                  Layanan <span className="text-accent">Kami</span>
                 </h1>
                 <p className="text-left text-base md:text-xl text-muted-foreground font-medium max-w-xl leading-relaxed">
-                  6 Layanan strategis Bisukma Digital untuk mendukung calon pemilik dapur MBG dalam membangun ekosistem pangan yang mandiri.
+                  6 Layanan Strategis Bisukma Digital untuk mendukung calon pemilik dapur MBG dalam membangun ekosistem pangan yang mandiri.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 pt-2">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-full font-bold px-8 h-12">
-                  Konsultasi kemitraan
+                  Konsultasi Kemitraan
                 </Button>
                 <Button variant="outline" size="lg" className="rounded-full font-bold px-8 h-12 border-muted-foreground/20 text-muted-foreground">
-                  Pelajari program
+                  Pelajari Program
                 </Button>
               </div>
             </motion.div>
@@ -230,7 +230,7 @@ export default function LayananPage() {
                           <Target className="h-4 w-4" />
                         </div>
                         <div className="space-y-1">
-                          <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Output utama</p>
+                          <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Output Utama</p>
                           <p className="text-xs md:text-sm font-semibold text-primary/80 leading-relaxed">
                             {service.output}
                           </p>
@@ -252,18 +252,18 @@ export default function LayananPage() {
       >
         <div className="bg-muted/20 rounded-[2.5rem] border border-muted-foreground/5 p-8 md:p-20 text-center max-w-5xl mx-auto space-y-8">
           <div className="space-y-4">
-            <h2 className="text-2xl md:text-4xl font-black tracking-tight">Siap membangun kemandirian pangan?</h2>
+            <h2 className="text-2xl md:text-4xl font-black tracking-tight">Siap Membangun Kemandirian Pangan?</h2>
             <p className="text-muted-foreground text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
               Kami siap mendampingi Anda dari tahap perencanaan hingga dapur MBG Anda beroperasi penuh. Mari berkolaborasi untuk gizi anak bangsa yang lebih baik.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-full font-bold px-8 h-12">
-              Jadwalkan konsultasi
+              Jadwalkan Konsultasi
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button size="lg" variant="outline" className="rounded-full font-bold px-8 h-12 border-muted-foreground/20 text-muted-foreground hover:bg-white">
-              Unduh brosur program
+              Unduh Brosur Program
             </Button>
           </div>
         </div>
