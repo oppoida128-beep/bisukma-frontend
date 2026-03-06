@@ -99,7 +99,7 @@ export default function TentangKamiPage() {
               </Badge>
               <h1 className="scroll-m-20 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                 Membangun bangsa <br />
-                <span className="text-accent italic">bersama Bisukma.</span>
+                <span className="text-accent italic">Bisukma.</span>
               </h1>
               <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
                 lembaga strategis nasional yang berfokus pada pemberdayaan masyarakat mandiri, cerdas, dan berdaya saing global.
@@ -128,7 +128,7 @@ export default function TentangKamiPage() {
           >
             <div className="text-center space-y-3">
               <h2 className="text-3xl md:text-4xl font-extrabold text-primary tracking-tight">eksplorasi dimensi kami</h2>
-              <p className="text-muted-foreground text-lg">mengenal lebih dalam sejarah, identitas, dan pilar pergerakan bisukma group.</p>
+              <p className="text-muted-foreground text-lg">mengenal lebih dalam sejarah, identitas, dan pilar pergerakan Bisukma group.</p>
             </div>
 
             <Accordion type="single" collapsible className="w-full space-y-4">
@@ -141,10 +141,10 @@ export default function TentangKamiPage() {
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-8 text-base">
                   <p>
-                    <strong>awal berdiri (2009):</strong> bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digagas oleh erickson sianipar. fokus awalnya adalah pada dua sektor vital: pendidikan dan pertanian.
+                    <strong>awal berdiri (2009):</strong> Bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digagas oleh Erickson Sianipar. fokus awalnya adalah pada dua sektor vital: pendidikan dan pertanian.
                   </p>
                   <p>
-                    <strong>lembaga formal:</strong> yayasan bisukma bangun bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan sdm (sumber daya manusia) dan ekonomi kerakyatan.
+                    <strong>lembaga formal:</strong> yayasan Bisukma bangun bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan sdm (sumber daya manusia) dan ekonomi kerakyatan.
                   </p>
                   <p>
                     <strong>rekam jejak:</strong> hingga saat ini, kami telah melatih lebih dari 6.000 masyarakat, termasuk pelatihan teknologi informasi untuk petani agar bisa mengakses aplikasi pertanian dan peternakan modern.
@@ -156,12 +156,12 @@ export default function TentangKamiPage() {
                 <AccordionTrigger className="hover:no-underline font-bold text-xl py-8 text-primary group">
                   <span className="flex items-center gap-4">
                     <span className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs">02</span>
-                    transformasi bisukma group
+                    transformasi Bisukma group
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-8 text-base">
                   <p>
-                    istilah "bisukma group" muncul seiring dengan perluasan skala gerakan kami. kini, kami beroperasi layaknya grup entitas yang mengelola berbagai program strategis nasional di daerah:
+                    istilah "Bisukma Group" muncul seiring dengan perluasan skala gerakan kami. kini, kami beroperasi layaknya grup entitas yang mengelola berbagai program strategis nasional di daerah:
                   </p>
                   <ul className="grid sm:grid-cols-2 gap-4 pt-2">
                     <li className="p-4 rounded-xl bg-muted/30 border border-muted-foreground/10">
@@ -195,7 +195,7 @@ export default function TentangKamiPage() {
                   <div className="grid sm:grid-cols-2 gap-8 pt-4">
                     <div className="space-y-1">
                       <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">nama resmi</p>
-                      <p className="text-base font-semibold text-primary">yayasan bisukma bangun bangsa</p>
+                      <p className="text-base font-semibold text-primary">yayasan Bisukma bangun bangsa</p>
                     </div>
                     <div className="space-y-1">
                       <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">founder / pendiri</p>
@@ -294,7 +294,7 @@ export default function TentangKamiPage() {
                       <div className="space-y-2">
                         <p className="text-accent font-bold uppercase tracking-[0.2em] text-xs">the visionary</p>
                         <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">erickson sianipar</h3>
-                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">founder bisukma group</p>
+                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">founder Bisukma group</p>
                       </div>
                       <p className="text-primary-foreground/70 leading-relaxed text-sm">
                         "membangun bangsa dimulai dari kemandirian setiap individu. melalui pemberdayaan yang tepat, kita menciptakan masa depan yang lebih cerah bagi generasi mendatang."
@@ -315,7 +315,7 @@ export default function TentangKamiPage() {
           </div>
 
           {/* Deputies - Modern Grid */}
-          <div className="max-w-5xl mx-auto mb-20">
+          <div className="max-w-5xl mx-auto mb-16">
             <div className="grid md:grid-cols-2 gap-8 md:gap-12">
               {team.deputies.map((deputy, i) => (
                 <motion.div 
@@ -348,9 +348,9 @@ export default function TentangKamiPage() {
             </div>
           </div>
 
-          {/* Heads - Unified Minimalist Grid */}
+          {/* Heads - Unified Modern Grid (Synchronized Animation) */}
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {team.heads.map((head, i) => (
                 <motion.div 
                   key={i}
@@ -359,21 +359,23 @@ export default function TentangKamiPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (i * 0.1) }}
                 >
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl flex items-center gap-4 group hover:border-accent/40 transition-all duration-300">
-                    <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-white/10 border border-accent/10 group-hover:rotate-3 transition-transform">
-                      {head.imageUrl && (
-                        <Image src={head.imageUrl} alt={head.name} fill className="object-cover" />
-                      )}
-                    </div>
-                    <div className="space-y-1 flex-1">
-                      <p className="text-[10px] text-accent font-bold uppercase tracking-wider">{head.role}</p>
-                      <h5 className="font-bold text-white text-sm group-hover:text-accent transition-colors leading-tight">{head.name}</h5>
-                      <div className="flex gap-2 pt-1 opacity-40 group-hover:opacity-100 transition-opacity">
-                        <Linkedin className="size-3 text-white hover:text-accent cursor-pointer transition-colors" />
-                        <Mail className="size-3 text-white hover:text-accent cursor-pointer transition-colors" />
+                  <Card className="border border-white/10 bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden group hover:border-accent/40 transition-all duration-500 shadow-none">
+                    <CardContent className="p-6 flex items-center gap-5">
+                      <div className="relative size-20 md:size-24 shrink-0 overflow-hidden rounded-xl bg-white/10 border border-accent/10">
+                        {head.imageUrl && (
+                          <Image src={head.imageUrl} alt={head.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        )}
                       </div>
-                    </div>
-                  </div>
+                      <div className="space-y-1 flex-1">
+                        <p className="text-[10px] text-accent font-bold uppercase tracking-widest leading-none mb-1">{head.role}</p>
+                        <h5 className="font-bold text-white text-base group-hover:text-accent transition-colors leading-tight">{head.name}</h5>
+                        <div className="flex gap-3 pt-2 opacity-40 group-hover:opacity-100 transition-opacity">
+                          <Linkedin className="size-3.5 text-white hover:text-accent cursor-pointer transition-colors" />
+                          <Mail className="size-3.5 text-white hover:text-accent cursor-pointer transition-colors" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               ))}
             </div>
