@@ -3,11 +3,12 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, RefreshCw, SquareArrowUpRight } from "lucide-react"
+import { Globe, AlertCircle, Calendar, RefreshCw, SquareArrowUpRight, ArrowDown, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { fetchExternalNews, triggerRefreshNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
 import { cn } from "@/lib/utils"
+import { MorphButton } from "@/components/ui/morph-button"
 
 export function ExternalNewsSection() {
   const [news, setNews] = React.useState<ExternalNewsOutput['news']>([])
@@ -122,21 +123,12 @@ export function ExternalNewsSection() {
 
             {news.length > 3 && (
               <div className="flex justify-center pt-12">
-                <Button
-                  variant="ghost"
+                <MorphButton
+                  text={isExpanded ? "Tampilkan lebih sedikit" : "Lihat berita lainnya"}
+                  icon={isExpanded ? ArrowUp : ArrowDown}
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="group text-accent font-bold hover:bg-accent/5 rounded-full px-8 h-12 transition-all border border-accent/20"
-                >
-                  {isExpanded ? (
-                    <>
-                      Tampilkan lebih sedikit <ChevronUp className="ml-2 h-4 w-4" />
-                    </>
-                  ) : (
-                    <>
-                      Lihat berita lainnya <ChevronDown className="ml-2 h-4 w-4 group-hover/translate-y-0.5 transition-transform" />
-                    </>
-                  )}
-                </Button>
+                  className="bg-transparent text-accent hover:bg-accent/5 border-none shadow-none"
+                />
               </div>
             )}
           </div>
