@@ -25,12 +25,11 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "relative flex items-center justify-center bg-accent text-white rounded-full h-10 shadow-none border-none cursor-pointer outline-none transition-colors",
-        showText ? "px-5 gap-2" : "w-10",
+        showText ? "px-5" : "w-10",
         className
       )}
       transition={{ 
-        layout: { type: "spring", stiffness: 400, damping: 30 },
-        opacity: { duration: 0.2 }
+        layout: { type: "spring", stiffness: 400, damping: 35 },
       }}
       {...props}
     >
@@ -38,14 +37,17 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
         <Icon size={16} />
       </motion.div>
 
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence initial={false}>
         {showText && (
           <motion.span
-            initial={{ opacity: 0, x: -5 }}
+            initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -5 }}
-            transition={{ duration: 0.2 }}
-            className="whitespace-nowrap text-xs font-bold tracking-tight"
+            exit={{ opacity: 0, x: -8 }}
+            transition={{ 
+              duration: 0.2,
+              ease: "easeInOut"
+            }}
+            className="whitespace-nowrap text-xs font-bold tracking-tight ml-2"
           >
             {text}
           </motion.span>
