@@ -22,8 +22,6 @@ export default function TentangKamiPage() {
     transition: { duration: 0.6 }
   }
 
-  const heroImg = PlaceHolderImages.find(img => img.id === 'tentang-kami-hero')
-
   const team = {
     founder: { 
       name: "Erickson Sianipar",
@@ -90,15 +88,13 @@ export default function TentangKamiPage() {
               className="relative"
             >
               <div className="relative aspect-[4/3] w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-black/20">
-                {heroImg?.imageUrl && (
-                  <Image 
-                    src={heroImg.imageUrl} 
-                    alt="Bisukma Tentang Kami" 
-                    fill 
-                    className="object-cover"
-                    priority
-                  />
-                )}
+                <Image 
+                  src="/layanan-assets/2.svg" 
+                  alt="Bisukma Tentang Kami" 
+                  fill 
+                  className="object-cover"
+                  priority
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
             </motion.div>
