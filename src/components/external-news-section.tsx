@@ -51,7 +51,7 @@ export function ExternalNewsSection() {
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari berbagai media nasional.
+              Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari berbagai media nasional setiap harinya.
             </p>
           </div>
         </div>
@@ -163,7 +163,7 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-105 transition-transform duration-700"
               onError={() => setImgError(true)}
-              unoptimized={item.thumbnailUrl.includes('placeholder') ? false : true} // Mengatasi pembatasan whitelist domain jika perlu
+              unoptimized={item.thumbnailUrl.includes('placeholder') || item.thumbnailUrl.includes('unsplash') ? false : true}
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent/5 text-accent/20 gap-2 p-6 text-center">
