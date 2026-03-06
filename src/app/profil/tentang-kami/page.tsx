@@ -42,7 +42,7 @@ export default function TentangKamiPage() {
     ],
     heads: [
       { 
-        name: "Budi Santoso", 
+        name: "Lia Finola Pasaribu", 
         role: "kepala bag. sdm", 
         imageUrl: "/jajaran/kepala-bag-sdm.svg" 
       },
