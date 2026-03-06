@@ -234,10 +234,19 @@ export default function TentangKamiPage() {
       </section>
 
       {/* --- ORGANIZATIONAL STRUCTURE SECTION --- */}
-      <section className="py-24 bg-muted/10 relative overflow-hidden">
+      <section className="py-24 bg-primary relative overflow-hidden">
+        {/* Background Image with Low Opacity */}
+        <div className="absolute inset-0 z-0 opacity-10">
+          <Image 
+            src="/layanan-assets/5.svg" 
+            alt="background pattern" 
+            fill 
+            className="object-cover"
+          />
+        </div>
+        
         {/* Background Accents */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.03)_0%,transparent_70%)] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.03)_0%,transparent_70%)] pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.05)_0%,transparent_70%)] pointer-events-none"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div 
@@ -245,8 +254,8 @@ export default function TentangKamiPage() {
             {...fadeIn}
           >
             <Badge variant="outline" className="border-accent/30 text-accent mb-2">hierarki kepemimpinan</Badge>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-primary tracking-tight">struktur organisasi</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">struktur organisasi</h2>
+            <p className="text-white/70 max-w-2xl mx-auto text-lg">
               sinergi tim kepemimpinan yang berdedikasi untuk mewujudkan visi kemandirian bangsa.
             </p>
           </motion.div>
@@ -260,7 +269,7 @@ export default function TentangKamiPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <Card className="overflow-hidden border-none bg-primary text-white shadow-2xl rounded-[2.5rem] relative group">
+              <Card className="overflow-hidden border-none bg-black/20 backdrop-blur-md text-white shadow-2xl rounded-[2.5rem] relative group border border-white/5">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 blur-[80px] rounded-full -mr-20 -mt-20"></div>
                 <CardContent className="p-0">
                   <div className="grid md:grid-cols-2 items-center">
@@ -279,10 +288,10 @@ export default function TentangKamiPage() {
                         "membangun bangsa dimulai dari kemandirian setiap individu. melalui pemberdayaan yang tepat, kita menciptakan masa depan yang lebih cerah bagi generasi mendatang."
                       </p>
                       <div className="flex gap-4 pt-4">
-                        <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+                        <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
                           <Linkedin className="size-4" />
                         </button>
-                        <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+                        <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
                           <Mail className="size-4" />
                         </button>
                       </div>
@@ -304,20 +313,20 @@ export default function TentangKamiPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
                 >
-                  <Card className="border border-accent/10 bg-white/50 backdrop-blur-sm rounded-[2rem] overflow-hidden group hover:border-accent/40 transition-all duration-500 shadow-none">
+                  <Card className="border border-white/10 bg-white/5 backdrop-blur-sm rounded-[2rem] overflow-hidden group hover:border-accent/40 transition-all duration-500 shadow-none">
                     <CardContent className="p-8 flex items-center gap-6">
-                      <div className="relative size-24 md:size-32 shrink-0 overflow-hidden rounded-2xl bg-muted border-2 border-accent/20">
+                      <div className="relative size-24 md:size-32 shrink-0 overflow-hidden rounded-2xl bg-white/10 border-2 border-accent/20">
                         {deputy.imageUrl && (
                           <Image src={deputy.imageUrl} alt={deputy.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                         )}
                       </div>
                       <div className="space-y-1">
                         <p className="text-accent font-bold text-[10px] uppercase tracking-widest">{deputy.role}</p>
-                        <h4 className="text-xl font-bold text-primary leading-tight">{deputy.name}</h4>
-                        <p className="text-xs text-muted-foreground font-medium">{deputy.bio}</p>
+                        <h4 className="text-xl font-bold text-white leading-tight">{deputy.name}</h4>
+                        <p className="text-xs text-white/60 font-medium">{deputy.bio}</p>
                         <div className="flex gap-2 pt-2">
-                          <Linkedin className="size-3 text-muted-foreground hover:text-accent cursor-pointer transition-colors" />
-                          <Mail className="size-3 text-muted-foreground hover:text-accent cursor-pointer transition-colors" />
+                          <Linkedin className="size-3 text-white/40 hover:text-accent cursor-pointer transition-colors" />
+                          <Mail className="size-3 text-white/40 hover:text-accent cursor-pointer transition-colors" />
                         </div>
                       </div>
                     </CardContent>
@@ -338,15 +347,15 @@ export default function TentangKamiPage() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (i * 0.1) }}
                 >
-                  <div className="bg-white border border-muted p-6 rounded-2xl flex items-center gap-4 group hover:border-accent/30 transition-all duration-300">
-                    <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-muted group-hover:rotate-3 transition-transform">
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/5 p-6 rounded-2xl flex items-center gap-4 group hover:border-accent/30 transition-all duration-300">
+                    <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-white/10 group-hover:rotate-3 transition-transform">
                       {head.imageUrl && (
                         <Image src={head.imageUrl} alt={head.name} fill className="object-cover" />
                       )}
                     </div>
                     <div className="space-y-0.5">
-                      <h5 className="font-bold text-primary text-sm group-hover:text-accent transition-colors">{head.name}</h5>
-                      <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">{head.role}</p>
+                      <h5 className="font-bold text-white text-sm group-hover:text-accent transition-colors">{head.name}</h5>
+                      <p className="text-[10px] text-white/50 font-semibold uppercase tracking-wider">{head.role}</p>
                     </div>
                   </div>
                 </motion.div>
