@@ -26,14 +26,16 @@ export type ExternalNewsOutput = {
 
 /**
  * Resolve Google News redirect URL to the final destination URL.
+ * Google News RSS links are typically redirects.
  */
 async function resolveFinalUrl(url: string): Promise<string> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6000);
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
 
   try {
+    // We use a real User-Agent to avoid being blocked during resolution
     const response = await fetch(url, {
-      method: 'HEAD',
+      method: 'GET',
       redirect: 'follow',
       signal: controller.signal,
       headers: {
@@ -42,27 +44,16 @@ async function resolveFinalUrl(url: string): Promise<string> {
     });
     clearTimeout(timeoutId);
     return response.url;
-  } catch {
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow',
-        headers: {
-          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        }
-      });
-      clearTimeout(timeoutId);
-      return response.url;
-    } catch {
-      clearTimeout(timeoutId);
-      return url;
-    }
+  } catch (error) {
+    clearTimeout(timeoutId);
+    // If resolution fails, return original URL as fallback
+    return url;
   }
 }
 
 /**
  * Pure RSS Parser logic without AI dependency.
- * Much faster (~1s vs ~40s) and more stable for production.
+ * Faster (~1s vs ~40s) and more stable for production.
  */
 async function fetchNews(): Promise<ExternalNewsOutput> {
   try {
@@ -78,7 +69,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
     const rawItems = json?.rss?.channel?.item || [];
     const items = Array.isArray(rawItems) ? rawItems : [rawItems];
     
-    // Limit to top 6 items for better performance
+    // Limit to top 6 items for performance balance
     const targetItems = items.slice(0, 6);
 
     const news = await Promise.all(targetItems.map(async (item: any, index: number) => {
@@ -109,7 +100,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
         description = item.description?.replace(/<[^>]*>?/gm, '') || "";
       }
 
-      // 3. Simple category inference based on keywords (replacing AI)
+      // 3. Simple category inference based on keywords
       let category = "Nasional";
       const titleLower = item.title.toLowerCase();
       if (titleLower.includes("gizi") || titleLower.includes("makan")) category = "Gizi";
@@ -127,7 +118,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
       };
     }));
 
-    console.log(`✅ Berhasil memproses ${news.length} berita dalam waktu singkat.`);
+    console.log(`✅ Berhasil memproses ${news.length} berita.`);
     return { news };
   } catch (error) {
     console.error("❌ Error fetching external news:", error);
@@ -140,7 +131,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
  */
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v12'],
+  ['bisukma-external-news-v16'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
