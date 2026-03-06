@@ -11,20 +11,22 @@ export function SiteFooter() {
           <div className="md:col-span-4 space-y-6">
             <Link href="/" className="flex items-center gap-2 font-headline text-xl font-bold text-primary">
               <LayoutGrid className="h-6 w-6 text-accent" />
-              <span>Bisukma<span className="text-accent">Digital</span></span>
+              <span>Bisukma <span className="text-accent">Digital</span></span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-              Katalisator transformasi digital Anda. Kami menghadirkan solusi teknologi presisi tinggi dengan standar kualitas global untuk pertumbuhan bisnis yang berkelanjutan.
+              Katalisator Transformasi Digital Anda. Kami Menghadirkan Solusi Teknologi Presisi Tinggi Dengan Standar Kualitas Global Untuk Pertumbuhan Bisnis Yang Berkelanjutan.
             </p>
             <div className="flex gap-5">
               {[
-                { icon: Instagram, href: "#" },
-                { icon: Linkedin, href: "#" },
-                { icon: Twitter, href: "#" }
+                { icon: Instagram, href: "https://instagram.com/bisukma" },
+                { icon: Linkedin, href: "https://linkedin.com/company/bisukma" },
+                { icon: Twitter, href: "https://twitter.com/bisukma" }
               ].map((social, i) => (
                 <Link 
                   key={i} 
                   href={social.href} 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-accent transition-all hover:scale-110"
                 >
                   <social.icon className="h-5 w-5" />
@@ -36,20 +38,20 @@ export function SiteFooter() {
           {/* Links Section - Grid on Mobile */}
           <div className="md:col-span-4 grid grid-cols-2 gap-8 md:gap-12">
             <div className="space-y-5">
-              <h3 className="text-sm font-bold tracking-wider text-primary uppercase">Eksplorasi</h3>
+              <h3 className="text-sm font-bold tracking-wider text-primary">Eksplorasi</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li><Link href="/profil" className="hover:text-accent transition-colors">Profil</Link></li>
-                <li><Link href="/layanan" className="hover:text-accent transition-colors">Layanan</Link></li>
-                <li><Link href="/berita" className="hover:text-accent transition-colors">Berita</Link></li>
-                <li><Link href="/mitra" className="hover:text-accent transition-colors">Kemitraan</Link></li>
+                <li><Link href="/profil/tentang-kami" className="hover:text-accent transition-colors">Profil Bisukma</Link></li>
+                <li><Link href="/layanan" className="hover:text-accent transition-colors">Layanan Kami</Link></li>
+                <li><Link href="/berita" className="hover:text-accent transition-colors">Berita Terbaru</Link></li>
+                <li><Link href="/mitra" className="hover:text-accent transition-colors">Kemitraan Strategis</Link></li>
               </ul>
             </div>
 
             <div className="space-y-5">
-              <h3 className="text-sm font-bold tracking-wider text-primary uppercase">Solusi</h3>
+              <h3 className="text-sm font-bold tracking-wider text-primary">Solusi Digital</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="hover:text-accent transition-colors cursor-default">Software Dev</li>
-                <li className="hover:text-accent transition-colors cursor-default">Cloud Infra</li>
+                <li className="hover:text-accent transition-colors cursor-default">Software Development</li>
+                <li className="hover:text-accent transition-colors cursor-default">Cloud Infrastructure</li>
                 <li className="hover:text-accent transition-colors cursor-default">Data Analytics</li>
                 <li className="hover:text-accent transition-colors cursor-default">IT Consulting</li>
               </ul>
@@ -58,7 +60,7 @@ export function SiteFooter() {
 
           {/* Contact Section */}
           <div className="md:col-span-4 space-y-6">
-            <h3 className="text-sm font-bold tracking-wider text-primary uppercase">Hubungi Kami</h3>
+            <h3 className="text-sm font-bold tracking-wider text-primary">Hubungi Kami</h3>
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 text-accent mt-0.5 shrink-0" />
@@ -79,7 +81,7 @@ export function SiteFooter() {
         <Separator className="my-10 md:my-16 opacity-50" />
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-muted-foreground">
-          <p>© {new Date().getFullYear()} Bisukma Digital. Seluruh hak cipta dilindungi.</p>
+          <p>© {new Date().getFullYear()} Bisukma Digital. Seluruh Hak Cipta Dilindungi.</p>
           <div className="flex gap-6">
             <Link href="#" className="hover:text-accent transition-colors">Kebijakan Privasi</Link>
             <Link href="#" className="hover:text-accent transition-colors">Syarat & Ketentuan</Link>
