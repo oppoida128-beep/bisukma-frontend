@@ -124,8 +124,8 @@ export function ExternalNewsSection() {
             {news.length > 3 && (
               <div className="flex justify-center pt-12">
                 <MorphButton
-                  text={isExpanded ? "tampilkan lebih sedikit" : "lihat berita lainnya"}
-                  icon={isExpanded ? ArrowUp : ArrowDown}
+                  text={isExpanded ? "Tampilkan lebih sedikit" : "Lihat berita lainnya"}
+                  icon={ArrowUp}
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="bg-transparent text-muted-foreground border-none shadow-none"
                 />
@@ -210,7 +210,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           >
             <div className="flex items-center justify-between gap-4 p-4 rounded-xl border border-border group-hover/link:border-muted-foreground transition-all duration-300">
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-bold text-foreground">baca sumber asli</span>
+                <span className="text-xs font-bold text-foreground">Buka berita</span>
                 <p className="text-[10px] text-muted-foreground font-medium leading-tight">
                   baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
                 </p>
