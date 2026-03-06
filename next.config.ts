@@ -63,6 +63,18 @@ const nextConfig: NextConfig = {
         hostname: '*.liputan6.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.bisukma.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tabloidpolmaspoldasu.id',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

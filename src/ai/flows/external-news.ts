@@ -13,7 +13,7 @@ const NewsItemSchema = z.object({
   date: z.string().describe('Tanggal terbit berita'),
   summary: z.string().describe('Ringkasan berita dalam Bahasa Indonesia yang profesional'),
   category: z.string().describe('Kategori (Pendidikan, Pertanian, Gizi, Sosial, Ekonomi)'),
-  thumbnailUrl: z.string().describe('URL gambar pratinjau yang paling relevan. Gunakan URL dari metadata jika tersedia, atau URL Unsplash yang SANGAT spesifik mewakili topik berita tersebut.'),
+  thumbnailUrl: z.string().describe('URL gambar pratinjau. Prioritaskan mengekstrak URL gambar asli dari data RSS jika ada. Jika tidak ada, berikan URL Unsplash yang SANGAT spesifik dan relevan dengan judul berita.'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -45,12 +45,11 @@ const prompt = ai.definePrompt({
   Data RSS:
   {{{rssData}}}
 
-  INSTRUKSI:
-  1. Ekstrak Judul, URL, dan Sumber media asli.
-  2. Buat ringkasan yang informatif dalam Bahasa Indonesia.
-  3. Tentukan kategori yang paling tepat.
-  4. Untuk 'thumbnailUrl', jika dalam data RSS tidak ada URL gambar yang jelas, berikan URL Unsplash (https://images.unsplash.com/photo-...) yang secara visual SANGAT AKURAT menggambarkan isi berita tersebut (misal: jika tentang pertanian, cari foto sawah modern; jika tentang gizi, cari foto makanan sehat).
-  5. Jika data RSS kosong atau tidak relevan, Anda boleh menggunakan pengetahuan internal Anda untuk memberikan berita nyata terbaru (2024-2025) yang Anda ketahui tentang Bisukma sebagai fallback.`,
+  INSTRUKSI UNTUK GAMBAR (thumbnailUrl):
+  1. Periksa apakah ada tag <media:content> atau <img> di dalam deskripsi item RSS. Jika ada URL gambar yang valid dan berakhir dengan .jpg, .png, atau .webp, gunakan itu.
+  2. Jika tidak ditemukan gambar asli, berikan URL Unsplash menggunakan format: https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&w=800&q=80
+  3. Pastikan gambar Unsplash yang Anda pilih secara visual SANGAT AKURAT menggambarkan isi berita. Misal: jika berita tentang pembagian ATK sekolah, cari foto "school supplies"; jika tentang dapur gizi, cari "clean industrial kitchen".
+  4. Jangan gunakan gambar placeholder generic jika memungkinkan.`,
 });
 
 const externalNewsFlow = ai.defineFlow(
