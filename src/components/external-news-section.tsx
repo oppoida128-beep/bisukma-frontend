@@ -148,6 +148,21 @@ export function ExternalNewsSection() {
 
 function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput['news'][0], index: number, priority?: boolean }) {
   const [imgError, setImgError] = React.useState(false)
+
+  const formattedDate = React.useMemo(() => {
+    try {
+      const d = new Date(item.date);
+      if (isNaN(d.getTime())) return item.date;
+      return d.toLocaleDateString('id-ID', { 
+        weekday: 'short', 
+        day: 'numeric', 
+        month: 'short', 
+        year: 'numeric' 
+      });
+    } catch {
+      return item.date;
+    }
+  }, [item.date]);
   
   return (
     <motion.div
@@ -184,11 +199,11 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
 
         <CardContent className="p-6 md:p-8 space-y-3 flex-1">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <p className="text-sm text-muted-foreground flex items-center gap-1.5">
+            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
               <Calendar className="h-3 w-3 text-accent" /> 
-              {item.date}
+              {formattedDate}
             </p>
-            <p className="text-sm text-muted-foreground flex items-center gap-1.5">
+            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
               <Globe className="h-3 w-3 text-accent" /> 
               {item.source}
             </p>
