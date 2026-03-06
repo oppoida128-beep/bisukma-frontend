@@ -29,21 +29,33 @@ export default function TentangKamiPage() {
     deputies: [
       { 
         name: "D. Hardtaty Silaban, S.Psi.", 
-        role: "deputi i", 
+        role: "DEPUTI I", 
         imageUrl: "/jajaran/deputi-i.svg", 
         bio: "strategi & kemitraan pemerintah" 
       },
       { 
         name: "Nico Benedictus Sianipar", 
-        role: "deputi ii", 
+        role: "DEPUTI II", 
         imageUrl: "/jajaran/deputi-ii.svg", 
         bio: "operasional & pemberdayaan daerah" 
       },
     ],
     heads: [
-      { name: "Budi Santoso", role: "kepala bag. sdm", imageUrl: "/jajaran/kepala-bag-sdm.svg" },
-      { name: "Bram H. S. Simorangkir", role: "kepala bag. operasional", imageUrl: "/jajaran/kepala-bag-operasional.svg" },
-      { name: "Septina Purba", role: "kepala bag. keuangan", imageUrl: "/jajaran/kepala-bag-keuangan.svg" },
+      { 
+        name: "Budi Santoso", 
+        role: "KEPALA BAG. SDM", 
+        imageUrl: "/jajaran/kepala-bag-sdm.svg" 
+      },
+      { 
+        name: "Bram H. S. Simorangkir", 
+        role: "KEPALA BAG. OPERASIONAL", 
+        imageUrl: "/jajaran/kepala-bag-operasional.svg" 
+      },
+      { 
+        name: "Septina Purba", 
+        role: "KEPALA BAG. KEUANGAN", 
+        imageUrl: "/jajaran/kepala-bag-keuangan.svg" 
+      },
     ]
   }
 
@@ -282,7 +294,7 @@ export default function TentangKamiPage() {
                       <div className="space-y-2">
                         <p className="text-accent font-bold uppercase tracking-[0.2em] text-xs">the visionary</p>
                         <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">erickson sianipar</h3>
-                        <p className="text-accent-foreground/60 font-semibold text-lg italic">founder bisukma group</p>
+                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">founder bisukma group</p>
                       </div>
                       <p className="text-primary-foreground/70 leading-relaxed text-sm">
                         "membangun bangsa dimulai dari kemandirian setiap individu. melalui pemberdayaan yang tepat, kita menciptakan masa depan yang lebih cerah bagi generasi mendatang."
@@ -336,26 +348,30 @@ export default function TentangKamiPage() {
             </div>
           </div>
 
-          {/* Heads - Minimalist Cards */}
+          {/* Heads - Unified Minimalist Grid */}
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {team.heads.map((head, i) => (
                 <motion.div 
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (i * 0.1) }}
                 >
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/5 p-6 rounded-2xl flex items-center gap-4 group hover:border-accent/30 transition-all duration-300">
-                    <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-white/10 group-hover:rotate-3 transition-transform">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl flex items-center gap-4 group hover:border-accent/40 transition-all duration-300">
+                    <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-white/10 border border-accent/10 group-hover:rotate-3 transition-transform">
                       {head.imageUrl && (
                         <Image src={head.imageUrl} alt={head.name} fill className="object-cover" />
                       )}
                     </div>
-                    <div className="space-y-0.5">
-                      <h5 className="font-bold text-white text-sm group-hover:text-accent transition-colors">{head.name}</h5>
-                      <p className="text-[10px] text-white/50 font-semibold uppercase tracking-wider">{head.role}</p>
+                    <div className="space-y-1 flex-1">
+                      <p className="text-[10px] text-accent font-bold uppercase tracking-wider">{head.role}</p>
+                      <h5 className="font-bold text-white text-sm group-hover:text-accent transition-colors leading-tight">{head.name}</h5>
+                      <div className="flex gap-2 pt-1 opacity-40 group-hover:opacity-100 transition-opacity">
+                        <Linkedin className="size-3 text-white hover:text-accent cursor-pointer transition-colors" />
+                        <Mail className="size-3 text-white hover:text-accent cursor-pointer transition-colors" />
+                      </div>
                     </div>
                   </div>
                 </motion.div>
