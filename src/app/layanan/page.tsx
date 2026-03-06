@@ -46,7 +46,7 @@ const services = [
       "Pengajuan kemitraan ke BGN",
       "Penyusunan dokumen operasional"
     ],
-    output: "Dapur siap terdaftar secara resmi as mitra MBG."
+    output: "Dapur siap terdaftar secara resmi sebagai mitra MBG."
   },
   {
     title: "Layanan setup operasional dapur",
@@ -94,7 +94,7 @@ const services = [
     title: "Layanan monitoring & evaluasi",
     subtitle: "Bisukma impact monitoring service",
     icon: <Activity className="h-6 w-6 md:h-8 md:w-8" />,
-    img: "gallery-5",
+    img: "/layanan-assets/evaluasi.svg",
     description: "Sistem pengawasan kualitas dan pelaporan dampak sosial yang transparan.",
     features: [
       "Monitoring kualitas makanan",
