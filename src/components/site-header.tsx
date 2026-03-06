@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutGrid, SquareArrowUpRight, ChevronRight } from "lucide-react"
+import { LayoutGrid, SquareArrowUpRight, ChevronRight, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { MorphButton } from "@/components/ui/morph-button"
@@ -58,6 +58,16 @@ const beritaItems: { title: string; href: string; description: string }[] = [
     href: "/berita?category=Keamanan",
     description: "Wawasan tentang keamanan siber dan data.",
   },
+  {
+    title: "Desain",
+    href: "/berita?category=Desain",
+    description: "Tren desain UI/UX dan estetika digital terbaru.",
+  },
+  {
+    title: "Event",
+    href: "/berita?category=Event",
+    description: "Kabar seputar konferensi dan acara Bisukma.",
+  },
 ]
 
 export function SiteHeader() {
@@ -71,12 +81,11 @@ export function SiteHeader() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
-    handleScroll() // Check initial scroll
+    handleScroll()
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Close menu when route changes
   React.useEffect(() => {
     setIsOpen(false)
   }, [pathname])
@@ -132,17 +141,27 @@ export function SiteHeader() {
                     Berita
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-1 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
-                      {beritaItems.map((item) => (
-                        <ListItem
-                          key={item.title}
-                          title={item.title}
-                          href={item.href}
+                    <div className="w-[400px] md:w-[500px] lg:w-[600px] bg-white p-2">
+                      <ul className="grid gap-1 md:grid-cols-2">
+                        {beritaItems.map((item) => (
+                          <ListItem
+                            key={item.title}
+                            title={item.title}
+                            href={item.href}
+                          >
+                            {item.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                      <div className="mt-2 p-2 pt-3 border-t">
+                        <Link 
+                          href="/berita" 
+                          className="flex items-center justify-center gap-2 text-xs font-bold text-accent hover:text-accent/80 transition-colors py-2 group"
                         >
-                          {item.description}
-                        </ListItem>
-                      ))}
-                    </ul>
+                          Lihat semua berita <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
@@ -259,6 +278,13 @@ export function SiteHeader() {
                             <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-all" />
                           </Link>
                         ))}
+                        <Link 
+                          href="/berita" 
+                          className="text-sm font-bold text-accent hover:text-accent/80 flex items-center justify-between group pt-2"
+                        >
+                          Lihat semua berita
+                          <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                        </Link>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
