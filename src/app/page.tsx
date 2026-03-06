@@ -122,10 +122,10 @@ export default function Home() {
   ]
 
   const fadeIn = {
-    initial: { opacity: 0, y: 30 },
+    initial: { opacity: 0, y: 10 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
-    transition: { duration: 0.6 }
+    transition: { duration: 0.5, ease: "easeOut" }
   }
 
   return (
@@ -135,9 +135,9 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.05)_0%,transparent_100%)]"></div>
         <motion.div 
           className="container mx-auto px-4 relative z-10 text-center"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
           <h1 className="scroll-m-20 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary mb-6 leading-tight">
             Membangun standar baru <br className="hidden md:block" />
@@ -149,7 +149,7 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto transition-all">
               Konsultasi gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
@@ -161,15 +161,11 @@ export default function Home() {
 
         <motion.div 
           className="container mx-auto px-4 mt-12 md:mt-16 relative"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <motion.div 
-            whileHover={{ y: -10, scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm cursor-pointer"
-          >
+          <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm">
             {heroImg?.imageUrl && (
               <Image 
                 src={heroImg.imageUrl} 
@@ -181,7 +177,7 @@ export default function Home() {
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          </motion.div>
+          </div>
         </motion.div>
       </section>
 
@@ -193,7 +189,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
             <p className="text-sm font-bold text-accent">Berita & wawasan</p>
-            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Eksplorasi tren digital</h2>
+            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight text-primary">Eksplorasi tren digital</h2>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -263,8 +259,8 @@ export default function Home() {
                 {recentlyAddedNews.map((post, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                   >
@@ -332,17 +328,13 @@ export default function Home() {
             {programs.map((prog, i) => (
               <motion.div
                 key={prog.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group h-[400px] w-full [perspective:1000px]"
               >
-                <motion.div 
-                  className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
-                >
-                  {/* Front Side */}
-                  <div className="absolute inset-0 h-full w-full rounded-xl overflow-hidden [backface-visibility:hidden]">
+                <Card className="overflow-hidden border-none shadow-none bg-white rounded-2xl group hover:shadow-lg transition-all duration-300">
+                  <div className="relative aspect-[4/3] w-full">
                     {prog.img && (
                       <Image 
                         src={prog.img} 
@@ -351,27 +343,23 @@ export default function Home() {
                         className="object-cover"
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 p-8 space-y-2">
-                      <h3 className="text-xl font-bold text-white leading-tight">
-                        {prog.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-accent text-xs font-bold">
-                        Detail <ChevronRight className="h-3 w-3" />
-                      </div>
-                    </div>
                   </div>
-
-                  {/* Back Side */}
-                  <div className="absolute inset-0 h-full w-full rounded-xl bg-accent p-8 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center space-y-6">
-                    <h3 className="text-2xl font-bold border-b border-white/30 pb-2 w-full">
+                  <CardContent className="p-6 space-y-3">
+                    <h3 className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
                       {prog.title}
                     </h3>
-                    <p className="text-sm leading-relaxed opacity-90">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {prog.desc}
                     </p>
-                  </div>
-                </motion.div>
+                    <div className="pt-2">
+                      <Button variant="link" className="p-0 h-auto text-accent text-xs font-bold" asChild>
+                        <Link href="/profil/tentang-kami">
+                          Pelajari selengkapnya <ChevronRight className="ml-1 h-3 w-3" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -415,13 +403,13 @@ export default function Home() {
             ].map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: i * 0.1 }}
                 className={cn(i === 2 && "sm:col-span-2 lg:col-span-1")}
               >
-                <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-xl md:rounded-2xl shadow-none h-full flex flex-col">
+                <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-300 rounded-xl md:rounded-2xl shadow-none h-full flex flex-col">
                   <CardContent className="p-0 flex flex-col h-full">
                     <div className="relative h-32 md:h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
                       {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="kitchen planning" />}
@@ -456,10 +444,10 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-muted/30 rounded-2xl md:rounded-[2rem] p-6 md:p-10 overflow-hidden max-w-6xl mx-auto">
             <motion.div 
               className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border bg-black/5 w-full shadow-sm"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.6 }}
             >
               <video 
                 autoPlay 
@@ -477,14 +465,14 @@ export default function Home() {
 
             <motion.div 
               className="space-y-4 md:space-y-6 max-w-lg"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="space-y-1 md:space-y-2">
                 <p className="text-[10px] md:text-xs font-bold text-accent">Tentang kami</p>
-                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl">Katalis inovasi digital Anda</h2>
+                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl text-primary">Katalis inovasi digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-medium">
                 Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
@@ -494,7 +482,7 @@ export default function Home() {
               </p>
               
               <div className="flex w-full flex-col gap-3 pt-2">
-                <Item asChild variant="default" className="p-3">
+                <Item asChild variant="default" className="p-3 hover:bg-accent/5 transition-colors">
                   <Link href="/profil/tentang-kami">
                     <ItemContent>
                       <ItemTitle className="text-xs md:text-sm">Kunjungi dokumentasi profil</ItemTitle>
@@ -507,7 +495,7 @@ export default function Home() {
                     </ItemActions>
                   </Link>
                 </Item>
-                <Item variant="outline" asChild className="p-3">
+                <Item variant="outline" asChild className="p-3 hover:bg-accent/5 transition-colors">
                   <a href="/layanan" target="_blank" rel="noopener noreferrer">
                     <ItemContent>
                       <ItemTitle className="text-xs md:text-sm">Sumber daya eksternal</ItemTitle>
