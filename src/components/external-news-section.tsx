@@ -183,7 +183,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           {/* Hover Overlay: Nama Sumber Berita */}
           <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
             <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5">
-              <h4 className="scroll-m-20 text-sm md:text-base font-bold tracking-tight text-accent whitespace-nowrap">
+              <h4 className="scroll-m-20 text-sm md:text-base font-semibold tracking-tight text-accent whitespace-nowrap">
                 {item.source}
               </h4>
               <SquareArrowUpRight className="h-4 w-4 text-accent shrink-0" />
@@ -217,10 +217,17 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             href={item.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-xs font-bold flex items-center text-accent group/link"
+            className="w-full group/link"
           >
-            Baca sumber asli 
-            <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
+            <div className="flex items-center justify-between p-4 rounded-xl border border-accent/20 bg-accent/5 group-hover/link:bg-accent/10 group-hover/link:border-accent transition-all duration-300">
+              <div className="flex flex-col gap-1">
+                <span className="text-xs font-bold text-accent uppercase tracking-wider">Baca sumber asli</span>
+                <p className="text-[10px] text-muted-foreground font-medium leading-tight">
+                  Baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
+                </p>
+              </div>
+              <SquareArrowUpRight className="h-5 w-5 text-accent shrink-0 group-hover/link:scale-110 transition-transform" />
+            </div>
           </a>
         </CardFooter>
       </Card>
