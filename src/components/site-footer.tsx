@@ -50,10 +50,10 @@ export function SiteFooter() {
             <div className="space-y-5">
               <h3 className="text-sm font-bold tracking-wider text-primary">Solusi Digital</h3>
               <ul className="space-y-3 text-sm text-muted-foreground">
-                <li className="hover:text-accent transition-colors cursor-default">Software Development</li>
-                <li className="hover:text-accent transition-colors cursor-default">Cloud Infrastructure</li>
-                <li className="hover:text-accent transition-colors cursor-default">Data Analytics</li>
-                <li className="hover:text-accent transition-colors cursor-default">IT Consulting</li>
+                <li className="hover:text-accent transition-colors cursor-default">Pengembangan Perangkat Lunak</li>
+                <li className="hover:text-accent transition-colors cursor-default">Infrastruktur Cloud</li>
+                <li className="hover:text-accent transition-colors cursor-default">Analisis Data</li>
+                <li className="hover:text-accent transition-colors cursor-default">Konsultasi Teknologi</li>
               </ul>
             </div>
           </div>
@@ -72,7 +72,7 @@ export function SiteFooter() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-accent shrink-0" />
-                <span>info@bisukmadigital.com</span>
+                <span>bisukmafoundation@gmail.com</span>
               </li>
             </ul>
           </div>
