@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, Calendar, RefreshCw, SquareArrowUpRight, ArrowDown, ArrowUp } from "lucide-react"
+import { Globe, AlertCircle, Calendar, RefreshCw, SquareArrowUpRight, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { fetchExternalNews, triggerRefreshNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
@@ -188,8 +188,8 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
 
         <CardContent className="px-6 py-4 md:px-8 md:py-5 space-y-2 flex-1">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <p className="text-[10px] font-bold text-muted-foreground/60 flex items-center gap-1.5">
-              <Calendar className="h-3 w-3 text-accent" /> 
+            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5 text-accent" /> 
               {formattedDate}
             </p>
           </div>
