@@ -148,8 +148,6 @@ export function ExternalNewsSection() {
 }
 
 function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index: number }) {
-  const [imgSrc, setImgSrc] = React.useState(item.thumbnailUrl);
-
   const formattedDate = React.useMemo(() => {
     try {
       const d = new Date(item.date);
@@ -176,11 +174,11 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
         <CardHeader className="p-0 relative h-32 md:h-40 overflow-hidden bg-accent/5 flex items-center justify-center">
           <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-sm group-hover:scale-110 transition-transform duration-500">
             <Image
-              src={imgSrc}
+              src={item.thumbnailUrl}
               alt={item.source}
               fill
               className="object-contain"
-              onError={() => setImgSrc("/external-news.svg")}
+              priority={index < 3}
             />
           </div>
           <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
