@@ -22,67 +22,6 @@ import { cn } from "@/lib/utils"
 import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { ExternalNewsSection } from "@/components/external-news-section"
 
-// Komponen Pembantu untuk Kartu Flip
-function ProgramFlipCard({ prog }: { prog: any }) {
-  const [isFlipped, setIsFlipped] = React.useState(false)
-
-  return (
-    <div 
-      className="relative aspect-[4/5] w-full group cursor-pointer"
-      style={{ perspective: "1000px" }}
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
-    >
-      <motion.div
-        className="w-full h-full relative"
-        style={{ transformStyle: "preserve-3d" }}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-      >
-        {/* Sisi Depan */}
-        <div 
-          className="absolute inset-0 rounded-2xl overflow-hidden bg-white shadow-sm border border-muted/20"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <div className="relative h-full w-full">
-            {prog.img && (
-              <Image 
-                src={prog.img} 
-                alt={prog.title} 
-                fill 
-                className="object-cover transition-transform duration-700 group-hover:scale-105" 
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
-              <h3 className="text-xl font-bold text-white leading-tight">
-                {prog.title}
-              </h3>
-            </div>
-          </div>
-        </div>
-
-        {/* Sisi Belakang */}
-        <div 
-          className="absolute inset-0 rounded-2xl overflow-hidden bg-accent p-6 flex flex-col text-white"
-          style={{ 
-            backfaceVisibility: "hidden", 
-            transform: "rotateY(180deg)" 
-          }}
-        >
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold border-b border-white/20 pb-2">
-              {prog.title}
-            </h3>
-            <p className="text-sm text-white/90 leading-relaxed font-medium">
-              {prog.desc}
-            </p>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  )
-}
-
 export default function Home() {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
@@ -144,7 +83,7 @@ export default function Home() {
       date: "01 mei 2024",
       category: "Desain",
       img: PlaceHolderImages.find(img => img.id === 'gallery-5')?.imageUrl,
-      excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman terbaik..."
+      excerpt: "Eksplorasi estetika desain minimalis and fungsional yang memberikan pengalaman terbaik..."
     },
     {
       title: "Implementasi blockchain untuk supply chain",
@@ -368,7 +307,7 @@ export default function Home() {
       {/* --- EXTERNAL NEWS SECTION --- */}
       <ExternalNewsSection />
 
-      {/* --- FEATURED PROGRAMS SECTION (DENGAN FLIP CARD) --- */}
+      {/* --- FEATURED PROGRAMS SECTION (WITH FLIP EFFECT) --- */}
       <motion.section 
         className="py-16 md:py-24 bg-muted/30 overflow-hidden"
         {...fadeIn}
@@ -389,12 +328,46 @@ export default function Home() {
             {programs.map((prog, i) => (
               <motion.div
                 key={prog.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="group h-[400px] w-full [perspective:1000px]"
               >
-                <ProgramFlipCard prog={prog} />
+                <motion.div 
+                  className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+                >
+                  {/* Front Side */}
+                  <div className="absolute inset-0 h-full w-full rounded-xl overflow-hidden [backface-visibility:hidden]">
+                    {prog.img && (
+                      <Image 
+                        src={prog.img} 
+                        alt={prog.title} 
+                        fill 
+                        className="object-cover"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-8 space-y-2">
+                      <h3 className="text-xl font-bold text-white leading-tight">
+                        {prog.title}
+                      </h3>
+                      <div className="flex items-center gap-2 text-accent text-xs font-bold tracking-widest">
+                        Detail <ChevronRight className="h-3 w-3" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Back Side */}
+                  <div className="absolute inset-0 h-full w-full rounded-xl bg-accent p-8 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center space-y-6">
+                    <h3 className="text-2xl font-bold border-b border-white/30 pb-2 w-full">
+                      {prog.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed opacity-90">
+                      {prog.desc}
+                    </p>
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -536,8 +509,7 @@ export default function Home() {
                       <ItemTitle className="text-xs md:text-sm">Sumber daya eksternal</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
                         Lihat katalog layanan lengkap kami di tab baru.
-                      </ItemDescription>
-                    </ItemContent>
+                      </ItemDescription>                     </ItemContent>
                     <ItemActions>
                       <ExternalLink className="size-4" />
                     </ItemActions>
