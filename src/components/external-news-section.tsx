@@ -7,7 +7,7 @@ import { ExternalLink, Globe, RefreshCw, AlertCircle, ChevronDown, ChevronUp, Im
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { fetchExternalNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
+import { fetchExternalNews, revalidateExternalNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
 import { cn } from "@/lib/utils"
 
 export function ExternalNewsSection() {
@@ -16,10 +16,13 @@ export function ExternalNewsSection() {
   const [error, setError] = React.useState(false)
   const [isExpanded, setIsExpanded] = React.useState(false)
 
-  const loadNews = async () => {
+  const loadNews = async (forceRefresh = false) => {
     setLoading(true)
     setError(false)
     try {
+      if (forceRefresh) {
+        await revalidateExternalNews()
+      }
       const data = await fetchExternalNews()
       if (data && data.news) {
         setNews(data.news)
@@ -46,20 +49,20 @@ export function ExternalNewsSection() {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold tracking-wider text-sm">
               <Globe className="h-4 w-4" />
-              Bisukma di Media Luar
+              Eksplorasi Media
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
-              Sorotan Berita Terbaru (RSS)
+              Bisukma dalam Sorotan Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita nyata yang ditarik langsung dari Google News RSS mengenai pergerakan Bisukma Group di seluruh Indonesia.
+              Berita nyata yang ditarik dari Google News RSS mengenai dampak sosial Bisukma. Data diperbarui secara harian untuk performa optimal.
             </p>
           </div>
           
           <Button 
             variant="outline" 
             size="sm" 
-            onClick={loadNews} 
+            onClick={() => loadNews(true)} 
             disabled={loading}
             className="rounded-full font-bold text-xs bg-white shadow-sm hover:shadow-md transition-all h-10 px-6 border-muted-foreground/10"
           >
@@ -84,8 +87,8 @@ export function ExternalNewsSection() {
               <AlertCircle className="h-6 w-6" />
             </div>
             <p className="font-bold text-primary">Gagal memuat berita</p>
-            <p className="text-sm text-muted-foreground">Terjadi kendala saat mengambil data RSS Google News.</p>
-            <Button variant="link" onClick={loadNews} className="text-accent font-bold">Coba lagi</Button>
+            <p className="text-sm text-muted-foreground">Terjadi kendala saat mengambil data harian.</p>
+            <Button variant="link" onClick={() => loadNews(true)} className="text-accent font-bold">Coba lagi</Button>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
@@ -146,18 +149,6 @@ export function ExternalNewsSection() {
 function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput['news'][0], index: number, priority?: boolean }) {
   const [imgError, setImgError] = React.useState(false)
   
-  // Fallback image based on category if original fails
-  const getFallbackImage = (category: string) => {
-    const seeds: Record<string, string> = {
-      "Pendidikan": "education",
-      "Gizi": "healthy-food",
-      "Pertanian": "farming",
-      "Sosial": "community",
-      "Ekonomi": "business"
-    }
-    return `https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800&auto=format&fit=crop`
-  }
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

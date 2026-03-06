@@ -1,10 +1,12 @@
 'use server';
 /**
  * @fileOverview Flow untuk mengambil berita nyata dari Google News RSS dan memprosesnya dengan AI.
+ * Menggunakan Next.js unstable_cache untuk penyimpanan data selama 24 jam agar performa loading maksimal.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { unstable_cache, revalidateTag } from 'next/cache';
 
 const NewsItemSchema = z.object({
   title: z.string().describe('Judul berita asli dari media'),
@@ -21,10 +23,6 @@ const ExternalNewsOutputSchema = z.object({
 });
 
 export type ExternalNewsOutput = z.infer<typeof ExternalNewsOutputSchema>;
-
-export async function fetchExternalNews(): Promise<ExternalNewsOutput> {
-  return externalNewsFlow({});
-}
 
 const prompt = ai.definePrompt({
   name: 'externalNewsPrompt',
@@ -60,11 +58,11 @@ const externalNewsFlow = ai.defineFlow(
   },
   async () => {
     try {
-      // Fetch data nyata dari Google News RSS
+      // Fetch data nyata dari Google News RSS dengan cache harian
       const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
       const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
       
-      const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); // Cache selama 1 jam
+      const response = await fetch(rssUrl, { next: { revalidate: 86400 } }); 
       const xmlData = await response.text();
 
       const { output } = await prompt({ rssData: xmlData });
@@ -77,3 +75,25 @@ const externalNewsFlow = ai.defineFlow(
     }
   }
 );
+
+/**
+ * Fungsi pembungkus dengan cache harian (86400 detik).
+ * Menjalankan pengambilan berita dan AI hanya sekali sehari untuk menghemat token dan performa.
+ */
+export const fetchExternalNews = unstable_cache(
+  async (): Promise<ExternalNewsOutput> => {
+    return externalNewsFlow({});
+  },
+  ['bisukma-external-news-daily'],
+  { 
+    revalidate: 86400, // 24 Jam
+    tags: ['external-news']
+  }
+);
+
+/**
+ * Server Action untuk membersihkan cache berita eksternal secara manual.
+ */
+export async function revalidateExternalNews() {
+  revalidateTag('external-news');
+}
