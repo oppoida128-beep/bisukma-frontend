@@ -29,31 +29,31 @@ export default function TentangKamiPage() {
     deputies: [
       { 
         name: "D. Hardtaty Silaban, S.Psi.", 
-        role: "deputi i", 
+        role: "Deputi I", 
         imageUrl: "/jajaran/deputi-i.svg", 
-        bio: "strategi & kemitraan pemerintah" 
+        bio: "Strategi & Kemitraan Pemerintah" 
       },
       { 
         name: "Nico Benedictus Sianipar", 
-        role: "deputi ii", 
+        role: "Deputi II", 
         imageUrl: "/jajaran/deputi-ii.svg", 
-        bio: "operasional & pemberdayaan daerah" 
+        bio: "Operasional & Pemberdayaan Daerah" 
       },
     ],
     heads: [
       { 
         name: "Lia Finola Pasaribu", 
-        role: "kepala bag. sdm", 
+        role: "Kepala Bag. SDM", 
         imageUrl: "/jajaran/kepala-bag-sdm.svg" 
       },
       { 
         name: "Bram H. S. Simorangkir", 
-        role: "kepala bag. operasional", 
+        role: "Kepala Bag. Operasional", 
         imageUrl: "/jajaran/kepala-bag-operasional.svg" 
       },
       { 
         name: "Septina Purba", 
-        role: "kepala bag. keuangan", 
+        role: "Kepala Bag. Keuangan", 
         imageUrl: "/jajaran/kepala-bag-keuangan.svg" 
       },
     ]
@@ -66,7 +66,7 @@ export default function TentangKamiPage() {
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.15)_0%,transparent_100%)]"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Visual Hero di Kiri */}
+            {/* Visual Hero */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -87,7 +87,7 @@ export default function TentangKamiPage() {
               </div>
             </motion.div>
 
-            {/* Teks Hero di Kanan */}
+            {/* Teks Hero */}
             <motion.div 
               className="text-left space-y-6"
               initial={{ opacity: 0, x: 50 }}
@@ -95,23 +95,23 @@ export default function TentangKamiPage() {
               transition={{ duration: 0.8 }}
             >
               <Badge variant="outline" className="border-accent text-accent px-4 py-1 text-xs font-bold uppercase tracking-widest rounded-full">
-                eksplorasi profil
+                Eksplorasi Profil
               </Badge>
               <h1 className="scroll-m-20 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                Membangun bangsa <br />
-                <span className="text-accent italic">Bisukma.</span>
+                Membangun Bangsa <br />
+                <span className="text-accent italic">Bersama Bisukma.</span>
               </h1>
               <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
-                lembaga strategis nasional yang berfokus pada pemberdayaan masyarakat mandiri, cerdas, dan berdaya saing global.
+                Lembaga Strategis Nasional yang berfokus pada pemberdayaan masyarakat mandiri, cerdas, dan berdaya saing global.
               </p>
               <div className="flex gap-4 pt-4">
                 <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/5 group hover:border-accent/30 transition-colors">
                   <p className="text-3xl font-bold text-accent">15+</p>
-                  <p className="text-[10px] text-white/60 uppercase font-bold tracking-widest">tahun pengabdian</p>
+                  <p className="text-[10px] text-white/60 uppercase font-bold tracking-widest">Tahun Pengabdian</p>
                 </div>
                 <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-sm border border-white/5 group hover:border-accent/30 transition-colors">
                   <p className="text-3xl font-bold text-accent">6K+</p>
-                  <p className="text-[10px] text-white/60 uppercase font-bold tracking-widest">masyarakat berdaya</p>
+                  <p className="text-[10px] text-white/60 uppercase font-bold tracking-widest">Masyarakat Berdaya</p>
                 </div>
               </div>
             </motion.div>
@@ -127,8 +127,8 @@ export default function TentangKamiPage() {
             {...fadeIn}
           >
             <div className="text-center space-y-3">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-primary tracking-tight">eksplorasi dimensi kami</h2>
-              <p className="text-muted-foreground text-lg">mengenal lebih dalam sejarah, identitas, dan pilar pergerakan Bisukma group.</p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-primary tracking-tight">Eksplorasi Dimensi Kami</h2>
+              <p className="text-muted-foreground text-lg">Mengenal lebih dalam sejarah, identitas, dan pilar pergerakan Bisukma Group.</p>
             </div>
 
             <Accordion type="single" collapsible className="w-full space-y-4">
@@ -136,18 +136,18 @@ export default function TentangKamiPage() {
                 <AccordionTrigger className="hover:no-underline font-bold text-xl py-8 text-primary group">
                   <span className="flex items-center gap-4">
                     <span className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs">01</span>
-                    awal perjalanan & sejarah
+                    Awal Perjalanan & Sejarah
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-8 text-base">
                   <p>
-                    <strong>awal berdiri (2009):</strong> Bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digagas oleh Erickson Sianipar. fokus awalnya adalah pada dua sektor vital: pendidikan dan pertanian.
+                    <strong>Awal Berdiri (2009):</strong> Bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digagas oleh Erickson Sianipar. Fokus awalnya adalah pada dua sektor vital: Pendidikan dan Pertanian.
                   </p>
                   <p>
-                    <strong>lembaga formal:</strong> yayasan Bisukma bangun bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan sdm (sumber daya manusia) dan ekonomi kerakyatan.
+                    <strong>Lembaga Formal:</strong> Yayasan Bisukma Bangun Bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan SDM (Sumber Daya Manusia) dan ekonomi kerakyatan.
                   </p>
                   <p>
-                    <strong>rekam jejak:</strong> hingga saat ini, kami telah melatih lebih dari 6.000 masyarakat, termasuk pelatihan teknologi informasi untuk petani agar bisa mengakses aplikasi pertanian dan peternakan modern.
+                    <strong>Rekam Jejak:</strong> Hingga saat ini, kami telah melatih lebih dari 6.000 masyarakat, termasuk pelatihan teknologi informasi untuk petani agar bisa mengakses aplikasi pertanian dan peternakan modern.
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -156,29 +156,29 @@ export default function TentangKamiPage() {
                 <AccordionTrigger className="hover:no-underline font-bold text-xl py-8 text-primary group">
                   <span className="flex items-center gap-4">
                     <span className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs">02</span>
-                    transformasi Bisukma group
+                    Transformasi Bisukma Group
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-8 text-base">
                   <p>
-                    istilah "Bisukma Group" muncul seiring dengan perluasan skala gerakan kami. kini, kami beroperasi layaknya grup entitas yang mengelola berbagai program strategis nasional di daerah:
+                    Istilah "Bisukma Group" muncul seiring dengan perluasan skala gerakan kami. Kini, kami beroperasi layaknya grup entitas yang mengelola berbagai program strategis nasional di daerah:
                   </p>
                   <ul className="grid sm:grid-cols-2 gap-4 pt-2">
                     <li className="p-4 rounded-xl bg-muted/30 border border-muted-foreground/10">
-                      <p className="font-bold text-primary mb-1 text-sm">sektor gizi (mbg)</p>
-                      <p className="text-xs">pelopor program makan bergizi gratis di tapanuli utara dan toba melalui sppg.</p>
+                      <p className="font-bold text-primary mb-1 text-sm">Sektor Gizi (MBG)</p>
+                      <p className="text-xs">Pelopor program Makan Bergizi Gratis di Tapanuli Utara dan Toba melalui SPPG.</p>
                     </li>
                     <li className="p-4 rounded-xl bg-muted/30 border border-muted-foreground/10">
-                      <p className="font-bold text-primary mb-1 text-sm">kemanusiaan</p>
-                      <p className="text-xs">aktif dalam aksi tanggap darurat dan bantuan sosial kemanusiaan nasional.</p>
+                      <p className="font-bold text-primary mb-1 text-sm">Kemanusiaan</p>
+                      <p className="text-xs">Aktif dalam aksi tanggap darurat dan bantuan sosial kemanusiaan nasional.</p>
                     </li>
                     <li className="p-4 rounded-xl bg-muted/30 border border-muted-foreground/10">
-                      <p className="font-bold text-primary mb-1 text-sm">vokasi (kemnaker)</p>
-                      <p className="text-xs">kerja sama strategis dengan bbpvp medan untuk peningkatan keahlian kerja.</p>
+                      <p className="font-bold text-primary mb-1 text-sm">Vokasi (Kemnaker)</p>
+                      <p className="text-xs">Kerja sama strategis dengan BBPVP Medan untuk peningkatan keahlian kerja.</p>
                     </li>
                     <li className="p-4 rounded-xl bg-muted/30 border border-muted-foreground/10">
-                      <p className="font-bold text-primary mb-1 text-sm">ketahanan pangan</p>
-                      <p className="text-xs">sinergi bersama tni (kodim 0210/tu) dalam memajukan pertanian lokal.</p>
+                      <p className="font-bold text-primary mb-1 text-sm">Ketahanan Pangan</p>
+                      <p className="text-xs">Sinergi bersama TNI (Kodim 0210/TU) dalam memajukan pertanian lokal.</p>
                     </li>
                   </ul>
                 </AccordionContent>
@@ -188,26 +188,26 @@ export default function TentangKamiPage() {
                 <AccordionTrigger className="hover:no-underline font-bold text-xl py-8 text-primary group">
                   <span className="flex items-center gap-4">
                     <span className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs">03</span>
-                    identitas & legalitas
+                    Identitas & Legalitas
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-8">
                   <div className="grid sm:grid-cols-2 gap-8 pt-4">
                     <div className="space-y-1">
-                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">nama resmi</p>
-                      <p className="text-base font-semibold text-primary">yayasan Bisukma bangun bangsa</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Nama Resmi</p>
+                      <p className="text-base font-semibold text-primary">Yayasan Bisukma Bangun Bangsa</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">founder / pendiri</p>
-                      <p className="text-base font-semibold text-primary">erickson sianipar</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Founder / Pendiri</p>
+                      <p className="text-base font-semibold text-primary">Erickson Sianipar</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">kantor pusat</p>
-                      <p className="text-base font-semibold text-primary">jl. hm joni no. 50 l, medan, sumut</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Kantor Pusat</p>
+                      <p className="text-base font-semibold text-primary">Jl. HM Joni No. 50 L, Medan, Sumut</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">wilayah kerja</p>
-                      <p className="text-base font-semibold text-primary">sumatera utara (taput, toba, medan)</p>
+                      <p className="text-[11px] font-medium text-muted-foreground/60 tracking-wide">Wilayah Kerja</p>
+                      <p className="text-base font-semibold text-primary">Sumatera Utara (Taput, Toba, Medan)</p>
                     </div>
                   </div>
                 </AccordionContent>
@@ -217,15 +217,15 @@ export default function TentangKamiPage() {
                 <AccordionTrigger className="hover:no-underline font-bold text-xl py-8 text-primary group">
                   <span className="flex items-center gap-4">
                     <span className="w-8 h-8 rounded-full bg-accent/10 text-accent flex items-center justify-center text-xs">04</span>
-                    pilar program strategis
+                    Pilar Program Strategis
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-8">
                   <div className="grid gap-4 pt-4">
                     {[
-                      { icon: <Briefcase className="size-5" />, title: "pendidikan & vokasi", desc: "pelatihan keterampilan industri 4.0 dan literasi digital masyarakat." },
-                      { icon: <Zap className="size-5" />, title: "ketahanan gizi nasional", desc: "infrastruktur dapur umum mandiri untuk pemenuhan gizi anak bangsa." },
-                      { icon: <TrendingUp className="size-5" />, title: "ekonomi masyarakat", desc: "digitalisasi sektor pertanian dan pemberdayaan umkm lokal secara masif." }
+                      { icon: <Briefcase className="size-5" />, title: "Pendidikan & Vokasi", desc: "Pelatihan keterampilan Industri 4.0 dan literasi digital masyarakat." },
+                      { icon: <Zap className="size-5" />, title: "Ketahanan Gizi Nasional", desc: "Infrastruktur dapur umum mandiri untuk pemenuhan gizi anak bangsa." },
+                      { icon: <TrendingUp className="size-5" />, title: "Ekonomi Masyarakat", desc: "Digitalisasi sektor pertanian dan pemberdayaan UMKM lokal secara masif." }
                     ].map((item, i) => (
                       <div key={i} className="flex gap-5 p-6 border rounded-2xl bg-muted/20 hover:bg-white hover:border-accent/40 transition-all duration-300">
                         <div className="bg-accent text-white p-3 rounded-xl h-fit shadow-lg shadow-accent/10">
@@ -247,17 +247,15 @@ export default function TentangKamiPage() {
 
       {/* --- ORGANIZATIONAL STRUCTURE SECTION --- */}
       <section className="py-24 bg-primary relative overflow-hidden">
-        {/* Background Image with Low Opacity */}
         <div className="absolute inset-0 z-0 opacity-10">
           <Image 
             src="/layanan-assets/5.svg" 
-            alt="background pattern" 
+            alt="Background Pattern" 
             fill 
             className="object-cover"
           />
         </div>
         
-        {/* Background Accents */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.05)_0%,transparent_70%)] pointer-events-none"></div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -265,14 +263,14 @@ export default function TentangKamiPage() {
             className="text-center mb-20 space-y-4"
             {...fadeIn}
           >
-            <Badge variant="outline" className="border-accent/30 text-accent mb-2">hierarki kepemimpinan</Badge>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">struktur organisasi</h2>
+            <Badge variant="outline" className="border-accent/30 text-accent mb-2">Hierarki Kepemimpinan</Badge>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Struktur Organisasi</h2>
             <p className="text-white/70 max-w-2xl mx-auto text-lg">
-              sinergi tim kepemimpinan yang berdedikasi untuk mewujudkan visi kemandirian bangsa.
+              Sinergi tim kepemimpinan yang berdedikasi untuk mewujudkan visi kemandirian bangsa.
             </p>
           </motion.div>
 
-          {/* Founder - Premium Card */}
+          {/* Founder */}
           <div className="mb-24">
             <motion.div 
               className="max-w-4xl mx-auto"
@@ -287,17 +285,17 @@ export default function TentangKamiPage() {
                   <div className="grid md:grid-cols-2 items-center">
                     <div className="relative aspect-square md:aspect-auto md:h-full min-h-[400px]">
                       {team.founder?.imageUrl && (
-                        <Image src={team.founder.imageUrl} alt="erickson sianipar" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src={team.founder.imageUrl} alt="Erickson Sianipar" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                       )}
                     </div>
                     <div className="p-10 md:p-16 space-y-6 relative">
                       <div className="space-y-2">
-                        <p className="text-accent font-bold uppercase tracking-[0.2em] text-xs">the visionary</p>
-                        <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">erickson sianipar</h3>
-                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">founder Bisukma group</p>
+                        <p className="text-accent font-bold uppercase tracking-[0.2em] text-xs">The Visionary</p>
+                        <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">Erickson Sianipar</h3>
+                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">Founder Bisukma Group</p>
                       </div>
-                      <p className="text-primary-foreground/70 leading-relaxed text-sm">
-                        "membangun bangsa dimulai dari kemandirian setiap individu. melalui pemberdayaan yang tepat, kita menciptakan masa depan yang lebih cerah bagi generasi mendatang."
+                      <p className="text-primary-foreground/70 leading-relaxed text-sm italic">
+                        "Membangun bangsa dimulai dari kemandirian setiap individu. Melalui pemberdayaan yang tepat, kita menciptakan masa depan yang lebih cerah bagi generasi mendatang."
                       </p>
                       <div className="flex gap-4 pt-4">
                         <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
@@ -314,7 +312,7 @@ export default function TentangKamiPage() {
             </motion.div>
           </div>
 
-          {/* Deputies - Modern Grid */}
+          {/* Deputies */}
           <div className="max-w-5xl mx-auto mb-16">
             <div className="grid md:grid-cols-2 gap-8 md:gap-12">
               {team.deputies.map((deputy, i) => (
@@ -348,7 +346,7 @@ export default function TentangKamiPage() {
             </div>
           </div>
 
-          {/* Heads - Unified Modern Grid (Synchronized Animation) */}
+          {/* Heads */}
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {team.heads.map((head, i) => (
