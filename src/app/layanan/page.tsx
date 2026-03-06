@@ -2,14 +2,14 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { 
-  CheckCircle2, 
-  Layout, 
-  FileText, 
-  Utensils, 
-  Users, 
-  Sprout, 
-  Activity, 
+import {
+  CheckCircle2,
+  Layout,
+  FileText,
+  Utensils,
+  Users,
+  Sprout,
+  Activity,
   ArrowRight,
   Target
 } from "lucide-react"
@@ -46,7 +46,7 @@ const services = [
       "Pengajuan kemitraan ke BGN",
       "Penyusunan dokumen operasional"
     ],
-    output: "Dapur siap terdaftar secara resmi sebagai mitra MBG."
+    output: "Dapur siap terdaftar secara resmi as mitra MBG."
   },
   {
     title: "Layanan setup operasional dapur",
@@ -66,7 +66,7 @@ const services = [
     title: "Layanan rekrutmen & pelatihan SDM",
     subtitle: "Bisukma human capital program",
     icon: <Users className="h-6 w-6 md:h-8 md:w-8" />,
-    img: "gallery-3",
+    img: "/layanan-assets/Layanan rekrutmen & pelatihan SDM.svg",
     description: "Program pengembangan kapasitas untuk menciptakan tim dapur yang kompeten.",
     features: [
       "Pelatihan juru masak & manajer",
@@ -122,7 +122,7 @@ export default function LayananPage() {
       <section className="bg-white pt-8 md:pt-16 pb-12 text-primary overflow-hidden border-b border-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -153,10 +153,10 @@ export default function LayananPage() {
               className="relative aspect-video w-full rounded-2xl md:rounded-[2rem] overflow-hidden border shadow-2xl shadow-accent/5"
             >
               {heroImg?.imageUrl && (
-                <Image 
-                  src={heroImg.imageUrl} 
-                  alt="Bisukma Digital Hero" 
-                  fill 
+                <Image
+                  src={heroImg.imageUrl}
+                  alt="Bisukma Digital Hero"
+                  fill
                   className="object-cover"
                   priority
                 />
@@ -171,7 +171,10 @@ export default function LayananPage() {
       <section className="container mx-auto px-4 mt-16 md:mt-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, i) => {
-            const img = PlaceHolderImages.find(im => im.id === service.img)
+            const imageUrl = service.img.startsWith('/')
+              ? service.img
+              : PlaceHolderImages.find(im => im.id === service.img)?.imageUrl;
+
             return (
               <motion.div
                 key={i}
@@ -182,11 +185,11 @@ export default function LayananPage() {
               >
                 <Card className="overflow-hidden border border-muted shadow-none bg-white flex flex-col h-full hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 rounded-[1.5rem] group">
                   <div className="relative h-48 md:h-56 w-full overflow-hidden">
-                    {img?.imageUrl && (
-                      <Image 
-                        src={img.imageUrl} 
-                        alt={service.title} 
-                        fill 
+                    {imageUrl && (
+                      <Image
+                        src={imageUrl}
+                        alt={service.title}
+                        fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     )}
@@ -243,7 +246,7 @@ export default function LayananPage() {
       </section>
 
       {/* CTA Section */}
-      <motion.section 
+      <motion.section
         className="container mx-auto px-4 mt-24 md:mt-32"
         {...fadeIn}
       >
