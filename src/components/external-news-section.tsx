@@ -176,10 +176,18 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             src={item.thumbnailUrl}
             alt={item.source}
             fill
-            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+            className="object-contain p-4 group-hover:scale-110 group-hover:blur-[2px] transition-all duration-500"
             priority={index < 3}
           />
-          <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
+          
+          {/* Hover Overlay: Nama Sumber Berita */}
+          <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+            <span className="text-accent font-black text-xs md:text-sm tracking-tighter uppercase px-4 py-1.5 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-accent/20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+              {item.source}
+            </span>
+          </div>
+
+          <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider z-10">
             {item.category}
           </Badge>
         </CardHeader>
