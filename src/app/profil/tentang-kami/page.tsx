@@ -25,25 +25,25 @@ export default function TentangKamiPage() {
   const heroImg = PlaceHolderImages.find(img => img.id === 'tentang-kami-hero')
 
   const team = {
-    founder: { imageUrl: "/Founder.svg" },
+    founder: { imageUrl: "/jajaran/founder.svg" },
     deputies: [
       { 
         name: "Andi Pratama", 
         role: "Deputi I", 
-        imageUrl: "/jajaran/Deputi I.svg", 
+        imageUrl: "/jajaran/deputi-i.svg", 
         bio: "Strategi & Kemitraan Pemerintah" 
       },
       { 
         name: "Siti Rahma", 
         role: "Deputi II", 
-        imageUrl: "/jajaran/Deputi II.svg", 
+        imageUrl: "/jajaran/deputi-ii.svg", 
         bio: "Operasional & Pemberdayaan Daerah" 
       },
     ],
     heads: [
-      { name: "Budi Santoso", role: "Kepala Bag. SDM", imageUrl: "/jajaran/Kepala Bag. SDM.svg" },
-      { name: "Reza Fahlevi", role: "Kepala Bag. Operasional", imageUrl: "/jajaran/Kepala Bag. Operasional.svg" },
-      { name: "Dewi Lestari", role: "Kepala Bag. Keuangan", imageUrl: "/jajaran/Kepala Bag. Keuangan.svg" },
+      { name: "Budi Santoso", role: "Kepala Bag. SDM", imageUrl: "/jajaran/kepala-bag-sdm.svg" },
+      { name: "Reza Fahlevi", role: "Kepala Bag. Operasional", imageUrl: "/jajaran/kepala-bag-operasional.svg" },
+      { name: "Dewi Lestari", role: "Kepala Bag. Keuangan", imageUrl: "/jajaran/kepala-bag-keuangan.svg" },
     ]
   }
 
@@ -129,7 +129,7 @@ export default function TentangKamiPage() {
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed space-y-4 pb-8 text-base">
                   <p>
-                    <strong>Awal Berdiri (2009):</strong> Bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digagas oleh Erickson Sianipar. Fokus awalnya adalah pada dua sektor vital: Pendidikan dan Pertanian.
+                    <strong>Awal Berdiri (2009):</strong> Bisukma mulai dikenal luas sejak tahun 2009 sebagai organisasi sosial yang digamas oleh Erickson Sianipar. Fokus awalnya adalah pada dua sektor vital: Pendidikan dan Pertanian.
                   </p>
                   <p>
                     <strong>Lembaga Formal:</strong> Yayasan Bisukma Bangun Bangsa dibentuk sebagai payung hukum formal untuk menjalankan visi memajukan SDM (Sumber Daya Manusia) dan ekonomi kerakyatan.
