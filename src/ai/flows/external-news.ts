@@ -29,17 +29,41 @@ export type ExternalNewsOutput = z.infer<typeof ExternalNewsOutputSchema>;
 
 /**
  * Fungsi untuk mengikuti redirect URL Google News guna mendapatkan URL asli portal berita.
+ * Dioptimalkan dengan timeout dan metode HEAD untuk kecepatan.
  */
 async function resolveFinalUrl(url: string): Promise<string> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000); // 6 detik max per URL
+
   try {
+    // Coba HEAD dahulu untuk efisiensi
     const response = await fetch(url, {
-      method: 'GET',
+      method: 'HEAD',
       redirect: 'follow',
+      signal: controller.signal,
+      headers: {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      }
     });
+    clearTimeout(timeoutId);
     return response.url;
   } catch (error) {
-    console.warn(`⚠️ Gagal resolve URL: ${url}`);
-    return url;
+    // Fallback ke GET jika HEAD gagal atau tidak didukung
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        redirect: 'follow',
+        headers: {
+          'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        }
+      });
+      clearTimeout(timeoutId);
+      return response.url;
+    } catch (e) {
+      clearTimeout(timeoutId);
+      console.warn(`⚠️ Gagal resolve URL: ${url}`);
+      return url;
+    }
   }
 }
 
@@ -79,8 +103,6 @@ const externalNewsFlow = ai.defineFlow(
       const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
       const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
       
-      console.log("📡 RSS URL:", rssUrl);
-      
       const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); 
       const xmlData = await response.text();
 
@@ -102,27 +124,26 @@ const externalNewsFlow = ai.defineFlow(
         try {
           // 1. Resolve redirect dari Google News ke URL asli portal berita
           const finalUrl = await resolveFinalUrl(item.url);
-          console.log(`🔗 Resolved URL: ${finalUrl}`);
-
-          // 2. Ambil metadata dari URL asli dengan User-Agent untuk hindari blokir
+          
+          // 2. Ambil metadata dari URL asli
           const preview = await getLinkPreview(finalUrl, {
             followRedirects: true,
             handleRedirectsAsync: true,
-            timeout: 8000,
+            timeout: 7000,
             headers: {
               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             },
           });
 
-          const metadataImage = preview && 'images' in preview && (preview as any).images?.length > 0 
+          const metadataImage = (preview && 'images' in preview && (preview as any).images?.length > 0)
             ? (preview as any).images[0] 
             : item.thumbnailUrl;
 
           return {
             ...item,
-            url: finalUrl, // Gunakan URL asli yang sudah di-resolve
+            url: finalUrl,
             thumbnailUrl: metadataImage,
-            summary: item.summary || (preview as any).description || item.summary
+            summary: item.summary || (preview && 'description' in preview ? (preview as any).description : item.summary)
           };
         } catch (previewError) {
           console.warn(`⚠️ Gagal mengambil pratinjau untuk: ${item.url}`);
@@ -146,7 +167,7 @@ export const fetchExternalNews = unstable_cache(
   async (): Promise<ExternalNewsOutput> => {
     return externalNewsFlow({});
   },
-  ['bisukma-external-news-v6'], // Versi cache baru untuk perubahan logika
+  ['bisukma-external-news-v7'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
