@@ -3,10 +3,10 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ExternalLink, Globe, RefreshCw, AlertCircle, ChevronDown, ChevronUp, ImageOff } from "lucide-react"
+import { Globe, RefreshCw, AlertCircle, ChevronDown, ChevronUp, ImageOff, Calendar, ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { fetchExternalNews, revalidateExternalNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
 import { cn } from "@/lib/utils"
 
@@ -49,13 +49,13 @@ export function ExternalNewsSection() {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold tracking-wider text-sm">
               <Globe className="h-4 w-4" />
-              Eksplorasi Media
+              Sorotan Media
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
-              Bisukma dalam Sorotan Nasional
+              Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita nyata yang ditarik dari Google News RSS mengenai dampak sosial Bisukma. Data diperbarui secara harian untuk performa optimal.
+              Berita nyata yang ditarik secara real-time dari Google News RSS mengenai aktivitas Bisukma Group.
             </p>
           </div>
           
@@ -78,7 +78,7 @@ export function ExternalNewsSection() {
         {loading ? (
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="border-none shadow-none bg-white/50 animate-pulse h-[400px] rounded-2xl" />
+              <Card key={i} className="border border-muted/60 shadow-none bg-white/50 animate-pulse h-[450px] rounded-2xl" />
             ))}
           </div>
         ) : error ? (
@@ -96,7 +96,7 @@ export function ExternalNewsSection() {
           </div>
         ) : (
           <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {initialNews.map((item, i) => (
                 <NewsCard key={i} item={item} index={i} priority={i === 0} />
               ))}
@@ -111,7 +111,7 @@ export function ExternalNewsSection() {
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 pt-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-8">
                     {expandedNews.map((item, i) => (
                       <NewsCard key={i + 3} item={item} index={i + 3} />
                     ))}
@@ -121,7 +121,7 @@ export function ExternalNewsSection() {
             </AnimatePresence>
 
             {news.length > 3 && (
-              <div className="flex justify-center pt-8">
+              <div className="flex justify-center pt-12">
                 <Button
                   variant="ghost"
                   onClick={() => setIsExpanded(!isExpanded)}
@@ -151,14 +151,14 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ delay: (index % 3) * 0.1 }}
+      transition={{ duration: 0.4, delay: (index % 3) * 0.1 }}
       className="h-full"
     >
-      <Card className="h-full border border-muted shadow-none hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 group bg-white rounded-3xl flex flex-col overflow-hidden">
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+      <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
+        <CardHeader className="p-0 relative h-52 md:h-60 overflow-hidden bg-muted">
           {!imgError ? (
             <Image
               src={item.thumbnailUrl}
@@ -170,50 +170,48 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
               onError={() => setImgError(true)}
             />
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent/5 text-accent/40 gap-2 p-6 text-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent/5 text-accent/20 gap-2 p-6 text-center">
               <ImageOff className="h-8 w-8 opacity-20" />
-              <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Preview Media</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest opacity-40">Pratinjau Media</p>
             </div>
           )}
           
-          <div className="absolute top-4 left-4 z-10">
-            <Badge className="bg-white/95 backdrop-blur-sm text-accent hover:bg-white border-none text-[10px] font-black px-4 py-1.5 shadow-sm rounded-full uppercase tracking-wider">
-              {item.category}
-            </Badge>
-          </div>
+          <Badge className="absolute top-4 left-4 bg-accent/90 hover:bg-accent border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
+            {item.category.split(',')[0]}
+          </Badge>
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        </div>
+        </CardHeader>
 
-        <CardContent className="p-6 md:p-8 flex flex-col h-full flex-1">
-          <div className="flex justify-between items-center mb-5 text-[10px] font-bold text-muted-foreground/60 tracking-widest uppercase">
-            <span className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+        <CardContent className="p-6 md:p-8 space-y-3 flex-1">
+          <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground/60 tracking-wider uppercase">
+            <span className="flex items-center gap-1.5">
+              <Calendar className="h-3 w-3 text-accent" /> 
+              {item.date}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Globe className="h-3 w-3 text-accent" /> 
               {item.source}
             </span>
-            <span>{item.date}</span>
           </div>
-          
-          <div className="flex-1 space-y-4">
-            <h3 className="font-extrabold text-primary leading-tight group-hover:text-accent transition-colors line-clamp-2 text-base md:text-xl">
-              {item.title}
-            </h3>
-            <p className="text-xs md:text-sm text-muted-foreground/80 leading-relaxed line-clamp-3 font-medium">
-              {item.summary}
-            </p>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-muted/50">
-            <a 
-              href={item.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-accent hover:text-accent/80 transition-all flex items-center justify-between group/link"
-            >
-              <span className="text-xs font-black uppercase tracking-widest">Baca selengkapnya</span>
-              <ExternalLink className="h-4 w-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-            </a>
-          </div>
+          <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
+            {item.title}
+          </h3>
+          <p className="text-xs md:text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
+            {item.summary}
+          </p>
         </CardContent>
+
+        <CardFooter className="p-6 md:p-8 pt-0">
+          <a 
+            href={item.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-xs md:text-sm font-bold flex items-center text-accent group/link"
+          >
+            Baca selengkapnya 
+            <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
+          </a>
+        </CardFooter>
       </Card>
     </motion.div>
   )
