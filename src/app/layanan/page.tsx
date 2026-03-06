@@ -55,28 +55,61 @@ export default function LayananPage() {
     transition: { duration: 0.6 }
   }
 
+  const heroImg = PlaceHolderImages.find(img => img.id === 'hero')
+
   return (
     <div className="pb-20 bg-white">
-      {/* Minimalist Header */}
-      <section className="bg-white pt-8 md:pt-12 pb-6 text-primary">
-        <motion.div 
-          className="container mx-auto px-4"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="max-w-4xl space-y-4">
-            <h1 className="text-3xl md:text-5xl font-black text-left tracking-tight">
-              Layanan <span className="text-accent">kami</span>
-            </h1>
-            <p className="text-left text-sm md:text-lg text-muted-foreground font-medium max-w-2xl leading-relaxed">
-              Solusi digital end-to-end yang dirancang untuk mempercepat pertumbuhan bisnis Anda dengan teknologi presisi tinggi.
-            </p>
+      {/* Minimalist Hero Section */}
+      <section className="bg-white pt-8 md:pt-16 pb-12 text-primary overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
+              <div className="space-y-4">
+                <h1 className="text-4xl md:text-6xl font-black text-left tracking-tight leading-tight">
+                  Layanan <span className="text-accent">kami</span>
+                </h1>
+                <p className="text-left text-base md:text-xl text-muted-foreground font-medium max-w-xl leading-relaxed">
+                  Solusi digital end-to-end yang dirancang untuk mempercepat pertumbuhan bisnis Anda dengan teknologi presisi tinggi.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-full font-bold px-8">
+                  Konsultasi sekarang
+                </Button>
+                <Button variant="outline" size="lg" className="rounded-full font-bold px-8 border-muted-foreground/20">
+                  Lihat portofolio
+                </Button>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative aspect-[16/10] md:aspect-square lg:aspect-[4/3] w-full rounded-2xl md:rounded-[2.5rem] overflow-hidden border shadow-2xl shadow-accent/10"
+            >
+              {heroImg?.imageUrl && (
+                <Image 
+                  src={heroImg.imageUrl} 
+                  alt="Bisukma Digital Hero" 
+                  fill 
+                  className="object-cover"
+                  priority
+                  data-ai-hint="digital technology"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent"></div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      <section className="container mx-auto px-4 mt-8 md:mt-12">
+      <section className="container mx-auto px-4 mt-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, i) => {
             const img = PlaceHolderImages.find(im => im.id === service.img)
