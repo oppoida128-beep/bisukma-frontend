@@ -33,12 +33,12 @@ export type ExternalNewsOutput = z.infer<typeof ExternalNewsOutputSchema>;
 async function resolveFinalUrl(url: string): Promise<string> {
   try {
     const response = await fetch(url, {
-      method: 'HEAD',
+      method: 'GET',
       redirect: 'follow',
     });
     return response.url;
   } catch (error) {
-    console.warn(`Gagal resolve URL: ${url}`);
+    console.warn(`⚠️ Gagal resolve URL: ${url}`);
     return url;
   }
 }
@@ -62,8 +62,8 @@ const prompt = ai.definePrompt({
   Data RSS:
   {{{rssData}}}
 
-  Untuk thumbnailUrl, berikan URL Unsplash yang SANGAT spesifik sebagai cadangan jika sistem gagal mengambil pratinjau asli.
-  Contoh: jika tentang gizi, berikan https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80`,
+  PENTING: Pastikan kategori yang dipilih sesuai dengan isi berita.
+  Untuk thumbnailUrl, berikan URL Unsplash yang SANGAT spesifik sebagai cadangan.`,
 });
 
 const externalNewsFlow = ai.defineFlow(
@@ -88,22 +88,21 @@ const externalNewsFlow = ai.defineFlow(
 
       const { output } = await prompt({ rssData: xmlData });
       
-      if (!output || !output.news) {
+      if (!output || !output.news || output.news.length === 0) {
         console.log("⚠️ AI tidak menemukan berita yang relevan.");
         return { news: [] };
       }
 
       console.log("🔍 Berita yang berhasil diekstrak oleh AI:");
-      console.log(
-        output.news.map((n) => `- ${n.title} (${n.url})`).join('\n')
-      );
+      output.news.forEach((n) => console.log(`- ${n.title}`));
 
-      // Memperkaya berita dengan thumbnail asli secara paralel dengan limitasi redirect
+      // Memperkaya berita dengan thumbnail asli secara paralel
       console.log("🖼️ Memulai pengayaan metadata (thumbnail asli)...");
       const enrichedNews = await Promise.all(output.news.map(async (item) => {
         try {
           // 1. Resolve redirect dari Google News ke URL asli portal berita
           const finalUrl = await resolveFinalUrl(item.url);
+          console.log(`🔗 Resolved URL: ${finalUrl}`);
 
           // 2. Ambil metadata dari URL asli dengan User-Agent untuk hindari blokir
           const preview = await getLinkPreview(finalUrl, {
@@ -147,7 +146,7 @@ export const fetchExternalNews = unstable_cache(
   async (): Promise<ExternalNewsOutput> => {
     return externalNewsFlow({});
   },
-  ['bisukma-external-news-v4'],
+  ['bisukma-external-news-v6'], // Versi cache baru untuk perubahan logika
   { 
     revalidate: 86400, 
     tags: ['external-news']
