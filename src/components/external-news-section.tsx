@@ -59,7 +59,7 @@ export function ExternalNewsSection() {
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita terbaru mengenai Bisukma Group dikurasi otomatis dari portal media nasional terpercaya.
+              Berita terbaru mengenai Bisukma Group yang dikurasi secara otomatis dari portal media nasional terpercaya.
             </p>
           </div>
 
@@ -178,7 +178,6 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
               alt={item.source}
               fill
               className="object-contain"
-              unoptimized
             />
           </div>
           <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
@@ -214,7 +213,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             rel="noopener noreferrer"
             className="text-xs font-bold flex items-center text-accent group/link"
           >
-            Baca selengkapnya 
+            Baca sumber asli 
             <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
           </a>
         </CardFooter>
