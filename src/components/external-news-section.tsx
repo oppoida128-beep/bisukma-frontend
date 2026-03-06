@@ -3,8 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, ArrowRight, RefreshCw, SquareArrowUpRight } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, RefreshCw, SquareArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { fetchExternalNews, triggerRefreshNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
@@ -51,12 +50,12 @@ export function ExternalNewsSection() {
       <div className="container mx-auto px-4">
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-accent font-bold tracking-wider text-sm">
+            <div className="flex items-center gap-2 text-accent font-bold text-sm">
               <Globe className="h-4 w-4" />
-              Sorotan Media Luar
+              Sorotan media luar
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
-              Bisukma dalam Berita Nasional
+              Bisukma dalam berita nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
               Berita terbaru mengenai Bisukma Group yang dikurasi secara otomatis dari portal media nasional terpercaya.
@@ -180,8 +179,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             priority={index < 3}
           />
           
-          {/* Hover Overlay: Nama Sumber Berita */}
-          <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
             <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5">
               <h4 className="scroll-m-20 text-sm md:text-base font-semibold tracking-tight text-accent whitespace-nowrap">
                 {item.source}
@@ -193,7 +191,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
 
         <CardContent className="p-6 md:p-8 space-y-3 flex-1">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <p className="text-[10px] font-bold text-muted-foreground/60 flex items-center gap-1.5 uppercase tracking-wider">
+            <p className="text-[10px] font-bold text-muted-foreground/60 flex items-center gap-1.5">
               <Calendar className="h-3 w-3 text-accent" /> 
               {formattedDate}
             </p>
@@ -204,12 +202,6 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           <p className="text-xs text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
             {item.summary}
           </p>
-          <div className="pt-2">
-            <p className="text-[10px] font-bold text-accent/60 flex items-center gap-1.5">
-              <Globe className="h-3 w-3" /> 
-              {item.source}
-            </p>
-          </div>
         </CardContent>
 
         <CardFooter className="p-6 md:p-8 pt-0">
@@ -219,14 +211,14 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             rel="noopener noreferrer"
             className="w-full group/link"
           >
-            <div className="flex items-center justify-between p-4 rounded-xl border border-accent/20 bg-accent/5 group-hover/link:bg-accent/10 group-hover/link:border-accent transition-all duration-300">
+            <div className="flex items-center justify-between gap-4 p-4 rounded-xl border border-border group-hover/link:border-muted-foreground transition-all duration-300">
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-bold text-accent uppercase tracking-wider">Baca sumber asli</span>
+                <span className="text-xs font-bold text-foreground">Baca sumber asli</span>
                 <p className="text-[10px] text-muted-foreground font-medium leading-tight">
                   Baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
                 </p>
               </div>
-              <SquareArrowUpRight className="h-5 w-5 text-accent shrink-0 group-hover/link:scale-110 transition-transform" />
+              <SquareArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0 group-hover/link:scale-110 transition-transform" />
             </div>
           </a>
         </CardFooter>
