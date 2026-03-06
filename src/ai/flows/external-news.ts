@@ -92,9 +92,13 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
         item["media:thumbnail"]?.["url"];
 
       let thumbnail = mediaThumbnail || `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
-      let description = item.description?.replace(/<[^>]*>?/gm, '') || "";
+      
+      // 4. Clean RSS description (No AI, Pure Logic)
+      let description = item.description
+        ?.replace(/<[^>]*>?/gm, '') // Remove HTML tags
+        ?.slice(0, 160) || ""; // Limit characters for clean UI
 
-      // 4. Secondary: Scraping for richer metadata if thumbnail is missing from RSS
+      // 5. Secondary: Scraping for richer metadata if thumbnail is missing from RSS
       if (!mediaThumbnail) {
         try {
           const preview = await getLinkPreview(realUrl, {
@@ -109,14 +113,14 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
           }
 
           if (preview && 'description' in preview && (preview as any).description) {
-            description = (preview as any).description;
+            description = (preview as any).description.slice(0, 160);
           }
         } catch (e) {
           // Fallback handled by initial value
         }
       }
 
-      // Simple category inference based on keywords
+      // 6. Simple category inference based on keywords (No AI)
       let category = "Nasional";
       const titleLower = item.title.toLowerCase();
       if (titleLower.includes("gizi") || titleLower.includes("makan")) category = "Gizi";
@@ -147,7 +151,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
  */
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v18'],
+  ['bisukma-external-news-v19'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
