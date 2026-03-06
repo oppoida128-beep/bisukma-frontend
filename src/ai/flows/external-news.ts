@@ -74,17 +74,32 @@ const externalNewsFlow = ai.defineFlow(
   },
   async () => {
     try {
+      console.log("🚀 Memulai pengambilan berita eksternal...");
+      
       const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
       const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
+      
+      console.log("📡 RSS URL:", rssUrl);
       
       const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); 
       const xmlData = await response.text();
 
+      console.log("✅ Data RSS berhasil diambil, mengirim ke AI untuk ekstraksi...");
+
       const { output } = await prompt({ rssData: xmlData });
       
-      if (!output || !output.news) return { news: [] };
+      if (!output || !output.news) {
+        console.log("⚠️ AI tidak menemukan berita yang relevan.");
+        return { news: [] };
+      }
+
+      console.log("🔍 Berita yang berhasil diekstrak oleh AI:");
+      console.log(
+        output.news.map((n) => `- ${n.title} (${n.url})`).join('\n')
+      );
 
       // Memperkaya berita dengan thumbnail asli secara paralel dengan limitasi redirect
+      console.log("🖼️ Memulai pengayaan metadata (thumbnail asli)...");
       const enrichedNews = await Promise.all(output.news.map(async (item) => {
         try {
           // 1. Resolve redirect dari Google News ke URL asli portal berita
@@ -100,8 +115,8 @@ const externalNewsFlow = ai.defineFlow(
             },
           });
 
-          const metadataImage = preview && 'images' in preview && preview.images.length > 0 
-            ? preview.images[0] 
+          const metadataImage = preview && 'images' in preview && (preview as any).images?.length > 0 
+            ? (preview as any).images[0] 
             : item.thumbnailUrl;
 
           return {
@@ -111,14 +126,15 @@ const externalNewsFlow = ai.defineFlow(
             summary: item.summary || (preview as any).description || item.summary
           };
         } catch (previewError) {
-          console.warn(`Gagal mengambil pratinjau untuk: ${item.url}`);
+          console.warn(`⚠️ Gagal mengambil pratinjau untuk: ${item.url}`);
+          return item;
         }
-        return item;
       }));
 
+      console.log("🎉 Pengayaan selesai. Mengirim berita ke frontend.");
       return { news: enrichedNews };
     } catch (error) {
-      console.error("News Flow Error:", error);
+      console.error("❌ News Flow Error:", error);
       return { news: [] };
     }
   }
@@ -131,7 +147,7 @@ export const fetchExternalNews = unstable_cache(
   async (): Promise<ExternalNewsOutput> => {
     return externalNewsFlow({});
   },
-  ['bisukma-external-news-v3'],
+  ['bisukma-external-news-v4'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
@@ -142,5 +158,6 @@ export const fetchExternalNews = unstable_cache(
  * Server Action untuk memaksa penyegaran data dengan menghapus cache.
  */
 export async function triggerRefreshNews() {
+  console.log("♻️ Memaksa revalidasi cache berita eksternal...");
   revalidateTag('external-news');
 }
