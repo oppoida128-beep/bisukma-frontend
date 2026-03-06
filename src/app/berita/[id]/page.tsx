@@ -91,10 +91,10 @@ export default function BeritaDetailPage() {
   }
 
   const socialLinks = React.useMemo(() => [
-    { network: "whatsapp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + currentUrl)}` },
-    { network: "facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` },
-    { network: "x", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(currentUrl)}` },
-    { network: "linkedin", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
+    { network: "whatsapp", name: "WhatsApp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + currentUrl)}` },
+    { network: "facebook", name: "Facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` },
+    { network: "x", name: "X", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(currentUrl)}` },
+    { network: "linkedin", name: "LinkedIn", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
   ], [article.title, currentUrl])
 
   return (
@@ -102,7 +102,7 @@ export default function BeritaDetailPage() {
       {/* Header & Main Image */}
       <section className="container mx-auto px-4 pt-8 md:pt-12">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto space-y-6"
@@ -159,7 +159,7 @@ export default function BeritaDetailPage() {
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="my-8 md:my-12 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm"
@@ -189,9 +189,9 @@ export default function BeritaDetailPage() {
           </motion.div>
 
           <div className="mt-12 flex flex-wrap gap-2 items-center">
-            <div className="flex items-center gap-2 mr-2">
-              <Tag className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-semibold text-muted-foreground">Tags:</span>
+            <div className="flex items-center gap-2 mr-2 text-muted-foreground">
+              <Tag className="h-4 w-4" />
+              <span className="text-sm font-semibold">Tags:</span>
             </div>
             {article.tags.map(tag => (
               <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">
@@ -202,106 +202,101 @@ export default function BeritaDetailPage() {
 
           <Separator className="my-10 md:my-12" />
 
-          {/* Footer Actions - Inline Horizontal */}
+          {/* Footer Actions */}
           <div className="mt-12 pt-8 flex items-center justify-between gap-4">
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ 
-                type: "spring", 
-                stiffness: 260, 
-                damping: 20,
-                delay: 0.5 
-              }}
-              className="shrink-0"
-            >
+            <div className="shrink-0">
               <MorphButton 
                 text="Bagikan" 
                 icon={Share2} 
                 onClick={handleShare}
-                className="bg-white text-muted-foreground border border-muted-foreground/20 hover:text-accent hover:border-accent"
+                className="text-muted-foreground border-none hover:text-accent"
               />
 
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="sm:max-w-md rounded-2xl bg-white p-6 md:p-8">
-                  <DialogHeader className="space-y-3 mb-6">
-                    <DialogTitle className="text-xl md:text-2xl font-bold text-center">Bagikan artikel ini</DialogTitle>
-                    <p className="text-center text-muted-foreground text-xs md:text-sm">
-                      Sebarkan wawasan digital ini ke jejaring sosial anda.
-                    </p>
-                  </DialogHeader>
-                  <div className="flex flex-col gap-6 md:gap-8">
-                    <div className="grid grid-cols-4 gap-2 md:gap-4 justify-items-center">
+                <DialogContent className="sm:max-w-md rounded-[2rem] bg-white p-0 overflow-hidden border-none shadow-2xl">
+                  <div className="p-8 md:p-10 space-y-8">
+                    <DialogHeader className="space-y-2">
+                      <DialogTitle className="text-xl md:text-2xl font-extrabold text-primary">Bagikan artikel</DialogTitle>
+                      <p className="text-muted-foreground text-sm font-medium">
+                        Sebarkan wawasan ini ke jejaring sosial anda.
+                      </p>
+                    </DialogHeader>
+
+                    <div className="grid grid-cols-4 gap-4">
                       {socialLinks.map((social) => (
                         <motion.a
                           key={social.network}
                           href={social.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          whileHover={{ scale: 1.15, rotate: 5 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="flex flex-col items-center gap-2 group"
+                          whileHover={{ y: -4 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="flex flex-col items-center gap-3 group"
                         >
-                          <SocialIcon 
-                            network={social.network} 
-                            fgColor="#fff" 
-                            style={{ height: 44, width: 44 }}
-                            className="shadow-sm group-hover:shadow-lg transition-shadow"
-                            as="div"
-                          />
-                          <span className="text-[9px] md:text-[10px] font-semibold text-muted-foreground group-hover:text-accent transition-colors capitalize">
-                            {social.network === 'x' ? 'X (Twitter)' : social.network}
+                          <div className="relative">
+                            <SocialIcon 
+                              network={social.network} 
+                              fgColor="#fff" 
+                              style={{ height: 48, width: 48 }}
+                              className="shadow-sm group-hover:shadow-md transition-shadow"
+                              as="div"
+                            />
+                          </div>
+                          <span className="text-[10px] font-bold text-muted-foreground group-hover:text-accent transition-colors">
+                            {social.name}
                           </span>
                         </motion.a>
                       ))}
                     </div>
                     
-                    <div className="relative">
-                      <Separator className="my-2" />
-                      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-[10px] font-bold text-muted-foreground/40 tracking-widest">atau</span>
-                    </div>
+                    <div className="space-y-4">
+                      <div className="relative">
+                        <Separator />
+                        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-[10px] font-bold text-muted-foreground/40 tracking-wider">atau salin tautan</span>
+                      </div>
 
-                    <div className="flex items-center gap-2 md:gap-3 bg-muted/30 p-2 pl-3 md:pl-4 rounded-xl border group hover:border-accent/30 transition-colors">
-                      <p className="flex-1 text-[10px] md:text-xs text-muted-foreground truncate font-medium">
-                        {currentUrl || 'Loading...'}
-                      </p>
-                      <Button 
-                        size="sm" 
-                        onClick={handleCopyLink}
-                        className={cn(
-                          "rounded-lg transition-all duration-300 min-w-[90px] md:min-w-[100px] h-8 md:h-10 text-[10px] md:text-xs",
-                          copied ? "bg-green-500 hover:bg-green-600 text-white" : "bg-accent hover:bg-accent/90 text-white"
-                        )}
-                      >
-                        <AnimatePresence mode="wait">
-                          {copied ? (
-                            <motion.div 
-                              key="check" 
-                              initial={{ opacity: 0, scale: 0.5 }} 
-                              animate={{ opacity: 1, scale: 1 }} 
-                              exit={{ opacity: 0, scale: 0.5 }}
-                              className="flex items-center gap-1.5 md:gap-2"
-                            >
-                              <Check className="h-3 w-3" /> Tersalin
-                            </motion.div>
-                          ) : (
-                            <motion.div 
-                              key="copy" 
-                              initial={{ opacity: 0, scale: 0.5 }} 
-                              animate={{ opacity: 1, scale: 1 }} 
-                              exit={{ opacity: 0, scale: 0.5 }}
-                              className="flex items-center gap-1.5 md:gap-2"
-                            >
-                              <Copy className="h-3 w-3" /> Salin link
-                            </motion.div>
+                      <div className="flex items-center gap-2 bg-muted/30 p-1.5 pl-4 rounded-2xl border group hover:border-accent/30 transition-all duration-300">
+                        <p className="flex-1 text-xs text-muted-foreground truncate font-medium">
+                          {currentUrl || 'memuat tautan...'}
+                        </p>
+                        <Button 
+                          size="sm" 
+                          onClick={handleCopyLink}
+                          className={cn(
+                            "rounded-xl transition-all duration-500 h-10 px-6 font-bold text-xs shadow-none border-none",
+                            copied ? "bg-green-500 hover:bg-green-600 text-white" : "bg-accent hover:bg-accent/90 text-white"
                           )}
-                        </AnimatePresence>
-                      </Button>
+                        >
+                          <AnimatePresence mode="wait">
+                            {copied ? (
+                              <motion.div 
+                                key="check" 
+                                initial={{ opacity: 0, scale: 0.8 }} 
+                                animate={{ opacity: 1, scale: 1 }} 
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                className="flex items-center gap-2"
+                              >
+                                <Check className="h-3.5 w-3.5" /> tersalin
+                              </motion.div>
+                            ) : (
+                              <motion.div 
+                                key="copy" 
+                                initial={{ opacity: 0, scale: 0.8 }} 
+                                animate={{ opacity: 1, scale: 1 }} 
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                className="flex items-center gap-2"
+                              >
+                                <Copy className="h-3.5 w-3.5" /> salin
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </DialogContent>
               </Dialog>
-            </motion.div>
+            </div>
 
             <div className="flex items-center">
               <Link href="/berita">
