@@ -52,13 +52,13 @@ export function ExternalNewsSection() {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold text-sm">
               <Globe className="h-4 w-4" />
-              Sorotan media luar
+              sorotan media luar
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
-              Bisukma dalam berita nasional
+              bisukma dalam berita nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita terbaru mengenai Bisukma Group yang dikurasi secara otomatis dari portal media nasional terpercaya.
+              berita terbaru mengenai bisukma group yang dikurasi secara otomatis dari portal media nasional terpercaya.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export function ExternalNewsSection() {
             className="rounded-full font-bold text-xs bg-white shadow-sm hover:shadow-md transition-all h-10 px-6 border-muted-foreground/10 group"
           >
             <RefreshCw className={cn("mr-2 h-3.5 w-3.5 text-accent transition-transform duration-700", (refreshing || loading) && "animate-spin")} />
-            {refreshing ? "Menyegarkan..." : "Segarkan berita"}
+            {refreshing ? "menyegarkan..." : "segarkan berita"}
           </Button>
         </div>
 
@@ -85,14 +85,14 @@ export function ExternalNewsSection() {
             <div className="inline-flex p-4 rounded-full bg-destructive/10 text-destructive">
               <AlertCircle className="h-6 w-6" />
             </div>
-            <p className="font-bold text-primary">Gagal memuat berita</p>
-            <p className="text-sm text-muted-foreground">Terjadi kendala saat menghubungkan ke sumber berita.</p>
-            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">Coba lagi</Button>
+            <p className="font-bold text-primary">gagal memuat berita</p>
+            <p className="text-sm text-muted-foreground">terjadi kendala saat menghubungkan ke sumber berita.</p>
+            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">coba lagi</Button>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
-            <p className="text-muted-foreground italic">Belum ada berita terbaru yang ditemukan hari ini.</p>
-            <Button variant="outline" onClick={() => loadNews(true)} className="rounded-full">Cari berita sekarang</Button>
+            <p className="text-muted-foreground italic">belum ada berita terbaru yang ditemukan hari ini.</p>
+            <Button variant="outline" onClick={() => loadNews(true)} className="rounded-full">cari berita sekarang</Button>
           </div>
         ) : (
           <div className="space-y-8">
@@ -129,11 +129,11 @@ export function ExternalNewsSection() {
                 >
                   {isExpanded ? (
                     <>
-                      Tampilkan lebih sedikit <ChevronUp className="ml-2 h-4 w-4" />
+                      tampilkan lebih sedikit <ChevronUp className="ml-2 h-4 w-4" />
                     </>
                   ) : (
                     <>
-                      Lihat berita lainnya <ChevronDown className="ml-2 h-4 w-4 group-hover/translate-y-0.5 transition-transform" />
+                      lihat berita lainnya <ChevronDown className="ml-2 h-4 w-4 group-hover/translate-y-0.5 transition-transform" />
                     </>
                   )}
                 </Button>
@@ -180,12 +180,17 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           />
           
           <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-            <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5">
+            <a 
+              href={item.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5"
+            >
               <h4 className="scroll-m-20 text-sm md:text-base font-semibold tracking-tight text-accent whitespace-nowrap">
                 {item.source}
               </h4>
               <SquareArrowUpRight className="h-4 w-4 text-accent shrink-0" />
-            </div>
+            </a>
           </div>
         </CardHeader>
 
@@ -213,9 +218,9 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           >
             <div className="flex items-center justify-between gap-4 p-4 rounded-xl border border-border group-hover/link:border-muted-foreground transition-all duration-300">
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-bold text-foreground">Baca sumber asli</span>
+                <span className="text-xs font-bold text-foreground">baca sumber asli</span>
                 <p className="text-[10px] text-muted-foreground font-medium leading-tight">
-                  Baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
+                  baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
                 </p>
               </div>
               <SquareArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0 group-hover/link:scale-110 transition-transform" />
