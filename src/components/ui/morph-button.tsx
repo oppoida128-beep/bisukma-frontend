@@ -15,8 +15,11 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
   const [isHovered, setIsHovered] = React.useState(false)
   const isMobile = useIsMobile()
 
-  // Pada mobile, kita ingin tombol tetap terbuka agar instruksi jelas
+  // Tetap tampilkan teks di mobile agar user tahu fungsinya
   const showText = isHovered || isMobile
+
+  // Spring transition yang lebih padat dan responsif
+  const springConfig = { type: "spring", stiffness: 500, damping: 35, mass: 1 }
 
   return (
     <motion.button
@@ -24,30 +27,29 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "relative flex items-center justify-center bg-accent text-white rounded-full h-10 shadow-none border-none cursor-pointer outline-none transition-colors",
+        "relative flex items-center justify-center bg-transparent text-muted-foreground rounded-full h-10 border-none cursor-pointer outline-none transition-colors hover:text-accent",
         showText ? "px-5" : "w-10",
         className
       )}
-      transition={{ 
-        layout: { type: "spring", stiffness: 400, damping: 35 },
-      }}
+      transition={springConfig}
       {...props}
     >
       <motion.div layout className="flex items-center justify-center shrink-0">
-        <Icon size={16} />
+        <Icon size={18} />
       </motion.div>
 
-      <AnimatePresence initial={false}>
+      <AnimatePresence mode="wait">
         {showText && (
           <motion.span
-            initial={{ opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -8 }}
+            key="text"
+            initial={{ opacity: 0, x: -4, filter: "blur(4px)" }}
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, x: -4, filter: "blur(4px)" }}
             transition={{ 
               duration: 0.2,
-              ease: "easeInOut"
+              ease: [0.23, 1, 0.32, 1] // easeOutQuint untuk kesan premium
             }}
-            className="whitespace-nowrap text-xs font-bold tracking-tight ml-2"
+            className="whitespace-nowrap text-xs font-bold ml-2.5 overflow-hidden"
           >
             {text}
           </motion.span>

@@ -127,7 +127,7 @@ export function ExternalNewsSection() {
                   text={isExpanded ? "Tampilkan lebih sedikit" : "Lihat berita lainnya"}
                   icon={isExpanded ? ArrowUp : ArrowDown}
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="bg-transparent text-accent hover:bg-accent/5 border-none shadow-none"
+                  className="bg-transparent text-muted-foreground border-none shadow-none"
                 />
               </div>
             )}
