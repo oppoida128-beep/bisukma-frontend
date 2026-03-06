@@ -203,16 +203,16 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
               <Calendar className="h-3 w-3 text-accent" /> 
               {formattedDate}
             </p>
-            <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-              <Globe className="h-3 w-3 text-accent" /> 
-              {item.source}
-            </p>
           </div>
           <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
             {item.title}
           </h3>
           <p className="text-xs md:text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
             {item.summary}
+          </p>
+          <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1.5 pt-1">
+            <Globe className="h-3 w-3 text-accent/50" /> 
+            Sumber: {item.source}
           </p>
         </CardContent>
 
