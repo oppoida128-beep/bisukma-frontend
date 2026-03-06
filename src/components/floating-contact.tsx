@@ -4,16 +4,13 @@ import * as React from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { MessageCircle, Send, Loader2 } from "lucide-react"
+import { MessageCircle, Send, Loader2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import {
   Form,
   FormControl,
@@ -25,11 +22,11 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 const contactSchema = z.object({
-  fullName: z.string().min(2, { message: "Nama lengkap minimal 2 karakter." }),
-  email: z.string().email({ message: "Format email tidak valid." }),
+  fullName: z.string().min(2, { message: "Nama Lengkap minimal 2 karakter." }),
+  email: z.string().email({ message: "Format Email tidak valid." }),
   message: z.string().min(10, { message: "Pesan minimal 10 karakter." }),
 })
 
@@ -54,12 +51,10 @@ export function FloatingContact() {
     
     // Simulasi pengiriman data
     setTimeout(() => {
-      // Konstruksi tautan mailto
       const subject = encodeURIComponent(`Kontak dari ${data.fullName}`)
       const body = encodeURIComponent(`Nama: ${data.fullName}\nEmail: ${data.email}\n\nPesan:\n${data.message}`)
       const mailtoLink = `mailto:bisukmafoundation@gmail.com?subject=${subject}&body=${body}`
       
-      // Buka klien email
       if (typeof window !== 'undefined') {
         window.location.href = mailtoLink
       }
@@ -77,8 +72,8 @@ export function FloatingContact() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild>
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
+        <PopoverTrigger asChild>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -89,80 +84,98 @@ export function FloatingContact() {
               Hubungi Kami
             </span>
           </motion.button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] rounded-[2rem] border-none shadow-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-black tracking-tight text-primary">Hubungi Kami</DialogTitle>
-            <DialogDescription className="text-muted-foreground font-medium">
-              Silakan sampaikan pertanyaan atau aspirasi Anda kepada tim Bisukma Foundation.
-            </DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 pt-4">
-              <FormField
-                control={form.control}
-                name="fullName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Nama Lengkap</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Masukkan Nama Lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-11" {...field} />
-                    </FormControl>
-                    <FormMessage className="text-[10px]" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Alamat Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="nama@email.com" type="email" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-11" {...field} />
-                    </FormControl>
-                    <FormMessage className="text-[10px]" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Isi Pesan</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Tuliskan pesan Anda di sini..." 
-                        className="min-h-[120px] rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white resize-none" 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage className="text-[10px]" />
-                  </FormItem>
-                )}
-              />
+        </PopoverTrigger>
+        <PopoverContent 
+          align="end" 
+          side="top" 
+          sideOffset={16}
+          className="w-[90vw] sm:w-[400px] p-0 rounded-[2rem] border-none shadow-2xl bg-white overflow-hidden"
+        >
+          <div className="p-6 md:p-8 space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h3 className="text-xl font-black tracking-tight text-primary">Hubungi Kami</h3>
+                <p className="text-xs text-muted-foreground font-medium">
+                  Sampaikan aspirasi Anda kepada tim Bisukma.
+                </p>
+              </div>
               <Button 
-                type="submit" 
-                disabled={isSubmitting}
-                className="w-full bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-xl font-bold h-12 shadow-lg shadow-blue-600/20 transition-all text-sm uppercase tracking-wider border-none"
+                variant="ghost" 
+                size="icon" 
+                className="rounded-full h-8 w-8 text-muted-foreground" 
+                onClick={() => setIsOpen(false)}
               >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Memproses...
-                  </>
-                ) : (
-                  <>
-                    Kirim Pesan Sekarang
-                    <Send className="ml-2 h-4 w-4" />
-                  </>
-                )}
+                <X className="h-4 w-4" />
               </Button>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
+            </div>
+
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="fullName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Nama Lengkap</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Nama Lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-11 text-sm" {...field} />
+                      </FormControl>
+                      <FormMessage className="text-[10px]" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Alamat Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="nama@email.com" type="email" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-11 text-sm" {...field} />
+                      </FormControl>
+                      <FormMessage className="text-[10px]" />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Isi Pesan</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Tuliskan pesan Anda di sini..." 
+                          className="min-h-[100px] rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white resize-none text-sm" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage className="text-[10px]" />
+                    </FormItem>
+                  )}
+                />
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-xl font-bold h-12 shadow-lg shadow-blue-600/20 transition-all text-xs uppercase tracking-wider border-none"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Memproses...
+                    </>
+                  ) : (
+                    <>
+                      Kirim Pesan
+                      <Send className="ml-2 h-3.5 w-3.5" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   )
 }
