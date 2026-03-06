@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, ArrowRight, RefreshCw, ArrowUpRight } from "lucide-react"
+import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, ArrowRight, RefreshCw, SquareArrowUpRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -134,7 +134,7 @@ export function ExternalNewsSection() {
                     </>
                   ) : (
                     <>
-                      Lihat berita lainnya <ChevronDown className="ml-2 h-4 w-4 group-hover:translate-y-0.5 transition-transform" />
+                      Lihat berita lainnya <ChevronDown className="ml-2 h-4 w-4 group-hover/translate-y-0.5 transition-transform" />
                     </>
                   )}
                 </Button>
@@ -186,9 +186,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
               <h4 className="scroll-m-20 text-sm md:text-base font-bold tracking-tight text-accent whitespace-nowrap">
                 {item.source}
               </h4>
-              <div className="flex items-center justify-center p-1 border border-accent/30 rounded-md shrink-0">
-                <ArrowUpRight className="h-3 w-3 text-accent" />
-              </div>
+              <SquareArrowUpRight className="h-4 w-4 text-accent shrink-0" />
             </div>
           </div>
         </CardHeader>
