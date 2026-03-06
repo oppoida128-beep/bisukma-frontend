@@ -186,10 +186,6 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
               {item.source}
             </span>
           </div>
-
-          <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider z-10">
-            {item.category}
-          </Badge>
         </CardHeader>
 
         <CardContent className="p-6 md:p-8 space-y-3 flex-1">

@@ -15,7 +15,6 @@ export type NewsItem = {
   url: string;
   date: string;
   summary: string;
-  category: string;
   thumbnailUrl: string;
 };
 
@@ -103,20 +102,12 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
         finalSummary = finalSummary.slice(0, 160) + (finalSummary.length > 160 ? "..." : "");
       }
 
-      // 4. Inferensi kategori
-      let category = "Nasional";
-      const titleLower = (item.title || "").toLowerCase();
-      if (titleLower.includes("gizi") || titleLower.includes("makan") || titleLower.includes("sppg")) category = "Gizi";
-      else if (titleLower.includes("pendidikan") || titleLower.includes("siswa") || titleLower.includes("atk") || titleLower.includes("vokasi")) category = "Pendidikan";
-      else if (titleLower.includes("ekonomi") || titleLower.includes("pertanian") || titleLower.includes("bisnis") || titleLower.includes("petani")) category = "Ekonomi";
-
       return {
         title: item.title,
         url: realUrl,
         source: item.source?.["#text"] || item.source || "Media Nasional",
         date: item.pubDate,
         summary: finalSummary,
-        category: category,
         thumbnailUrl: thumbnailUrl
       };
     }));
