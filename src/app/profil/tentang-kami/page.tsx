@@ -25,36 +25,52 @@ export default function TentangKamiPage() {
   const heroImg = PlaceHolderImages.find(img => img.id === 'tentang-kami-hero')
 
   const team = {
-    founder: { imageUrl: "/jajaran/founder.svg" },
+    founder: { 
+      name: "Erickson Sianipar",
+      role: "Founder Bisukma Group",
+      imageUrl: "/jajaran/founder.svg",
+      linkedin: "#",
+      email: "mailto:info@bisukma.org"
+    },
     deputies: [
       { 
         name: "D. Hardtaty Silaban, S.Psi.", 
         role: "Deputi I", 
         imageUrl: "/jajaran/deputi-i.svg", 
-        bio: "Strategi & Kemitraan Pemerintah" 
+        bio: "Strategi & Kemitraan Pemerintah",
+        linkedin: "#",
+        email: "mailto:info@bisukma.org"
       },
       { 
         name: "Nico Benedictus Sianipar", 
         role: "Deputi II", 
         imageUrl: "/jajaran/deputi-ii.svg", 
-        bio: "Operasional & Pemberdayaan Daerah" 
+        bio: "Operasional & Pemberdayaan Daerah",
+        linkedin: "https://id.linkedin.com/in/nico-benedictus",
+        email: "mailto:info@bisukma.org"
       },
     ],
     heads: [
       { 
         name: "Lia Finola Pasaribu", 
-        role: "Kepala Bag. SDM", 
-        imageUrl: "/jajaran/kepala-bag-sdm.svg" 
+        role: "Kepala Bagian SDM", 
+        imageUrl: "/jajaran/kepala-bag-sdm.svg",
+        linkedin: "https://id.linkedin.com/in/lia-finola-pasaribu-83b199132",
+        email: "mailto:info@bisukma.org"
       },
       { 
         name: "Bram H. S. Simorangkir", 
-        role: "Kepala Bag. Operasional", 
-        imageUrl: "/jajaran/kepala-bag-operasional.svg" 
+        role: "Kepala Bagian Operasional", 
+        imageUrl: "/jajaran/kepala-bag-operasional.svg",
+        linkedin: "https://www.linkedin.com/in/bram-harrian-saga-simorangkir-3815911b9/",
+        email: "mailto:info@bisukma.org"
       },
       { 
         name: "Septina Purba", 
-        role: "Kepala Bag. Keuangan", 
-        imageUrl: "/jajaran/kepala-bag-keuangan.svg" 
+        role: "Kepala Bagian Keuangan", 
+        imageUrl: "/jajaran/kepala-bag-keuangan.svg",
+        linkedin: "#",
+        email: "mailto:info@bisukma.org"
       },
     ]
   }
@@ -285,25 +301,25 @@ export default function TentangKamiPage() {
                   <div className="grid md:grid-cols-2 items-center">
                     <div className="relative aspect-square md:aspect-auto md:h-full min-h-[400px]">
                       {team.founder?.imageUrl && (
-                        <Image src={team.founder.imageUrl} alt="Erickson Sianipar" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src={team.founder.imageUrl} alt={team.founder.name} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                       )}
                     </div>
                     <div className="p-10 md:p-16 space-y-6 relative">
                       <div className="space-y-2">
                         <p className="text-accent font-bold uppercase tracking-[0.2em] text-xs">The Visionary</p>
-                        <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">Erickson Sianipar</h3>
-                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">Founder Bisukma Group</p>
+                        <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">{team.founder.name}</h3>
+                        <p className="text-accent-foreground/60 font-semibold text-lg italic uppercase">{team.founder.role}</p>
                       </div>
                       <p className="text-primary-foreground/70 leading-relaxed text-sm italic">
                         "Membangun bangsa dimulai dari kemandirian setiap individu. Melalui pemberdayaan yang tepat, kita menciptakan masa depan yang lebih cerah bagi generasi mendatang."
                       </p>
                       <div className="flex gap-4 pt-4">
-                        <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
+                        <a href={team.founder.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
                           <Linkedin className="size-4" />
-                        </button>
-                        <button className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
+                        </a>
+                        <a href={team.founder.email} className="p-2 rounded-full border border-white/20 hover:bg-white/10 transition-colors text-white">
                           <Mail className="size-4" />
-                        </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -334,9 +350,13 @@ export default function TentangKamiPage() {
                         <p className="text-accent font-bold text-[10px] uppercase tracking-widest">{deputy.role}</p>
                         <h4 className="text-xl font-bold text-white leading-tight">{deputy.name}</h4>
                         <p className="text-xs text-white/60 font-medium">{deputy.bio}</p>
-                        <div className="flex gap-2 pt-2">
-                          <Linkedin className="size-3 text-white/40 hover:text-accent cursor-pointer transition-colors" />
-                          <Mail className="size-3 text-white/40 hover:text-accent cursor-pointer transition-colors" />
+                        <div className="flex gap-3 pt-3">
+                          <a href={deputy.linkedin} target="_blank" rel="noopener noreferrer">
+                            <Linkedin className="size-4 text-white/40 hover:text-accent cursor-pointer transition-colors" />
+                          </a>
+                          <a href={deputy.email}>
+                            <Mail className="size-4 text-white/40 hover:text-accent cursor-pointer transition-colors" />
+                          </a>
                         </div>
                       </div>
                     </CardContent>
@@ -352,8 +372,8 @@ export default function TentangKamiPage() {
               {team.heads.map((head, i) => (
                 <motion.div 
                   key={i}
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (i * 0.1) }}
                 >
@@ -367,9 +387,13 @@ export default function TentangKamiPage() {
                       <div className="space-y-1 flex-1">
                         <p className="text-[10px] text-accent font-bold uppercase tracking-widest leading-none mb-1">{head.role}</p>
                         <h5 className="font-bold text-white text-base group-hover:text-accent transition-colors leading-tight">{head.name}</h5>
-                        <div className="flex gap-3 pt-2 opacity-40 group-hover:opacity-100 transition-opacity">
-                          <Linkedin className="size-3.5 text-white hover:text-accent cursor-pointer transition-colors" />
-                          <Mail className="size-3.5 text-white hover:text-accent cursor-pointer transition-colors" />
+                        <div className="flex gap-3 pt-3 opacity-40 group-hover:opacity-100 transition-opacity">
+                          <a href={head.linkedin} target="_blank" rel="noopener noreferrer">
+                            <Linkedin className="size-4 text-white hover:text-accent cursor-pointer transition-colors" />
+                          </a>
+                          <a href={head.email}>
+                            <Mail className="size-4 text-white hover:text-accent cursor-pointer transition-colors" />
+                          </a>
                         </div>
                       </div>
                     </CardContent>
