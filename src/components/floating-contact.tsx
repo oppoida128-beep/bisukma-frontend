@@ -60,7 +60,9 @@ export function FloatingContact() {
       const mailtoLink = `mailto:bisukmafoundation@gmail.com?subject=${subject}&body=${body}`
       
       // Buka klien email
-      window.location.href = mailtoLink
+      if (typeof window !== 'undefined') {
+        window.location.href = mailtoLink
+      }
       
       setIsSubmitting(false)
       setIsOpen(false)
@@ -80,7 +82,7 @@ export function FloatingContact() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-accent text-white p-4 rounded-full shadow-2xl shadow-accent/40 hover:bg-accent/90 transition-all flex items-center justify-center group"
+            className="bg-[#1877F2] text-white p-4 rounded-full shadow-2xl shadow-blue-600/30 hover:bg-[#1877F2]/90 transition-all flex items-center justify-center group border-none outline-none"
           >
             <MessageCircle className="h-6 w-6" />
             <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-500 whitespace-nowrap text-sm font-bold">
@@ -143,7 +145,7 @@ export function FloatingContact() {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-12 shadow-lg shadow-accent/20 transition-all text-sm uppercase tracking-wider"
+                className="w-full bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-xl font-bold h-12 shadow-lg shadow-blue-600/20 transition-all text-sm uppercase tracking-wider border-none"
               >
                 {isSubmitting ? (
                   <>
