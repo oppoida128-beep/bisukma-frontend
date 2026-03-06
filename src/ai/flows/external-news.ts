@@ -25,26 +25,34 @@ export type ExternalNewsOutput = {
 
 /**
  * Mendapatkan Logo Publisher (Favicon HD) dari domain berita.
- * Menggunakan pendekatan yang lebih tangguh untuk mengekstrak domain utama.
+ * Menggunakan /external-news.svg sebagai fallback jika terdeteksi tidak valid.
  */
 function getPublisherLogo(url: string): string {
   try {
+    if (!url) return "/external-news.svg";
+    
     const hostname = new URL(url).hostname;
     // Hapus 'www.' jika ada untuk konsistensi domain
     const domain = hostname.startsWith("www.") 
       ? hostname.substring(4) 
       : hostname;
     
+    // Jika domain tidak valid atau localhost, gunakan fallback lokal
+    if (!domain || domain.includes('localhost')) {
+      return "/external-news.svg";
+    }
+    
     // Menggunakan Google Favicon API dengan ukuran 128px untuk kualitas HD
     return `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   } catch {
-    return "https://www.google.com/s2/favicons?domain=news.google.com&sz=128";
+    // Fallback terakhir jika parsing URL gagal
+    return "/external-news.svg";
   }
 }
 
 /**
  * Resolve Google News redirect URL to the final destination URL.
- * Menggunakan metode HEAD untuk kecepatan, fallback ke GET jika perlu.
+ * Menggunakan metode GET untuk memastikan kita mendapatkan URL asli sebelum pengolahan domain.
  */
 async function resolveFinalUrl(url: string): Promise<string> {
   const controller = new AbortController();
@@ -68,12 +76,12 @@ async function resolveFinalUrl(url: string): Promise<string> {
 }
 
 /**
- * Pengambil berita eksternal versi ultra-cepat (Publisher Logo Pipeline).
+ * Pengambil berita eksternal versi ultra-cepat (Logo HD & Fallback System).
  * Estima performa: ~500ms (uncached), ~10ms (cached).
  */
 async function fetchNews(): Promise<ExternalNewsOutput> {
   try {
-    console.log("🚀 Memulai pengambilan berita eksternal (Pipeline HD Logo v24)...");
+    console.log("🚀 Memulai pengambilan berita eksternal (Pipeline v25 - Fallback Logo)...");
     
     const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
@@ -100,7 +108,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
       // 1. Dapatkan URL asli portal berita (Resolve Redirect)
       const realUrl = await resolveFinalUrl(item.link);
       
-      // 2. Gunakan Logo Publisher HD sebagai thumbnail (Sangat Cepat & Stabil)
+      // 2. Gunakan Logo Publisher HD sebagai thumbnail
       const thumbnailUrl = getPublisherLogo(realUrl);
 
       // 3. Bersihkan deskripsi dari boilerplate Google News
@@ -135,7 +143,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
       };
     }));
 
-    console.log(`✅ Pipeline v24 selesai. Berhasil memproses ${news.length} berita.`);
+    console.log(`✅ Pipeline v25 selesai. Berhasil memproses ${news.length} berita dengan sistem fallback.`);
     return { news };
   } catch (error) {
     console.error("❌ Error fetching external news:", error);
@@ -145,7 +153,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
 
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v24'],
+  ['bisukma-external-news-v25'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
@@ -153,6 +161,6 @@ export const fetchExternalNews = unstable_cache(
 );
 
 export async function triggerRefreshNews() {
-  console.log("♻️ Merevalidasi cache berita eksternal (v24)...");
+  console.log("♻️ Merevalidasi cache berita eksternal (v25)...");
   revalidateTag('external-news');
 }
