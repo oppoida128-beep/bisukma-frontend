@@ -1,8 +1,8 @@
 'use server';
 /**
- * @fileOverview Flow untuk mengambil dan merangkum berita eksternal.
+ * @fileOverview Flow untuk mengambil dan merangkum berita eksternal khusus Bisukma.
  * 
- * - fetchExternalNews: Fungsi untuk mendapatkan berita terkini dari sumber luar.
+ * - fetchExternalNews: Fungsi untuk mendapatkan berita terkini mengenai Bisukma dari sumber luar.
  */
 
 import { ai } from '@/ai/genkit';
@@ -10,11 +10,11 @@ import { z } from 'genkit';
 
 const NewsItemSchema = z.object({
   title: z.string().describe('Judul berita'),
-  source: z.string().describe('Sumber berita (misal: Antara News, Detik, Kompas)'),
+  source: z.string().describe('Sumber berita (misal: Antara News, Detik, Kompas, atau media lokal)'),
   url: z.string().describe('URL asli berita'),
   date: z.string().describe('Tanggal terbit berita'),
   summary: z.string().describe('Ringkasan singkat berita dalam 1-2 kalimat'),
-  category: z.string().describe('Kategori berita (Teknologi, Gizi, Ekonomi)'),
+  category: z.string().describe('Kategori berita (Pendidikan, Pertanian, Gizi, Sosial)'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -31,13 +31,20 @@ const prompt = ai.definePrompt({
   name: 'externalNewsPrompt',
   input: { schema: z.object({}) },
   output: { schema: ExternalNewsOutputSchema },
-  prompt: `Anda adalah asisten riset berita untuk Bisukma Digital. 
-  Tugas Anda adalah merangkum 3 berita terkini (paling relevan tahun 2024/2025) dari portal berita eksternal di Indonesia yang berkaitan dengan:
-  1. Transformasi digital di pedesaan atau sektor publik.
-  2. Program Makan Bergizi Gratis (MBG) atau gizi nasional di Indonesia.
-  3. Ketahanan pangan lokal dan digitalisasi pertanian.
+  prompt: `Anda adalah asisten riset berita khusus untuk Bisukma Digital. 
+  Tugas Anda adalah mengumpulkan dan merangkum 6 berita TERBARU (paling relevan tahun 2024/2025) dari portal berita eksternal di Indonesia yang secara spesifik menyebutkan atau berkaitan dengan:
+  1. Bisukma Group.
+  2. Bisukma Bangun Bangsa.
+  3. Yayasan Bisukma.
+  4. Kegiatan Erickson Sianipar yang membawa nama Bisukma.
 
-  Pastikan berita terlihat sangat nyata dengan sumber portal berita terpercaya di Indonesia. Berikan ringkasan yang profesional dan objektif dalam Bahasa Indonesia.`,
+  Berita harus mencakup inisiatif seperti:
+  - Program Makan Bergizi Gratis (MBG) di Tapanuli Utara/Toba.
+  - Pelatihan vokasi bersama Kemnaker/BBPVP.
+  - Sinergi ketahanan pangan dengan TNI/Polri.
+  - Aksi kemanusiaan atau pemberdayaan ekonomi masyarakat.
+
+  Pastikan berita terlihat sangat nyata dengan sumber portal berita terpercaya (seperti Antara, Kompas, Tribun, atau media regional Sumatera Utara). Berikan ringkasan yang profesional dan objektif dalam Bahasa Indonesia.`,
 });
 
 const externalNewsFlow = ai.defineFlow(
