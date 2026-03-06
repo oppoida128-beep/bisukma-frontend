@@ -176,13 +176,13 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             src={item.thumbnailUrl}
             alt={item.source}
             fill
-            className="object-contain p-4 group-hover:scale-110 group-hover:blur-[2px] transition-all duration-500"
+            className="object-cover group-hover:scale-105 group-hover:blur-[4px] transition-all duration-500"
             priority={index < 3}
           />
           
           {/* Hover Overlay: Nama Sumber Berita */}
-          <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-            <span className="text-accent font-black text-xs md:text-sm tracking-tighter uppercase px-4 py-1.5 bg-white/90 backdrop-blur-md rounded-lg shadow-xl border border-accent/20 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+          <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+            <span className="text-accent font-black text-xs md:text-sm tracking-tighter uppercase px-5 py-2 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500">
               {item.source}
             </span>
           </div>
