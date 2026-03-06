@@ -48,7 +48,7 @@ export default function VisiMisiPage() {
             Visi & <span className="text-accent">Misi Pergerakan</span>
           </h1>
           <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed font-medium">
-            Menjadi Katalisator Utama Dalam Membentuk Masyarakat Yang Mandiri, Cerdas, Dan Berdaya Saing Global.
+            Menjadi katalisator utama dalam membentuk masyarakat yang mandiri, cerdas, dan berdaya saing global.
           </p>
         </motion.div>
       </section>
@@ -65,7 +65,7 @@ export default function VisiMisiPage() {
                 Visi Organisasi
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-primary leading-tight">
-                Membangun Bangsa Melalui Pemberdayaan Masyarakat Yang Mandiri, Cerdas, Dan Berdaya Saing Tinggi.
+                Membangun bangsa melalui pemberdayaan masyarakat yang mandiri, cerdas, dan berdaya saing tinggi.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Visi ini merupakan komitmen jangka panjang Bisukma Group untuk menciptakan ekosistem sosial dan ekonomi yang berkelanjutan di Indonesia, khususnya di wilayah Sumatera Utara.
@@ -115,7 +115,7 @@ export default function VisiMisiPage() {
                 Misi Strategis
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Langkah Konkret Perubahan</h2>
-              <p className="text-muted-foreground italic font-medium">"Kami Menerjemahkan Visi Besar Menjadi Aksi Nyata Di Lapangan."</p>
+              <p className="text-muted-foreground italic font-medium">"Kami menerjemahkan visi besar menjadi aksi nyata di lapangan."</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -123,17 +123,17 @@ export default function VisiMisiPage() {
                 {
                   icon: <Briefcase className="h-10 w-10" />,
                   title: "Kualitas SDM",
-                  desc: "Meningkatkan Kualitas SDM Melalui Pelatihan Vokasi Dan Teknologi Untuk Mencetak Tenaga Kerja Yang Kompetitif Di Era Digital."
+                  desc: "Meningkatkan kualitas SDM melalui pelatihan vokasi dan teknologi untuk mencetak tenaga kerja yang kompetitif di era digital."
                 },
                 {
                   icon: <Target className="h-10 w-10" />,
                   title: "Ketahanan Pangan",
-                  desc: "Mendukung Ketahanan Pangan Melalui Pendampingan Intensif Pada Sektor Pertanian Dan Peternakan Rakyat Secara Modern."
+                  desc: "Mendukung ketahanan pangan melalui pendampingan intensif pada sektor pertanian dan peternakan rakyat secara modern."
                 },
                 {
                   icon: <Zap className="h-10 w-10" />,
                   title: "Pemenuhan Gizi",
-                  desc: "Menjamin Pemenuhan Gizi Generasi Muda Melalui Program Pangan Yang Berkelanjutan Dan Pengelolaan Dapur Umum Yang Higienis."
+                  desc: "Menjamin pemenuhan gizi generasi muda melalui program pangan yang berkelanjutan dan pengelolaan dapur umum yang higienis."
                 }
               ].map((misi, i) => (
                 <motion.div

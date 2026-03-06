@@ -25,8 +25,8 @@ import { useToast } from "@/hooks/use-toast"
 import { motion, AnimatePresence } from "framer-motion"
 
 const contactSchema = z.object({
-  fullName: z.string().min(2, { message: "Nama Lengkap minimal 2 karakter." }),
-  email: z.string().email({ message: "Format Email tidak valid." }),
+  fullName: z.string().min(2, { message: "Nama lengkap minimal 2 karakter." }),
+  email: z.string().email({ message: "Format email tidak valid." }),
   message: z.string().min(10, { message: "Pesan minimal 10 karakter." }),
 })
 
@@ -118,7 +118,7 @@ export function FloatingContact() {
                     <FormItem>
                       <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Nama Lengkap</FormLabel>
                       <FormControl>
-                        <Input placeholder="Nama Lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-11 text-sm" {...field} />
+                        <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-11 text-sm" {...field} />
                       </FormControl>
                       <FormMessage className="text-[10px]" />
                     </FormItem>

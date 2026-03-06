@@ -86,7 +86,7 @@ export default function MitraPage() {
             animate={{ opacity: 1 }}
             className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium mb-10"
           >
-            Jalin Sinergi Dalam Ekosistem Pangan Dan Teknologi Untuk Menciptakan Dampak Positif Bagi Kemandirian Bangsa.
+            Jalin sinergi dalam ekosistem pangan dan teknologi untuk menciptakan dampak positif bagi kemandirian bangsa.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -132,7 +132,7 @@ export default function MitraPage() {
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-black text-primary tracking-tight">Kategori Kemitraan Strategis</h2>
-            <p className="text-muted-foreground font-medium">Kami Membuka Peluang Kerja Sama Secara Luas Pada Berbagai Sektor Untuk Mendukung Keberhasilan Program Nasional.</p>
+            <p className="text-muted-foreground font-medium">Kami membuka peluang kerja sama secara luas pada berbagai sektor untuk mendukung keberhasilan program nasional.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -163,7 +163,7 @@ export default function MitraPage() {
               <div className="space-y-4">
                 <Badge className="bg-accent/10 text-accent border-none px-4 py-1 text-xs font-bold uppercase tracking-widest">Manfaat Kemitraan</Badge>
                 <h2 className="text-3xl md:text-5xl font-black text-primary leading-tight">Mengapa Menjadi Mitra <br /><span className="text-accent">Bisukma Digital?</span></h2>
-                <p className="text-muted-foreground text-lg font-medium leading-relaxed">Kami Memberikan Dukungan Penuh Bagi Setiap Mitra Untuk Tumbuh Dan Berkembang Bersama Dalam Ekosistem Yang Sehat.</p>
+                <p className="text-muted-foreground text-lg font-medium leading-relaxed">Kami memberikan dukungan penuh bagi setiap mitra untuk tumbuh dan berkembang bersama dalam ekosistem yang sehat.</p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">

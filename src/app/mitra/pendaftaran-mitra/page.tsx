@@ -39,12 +39,12 @@ import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent } from "@/components/ui/card"
 
 const pendaftaranSchema = z.object({
-  fullName: z.string().min(2, { message: "Nama Lengkap Minimal 2 Karakter." }),
-  companyName: z.string().min(2, { message: "Nama Perusahaan Minimal 2 Karakter." }),
-  email: z.string().email({ message: "Format Email Tidak Valid." }),
-  phone: z.string().min(10, { message: "Nomor Telepon Tidak Valid." }),
-  category: z.string().min(1, { message: "Silakan Pilih Kategori Kemitraan." }),
-  message: z.string().min(10, { message: "Pesan Minimal 10 Karakter." }),
+  fullName: z.string().min(2, { message: "Nama lengkap minimal 2 karakter." }),
+  companyName: z.string().min(2, { message: "Nama perusahaan minimal 2 karakter." }),
+  email: z.string().email({ message: "Format email tidak valid." }),
+  phone: z.string().min(10, { message: "Nomor telepon tidak valid." }),
+  category: z.string().min(1, { message: "Silakan pilih kategori kemitraan." }),
+  message: z.string().min(10, { message: "Pesan minimal 10 karakter." }),
 })
 
 type PendaftaranFormValues = z.infer<typeof pendaftaranSchema>
@@ -77,7 +77,7 @@ export default function PendaftaranMitraPage() {
       
       toast({
         title: "Pendaftaran Berhasil Terkirim",
-        description: "Terima Kasih Telah Mendaftar. Tim Kami Akan Segera Menghubungi Anda.",
+        description: "Terima kasih telah mendaftar. Tim kami akan segera menghubungi Anda.",
       })
     }, 1500)
   }
@@ -94,8 +94,8 @@ export default function PendaftaranMitraPage() {
             <CheckCircle2 className="h-16 w-16" />
           </div>
           <div className="space-y-2">
-            <h1 className="text-3xl font-black text-primary tracking-tight">Terima Kasih!</h1>
-            <p className="text-muted-foreground font-medium">Pendaftaran Kemitraan Anda Telah Kami Terima. Mohon Tunggu Kabar Selanjutnya Dari Tim Strategis Bisukma.</p>
+            <h1 className="text-3xl font-black text-primary tracking-tight">Terima kasih!</h1>
+            <p className="text-muted-foreground font-medium">Pendaftaran kemitraan Anda telah kami terima. Mohon tunggu kabar selanjutnya dari tim strategis Bisukma.</p>
           </div>
           <Button asChild className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold px-8 h-12 border-none">
             <Link href="/mitra">Kembali Ke Halaman Mitra</Link>
@@ -120,7 +120,7 @@ export default function PendaftaranMitraPage() {
               Pendaftaran <span className="text-accent italic">Mitra Strategis.</span>
             </h1>
             <p className="text-white/70 text-lg md:text-xl font-medium leading-relaxed">
-              Lengkapi Formulir Di Bawah Ini Untuk Menjadi Bagian Dari Ekosistem Digital Dan Kemandirian Pangan Bisukma Group.
+              Lengkapi formulir di bawah ini untuk menjadi bagian dari ekosistem digital dan kemandirian pangan Bisukma Group.
             </p>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function PendaftaranMitraPage() {
                               <User className="h-3 w-3" /> Nama Lengkap
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="Masukkan Nama Lengkap" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="Masukkan nama lengkap" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -164,7 +164,7 @@ export default function PendaftaranMitraPage() {
                               <Building2 className="h-3 w-3" /> Nama Perusahaan / Instansi
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="Masukkan Nama Lembaga" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="Masukkan nama lembaga" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -216,7 +216,7 @@ export default function PendaftaranMitraPage() {
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm">
-                                <SelectValue placeholder="Pilih Kategori Kerja Sama" />
+                                <SelectValue placeholder="Pilih kategori kerja sama" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="rounded-xl border-none shadow-2xl">
@@ -240,7 +240,7 @@ export default function PendaftaranMitraPage() {
                           <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Deskripsi Rencana Kolaborasi</FormLabel>
                           <FormControl>
                             <Textarea 
-                              placeholder="Ceritakan Singkat Rencana Kerja Sama Anda Dengan Bisukma Digital..." 
+                              placeholder="Ceritakan singkat rencana kerja sama Anda dengan Bisukma Digital..." 
                               className="min-h-[150px] rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white resize-none text-sm p-4" 
                               {...field} 
                             />
@@ -258,7 +258,7 @@ export default function PendaftaranMitraPage() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Memproses Pendaftaran...
+                          Memproses pendaftaran...
                         </>
                       ) : (
                         <>
@@ -279,11 +279,11 @@ export default function PendaftaranMitraPage() {
               <h2 className="text-2xl font-black text-primary tracking-tight">Persyaratan Umum</h2>
               <div className="space-y-4">
                 {[
-                  "Lembaga Atau Perorangan Memiliki Legalitas Yang Jelas.",
-                  "Memiliki Komitmen Tinggi Terhadap Kualitas Dan Integritas.",
-                  "Mendukung Program Kemandirian Pangan Nasional.",
-                  "Bersedia Mengikuti Standar Operasional Bisukma Group.",
-                  "Terbuka Terhadap Sistem Digitalisasi Dan Transparansi."
+                  "Lembaga atau perorangan memiliki legalitas yang jelas.",
+                  "Memiliki komitmen tinggi terhadap kualitas dan integritas.",
+                  "Mendukung program kemandirian pangan nasional.",
+                  "Bersedia mengikuti standar operasional Bisukma Group.",
+                  "Terbuka terhadap sistem digitalisasi dan transparansi."
                 ].map((item, i) => (
                   <div key={i} className="flex gap-3 items-start p-4 rounded-2xl bg-muted/30 border border-muted-foreground/5">
                     <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
@@ -294,9 +294,9 @@ export default function PendaftaranMitraPage() {
             </div>
 
             <div className="p-8 rounded-[2.5rem] bg-accent/5 border border-accent/10 space-y-4">
-              <h3 className="text-lg font-black text-primary">Butuh Bantuan Cepat?</h3>
+              <h3 className="text-lg font-black text-primary">Butuh bantuan cepat?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-medium">
-                Jika Anda Mengalami Kendala Dalam Proses Pendaftaran Online, Silakan Hubungi Tim Kemitraan Kami Melalui Email Resmi.
+                Jika Anda mengalami kendala dalam proses pendaftaran online, silakan hubungi tim kemitraan kami melalui email resmi.
               </p>
               <div className="pt-2">
                 <p className="text-xs font-bold text-accent uppercase tracking-widest">Email Kemitraan</p>
