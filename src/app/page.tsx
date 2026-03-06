@@ -40,7 +40,7 @@ export default function Home() {
     })
   }, [api])
 
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero')
+  const heroImg = PlaceHolderImages.find(img => img.id === 'home-hero') || PlaceHolderImages.find(img => img.id === 'hero')
   const service1Img = PlaceHolderImages.find(img => img.id === 'service-1')
   const service2Img = PlaceHolderImages.find(img => img.id === 'service-2')
   const service3Img = PlaceHolderImages.find(img => img.id === 'service-3')

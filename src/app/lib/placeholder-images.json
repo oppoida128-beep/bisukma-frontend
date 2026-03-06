@@ -2,6 +2,12 @@
 {
   "placeholderImages": [
     {
+      "id": "home-hero",
+      "description": "Bisukma Digital Home Hero Visual",
+      "imageUrl": "/flip-card/hero/home-hero.svg",
+      "imageHint": "digital transformation"
+    },
+    {
       "id": "hero",
       "description": "Digital technology transformation hero image",
       "imageUrl": "https://picsum.photos/seed/bisukma-hero/1920/1080",
