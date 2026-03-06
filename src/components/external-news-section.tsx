@@ -182,11 +182,13 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           
           {/* Hover Overlay: Nama Sumber Berita */}
           <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
-            <div className="bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 relative flex items-center justify-center min-w-[160px]">
-              <ArrowUpRight className="absolute top-2 right-2 h-5 w-5 text-accent/30" />
-              <h4 className="scroll-m-20 text-lg md:text-xl font-semibold tracking-tight text-accent text-center px-4">
+            <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5">
+              <h4 className="scroll-m-20 text-sm md:text-base font-bold tracking-tight text-accent whitespace-nowrap">
                 {item.source}
               </h4>
+              <div className="flex items-center justify-center p-1 border border-accent/30 rounded-md shrink-0">
+                <ArrowUpRight className="h-3 w-3 text-accent" />
+              </div>
             </div>
           </div>
         </CardHeader>
