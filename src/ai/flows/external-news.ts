@@ -15,6 +15,7 @@ const NewsItemSchema = z.object({
   date: z.string().describe('Tanggal terbit berita'),
   summary: z.string().describe('Ringkasan singkat berita dalam 1-2 kalimat'),
   category: z.string().describe('Kategori berita (Pendidikan, Pertanian, Gizi, Sosial)'),
+  thumbnailUrl: z.string().describe('URL gambar thumbnail yang relevan dari Unsplash (misal: https://images.unsplash.com/photo-...)'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -44,7 +45,8 @@ const prompt = ai.definePrompt({
   - Sinergi ketahanan pangan dengan TNI/Polri.
   - Aksi kemanusiaan atau pemberdayaan ekonomi masyarakat.
 
-  Pastikan berita terlihat sangat nyata dengan sumber portal berita terpercaya (seperti Antara, Kompas, Tribun, atau media regional Sumatera Utara). Berikan ringkasan yang profesional dan objektif dalam Bahasa Indonesia.`,
+  Pastikan berita terlihat sangat nyata dengan sumber portal berita terpercaya (seperti Antara, Kompas, Tribun, atau media regional Sumatera Utara). Berikan ringkasan yang profesional dan objektif dalam Bahasa Indonesia.
+  Untuk setiap berita, sertakan thumbnailUrl yang benar-benar relevan menggunakan Unsplash URL (misal bertema: agriculture, kitchen, education, community help).`,
 });
 
 const externalNewsFlow = ai.defineFlow(
