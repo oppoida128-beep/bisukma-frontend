@@ -63,7 +63,7 @@ function ProgramFlipCard({ prog }: { prog: any }) {
 
         {/* Sisi Belakang */}
         <div 
-          className="absolute inset-0 rounded-2xl overflow-hidden bg-accent p-6 flex flex-col justify-between text-white"
+          className="absolute inset-0 rounded-2xl overflow-hidden bg-accent p-6 flex flex-col text-white"
           style={{ 
             backfaceVisibility: "hidden", 
             transform: "rotateY(180deg)" 
@@ -77,12 +77,6 @@ function ProgramFlipCard({ prog }: { prog: any }) {
               {prog.desc}
             </p>
           </div>
-          <Link 
-            href="/profil/tentang-kami" 
-            className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-white/80 transition-colors group/btn"
-          >
-            Pelajari selengkapnya <ChevronRight className="h-3 w-3 transition-transform group-hover/btn:translate-x-1" />
-          </Link>
         </div>
       </motion.div>
     </div>
