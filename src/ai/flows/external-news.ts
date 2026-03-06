@@ -1,21 +1,24 @@
 'use server';
 /**
- * @fileOverview Flow untuk mengambil berita nyata dari Google News RSS dan memprosesnya dengan AI.
- * Menggunakan Next.js unstable_cache untuk penyimpanan data selama 24 jam agar performa loading maksimal.
+ * @fileOverview Flow untuk mengambil berita nyata dari Google News RSS dan memperkayanya dengan metadata asli menggunakan link-preview-js.
+ * - Menggunakan AI untuk memfilter berita yang relevan dengan Bisukma.
+ * - Menggunakan link-preview-js untuk mengambil thumbnail asli dari portal berita.
+ * - Menggunakan caching 24 jam untuk performa maksimal.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { unstable_cache, revalidateTag } from 'next/cache';
+import { unstable_cache } from 'next/cache';
+import { getLinkPreview } from 'link-preview-js';
 
 const NewsItemSchema = z.object({
   title: z.string().describe('Judul berita asli dari media'),
-  source: z.string().describe('Nama media sumber (misal: Kompas, Detik, Antara)'),
+  source: z.string().describe('Nama media sumber'),
   url: z.string().describe('URL asli berita'),
   date: z.string().describe('Tanggal terbit berita'),
   summary: z.string().describe('Ringkasan berita dalam Bahasa Indonesia yang profesional'),
   category: z.string().describe('Kategori (Pendidikan, Pertanian, Gizi, Sosial, Ekonomi)'),
-  thumbnailUrl: z.string().describe('URL gambar pratinjau. Prioritaskan mengekstrak URL gambar asli dari data RSS jika ada. Jika tidak ada, berikan URL Unsplash yang SANGAT spesifik dan relevan dengan judul berita.'),
+  thumbnailUrl: z.string().describe('URL gambar pratinjau. Berikan URL Unsplash spesifik sebagai fallback.'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -43,11 +46,8 @@ const prompt = ai.definePrompt({
   Data RSS:
   {{{rssData}}}
 
-  INSTRUKSI UNTUK GAMBAR (thumbnailUrl):
-  1. Periksa apakah ada tag <media:content> atau <img> di dalam deskripsi item RSS. Jika ada URL gambar yang valid dan berakhir dengan .jpg, .png, atau .webp, gunakan itu.
-  2. Jika tidak ditemukan gambar asli, berikan URL Unsplash menggunakan format: https://images.unsplash.com/photo-[ID]?auto=format&fit=crop&w=800&q=80
-  3. Pastikan gambar Unsplash yang Anda pilih secara visual SANGAT AKURAT menggambarkan isi berita. Misal: jika berita tentang pembagian ATK sekolah, cari foto "school supplies"; jika tentang dapur gizi, cari "clean industrial kitchen".
-  4. Jangan gunakan gambar placeholder generic jika memungkinkan.`,
+  Untuk thumbnailUrl, berikan URL Unsplash yang SANGAT spesifik sebagai cadangan jika sistem gagal mengambil pratinjau asli.
+  Contoh: jika tentang gizi, berikan https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80`,
 });
 
 const externalNewsFlow = ai.defineFlow(
@@ -58,7 +58,6 @@ const externalNewsFlow = ai.defineFlow(
   },
   async () => {
     try {
-      // Fetch data nyata dari Google News RSS dengan cache harian
       const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
       const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
       
@@ -66,34 +65,52 @@ const externalNewsFlow = ai.defineFlow(
       const xmlData = await response.text();
 
       const { output } = await prompt({ rssData: xmlData });
-      return output!;
+      
+      if (!output || !output.news) return { news: [] };
+
+      // Memperkaya berita dengan thumbnail asli menggunakan link-preview-js secara paralel
+      const enrichedNews = await Promise.all(output.news.map(async (item) => {
+        try {
+          const preview = await getLinkPreview(item.url, {
+            followRedirects: true,
+            handleRedirectsAsync: true,
+            timeout: 5000,
+          });
+
+          // Jika berhasil mendapatkan pratinjau, gunakan gambar dari metadata situs asli
+          if (preview && 'images' in preview && preview.images.length > 0) {
+            return {
+              ...item,
+              thumbnailUrl: preview.images[0],
+              // Jika deskripsi dari situs asli lebih baik, kita bisa mempertimbangkannya
+              summary: item.summary || (preview as any).description || item.summary
+            };
+          }
+        } catch (previewError) {
+          // Jika gagal ambil pratinjau (misal karena bot-block), tetap gunakan data dari AI
+          console.warn(`Gagal mengambil pratinjau untuk: ${item.url}`);
+        }
+        return item;
+      }));
+
+      return { news: enrichedNews };
     } catch (error) {
-      console.error("RSS Fetch Error:", error);
-      // Fallback ke prompt kosong jika fetch gagal agar AI tetap bisa memberikan data dari pengetahuannya
-      const { output } = await prompt({ rssData: "No RSS data available" });
-      return output!;
+      console.error("News Flow Error:", error);
+      return { news: [] };
     }
   }
 );
 
 /**
  * Fungsi pembungkus dengan cache harian (86400 detik).
- * Menjalankan pengambilan berita dan AI hanya sekali sehari untuk menghemat token dan performa.
  */
 export const fetchExternalNews = unstable_cache(
   async (): Promise<ExternalNewsOutput> => {
     return externalNewsFlow({});
   },
-  ['bisukma-external-news-daily'],
+  ['bisukma-external-news-v2'],
   { 
-    revalidate: 86400, // 24 Jam
+    revalidate: 86400, 
     tags: ['external-news']
   }
 );
-
-/**
- * Server Action untuk membersihkan cache berita eksternal secara manual.
- */
-export async function revalidateExternalNews() {
-  revalidateTag('external-news');
-}

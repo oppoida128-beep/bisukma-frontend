@@ -51,7 +51,7 @@ export function ExternalNewsSection() {
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita terkini mengenai aktivitas Bisukma Group dari Google News RSS, diperbarui secara harian.
+              Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari berbagai media nasional.
             </p>
           </div>
         </div>
@@ -69,7 +69,6 @@ export function ExternalNewsSection() {
             </div>
             <p className="font-bold text-primary">Gagal memuat berita</p>
             <p className="text-sm text-muted-foreground">Terjadi kendala saat mengambil data harian.</p>
-            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">Coba lagi</Button>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
@@ -164,6 +163,7 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-105 transition-transform duration-700"
               onError={() => setImgError(true)}
+              unoptimized={item.thumbnailUrl.includes('placeholder') ? false : true} // Mengatasi pembatasan whitelist domain jika perlu
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent/5 text-accent/20 gap-2 p-6 text-center">
@@ -175,7 +175,6 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
           <Badge className="absolute top-4 left-4 bg-accent/90 hover:bg-accent border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
             {item.category.split(',')[0]}
           </Badge>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </CardHeader>
 
         <CardContent className="p-6 md:p-8 space-y-3 flex-1">
@@ -191,10 +190,12 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
           <p className="text-xs md:text-sm text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
             {item.summary}
           </p>
-          <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1.5 pt-1">
-            <Globe className="h-3 w-3 text-accent/50" /> 
-            Sumber: {item.source}
-          </p>
+          <div className="pt-2">
+            <p className="text-[10px] text-muted-foreground/60 flex items-center gap-1.5">
+              <Globe className="h-3 w-3 text-accent/50" /> 
+              Sumber: {item.source}
+            </p>
+          </div>
         </CardContent>
 
         <CardFooter className="p-6 md:p-8 pt-0">
@@ -204,7 +205,7 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
             rel="noopener noreferrer"
             className="text-xs md:text-sm font-bold flex items-center text-accent group/link"
           >
-            Baca selengkapnya 
+            Baca sumber asli 
             <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
           </a>
         </CardFooter>
