@@ -52,7 +52,7 @@ const services = [
     title: "Layanan setup operasional dapur",
     subtitle: "Bisukma kitchen setup service",
     icon: <Utensils className="h-6 w-6 md:h-8 md:w-8" />,
-    img: "service-1",
+    img: "/layanan-assets/Layanan setup operasional dapur.svg",
     description: "Pendampingan teknis membangun infrastruktur dapur hingga siap beroperasi penuh.",
     features: [
       "Implementasi standar dapur",
