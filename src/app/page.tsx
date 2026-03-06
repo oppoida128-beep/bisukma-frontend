@@ -165,7 +165,11 @@ export default function Home() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm">
+          <motion.div 
+            whileHover={{ y: -10, scale: 1.01 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm cursor-pointer"
+          >
             {heroImg?.imageUrl && (
               <Image 
                 src={heroImg.imageUrl} 
@@ -177,21 +181,6 @@ export default function Home() {
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          </div>
-          <motion.div 
-            className="absolute -bottom-6 -right-2 md:-bottom-8 md:right-32 bg-white p-4 md:p-6 rounded-xl shadow-xl hidden sm:block border max-w-[200px] md:max-w-[240px]"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="flex items-center gap-2 md:gap-3 mb-2">
-              <div className="bg-accent/10 p-1.5 md:p-2 rounded-lg text-accent">
-                <Users className="h-4 w-4 md:h-5 md:h-5" />
-              </div>
-              <p className="text-xs md:text-sm font-semibold leading-none">Tim ahli kami</p>
-            </div>
-            <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed">
-              50+ Insinyur berpengalaman siap mendukung pertumbuhan bisnis Anda secara eksklusif.
-            </p>
           </motion.div>
         </motion.div>
       </section>
@@ -496,7 +485,7 @@ export default function Home() {
                 Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
               <p className="text-muted-foreground leading-relaxed text-[11px] md:text-xs hidden sm:block">
-                Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
+                With tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
               </p>
               
               <div className="flex w-full flex-col gap-3 pt-2">
