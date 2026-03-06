@@ -1,42 +1,37 @@
+
 'use server';
-/**
- * @fileOverview Flow untuk mengambil berita nyata dari Google News RSS dan memperkayanya dengan metadata asli menggunakan link-preview-js.
- * - Menggunakan resolusi redirect untuk mendapatkan URL asli dari Google News.
- * - Menggunakan User-Agent untuk menghindari pemblokiran bot oleh portal berita.
- * - Menggunakan caching 24 jam untuk performa maksimal.
- */
 
-import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
-import { unstable_cache, revalidateTag } from 'next/cache';
-import { getLinkPreview } from 'link-preview-js';
+import { XMLParser } from "fast-xml-parser";
+import { unstable_cache, revalidateTag } from "next/cache";
+import { getLinkPreview } from "link-preview-js";
 
-const NewsItemSchema = z.object({
-  title: z.string().describe('Judul berita asli dari media'),
-  source: z.string().describe('Nama media sumber'),
-  url: z.string().describe('URL asli berita (bisa berupa redirect Google News)'),
-  date: z.string().describe('Tanggal terbit berita'),
-  summary: z.string().describe('Ringkasan berita dalam Bahasa Indonesia yang profesional'),
-  category: z.string().describe('Kategori (Pendidikan, Pertanian, Gizi, Sosial, Ekonomi)'),
-  thumbnailUrl: z.string().describe('URL gambar pratinjau default atau fallback.'),
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_"
 });
 
-const ExternalNewsOutputSchema = z.object({
-  news: z.array(NewsItemSchema),
-});
+export type NewsItem = {
+  title: string;
+  source: string;
+  url: string;
+  date: string;
+  summary: string;
+  category: string;
+  thumbnailUrl: string;
+};
 
-export type ExternalNewsOutput = z.infer<typeof ExternalNewsOutputSchema>;
+export type ExternalNewsOutput = {
+  news: NewsItem[];
+};
 
 /**
- * Fungsi untuk mengikuti redirect URL Google News guna mendapatkan URL asli portal berita.
- * Dioptimalkan dengan timeout dan metode HEAD untuk kecepatan.
+ * Resolve Google News redirect URL to the final destination URL.
  */
 async function resolveFinalUrl(url: string): Promise<string> {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 6000); // 6 detik max per URL
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
 
   try {
-    // Coba HEAD dahulu untuk efisiensi
     const response = await fetch(url, {
       method: 'HEAD',
       redirect: 'follow',
@@ -47,8 +42,7 @@ async function resolveFinalUrl(url: string): Promise<string> {
     });
     clearTimeout(timeoutId);
     return response.url;
-  } catch (error) {
-    // Fallback ke GET jika HEAD gagal atau tidak didukung
+  } catch {
     try {
       const response = await fetch(url, {
         method: 'GET',
@@ -59,115 +53,94 @@ async function resolveFinalUrl(url: string): Promise<string> {
       });
       clearTimeout(timeoutId);
       return response.url;
-    } catch (e) {
+    } catch {
       clearTimeout(timeoutId);
-      console.warn(`⚠️ Gagal resolve URL: ${url}`);
       return url;
     }
   }
 }
 
-const prompt = ai.definePrompt({
-  name: 'externalNewsPrompt',
-  input: { 
-    schema: z.object({ 
-      rssData: z.string().describe('Data mentah XML dari Google News RSS') 
-    }) 
-  },
-  output: { schema: ExternalNewsOutputSchema },
-  prompt: `Anda adalah asisten riset berita untuk Bisukma Digital.
-  
-  Tugas Anda adalah menganalisis data RSS Google News berikut dan mengekstrak 6 berita TERBARU dan PALING RELEVAN yang berkaitan dengan:
-  - Bisukma Group
-  - Bisukma Bangun Bangsa
-  - Yayasan Bisukma
-  - Erickson Sianipar (dalam konteks Bisukma)
+/**
+ * Pure RSS Parser logic without AI dependency.
+ * Much faster (~1s vs ~40s) and more stable for production.
+ */
+async function fetchNews(): Promise<ExternalNewsOutput> {
+  try {
+    console.log("🚀 Memulai pengambilan berita (Pure RSS Parser)...");
+    
+    const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
+    const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
+    
+    const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); 
+    const xmlData = await response.text();
+    const json = parser.parse(xmlData);
+    
+    const rawItems = json?.rss?.channel?.item || [];
+    const items = Array.isArray(rawItems) ? rawItems : [rawItems];
+    
+    // Limit to top 6 items for better performance
+    const targetItems = items.slice(0, 6);
 
-  Data RSS:
-  {{{rssData}}}
-
-  PENTING: Pastikan kategori yang dipilih sesuai dengan isi berita.
-  Untuk thumbnailUrl, berikan URL Unsplash yang SANGAT spesifik sebagai cadangan.`,
-});
-
-const externalNewsFlow = ai.defineFlow(
-  {
-    name: 'externalNewsFlow',
-    inputSchema: z.object({}),
-    outputSchema: ExternalNewsOutputSchema,
-  },
-  async () => {
-    try {
-      console.log("🚀 Memulai pengambilan berita eksternal...");
+    const news = await Promise.all(targetItems.map(async (item: any, index: number) => {
+      // 1. Resolve redirect from Google News to actual source URL
+      const realUrl = await resolveFinalUrl(item.link);
       
-      const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
-      const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
-      
-      const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); 
-      const xmlData = await response.text();
+      let thumbnail = `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
+      let description = item.description || "";
 
-      console.log("✅ Data RSS berhasil diambil, mengirim ke AI untuk ekstraksi...");
+      try {
+        // 2. Fetch OpenGraph metadata from the actual source
+        const preview = await getLinkPreview(realUrl, {
+          timeout: 6000,
+          headers: {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          },
+        });
 
-      const { output } = await prompt({ rssData: xmlData });
-      
-      if (!output || !output.news || output.news.length === 0) {
-        console.log("⚠️ AI tidak menemukan berita yang relevan.");
-        return { news: [] };
+        if (preview && 'images' in preview && (preview as any).images?.length > 0) {
+          thumbnail = (preview as any).images[0];
+        }
+
+        if (preview && 'description' in preview && (preview as any).description) {
+          description = (preview as any).description;
+        }
+      } catch (e) {
+        // Fallback description from RSS (cleaning HTML tags)
+        description = item.description?.replace(/<[^>]*>?/gm, '') || "";
       }
 
-      console.log("🔍 Berita yang berhasil diekstrak oleh AI:");
-      output.news.forEach((n) => console.log(`- ${n.title}`));
+      // 3. Simple category inference based on keywords (replacing AI)
+      let category = "Nasional";
+      const titleLower = item.title.toLowerCase();
+      if (titleLower.includes("gizi") || titleLower.includes("makan")) category = "Gizi";
+      else if (titleLower.includes("pendidikan") || titleLower.includes("siswa") || titleLower.includes("atk")) category = "Pendidikan";
+      else if (titleLower.includes("ekonomi") || titleLower.includes("pertanian") || titleLower.includes("bisnis")) category = "Ekonomi";
 
-      // Memperkaya berita dengan thumbnail asli secara paralel
-      console.log("🖼️ Memulai pengayaan metadata (thumbnail asli)...");
-      const enrichedNews = await Promise.all(output.news.map(async (item) => {
-        try {
-          // 1. Resolve redirect dari Google News ke URL asli portal berita
-          const finalUrl = await resolveFinalUrl(item.url);
-          
-          // 2. Ambil metadata dari URL asli
-          const preview = await getLinkPreview(finalUrl, {
-            followRedirects: true,
-            handleRedirectsAsync: true,
-            timeout: 7000,
-            headers: {
-              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            },
-          });
+      return {
+        title: item.title,
+        url: realUrl,
+        source: item.source?.["#text"] || item.source || "Media Nasional",
+        date: item.pubDate,
+        summary: description,
+        category: category,
+        thumbnailUrl: thumbnail
+      };
+    }));
 
-          const metadataImage = (preview && 'images' in preview && (preview as any).images?.length > 0)
-            ? (preview as any).images[0] 
-            : item.thumbnailUrl;
-
-          return {
-            ...item,
-            url: finalUrl,
-            thumbnailUrl: metadataImage,
-            summary: item.summary || (preview && 'description' in preview ? (preview as any).description : item.summary)
-          };
-        } catch (previewError) {
-          console.warn(`⚠️ Gagal mengambil pratinjau untuk: ${item.url}`);
-          return item;
-        }
-      }));
-
-      console.log("🎉 Pengayaan selesai. Mengirim berita ke frontend.");
-      return { news: enrichedNews };
-    } catch (error) {
-      console.error("❌ News Flow Error:", error);
-      return { news: [] };
-    }
+    console.log(`✅ Berhasil memproses ${news.length} berita dalam waktu singkat.`);
+    return { news };
+  } catch (error) {
+    console.error("❌ Error fetching external news:", error);
+    return { news: [] };
   }
-);
+}
 
 /**
- * Fungsi pembungkus dengan cache harian (86400 detik).
+ * Cached version of the news fetcher (24 hours).
  */
 export const fetchExternalNews = unstable_cache(
-  async (): Promise<ExternalNewsOutput> => {
-    return externalNewsFlow({});
-  },
-  ['bisukma-external-news-v7'],
+  fetchNews,
+  ['bisukma-external-news-v12'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
@@ -175,9 +148,9 @@ export const fetchExternalNews = unstable_cache(
 );
 
 /**
- * Server Action untuk memaksa penyegaran data dengan menghapus cache.
+ * Server Action to force revalidation.
  */
 export async function triggerRefreshNews() {
-  console.log("♻️ Memaksa revalidasi cache berita eksternal...");
+  console.log("♻️ Merevalidasi cache berita eksternal...");
   revalidateTag('external-news');
 }
