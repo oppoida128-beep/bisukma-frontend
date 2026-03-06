@@ -305,7 +305,7 @@ export default function BeritaDetailPage() {
 
             <div className="flex items-center">
               <Link href="/berita">
-                <Button variant="ghost" className="text-muted-foreground hover:text-accent text-xs md:text-sm font-semibold pr-0">
+                <Button variant="link" className="text-muted-foreground hover:text-accent hover:no-underline text-xs md:text-sm font-bold pr-0 h-auto p-0 transition-colors">
                   Berikutnya <ArrowLeft className="ml-2 h-4 w-4 rotate-180" />
                 </Button>
               </Link>
