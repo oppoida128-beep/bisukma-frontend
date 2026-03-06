@@ -176,7 +176,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             src={item.thumbnailUrl}
             alt={item.source}
             fill
-            className="object-contain p-8 md:p-12 group-hover:scale-110 transition-transform duration-500 drop-shadow-sm"
+            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
             priority={index < 3}
           />
           <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
