@@ -29,13 +29,13 @@ export default function TentangKamiPage() {
     deputies: [
       { 
         name: "D. Hardtaty Silaban, S.Psi.", 
-        role: "DEPUTI I", 
+        role: "deputi i", 
         imageUrl: "/jajaran/deputi-i.svg", 
         bio: "strategi & kemitraan pemerintah" 
       },
       { 
         name: "Nico Benedictus Sianipar", 
-        role: "DEPUTI II", 
+        role: "deputi ii", 
         imageUrl: "/jajaran/deputi-ii.svg", 
         bio: "operasional & pemberdayaan daerah" 
       },
@@ -43,17 +43,17 @@ export default function TentangKamiPage() {
     heads: [
       { 
         name: "Budi Santoso", 
-        role: "KEPALA BAG. SDM", 
+        role: "kepala bag. sdm", 
         imageUrl: "/jajaran/kepala-bag-sdm.svg" 
       },
       { 
         name: "Bram H. S. Simorangkir", 
-        role: "KEPALA BAG. OPERASIONAL", 
+        role: "kepala bag. operasional", 
         imageUrl: "/jajaran/kepala-bag-operasional.svg" 
       },
       { 
         name: "Septina Purba", 
-        role: "KEPALA BAG. KEUANGAN", 
+        role: "kepala bag. keuangan", 
         imageUrl: "/jajaran/kepala-bag-keuangan.svg" 
       },
     ]
@@ -99,7 +99,7 @@ export default function TentangKamiPage() {
               </Badge>
               <h1 className="scroll-m-20 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                 Membangun bangsa <br />
-                <span className="text-accent italic">bersama bisukma.</span>
+                <span className="text-accent italic">bersama Bisukma.</span>
               </h1>
               <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
                 lembaga strategis nasional yang berfokus pada pemberdayaan masyarakat mandiri, cerdas, dan berdaya saing global.
