@@ -3,12 +3,11 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, RefreshCw, AlertCircle, ChevronDown, ChevronUp, ImageOff, Calendar, ArrowRight } from "lucide-react"
+import { Globe, AlertCircle, ChevronDown, ChevronUp, ImageOff, Calendar, ArrowRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { fetchExternalNews, revalidateExternalNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
-import { cn } from "@/lib/utils"
+import { fetchExternalNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
 
 export function ExternalNewsSection() {
   const [news, setNews] = React.useState<ExternalNewsOutput['news']>([])
@@ -16,13 +15,10 @@ export function ExternalNewsSection() {
   const [error, setError] = React.useState(false)
   const [isExpanded, setIsExpanded] = React.useState(false)
 
-  const loadNews = async (forceRefresh = false) => {
+  const loadNews = async () => {
     setLoading(true)
     setError(false)
     try {
-      if (forceRefresh) {
-        await revalidateExternalNews()
-      }
       const data = await fetchExternalNews()
       if (data && data.news) {
         setNews(data.news)
@@ -45,7 +41,7 @@ export function ExternalNewsSection() {
   return (
     <section className="py-16 md:py-24 bg-muted/20 border-t border-b overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div className="mb-12">
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold tracking-wider text-sm">
               <Globe className="h-4 w-4" />
@@ -55,24 +51,9 @@ export function ExternalNewsSection() {
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita nyata yang ditarik secara harian mengenai aktivitas Bisukma Group dari Google News RSS.
+              Berita terkini mengenai aktivitas Bisukma Group dari Google News RSS, diperbarui secara harian.
             </p>
           </div>
-          
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={() => loadNews(true)} 
-            disabled={loading}
-            className="rounded-full font-bold text-xs bg-white shadow-sm hover:shadow-md transition-all h-10 px-6 border-muted-foreground/10"
-          >
-            {loading ? (
-              <RefreshCw className="h-3 w-3 mr-2 animate-spin" />
-            ) : (
-              <RefreshCw className="h-3 w-3 mr-2" />
-            )}
-            Segarkan berita
-          </Button>
         </div>
 
         {loading ? (
@@ -88,7 +69,7 @@ export function ExternalNewsSection() {
             </div>
             <p className="font-bold text-primary">Gagal memuat berita</p>
             <p className="text-sm text-muted-foreground">Terjadi kendala saat mengambil data harian.</p>
-            <Button variant="link" onClick={() => loadNews(true)} className="text-accent font-bold">Coba lagi</Button>
+            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">Coba lagi</Button>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
