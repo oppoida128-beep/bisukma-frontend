@@ -22,19 +22,33 @@ export default function VisiMisiPage() {
     <div className="flex flex-col w-full bg-white">
       {/* --- HERO SECTION --- */}
       <section className="relative pt-20 pb-20 md:pt-32 md:pb-32 overflow-hidden bg-primary text-center">
-        <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.15)_0%,transparent_100%)]"></div>
+        {/* Background Pattern with low opacity */}
+        <div className="absolute inset-0 z-0 opacity-15 blur-[2px]">
+          <Image 
+            src="/layanan-assets/6.svg" 
+            alt="Background Pattern" 
+            fill 
+            className="object-cover"
+          />
+        </div>
+        
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.2)_0%,transparent_100%)] z-0"></div>
+        
         <motion.div 
           className="container mx-auto px-4 relative z-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <Badge className="bg-accent/20 text-accent border-none mb-6">Masa Depan Bangsa</Badge>
+          <Badge className="bg-accent/20 text-accent border-none mb-6 px-4 py-1 text-xs font-bold uppercase tracking-widest">
+            Masa Depan Bangsa
+          </Badge>
           <h1 className="scroll-m-20 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
             Visi & <span className="text-accent">Misi Pergerakan</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-            Menjadi katalisator utama dalam membentuk masyarakat yang mandiri, cerdas, dan berdaya saing global.
+          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed font-medium">
+            Menjadi Katalisator Utama Dalam Membentuk Masyarakat Yang Mandiri, Cerdas, Dan Berdaya Saing Global.
           </p>
         </motion.div>
       </section>
@@ -51,7 +65,7 @@ export default function VisiMisiPage() {
                 Visi Organisasi
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-primary leading-tight">
-                Membangun bangsa melalui pemberdayaan masyarakat yang mandiri, cerdas (bisuk), dan berdaya saing tinggi.
+                Membangun Bangsa Melalui Pemberdayaan Masyarakat Yang Mandiri, Cerdas, Dan Berdaya Saing Tinggi.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Visi ini merupakan komitmen jangka panjang Bisukma Group untuk menciptakan ekosistem sosial dan ekonomi yang berkelanjutan di Indonesia, khususnya di wilayah Sumatera Utara.
@@ -101,7 +115,7 @@ export default function VisiMisiPage() {
                 Misi Strategis
               </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Langkah Konkret Perubahan</h2>
-              <p className="text-muted-foreground italic">"Kami menerjemahkan visi besar menjadi aksi nyata di lapangan."</p>
+              <p className="text-muted-foreground italic font-medium">"Kami Menerjemahkan Visi Besar Menjadi Aksi Nyata Di Lapangan."</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -109,17 +123,17 @@ export default function VisiMisiPage() {
                 {
                   icon: <Briefcase className="h-10 w-10" />,
                   title: "Kualitas SDM",
-                  desc: "Meningkatkan kualitas SDM melalui pelatihan vokasi dan teknologi untuk mencetak tenaga kerja yang kompetitif di era digital."
+                  desc: "Meningkatkan Kualitas SDM Melalui Pelatihan Vokasi Dan Teknologi Untuk Mencetak Tenaga Kerja Yang Kompetitif Di Era Digital."
                 },
                 {
                   icon: <Target className="h-10 w-10" />,
                   title: "Ketahanan Pangan",
-                  desc: "Mendukung ketahanan pangan melalui pendampingan intensif pada sektor pertanian dan peternakan rakyat secara modern."
+                  desc: "Mendukung Ketahanan Pangan Melalui Pendampingan Intensif Pada Sektor Pertanian Dan Peternakan Rakyat Secara Modern."
                 },
                 {
                   icon: <Zap className="h-10 w-10" />,
                   title: "Pemenuhan Gizi",
-                  desc: "Menjamin pemenuhan gizi generasi muda melalui program pangan yang berkelanjutan dan pengelolaan dapur umum yang higienis."
+                  desc: "Menjamin Pemenuhan Gizi Generasi Muda Melalui Program Pangan Yang Berkelanjutan Dan Pengelolaan Dapur Umum Yang Higienis."
                 }
               ].map((misi, i) => (
                 <motion.div
@@ -133,7 +147,7 @@ export default function VisiMisiPage() {
                     <CardContent className="p-10 space-y-6">
                       <div className="text-accent p-4 rounded-2xl bg-accent/5 inline-block group-hover:scale-110 transition-transform duration-500 shadow-sm">{misi.icon}</div>
                       <h3 className="text-2xl font-bold text-primary">{misi.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed text-sm">{misi.desc}</p>
+                      <p className="text-muted-foreground leading-relaxed text-sm font-medium">{misi.desc}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
