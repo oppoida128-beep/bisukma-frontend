@@ -27,13 +27,23 @@ export default function TentangKamiPage() {
   const team = {
     founder: { imageUrl: "/Founder.svg" },
     deputies: [
-      { name: "Andi Pratama", role: "Deputi I", img: PlaceHolderImages.find(img => img.id === 'team-deputy1'), bio: "Strategi & Kemitraan Pemerintah" },
-      { name: "Siti Rahma", role: "Deputi II", img: PlaceHolderImages.find(img => img.id === 'team-deputy2'), bio: "Operasional & Pemberdayaan Daerah" },
+      { 
+        name: "Andi Pratama", 
+        role: "Deputi I", 
+        imageUrl: "/jajaran/Deputi I.svg", 
+        bio: "Strategi & Kemitraan Pemerintah" 
+      },
+      { 
+        name: "Siti Rahma", 
+        role: "Deputi II", 
+        imageUrl: "/jajaran/Deputi II.svg", 
+        bio: "Operasional & Pemberdayaan Daerah" 
+      },
     ],
     heads: [
-      { name: "Budi Santoso", role: "Kepala Bag. SDM", img: PlaceHolderImages.find(img => img.id === 'team-sdm') },
-      { name: "Reza Fahlevi", role: "Kepala Bag. Operasional", img: PlaceHolderImages.find(img => img.id === 'team-ops') },
-      { name: "Dewi Lestari", role: "Kepala Bag. Keuangan", img: PlaceHolderImages.find(img => img.id === 'team-finance') },
+      { name: "Budi Santoso", role: "Kepala Bag. SDM", imageUrl: "/jajaran/Kepala Bag. SDM.svg" },
+      { name: "Reza Fahlevi", role: "Kepala Bag. Operasional", imageUrl: "/jajaran/Kepala Bag. Operasional.svg" },
+      { name: "Dewi Lestari", role: "Kepala Bag. Keuangan", imageUrl: "/jajaran/Kepala Bag. Keuangan.svg" },
     ]
   }
 
@@ -297,8 +307,8 @@ export default function TentangKamiPage() {
                   <Card className="border border-accent/10 bg-white/50 backdrop-blur-sm rounded-[2rem] overflow-hidden group hover:border-accent/40 transition-all duration-500 shadow-none">
                     <CardContent className="p-8 flex items-center gap-6">
                       <div className="relative size-24 md:size-32 shrink-0 overflow-hidden rounded-2xl bg-muted border-2 border-accent/20">
-                        {deputy.img?.imageUrl && (
-                          <Image src={deputy.img.imageUrl} alt={deputy.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                        {deputy.imageUrl && (
+                          <Image src={deputy.imageUrl} alt={deputy.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                         )}
                       </div>
                       <div className="space-y-1">
@@ -330,8 +340,8 @@ export default function TentangKamiPage() {
                 >
                   <div className="bg-white border border-muted p-6 rounded-2xl flex items-center gap-4 group hover:border-accent/30 transition-all duration-300">
                     <div className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-muted group-hover:rotate-3 transition-transform">
-                      {head.img?.imageUrl && (
-                        <Image src={head.img.imageUrl} alt={head.name} fill className="object-cover" />
+                      {head.imageUrl && (
+                        <Image src={head.imageUrl} alt={head.name} fill className="object-cover" />
                       )}
                     </div>
                     <div className="space-y-0.5">
