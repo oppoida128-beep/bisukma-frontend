@@ -51,72 +51,72 @@ export default function Home() {
 
   const popularNews = [
     {
-      title: "pentingnya cybersecurity di era kerja remote",
-      category: "keamanan",
+      title: "Pentingnya cybersecurity di era kerja remote",
+      category: "Keamanan",
       img: news3Img?.imageUrl,
-      excerpt: "melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda."
+      excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda."
     },
     {
-      title: "masa depan ai dalam transformasi bisnis 2024",
-      category: "teknologi",
+      title: "Masa depan AI dalam transformasi bisnis 2024",
+      category: "Teknologi",
       img: news1Img?.imageUrl,
-      excerpt: "bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
+      excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
     },
     {
-      title: "event bisukma digital conference 2024",
-      category: "event",
+      title: "Event Bisukma digital conference 2024",
+      category: "Event",
       img: PlaceHolderImages.find(img => img.id === 'gallery-6')?.imageUrl,
-      excerpt: "rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri."
+      excerpt: "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri."
     }
   ]
 
   const recentlyAddedNews = [
     {
-      title: "strategi cloud computing untuk startup berkembang",
+      title: "Strategi cloud computing untuk startup berkembang",
       date: "10 mei 2024",
-      category: "infrastruktur",
+      category: "Infrastruktur",
       img: news2Img?.imageUrl,
-      excerpt: "memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
+      excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
     },
     {
-      title: "trend desain ui/ux yang dominan di tahun ini",
+      title: "Trend desain UI/UX yang dominan di tahun ini",
       date: "01 mei 2024",
-      category: "desain",
+      category: "Desain",
       img: PlaceHolderImages.find(img => img.id === 'gallery-5')?.imageUrl,
-      excerpt: "eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman terbaik..."
+      excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman terbaik..."
     },
     {
-      title: "implementasi blockchain untuk supply chain",
+      title: "Implementasi blockchain untuk supply chain",
       date: "28 april 2024",
-      category: "teknologi",
+      category: "Teknologi",
       img: PlaceHolderImages.find(img => img.id === 'gallery-4')?.imageUrl,
-      excerpt: "transparansi dan pelacakan aset menjadi lebih mudah and aman dengan teknologi blockchain."
+      excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah and aman dengan teknologi blockchain."
     }
   ]
 
   const programs = [
     {
       id: "prog-1",
-      title: "generasi emas 2045",
-      desc: "membangun fondasi masa depan indonesia melalui pemenuhan gizi yang berkualitas sejak dini. program ini mendukung terciptanya generasi sehat, cerdas, dan produktif sebagai pilar pembangunan menuju indonesia 2045.",
+      title: "Generasi emas 2045",
+      desc: "Membangun fondasi masa depan Indonesia melalui pemenuhan gizi yang berkualitas sejak dini. Program ini mendukung terciptanya generasi sehat, cerdas, dan produktif sebagai pilar pembangunan menuju Indonesia 2045.",
       img: PlaceHolderImages.find(img => img.id === 'flip-1')?.imageUrl
     },
     {
       id: "prog-2",
-      title: "gizi untuk pelajar",
-      desc: "pemenuhan gizi yang baik membantu meningkatkan konsentrasi belajar, kesehatan, serta perkembangan fisik dan mental bagi siswa dari tingkat tk hingga sma.",
+      title: "Gizi untuk pelajar",
+      desc: "Pemenuhan gizi yang baik membantu meningkatkan konsentrasi belajar, kesehatan, serta perkembangan fisik dan mental bagi siswa dari tingkat TK hingga SMA.",
       img: PlaceHolderImages.find(img => img.id === 'flip-2')?.imageUrl
     },
     {
       id: "prog-3",
-      title: "awal kehidupan sehat",
-      desc: "dukungan gizi bagi ibu hamil dan balita menjadi kunci tumbuh kembang optimal, sekaligus mencegah risiko stunting serta meningkatkan kualitas kesehatan generasi mendatang.",
+      title: "Awal kehidupan sehat",
+      desc: "Dukungan gizi bagi ibu hamil dan balita menjadi kunci tumbuh kembang optimal, sekaligus mencegah risiko stunting serta meningkatkan kualitas kesehatan generasi mendatang.",
       img: PlaceHolderImages.find(img => img.id === 'flip-3')?.imageUrl
     },
     {
       id: "prog-4",
-      title: "penguatan ekonomi lokal",
-      desc: "program ini turut mendorong pertumbuhan ekonomi masyarakat dengan melibatkan umkm dan petani lokal sebagai bagian dari rantai pasok pangan yang berkelanjutan.",
+      title: "Penguatan ekonomi lokal",
+      desc: "Program ini turut mendorong pertumbuhan ekonomi masyarakat dengan melibatkan UMKM dan petani lokal sebagai bagian dari rantai pasok pangan yang berkelanjutan.",
       img: PlaceHolderImages.find(img => img.id === 'flip-4')?.imageUrl
     }
   ]
@@ -140,21 +140,21 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <h1 className="scroll-m-20 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary mb-6 leading-tight">
-            membangun standar baru <br className="hidden md:block" />
-            <span className="text-accent">dunia digital.</span>
+            Membangun standar baru <br className="hidden md:block" />
+            <span className="text-accent">Dunia digital.</span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4">
-            bisukma digital adalah katalisator transformasi anda. kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
+            Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
             <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto">
-              konsultasi gratis
+              Konsultasi gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link href="/layanan" className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all border-b border-transparent hover:border-muted-foreground pb-1">
-              lihat katalog produk
+              Lihat katalog produk
             </Link>
           </div>
         </motion.div>
@@ -192,8 +192,8 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
-            <p className="text-sm font-bold text-accent">berita & wawasan</p>
-            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">eksplorasi tren digital</h2>
+            <p className="text-sm font-bold text-accent">Berita & wawasan</p>
+            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Eksplorasi tren digital</h2>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
@@ -227,7 +227,7 @@ export default function Home() {
                             {post.excerpt}
                           </p>
                           <div className="pt-2 flex items-center gap-2 text-white font-bold text-xs md:text-sm">
-                            baca artikel <ArrowUpRight className="h-4 w-4" />
+                            Baca artikel <ArrowUpRight className="h-4 w-4" />
                           </div>
                         </div>
                       </Link>
@@ -256,7 +256,7 @@ export default function Home() {
 
             <div className="lg:col-span-4 space-y-6 md:space-y-8">
               <div className="flex items-center gap-2">
-                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">terbaru</Badge>
+                <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Terbaru</Badge>
               </div>
               
               <div className="flex flex-col gap-5 md:gap-6">
@@ -299,7 +299,7 @@ export default function Home() {
               <div className="pt-2">
                 <Button variant="link" className="p-0 h-auto text-accent font-bold group/more text-sm" asChild>
                   <Link href="/berita">
-                    lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
+                    Lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
                   </Link>
                 </Button>
               </div>
@@ -320,11 +320,11 @@ export default function Home() {
           <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2 text-accent font-bold text-sm">
               <Sparkles className="h-4 w-4" />
-              program unggulan
+              Program unggulan
             </div>
-            <h2 className="scroll-m-20 text-2xl md:text-4xl font-extrabold tracking-tight text-primary">langkah nyata membangun bangsa</h2>
+            <h2 className="scroll-m-20 text-2xl md:text-4xl font-extrabold tracking-tight text-primary">Langkah nyata membangun bangsa</h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base font-medium">
-              langkah nyata bisukma group dalam membangun kemandirian dan kecerdasan bangsa melalui pilar-pilar strategis.
+              Langkah nyata Bisukma Group dalam membangun kemandirian dan kecerdasan bangsa melalui pilar-pilar strategis.
             </p>
           </div>
 
@@ -357,7 +357,7 @@ export default function Home() {
                         {prog.title}
                       </h3>
                       <div className="flex items-center gap-2 text-accent text-xs font-bold">
-                        detail <ChevronRight className="h-3 w-3" />
+                        Detail <ChevronRight className="h-3 w-3" />
                       </div>
                     </div>
                   </div>
@@ -385,10 +385,10 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
-            <p className="text-sm font-bold text-white/80">layanan unggulan</p>
-            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">solusi strategis kami</h2>
+            <p className="text-sm font-bold text-white/80">Layanan unggulan</p>
+            <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Solusi strategis kami</h2>
             <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl">
-              dukungan penuh untuk keberhasilan pengelolaan dapur makan bergizi gratis (mbg).
+              Dukungan penuh untuk keberhasilan pengelolaan dapur makan bergizi gratis (MBG).
             </p>
           </div>
 
@@ -396,20 +396,20 @@ export default function Home() {
             {[
               { 
                 icon: <Layout className="h-6 w-6 md:h-8 md:w-8" />, 
-                title: "perencanaan dapur", 
-                desc: "studi kelayakan, perhitungan kapasitas, dan desain blueprint layout dapur standar mbg.",
+                title: "Perencanaan dapur", 
+                desc: "Studi kelayakan, perhitungan kapasitas, dan desain blueprint layout dapur standar MBG.",
                 img: service1Img?.imageUrl 
               },
               { 
                 icon: <Utensils className="h-6 w-6 md:h-8 md:w-8" />, 
-                title: "setup operasional", 
-                desc: "pendampingan pengadaan alat profesional dan penyusunan sop keamanan pangan.",
+                title: "Setup operasional", 
+                desc: "Pendampingan pengadaan alat profesional dan penyusunan SOP keamanan pangan.",
                 img: service2Img?.imageUrl 
               },
               { 
                 icon: <Users className="h-6 w-6 md:h-8 md:w-8" />, 
-                title: "pelatihan & gizi", 
-                desc: "pelatihan juru masak dan manajer dapur mengenai standar gizi serta food safety.",
+                title: "Pelatihan & gizi", 
+                desc: "Pelatihan juru masak dan manajer dapur mengenai standar gizi serta food safety.",
                 img: service3Img?.imageUrl 
               }
             ].map((service, i) => (
@@ -435,7 +435,7 @@ export default function Home() {
                       </p>
                       <div className="pt-4">
                         <Link href="/layanan" className="inline-flex items-center gap-2 text-white font-bold text-xs md:text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all group/btn">
-                          detail layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
+                          Detail layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                         </Link>
                       </div>
                     </div>
@@ -483,23 +483,23 @@ export default function Home() {
               transition={{ duration: 0.7 }}
             >
               <div className="space-y-1 md:space-y-2">
-                <p className="text-[10px] md:text-xs font-bold text-accent">tentang kami</p>
-                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl">katalis inovasi digital anda</h2>
+                <p className="text-[10px] md:text-xs font-bold text-accent">Tentang kami</p>
+                <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl">Katalis inovasi digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-medium">
-                bisukma digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
+                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
               <p className="text-muted-foreground leading-relaxed text-[11px] md:text-xs hidden sm:block">
-                dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis anda menjadi kenyataan digital yang kompetitif dan skalabel.
+                Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
               </p>
               
               <div className="flex w-full flex-col gap-3 pt-2">
                 <Item asChild variant="default" className="p-3">
                   <Link href="/profil/tentang-kami">
                     <ItemContent>
-                      <ItemTitle className="text-xs md:text-sm">kunjungi dokumentasi profil</ItemTitle>
+                      <ItemTitle className="text-xs md:text-sm">Kunjungi dokumentasi profil</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
-                        pelajari bagaimana kami memulai dan nilai-nilai inti kami.
+                        Pelajari bagaimana kami memulai dan nilai-nilai inti kami.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
@@ -510,9 +510,9 @@ export default function Home() {
                 <Item variant="outline" asChild className="p-3">
                   <a href="/layanan" target="_blank" rel="noopener noreferrer">
                     <ItemContent>
-                      <ItemTitle className="text-xs md:text-sm">sumber daya eksternal</ItemTitle>
+                      <ItemTitle className="text-xs md:text-sm">Sumber daya eksternal</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
-                        lihat katalog layanan lengkap kami di tab baru.
+                        Lihat katalog layanan lengkap kami di tab baru.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
