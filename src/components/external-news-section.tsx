@@ -55,7 +55,7 @@ export function ExternalNewsSection() {
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita nyata yang ditarik secara real-time dari Google News RSS mengenai aktivitas Bisukma Group.
+              Berita nyata yang ditarik secara harian mengenai aktivitas Bisukma Group dari Google News RSS.
             </p>
           </div>
           
@@ -183,15 +183,15 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
         </CardHeader>
 
         <CardContent className="p-6 md:p-8 space-y-3 flex-1">
-          <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground/60 tracking-wider uppercase">
-            <span className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <p className="text-sm text-muted-foreground flex items-center gap-1.5">
               <Calendar className="h-3 w-3 text-accent" /> 
               {item.date}
-            </span>
-            <span className="flex items-center gap-1.5">
+            </p>
+            <p className="text-sm text-muted-foreground flex items-center gap-1.5">
               <Globe className="h-3 w-3 text-accent" /> 
               {item.source}
-            </span>
+            </p>
           </div>
           <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
             {item.title}
