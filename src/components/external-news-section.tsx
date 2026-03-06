@@ -21,7 +21,9 @@ export function ExternalNewsSection() {
     setError(false)
     try {
       const data = await fetchExternalNews()
-      setNews(data.news)
+      if (data && data.news) {
+        setNews(data.news)
+      }
     } catch (err) {
       console.error("Failed to fetch external news:", err)
       setError(true)
@@ -35,10 +37,10 @@ export function ExternalNewsSection() {
   }, [])
 
   const initialNews = news.slice(0, 3)
-  const expandedNews = news.slice(3)
+  const expandedNews = news.slice(3, 6)
 
   return (
-    <section className="py-16 md:py-24 bg-muted/20 border-t border-b">
+    <section className="py-16 md:py-24 bg-muted/20 border-t border-b overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="space-y-3">
@@ -47,10 +49,10 @@ export function ExternalNewsSection() {
               Wawasan Bisukma di Media Luar
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
-              Sorotan Berita Eksternal
+              Sorotan Berita Nyata (Real-time)
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Kumpulan kabar terbaru mengenai inisiatif Bisukma yang diliput oleh berbagai media nasional dan regional.
+              Integrasi langsung dengan Google News untuk menyajikan kabar terkini mengenai pergerakan Bisukma di kancah nasional.
             </p>
           </div>
           
@@ -59,14 +61,14 @@ export function ExternalNewsSection() {
             size="sm" 
             onClick={loadNews} 
             disabled={loading}
-            className="rounded-full font-bold text-xs bg-white"
+            className="rounded-full font-bold text-xs bg-white shadow-sm hover:shadow-md transition-all"
           >
             {loading ? (
               <RefreshCw className="h-3 w-3 mr-2 animate-spin" />
             ) : (
               <RefreshCw className="h-3 w-3 mr-2" />
             )}
-            Segarkan berita
+            Segarkan data RSS
           </Button>
         </div>
 
@@ -81,8 +83,13 @@ export function ExternalNewsSection() {
             <div className="inline-flex p-4 rounded-full bg-destructive/10 text-destructive">
               <AlertCircle className="h-6 w-6" />
             </div>
-            <p className="font-bold">Gagal memuat berita luar</p>
-            <p className="text-sm text-muted-foreground">Terjadi kendala koneksi dengan AI penyedia berita.</p>
+            <p className="font-bold text-primary">Gagal memuat berita luar</p>
+            <p className="text-sm text-muted-foreground">Terjadi kendala saat mengambil data RSS Google News.</p>
+            <Button variant="link" onClick={loadNews} className="text-accent font-bold">Coba lagi</Button>
+          </div>
+        ) : news.length === 0 ? (
+          <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed">
+            <p className="text-muted-foreground italic">Belum ada berita terbaru yang ditemukan di Google News hari ini.</p>
           </div>
         ) : (
           <div className="space-y-8">
@@ -93,7 +100,7 @@ export function ExternalNewsSection() {
             </div>
 
             <AnimatePresence>
-              {isExpanded && (
+              {isExpanded && expandedNews.length > 0 && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -168,7 +175,10 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
 
         <CardContent className="p-6 md:p-8 flex flex-col h-full flex-1">
           <div className="flex justify-between items-center mb-5 text-[10px] font-bold text-muted-foreground/50 tracking-widest uppercase">
-            <span>{item.source}</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              {item.source}
+            </span>
             <span>{item.date}</span>
           </div>
           

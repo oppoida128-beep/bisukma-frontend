@@ -1,21 +1,19 @@
 'use server';
 /**
- * @fileOverview Flow untuk mengambil dan merangkum berita eksternal khusus Bisukma.
- * 
- * - fetchExternalNews: Fungsi untuk mendapatkan berita terkini mengenai Bisukma dari sumber luar.
+ * @fileOverview Flow untuk mengambil berita nyata dari Google News RSS dan memprosesnya dengan AI.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
 const NewsItemSchema = z.object({
-  title: z.string().describe('Judul berita'),
-  source: z.string().describe('Sumber berita (misal: Antara News, Detik, Kompas, atau media lokal)'),
+  title: z.string().describe('Judul berita asli dari media'),
+  source: z.string().describe('Nama media sumber (misal: Kompas, Detik, Antara)'),
   url: z.string().describe('URL asli berita'),
   date: z.string().describe('Tanggal terbit berita'),
-  summary: z.string().describe('Ringkasan singkat berita dalam 1-2 kalimat'),
-  category: z.string().describe('Kategori berita (Pendidikan, Pertanian, Gizi, Sosial)'),
-  thumbnailUrl: z.string().describe('URL gambar asli dari portal berita tersebut jika tersedia, atau URL Unsplash (https://images.unsplash.com/...) yang sangat akurat mewakili konten jika URL asli tidak ditemukan.'),
+  summary: z.string().describe('Ringkasan berita dalam Bahasa Indonesia yang profesional'),
+  category: z.string().describe('Kategori (Pendidikan, Pertanian, Gizi, Sosial, Ekonomi)'),
+  thumbnailUrl: z.string().describe('URL gambar pratinjau yang paling relevan. Gunakan URL dari metadata jika tersedia, atau URL Unsplash yang SANGAT spesifik mewakili topik berita tersebut.'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -30,25 +28,29 @@ export async function fetchExternalNews(): Promise<ExternalNewsOutput> {
 
 const prompt = ai.definePrompt({
   name: 'externalNewsPrompt',
-  input: { schema: z.object({}) },
+  input: { 
+    schema: z.object({ 
+      rssData: z.string().describe('Data mentah XML dari Google News RSS') 
+    }) 
+  },
   output: { schema: ExternalNewsOutputSchema },
-  prompt: `Anda adalah asisten riset berita khusus untuk Bisukma Digital. 
-  Tugas Anda adalah mengumpulkan dan merangkum 6 berita TERBARU (paling relevan tahun 2024/2025) dari portal berita eksternal di Indonesia yang secara spesifik menyebutkan atau berkaitan dengan:
-  1. Bisukma Group.
-  2. Bisukma Bangun Bangsa.
-  3. Yayasan Bisukma.
-  4. Kegiatan Erickson Sianipar yang membawa nama Bisukma.
+  prompt: `Anda adalah asisten riset berita untuk Bisukma Digital.
+  
+  Tugas Anda adalah menganalisis data RSS Google News berikut dan mengekstrak 6 berita TERBARU dan PALING RELEVAN yang berkaitan dengan:
+  - Bisukma Group
+  - Bisukma Bangun Bangsa
+  - Yayasan Bisukma
+  - Erickson Sianipar (dalam konteks Bisukma)
 
-  Berita harus mencakup inisiatif nyata seperti:
-  - Program Makan Bergizi Gratis (MBG) di Tapanuli Utara/Toba.
-  - Pelatihan vokasi bersama Kemnaker/BBPVP.
-  - Sinergi ketahanan pangan dengan TNI/Polri.
-  - Aksi kemanusiaan atau pemberdayaan ekonomi masyarakat.
+  Data RSS:
+  {{{rssData}}}
 
-  PENTING:
-  - Gunakan URL asli berita dari portal terpercaya (Kompas, Detik, Antara, dll).
-  - Untuk 'thumbnailUrl', coba berikan URL gambar asli yang biasanya menyertai berita tersebut. Jika tidak mungkin, gunakan URL Unsplash yang SANGAT RELEVAN.
-  - Berikan ringkasan yang profesional dalam Bahasa Indonesia.`,
+  INSTRUKSI:
+  1. Ekstrak Judul, URL, dan Sumber media asli.
+  2. Buat ringkasan yang informatif dalam Bahasa Indonesia.
+  3. Tentukan kategori yang paling tepat.
+  4. Untuk 'thumbnailUrl', jika dalam data RSS tidak ada URL gambar yang jelas, berikan URL Unsplash (https://images.unsplash.com/photo-...) yang secara visual SANGAT AKURAT menggambarkan isi berita tersebut (misal: jika tentang pertanian, cari foto sawah modern; jika tentang gizi, cari foto makanan sehat).
+  5. Jika data RSS kosong atau tidak relevan, Anda boleh menggunakan pengetahuan internal Anda untuk memberikan berita nyata terbaru (2024-2025) yang Anda ketahui tentang Bisukma sebagai fallback.`,
 });
 
 const externalNewsFlow = ai.defineFlow(
@@ -58,7 +60,21 @@ const externalNewsFlow = ai.defineFlow(
     outputSchema: ExternalNewsOutputSchema,
   },
   async () => {
-    const { output } = await prompt({});
-    return output!;
+    try {
+      // Fetch data nyata dari Google News RSS
+      const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
+      const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
+      
+      const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); // Cache selama 1 jam
+      const xmlData = await response.text();
+
+      const { output } = await prompt({ rssData: xmlData });
+      return output!;
+    } catch (error) {
+      console.error("RSS Fetch Error:", error);
+      // Fallback ke prompt kosong jika fetch gagal agar AI tetap bisa memberikan data dari pengetahuannya
+      const { output } = await prompt({ rssData: "No RSS data available" });
+      return output!;
+    }
   }
 );
