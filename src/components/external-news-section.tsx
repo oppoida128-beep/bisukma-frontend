@@ -172,15 +172,13 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
     >
       <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
         <CardHeader className="p-0 relative h-32 md:h-40 overflow-hidden bg-accent/5 flex items-center justify-center">
-          <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-sm group-hover:scale-110 transition-transform duration-500">
-            <Image
-              src={item.thumbnailUrl}
-              alt={item.source}
-              fill
-              className="object-contain"
-              priority={index < 3}
-            />
-          </div>
+          <Image
+            src={item.thumbnailUrl}
+            alt={item.source}
+            fill
+            className="object-contain p-8 md:p-12 group-hover:scale-110 transition-transform duration-500 drop-shadow-sm"
+            priority={index < 3}
+          />
           <Badge className="absolute top-4 left-4 bg-accent/10 text-accent hover:bg-accent/20 border-none px-3 py-1 font-bold text-[10px] rounded-full uppercase tracking-wider">
             {item.category}
           </Badge>
