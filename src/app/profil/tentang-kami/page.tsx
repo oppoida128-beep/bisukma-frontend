@@ -1,3 +1,4 @@
+
 'use client'
 
 import * as React from "react"
@@ -12,14 +13,6 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
 import { Badge } from "@/components/ui/badge"
 
 export default function TentangKamiPage() {
@@ -30,11 +23,7 @@ export default function TentangKamiPage() {
     transition: { duration: 0.6 }
   }
 
-  const carouselImages = [
-    PlaceHolderImages.find(img => img.id === 'profile'),
-    PlaceHolderImages.find(img => img.id === 'gallery-6'),
-    PlaceHolderImages.find(img => img.id === 'gallery-3'),
-  ]
+  const heroImg = PlaceHolderImages.find(img => img.id === 'tentang-kami-hero')
 
   const team = {
     founder: PlaceHolderImages.find(img => img.id === 'team-founder'),
@@ -56,37 +45,25 @@ export default function TentangKamiPage() {
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.15)_0%,transparent_100%)]"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Carousel di Kiri */}
+            {/* Visual Hero di Kiri */}
             <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              <Carousel 
-                plugins={[Autoplay({ delay: 4000 })]}
-                className="w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-black/20"
-              >
-                <CarouselContent>
-                  {carouselImages.map((img, index) => (
-                    <CarouselItem key={index}>
-                      <div className="relative aspect-[4/3] w-full">
-                        {img?.imageUrl && (
-                          <Image 
-                            src={img.imageUrl} 
-                            alt={`Slide ${index}`} 
-                            fill 
-                            className="object-cover"
-                          />
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-4 bg-white/10 border-none text-white hover:bg-white/20 backdrop-blur-md" />
-                <CarouselNext className="right-4 bg-white/10 border-none text-white hover:bg-white/20 backdrop-blur-md" />
-              </Carousel>
+              <div className="relative aspect-[4/3] w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-black/20">
+                {heroImg?.imageUrl && (
+                  <Image 
+                    src={heroImg.imageUrl} 
+                    alt="Bisukma Tentang Kami" 
+                    fill 
+                    className="object-cover"
+                    priority
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
             </motion.div>
 
             {/* Teks Hero di Kanan */}
