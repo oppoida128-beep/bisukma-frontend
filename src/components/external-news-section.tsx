@@ -77,7 +77,7 @@ export function ExternalNewsSection() {
         {loading && !refreshing ? (
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="border border-muted/60 shadow-none bg-white/50 animate-pulse h-[400px] rounded-2xl" />
+              <Card key={i} className="border border-muted/60 shadow-none bg-white/50 animate-pulse h-[350px] rounded-2xl" />
             ))}
           </div>
         ) : error ? (
@@ -170,7 +170,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
       className="h-full"
     >
       <Card className="overflow-hidden border border-muted/60 shadow-none group flex flex-col h-full bg-white hover:shadow-lg hover:shadow-accent/5 transition-all duration-500 rounded-2xl">
-        <CardHeader className="p-0 relative h-32 md:h-40 overflow-hidden bg-accent/5 flex items-center justify-center">
+        <CardHeader className="p-0 relative h-28 md:h-32 overflow-hidden bg-accent/5 flex items-center justify-center">
           <Image
             src={item.thumbnailUrl}
             alt={item.source}
@@ -179,29 +179,29 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
             priority={index < 3}
           />
           
-          <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-            <a 
-              href={item.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5"
-            >
+          <a 
+            href={item.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center"
+          >
+            <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-2.5">
               <h4 className="scroll-m-20 text-sm md:text-base font-semibold tracking-tight text-accent whitespace-nowrap">
                 {item.source}
               </h4>
               <SquareArrowUpRight className="h-4 w-4 text-accent shrink-0" />
-            </a>
-          </div>
+            </div>
+          </a>
         </CardHeader>
 
-        <CardContent className="p-6 md:p-8 space-y-3 flex-1">
+        <CardContent className="px-6 py-4 md:px-8 md:py-5 space-y-2 flex-1">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <p className="text-[10px] font-bold text-muted-foreground/60 flex items-center gap-1.5">
               <Calendar className="h-3 w-3 text-accent" /> 
               {formattedDate}
             </p>
           </div>
-          <h3 className="text-lg font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
+          <h3 className="text-base md:text-lg font-extrabold leading-tight group-hover:text-accent transition-colors line-clamp-2">
             {item.title}
           </h3>
           <p className="text-xs text-muted-foreground/80 line-clamp-3 leading-relaxed font-medium">
@@ -209,7 +209,7 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           </p>
         </CardContent>
 
-        <CardFooter className="p-6 md:p-8 pt-0">
+        <CardFooter className="px-6 pb-6 md:px-8 md:pb-8 pt-0">
           <a 
             href={item.url} 
             target="_blank" 
@@ -218,9 +218,9 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           >
             <div className="flex items-center justify-between gap-4 p-4 rounded-xl border border-border group-hover/link:border-muted-foreground transition-all duration-300">
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-bold text-foreground">Baca sumber asli</span>
+                <span className="text-xs font-bold text-foreground">baca sumber asli</span>
                 <p className="text-[10px] text-muted-foreground font-medium leading-tight">
-                  Baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
+                  baca berita selengkapnya di "{item.source}" dengan cara klik tombol ini
                 </p>
               </div>
               <SquareArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0 group-hover/link:scale-110 transition-transform" />
