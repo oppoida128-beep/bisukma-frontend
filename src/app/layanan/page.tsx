@@ -78,10 +78,10 @@ export default function LayananPage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 pt-2">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-full font-bold px-8">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-full font-bold px-8 h-12">
                   Konsultasi sekarang
                 </Button>
-                <Button variant="outline" size="lg" className="rounded-full font-bold px-8 border-muted-foreground/20">
+                <Button variant="outline" size="lg" className="rounded-full font-bold px-8 h-12 border-muted-foreground/20 text-muted-foreground">
                   Lihat portofolio
                 </Button>
               </div>
@@ -91,7 +91,7 @@ export default function LayananPage() {
               initial={{ opacity: 0, scale: 0.95, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative aspect-[16/10] md:aspect-square lg:aspect-[4/3] w-full rounded-2xl md:rounded-[2.5rem] overflow-hidden border shadow-2xl shadow-accent/10"
+              className="relative aspect-video w-full rounded-2xl md:rounded-[2rem] overflow-hidden border shadow-2xl shadow-accent/10"
             >
               {heroImg?.imageUrl && (
                 <Image 
