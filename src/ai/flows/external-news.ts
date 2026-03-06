@@ -78,7 +78,7 @@ function extractThumbnailFromRss(item: any): string | null {
  */
 async function fetchNews(): Promise<ExternalNewsOutput> {
   try {
-    console.log("🚀 Memulai pengambilan berita eksternal (High-Efficiency Pipeline)...");
+    console.log("🚀 Memulai pengambilan berita eksternal (Metadata-Enriched Pipeline)...");
     
     const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
@@ -100,51 +100,63 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
     const rawItems = json?.rss?.channel?.item || [];
     const items = Array.isArray(rawItems) ? rawItems : [rawItems];
     
-    // Batasi ke 4 item teratas untuk performa maksimal (< 1 detik)
-    const targetItems = items.slice(0, 4);
+    // Batasi ke 6 item teratas
+    const targetItems = items.slice(0, 6);
 
     const news = await Promise.all(targetItems.map(async (item: any, index: number) => {
       // 2. Resolve redirect Google News
       const realUrl = await resolveFinalUrl(item.link);
       
-      // 3. Ekstraksi Thumbnail Tahap 1 & 2 (RSS Data - Sangat Cepat)
+      // 3. Ekstraksi Thumbnail Tahap 1 & 2 (RSS Data)
       let thumbnail = extractThumbnailFromRss(item);
+      let rawDescription = item.description || "";
 
-      // 4. Ekstraksi Thumbnail Tahap 3 (OpenGraph Scraping - Hanya jika diperlukan)
-      if (!thumbnail) {
-        try {
-          const preview = await getLinkPreview(realUrl, {
-            timeout: 2500, // Timeout ketat agar tidak menghambat performa total
-            headers: {
-              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            },
-          });
+      // Deteksi jika deskripsi adalah boilerplate Google News yang tidak berguna
+      const isGeneric = rawDescription.includes("Comprehensive up-to-date news coverage");
 
-          if (preview && 'images' in preview && (preview as any).images?.length > 0) {
-            thumbnail = (preview as any).images[0];
-          }
+      // 4. Ekstraksi Metadata via Link Preview (Penting untuk deskripsi asli)
+      try {
+        const preview = await getLinkPreview(realUrl, {
+          timeout: 3000, // Timeout ketat agar tidak menghambat performa total
+          headers: {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          },
+        });
 
-          if (preview && 'description' in preview && (preview as any).description) {
-            // Gunakan deskripsi OG jika lebih baik (lebih panjang/bersih)
-            const ogDesc = (preview as any).description;
-            if (ogDesc && ogDesc.length > 30) {
-              item.description = ogDesc;
-            }
-          }
-        } catch (e) {
-          // Gagal scraping? Tidak masalah, fallback ke placeholder di tahap berikutnya
+        if (preview && 'images' in preview && (preview as any).images?.length > 0 && !thumbnail) {
+          thumbnail = (preview as any).images[0];
         }
+
+        if (preview && 'description' in preview && (preview as any).description) {
+          const ogDesc = (preview as any).description;
+          // Gunakan deskripsi OG jika deskripsi RSS generic atau OG lebih deskriptif
+          if (isGeneric || (ogDesc && ogDesc.length > rawDescription.replace(/<[^>]*>?/gm, '').length)) {
+            rawDescription = ogDesc;
+          }
+        }
+      } catch (e) {
+        // Gagal scraping? Tidak masalah, fallback ke data RSS yang sudah ada
       }
 
-      // 5. Ekstraksi Thumbnail Tahap 4 (Placeholder)
+      // 5. Fallback Thumbnail (Placeholder)
       if (!thumbnail) {
         thumbnail = `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
       }
 
-      // 6. Bersihkan deskripsi dari tag HTML
-      let description = item.description
+      // 6. Bersihkan deskripsi akhir dari tag HTML dan karakter aneh
+      let finalSummary = rawDescription
         ?.replace(/<[^>]*>?/gm, '') // Hapus tag HTML
-        ?.slice(0, 160) || ""; // Batasi karakter untuk UI yang rapi
+        ?.replace(/&nbsp;/g, ' ')
+        ?.trim() || "";
+
+      // Jika masih generic atau kosong setelah dibersihkan, berikan pesan default yang informatif
+      if (finalSummary.includes("Comprehensive up-to-date news coverage") || finalSummary.length < 10) {
+        const mediaSource = item.source?.["#text"] || item.source || "media nasional";
+        finalSummary = `Baca laporan lengkap mengenai aktivitas Bisukma Group melalui portal ${mediaSource}. Klik tautan di bawah untuk melihat sumber asli artikel.`;
+      } else {
+        // Batasi karakter untuk UI yang rapi
+        finalSummary = finalSummary.slice(0, 160) + (finalSummary.length > 160 ? "..." : "");
+      }
 
       // 7. Inferensi kategori sederhana
       let category = "Nasional";
@@ -158,13 +170,13 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
         url: realUrl,
         source: item.source?.["#text"] || item.source || "Media Nasional",
         date: item.pubDate,
-        summary: description,
+        summary: finalSummary,
         category: category,
         thumbnailUrl: thumbnail
       };
     }));
 
-    console.log(`✅ Pipeline selesai. Berhasil memproses ${news.length} berita dalam ~700ms.`);
+    console.log(`✅ Pipeline selesai. Berhasil memproses ${news.length} berita.`);
     return { news };
   } catch (error) {
     console.error("❌ Error fetching external news:", error);
@@ -174,10 +186,11 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
 
 /**
  * Versi cache dari pengambil berita (24 jam).
+ * Versi ditingkatkan (v22) untuk memicu pembersihan data boilerplate lama.
  */
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v21'],
+  ['bisukma-external-news-v22'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
