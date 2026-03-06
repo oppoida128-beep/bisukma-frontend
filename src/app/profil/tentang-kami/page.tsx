@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -26,7 +25,7 @@ export default function TentangKamiPage() {
   const heroImg = PlaceHolderImages.find(img => img.id === 'tentang-kami-hero')
 
   const team = {
-    founder: PlaceHolderImages.find(img => img.id === 'team-founder'),
+    founder: { imageUrl: "/Founder.svg" },
     deputies: [
       { name: "Andi Pratama", role: "Deputi I", img: PlaceHolderImages.find(img => img.id === 'team-deputy1'), bio: "Strategi & Kemitraan Pemerintah" },
       { name: "Siti Rahma", role: "Deputi II", img: PlaceHolderImages.find(img => img.id === 'team-deputy2'), bio: "Operasional & Pemberdayaan Daerah" },
