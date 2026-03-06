@@ -8,7 +8,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { unstable_cache } from 'next/cache';
+import { unstable_cache, revalidateTag } from 'next/cache';
 import { getLinkPreview } from 'link-preview-js';
 
 const NewsItemSchema = z.object({
@@ -137,3 +137,10 @@ export const fetchExternalNews = unstable_cache(
     tags: ['external-news']
   }
 );
+
+/**
+ * Server Action untuk memaksa penyegaran data dengan menghapus cache.
+ */
+export async function triggerRefreshNews() {
+  revalidateTag('external-news');
+}

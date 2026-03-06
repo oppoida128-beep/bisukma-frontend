@@ -3,22 +3,29 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, ChevronDown, ChevronUp, ImageOff, Calendar, ArrowRight } from "lucide-react"
+import { Globe, AlertCircle, ChevronDown, ChevronUp, ImageOff, Calendar, ArrowRight, RefreshCw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { fetchExternalNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
+import { fetchExternalNews, triggerRefreshNews, type ExternalNewsOutput } from "@/ai/flows/external-news"
+import { cn } from "@/lib/utils"
 
 export function ExternalNewsSection() {
   const [news, setNews] = React.useState<ExternalNewsOutput['news']>([])
   const [loading, setLoading] = React.useState(true)
+  const [refreshing, setRefreshing] = React.useState(false)
   const [error, setError] = React.useState(false)
   const [isExpanded, setIsExpanded] = React.useState(false)
 
-  const loadNews = async () => {
-    setLoading(true)
+  const loadNews = async (isForced = false) => {
+    if (isForced) setRefreshing(true);
+    else setLoading(true);
+    
     setError(false)
     try {
+      if (isForced) {
+        await triggerRefreshNews();
+      }
       const data = await fetchExternalNews()
       if (data && data.news) {
         setNews(data.news)
@@ -28,6 +35,7 @@ export function ExternalNewsSection() {
       setError(true)
     } finally {
       setLoading(false)
+      setRefreshing(false)
     }
   }
 
@@ -41,7 +49,7 @@ export function ExternalNewsSection() {
   return (
     <section className="py-16 md:py-24 bg-muted/20 border-t border-b overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="mb-12">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold tracking-wider text-sm">
               <Globe className="h-4 w-4" />
@@ -54,9 +62,20 @@ export function ExternalNewsSection() {
               Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari portal media nasional terpercaya.
             </p>
           </div>
+
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => loadNews(true)}
+            disabled={refreshing || loading}
+            className="rounded-full font-bold text-xs bg-white shadow-sm hover:shadow-md transition-all h-10 px-6 border-muted-foreground/10 group"
+          >
+            <RefreshCw className={cn("mr-2 h-3.5 w-3.5 text-accent transition-transform duration-700", (refreshing || loading) && "animate-spin")} />
+            {refreshing ? "Menyegarkan..." : "Segarkan berita"}
+          </Button>
         </div>
 
-        {loading ? (
+        {loading && !refreshing ? (
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="border border-muted/60 shadow-none bg-white/50 animate-pulse h-[450px] rounded-2xl" />
@@ -69,10 +88,12 @@ export function ExternalNewsSection() {
             </div>
             <p className="font-bold text-primary">Gagal memuat berita</p>
             <p className="text-sm text-muted-foreground">Terjadi kendala saat menghubungkan ke sumber berita.</p>
+            <Button variant="link" onClick={() => loadNews()} className="text-accent font-bold">Coba lagi</Button>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
             <p className="text-muted-foreground italic">Belum ada berita terbaru yang ditemukan hari ini.</p>
+            <Button variant="outline" onClick={() => loadNews(true)} className="rounded-full">Cari berita sekarang</Button>
           </div>
         ) : (
           <div className="space-y-8">
