@@ -1,8 +1,8 @@
 'use server';
 /**
  * @fileOverview Flow untuk mengambil berita nyata dari Google News RSS dan memperkayanya dengan metadata asli menggunakan link-preview-js.
- * - Menggunakan AI untuk memfilter berita yang relevan dengan Bisukma.
- * - Menggunakan link-preview-js untuk mengambil thumbnail asli dari portal berita.
+ * - Menggunakan resolusi redirect untuk mendapatkan URL asli dari Google News.
+ * - Menggunakan User-Agent untuk menghindari pemblokiran bot oleh portal berita.
  * - Menggunakan caching 24 jam untuk performa maksimal.
  */
 
@@ -14,11 +14,11 @@ import { getLinkPreview } from 'link-preview-js';
 const NewsItemSchema = z.object({
   title: z.string().describe('Judul berita asli dari media'),
   source: z.string().describe('Nama media sumber'),
-  url: z.string().describe('URL asli berita'),
+  url: z.string().describe('URL asli berita (bisa berupa redirect Google News)'),
   date: z.string().describe('Tanggal terbit berita'),
   summary: z.string().describe('Ringkasan berita dalam Bahasa Indonesia yang profesional'),
   category: z.string().describe('Kategori (Pendidikan, Pertanian, Gizi, Sosial, Ekonomi)'),
-  thumbnailUrl: z.string().describe('URL gambar pratinjau. Berikan URL Unsplash spesifik sebagai fallback.'),
+  thumbnailUrl: z.string().describe('URL gambar pratinjau default atau fallback.'),
 });
 
 const ExternalNewsOutputSchema = z.object({
@@ -26,6 +26,22 @@ const ExternalNewsOutputSchema = z.object({
 });
 
 export type ExternalNewsOutput = z.infer<typeof ExternalNewsOutputSchema>;
+
+/**
+ * Fungsi untuk mengikuti redirect URL Google News guna mendapatkan URL asli portal berita.
+ */
+async function resolveFinalUrl(url: string): Promise<string> {
+  try {
+    const response = await fetch(url, {
+      method: 'HEAD',
+      redirect: 'follow',
+    });
+    return response.url;
+  } catch (error) {
+    console.warn(`Gagal resolve URL: ${url}`);
+    return url;
+  }
+}
 
 const prompt = ai.definePrompt({
   name: 'externalNewsPrompt',
@@ -61,33 +77,40 @@ const externalNewsFlow = ai.defineFlow(
       const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
       const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
       
-      const response = await fetch(rssUrl, { next: { revalidate: 86400 } }); 
+      const response = await fetch(rssUrl, { next: { revalidate: 3600 } }); 
       const xmlData = await response.text();
 
       const { output } = await prompt({ rssData: xmlData });
       
       if (!output || !output.news) return { news: [] };
 
-      // Memperkaya berita dengan thumbnail asli menggunakan link-preview-js secara paralel
+      // Memperkaya berita dengan thumbnail asli secara paralel dengan limitasi redirect
       const enrichedNews = await Promise.all(output.news.map(async (item) => {
         try {
-          const preview = await getLinkPreview(item.url, {
+          // 1. Resolve redirect dari Google News ke URL asli portal berita
+          const finalUrl = await resolveFinalUrl(item.url);
+
+          // 2. Ambil metadata dari URL asli dengan User-Agent untuk hindari blokir
+          const preview = await getLinkPreview(finalUrl, {
             followRedirects: true,
             handleRedirectsAsync: true,
-            timeout: 5000,
+            timeout: 8000,
+            headers: {
+              'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            },
           });
 
-          // Jika berhasil mendapatkan pratinjau, gunakan gambar dari metadata situs asli
-          if (preview && 'images' in preview && preview.images.length > 0) {
-            return {
-              ...item,
-              thumbnailUrl: preview.images[0],
-              // Jika deskripsi dari situs asli lebih baik, kita bisa mempertimbangkannya
-              summary: item.summary || (preview as any).description || item.summary
-            };
-          }
+          const metadataImage = preview && 'images' in preview && preview.images.length > 0 
+            ? preview.images[0] 
+            : item.thumbnailUrl;
+
+          return {
+            ...item,
+            url: finalUrl, // Gunakan URL asli yang sudah di-resolve
+            thumbnailUrl: metadataImage,
+            summary: item.summary || (preview as any).description || item.summary
+          };
         } catch (previewError) {
-          // Jika gagal ambil pratinjau (misal karena bot-block), tetap gunakan data dari AI
           console.warn(`Gagal mengambil pratinjau untuk: ${item.url}`);
         }
         return item;
@@ -108,7 +131,7 @@ export const fetchExternalNews = unstable_cache(
   async (): Promise<ExternalNewsOutput> => {
     return externalNewsFlow({});
   },
-  ['bisukma-external-news-v2'],
+  ['bisukma-external-news-v3'],
   { 
     revalidate: 86400, 
     tags: ['external-news']

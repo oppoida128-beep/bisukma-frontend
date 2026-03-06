@@ -45,13 +45,13 @@ export function ExternalNewsSection() {
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-accent font-bold tracking-wider text-sm">
               <Globe className="h-4 w-4" />
-              Sorotan Media
+              Sorotan Media Luar
             </div>
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-primary">
               Bisukma dalam Berita Nasional
             </h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base">
-              Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari berbagai media nasional setiap harinya.
+              Berita terbaru mengenai aktivitas Bisukma Group yang dikurasi secara otomatis dari portal media nasional terpercaya.
             </p>
           </div>
         </div>
@@ -68,7 +68,7 @@ export function ExternalNewsSection() {
               <AlertCircle className="h-6 w-6" />
             </div>
             <p className="font-bold text-primary">Gagal memuat berita</p>
-            <p className="text-sm text-muted-foreground">Terjadi kendala saat mengambil data harian.</p>
+            <p className="text-sm text-muted-foreground">Terjadi kendala saat menghubungkan ke sumber berita.</p>
           </div>
         ) : news.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/50 rounded-2xl border border-dashed border-muted-foreground/20">
@@ -163,7 +163,7 @@ function NewsCard({ item, index, priority = false }: { item: ExternalNewsOutput[
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-105 transition-transform duration-700"
               onError={() => setImgError(true)}
-              unoptimized={item.thumbnailUrl.includes('placeholder') || item.thumbnailUrl.includes('unsplash') ? false : true}
+              unoptimized
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent/5 text-accent/20 gap-2 p-6 text-center">
