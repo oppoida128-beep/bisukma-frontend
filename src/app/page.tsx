@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
 import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
+import { ExternalNewsSection } from "@/components/external-news-section"
 
 export default function Home() {
   const [api, setApi] = React.useState<CarouselApi>()
@@ -307,6 +307,9 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      {/* --- EXTERNAL NEWS SECTION --- */}
+      <ExternalNewsSection />
 
       {/* --- FEATURED PROGRAMS SECTION (WITH FLIP EFFECT) --- */}
       <motion.section 
