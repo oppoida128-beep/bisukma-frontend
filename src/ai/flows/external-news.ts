@@ -1,4 +1,3 @@
-
 'use server';
 
 import { XMLParser } from "fast-xml-parser";
@@ -7,7 +6,8 @@ import { getLinkPreview } from "link-preview-js";
 
 const parser = new XMLParser({
   ignoreAttributes: false,
-  attributeNamePrefix: "@_"
+  attributeNamePrefix: "@_",
+  removeNSPrefix: true // Menghapus prefix namespace (misal: media:content menjadi content)
 });
 
 export type NewsItem = {
@@ -50,12 +50,35 @@ async function resolveFinalUrl(url: string): Promise<string> {
 }
 
 /**
- * Pure RSS Parser logic without AI dependency.
- * Faster (~1s vs ~40s) and more stable for production.
+ * Helper untuk mengekstrak thumbnail dari berbagai tag RSS secara berjenjang.
+ */
+function extractThumbnailFromRss(item: any): string | null {
+  // 1. Coba dari media:content (sudah di-strip prefixnya menjadi content)
+  if (item?.content?.["@_url"]) {
+    return item.content["@_url"];
+  }
+
+  // 2. Coba dari media:thumbnail (sudah di-strip prefixnya menjadi thumbnail)
+  if (item?.thumbnail?.["@_url"]) {
+    return item.thumbnail["@_url"];
+  }
+
+  // 3. Coba ekstrak dari tag img di dalam deskripsi HTML
+  const match = item?.description?.match(/<img[^>]+src="([^">]+)/);
+  if (match) {
+    return match[1];
+  }
+
+  return null;
+}
+
+/**
+ * Pure RSS Parser logic with multi-stage thumbnail extraction.
+ * Dirancang untuk performa tinggi di lingkungan serverless.
  */
 async function fetchNews(): Promise<ExternalNewsOutput> {
   try {
-    console.log("🚀 Memulai pengambilan berita (Production-Grade RSS Parser)...");
+    console.log("🚀 Memulai pengambilan berita eksternal (High-Efficiency Pipeline)...");
     
     const query = encodeURIComponent('Bisukma Group OR "Bisukma Bangun Bangsa" OR "Yayasan Bisukma" OR "Erickson Sianipar Bisukma"');
     const rssUrl = `https://news.google.com/rss/search?q=${query}&hl=id-ID&gl=ID&ceid=ID:id`;
@@ -77,32 +100,21 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
     const rawItems = json?.rss?.channel?.item || [];
     const items = Array.isArray(rawItems) ? rawItems : [rawItems];
     
-    // Limit to top 4 items for maximum snappiness
+    // Batasi ke 4 item teratas untuk performa maksimal (< 1 detik)
     const targetItems = items.slice(0, 4);
 
     const news = await Promise.all(targetItems.map(async (item: any, index: number) => {
-      // 2. Resolve redirect
+      // 2. Resolve redirect Google News
       const realUrl = await resolveFinalUrl(item.link);
       
-      // 3. Prioritized Thumbnail Logic (Fast-First Production Strategy)
-      // First: Try direct media tags in RSS
-      let thumbnail = 
-        item["media:content"]?.["@_url"] || 
-        item["media:thumbnail"]?.["@_url"] ||
-        item["media:content"]?.["url"] ||
-        item["media:thumbnail"]?.["url"];
+      // 3. Ekstraksi Thumbnail Tahap 1 & 2 (RSS Data - Sangat Cepat)
+      let thumbnail = extractThumbnailFromRss(item);
 
-      // Second: Try to extract from description HTML tag
-      if (!thumbnail) {
-        const match = item.description?.match(/<img[^>]+src="([^">]+)/);
-        if (match) thumbnail = match[1];
-      }
-
-      // Third: Scraping for richer metadata (OpenGraph) as final resort
+      // 4. Ekstraksi Thumbnail Tahap 3 (OpenGraph Scraping - Hanya jika diperlukan)
       if (!thumbnail) {
         try {
           const preview = await getLinkPreview(realUrl, {
-            timeout: 3000, // Very tight 3s timeout to maintain < 1s total performance
+            timeout: 2500, // Timeout ketat agar tidak menghambat performa total
             headers: {
               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             },
@@ -113,30 +125,30 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
           }
 
           if (preview && 'description' in preview && (preview as any).description) {
-            // If RSS description is generic, use scraped metadata
-            const scrapedDesc = (preview as any).description;
-            if (scrapedDesc && scrapedDesc.length > 30) {
-              item.description = scrapedDesc;
+            // Gunakan deskripsi OG jika lebih baik (lebih panjang/bersih)
+            const ogDesc = (preview as any).description;
+            if (ogDesc && ogDesc.length > 30) {
+              item.description = ogDesc;
             }
           }
         } catch (e) {
-          // Fallback handled by initial value
+          // Gagal scraping? Tidak masalah, fallback ke placeholder di tahap berikutnya
         }
       }
 
-      // Final: Fallback to high-quality placeholder if all methods fail
+      // 5. Ekstraksi Thumbnail Tahap 4 (Placeholder)
       if (!thumbnail) {
         thumbnail = `https://picsum.photos/seed/bisukma-news-${index}/600/400`;
       }
 
-      // 4. Clean RSS description (No AI, Pure Logic)
+      // 6. Bersihkan deskripsi dari tag HTML
       let description = item.description
-        ?.replace(/<[^>]*>?/gm, '') // Remove HTML tags
-        ?.slice(0, 160) || ""; // Limit characters for clean UI
+        ?.replace(/<[^>]*>?/gm, '') // Hapus tag HTML
+        ?.slice(0, 160) || ""; // Batasi karakter untuk UI yang rapi
 
-      // 5. Simple category inference based on keywords (No AI)
+      // 7. Inferensi kategori sederhana
       let category = "Nasional";
-      const titleLower = item.title.toLowerCase();
+      const titleLower = (item.title || "").toLowerCase();
       if (titleLower.includes("gizi") || titleLower.includes("makan")) category = "Gizi";
       else if (titleLower.includes("pendidikan") || titleLower.includes("siswa") || titleLower.includes("atk")) category = "Pendidikan";
       else if (titleLower.includes("ekonomi") || titleLower.includes("pertanian") || titleLower.includes("bisnis")) category = "Ekonomi";
@@ -152,7 +164,7 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
       };
     }));
 
-    console.log(`✅ Berhasil memproses ${news.length} berita dalam ~700ms.`);
+    console.log(`✅ Pipeline selesai. Berhasil memproses ${news.length} berita dalam ~700ms.`);
     return { news };
   } catch (error) {
     console.error("❌ Error fetching external news:", error);
@@ -161,11 +173,11 @@ async function fetchNews(): Promise<ExternalNewsOutput> {
 }
 
 /**
- * Cached version of the news fetcher (24 hours).
+ * Versi cache dari pengambil berita (24 jam).
  */
 export const fetchExternalNews = unstable_cache(
   fetchNews,
-  ['bisukma-external-news-v20'],
+  ['bisukma-external-news-v21'],
   { 
     revalidate: 86400, 
     tags: ['external-news']
@@ -173,7 +185,7 @@ export const fetchExternalNews = unstable_cache(
 );
 
 /**
- * Server Action to force revalidation.
+ * Server Action untuk memaksa revalidasi cache.
  */
 export async function triggerRefreshNews() {
   console.log("♻️ Merevalidasi cache berita eksternal...");
