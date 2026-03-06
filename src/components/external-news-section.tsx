@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, ArrowRight, RefreshCw } from "lucide-react"
+import { Globe, AlertCircle, ChevronDown, ChevronUp, Calendar, ArrowRight, RefreshCw, ArrowUpRight } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -181,10 +181,13 @@ function NewsCard({ item, index }: { item: ExternalNewsOutput['news'][0], index:
           />
           
           {/* Hover Overlay: Nama Sumber Berita */}
-          <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-            <span className="text-accent font-black text-xs md:text-sm tracking-tighter uppercase px-5 py-2 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500">
-              {item.source}
-            </span>
+          <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-4">
+            <div className="bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl shadow-2xl border border-accent/20 transform translate-y-3 group-hover:translate-y-0 transition-all duration-500 relative flex items-center justify-center min-w-[160px]">
+              <ArrowUpRight className="absolute top-2 right-2 h-5 w-5 text-accent/30" />
+              <h4 className="scroll-m-20 text-lg md:text-xl font-semibold tracking-tight text-accent text-center px-4">
+                {item.source}
+              </h4>
+            </div>
           </div>
         </CardHeader>
 
