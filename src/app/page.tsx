@@ -4,7 +4,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar, ChevronRight, ExternalLink, Sparkles } from "lucide-react"
+import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar, ChevronRight, ExternalLink, Sparkles, Utensils } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -90,7 +90,7 @@ export default function Home() {
       date: "28 April 2024",
       category: "Teknologi",
       img: PlaceHolderImages.find(img => img.id === 'gallery-4')?.imageUrl,
-      excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan teknologi blockchain."
+      excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah and aman dengan teknologi blockchain."
     }
   ]
 
@@ -381,9 +381,9 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16 space-y-3 md:space-y-4">
-            <h2 className="scroll-m-20 text-2xl md:text-3xl font-semibold tracking-tight">Layanan kami</h2>
+            <h2 className="scroll-m-20 text-2xl md:text-3xl font-semibold tracking-tight">Layanan Unggulan Kami</h2>
             <p className="text-base md:text-lg text-white/70 leading-relaxed">
-              Ekosistem layanan lengkap untuk mendukung setiap tahap transformasi digital Anda.
+              Solusi strategis untuk mendukung keberhasilan pengelolaan dapur Makan Bergizi Gratis (MBG).
             </p>
           </div>
 
@@ -391,20 +391,20 @@ export default function Home() {
             {[
               { 
                 icon: <Layout className="h-6 w-6 md:h-8 md:w-8" />, 
-                title: "App development", 
-                desc: "Pengembangan aplikasi web dan mobile dengan performa tinggi menggunakan stack modern.",
+                title: "Perencanaan Dapur", 
+                desc: "Studi kelayakan, perhitungan kapasitas, dan desain blueprint layout dapur standar MBG.",
                 img: service1Img?.imageUrl 
               },
               { 
-                icon: <Layers className="h-6 w-6 md:h-8 md:w-8" />, 
-                title: "Cloud migration", 
-                desc: "Transisi aman ke infrastruktur cloud untuk skalabilitas tak terbatas dan efisiensi biaya.",
+                icon: <Utensils className="h-6 w-6 md:h-8 md:w-8" />, 
+                title: "Setup Operasional", 
+                desc: "Pendampingan pengadaan alat profesional dan penyusunan SOP keamanan pangan.",
                 img: service2Img?.imageUrl 
               },
               { 
-                icon: <Monitor className="h-6 w-6 md:h-8 md:w-8" />, 
-                title: "Consulting", 
-                desc: "Strategi digital berbasis data untuk membantu Anda menavigasi pasar yang kompetitif.",
+                icon: <Users className="h-6 w-6 md:h-8 md:w-8" />, 
+                title: "Pelatihan & Gizi", 
+                desc: "Pelatihan juru masak dan manajer dapur mengenai standar gizi serta food safety.",
                 img: service3Img?.imageUrl 
               }
             ].map((service, i) => (
@@ -419,7 +419,7 @@ export default function Home() {
                 <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-500 rounded-xl md:rounded-2xl shadow-none h-full flex flex-col">
                   <CardContent className="p-0 flex flex-col h-full">
                     <div className="relative h-32 md:h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
-                      {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="software development" />}
+                      {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="kitchen planning" />}
                       <div className="absolute inset-0 bg-accent/40"></div>
                     </div>
                     <div className="p-6 md:p-8 space-y-3 md:space-y-4 flex-1 flex flex-col">
