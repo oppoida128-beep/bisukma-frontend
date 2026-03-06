@@ -22,19 +22,45 @@ import { cn } from "@/lib/utils"
 import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { ExternalNewsSection } from "@/components/external-news-section"
 
+// Animasi Variants untuk konsistensi
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+}
+
+const sectionHeaderVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+}
+
 export default function Home() {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
 
   React.useEffect(() => {
-    if (!api) {
-      return
-    }
-
+    if (!api) return
     setCount(api.scrollSnapList().length)
     setCurrent(api.selectedScrollSnap())
-
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap())
     })
@@ -60,7 +86,7 @@ export default function Home() {
       title: "Masa depan AI dalam transformasi bisnis 2024",
       category: "Teknologi",
       img: news1Img?.imageUrl,
-      excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis secara otomatis."
+      excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis sehari-hari secara otomatis."
     },
     {
       title: "Event Bisukma digital conference 2024",
@@ -121,13 +147,6 @@ export default function Home() {
     }
   ]
 
-  const fadeIn = {
-    initial: { opacity: 0, y: 10 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-
   return (
     <div className="flex flex-col w-full bg-white">
       {/* --- HERO SECTION --- */}
@@ -135,20 +154,20 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.05)_0%,transparent_100%)]"></div>
         <motion.div 
           className="container mx-auto px-4 relative z-10 text-center"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          <h1 className="scroll-m-20 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary mb-6 leading-tight">
+          <motion.h1 variants={itemVariants} className="scroll-m-20 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-primary mb-6 leading-tight">
             Membangun standar baru <br className="hidden md:block" />
             <span className="text-accent">Dunia digital.</span>
-          </h1>
+          </motion.h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4">
+          <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4">
             Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
-          </p>
+          </motion.p>
           
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center gap-6">
             <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto transition-all">
               Konsultasi gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -156,44 +175,50 @@ export default function Home() {
             <Link href="/layanan" className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all border-b border-transparent hover:border-muted-foreground pb-1">
               Lihat katalog produk
             </Link>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        <motion.div 
-          className="container mx-auto px-4 mt-12 md:mt-16 relative"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm">
-            {heroImg?.imageUrl && (
-              <Image 
-                src={heroImg.imageUrl} 
-                alt="Digital Transformation" 
-                fill 
-                className="object-cover"
-                priority
-                data-ai-hint="digital technology"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-          </div>
+          <motion.div 
+            className="mt-12 md:mt-16 relative"
+            variants={itemVariants}
+          >
+            <div className="relative max-w-4xl mx-auto aspect-[16/9] rounded-xl md:rounded-[1.5rem] overflow-hidden border bg-muted shadow-sm">
+              {heroImg?.imageUrl && (
+                <Image 
+                  src={heroImg.imageUrl} 
+                  alt="Digital Transformation" 
+                  fill 
+                  className="object-cover"
+                  priority
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* --- NEWS SECTION --- */}
-      <motion.section 
-        className="py-16 md:py-24 border-t bg-white"
-        {...fadeIn}
-      >
+      <section className="py-16 md:py-24 border-t bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
+          <motion.div 
+            className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left"
+            variants={sectionHeaderVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <p className="text-sm font-bold text-accent">Berita & wawasan</p>
             <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight text-primary">Eksplorasi tren digital</h2>
-          </div>
+          </motion.div>
 
-          <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
-            <div className="lg:col-span-8 space-y-6">
+          <motion.div 
+            className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.div variants={itemVariants} className="lg:col-span-8 space-y-6">
               <Carousel 
                 setApi={setApi} 
                 opts={{ loop: true }}
@@ -210,7 +235,6 @@ export default function Home() {
                             alt={post.title} 
                             fill 
                             className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            data-ai-hint="digital innovation"
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
@@ -248,21 +272,18 @@ export default function Home() {
                   ))}
                 </div>
               </Carousel>
-            </div>
+            </motion.div>
 
             <div className="lg:col-span-4 space-y-6 md:space-y-8">
-              <div className="flex items-center gap-2">
+              <motion.div variants={itemVariants} className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-sm px-2 py-0.5 text-[10px] font-bold">Terbaru</Badge>
-              </div>
+              </motion.div>
               
               <div className="flex flex-col gap-5 md:gap-6">
                 {recentlyAddedNews.map((post, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 5 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
+                    variants={itemVariants}
                   >
                     <Link href="/berita" className="group flex gap-3 md:gap-4 items-start">
                       <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-lg md:rounded-xl overflow-hidden bg-muted border">
@@ -292,28 +313,31 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="pt-2">
+              <motion.div variants={itemVariants} className="pt-2">
                 <Button variant="link" className="p-0 h-auto text-accent font-bold group/more text-sm" asChild>
                   <Link href="/berita">
                     Lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
                   </Link>
                 </Button>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       {/* --- EXTERNAL NEWS SECTION --- */}
       <ExternalNewsSection />
 
       {/* --- FEATURED PROGRAMS SECTION (WITH FLIP EFFECT) --- */}
-      <motion.section 
-        className="py-16 md:py-24 bg-muted/30 overflow-hidden"
-        {...fadeIn}
-      >
+      <section className="py-16 md:py-24 bg-muted/30 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
+          <motion.div 
+            className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left"
+            variants={sectionHeaderVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <div className="flex items-center justify-center md:justify-start gap-2 text-accent font-bold text-sm">
               <Sparkles className="h-4 w-4" />
               Program unggulan
@@ -322,19 +346,22 @@ export default function Home() {
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base font-medium">
               Langkah nyata Bisukma Group dalam membangun kemandirian dan kecerdasan bangsa melalui pilar-pilar strategis.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {programs.map((prog, i) => (
               <motion.div
                 key={prog.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                variants={itemVariants}
                 className="group h-[400px] w-full [perspective:1000px]"
               >
-                <motion.div 
+                <div 
                   className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
                 >
                   {/* Front Side */}
@@ -367,28 +394,37 @@ export default function Home() {
                       {prog.desc}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       {/* --- CORE SERVICES --- */}
-      <motion.section 
-        className="py-16 md:py-24 bg-accent text-white"
-        {...fadeIn}
-      >
+      <section className="py-16 md:py-24 bg-accent text-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left">
+          <motion.div 
+            className="flex flex-col mb-10 md:mb-12 gap-2 text-center md:text-left"
+            variants={sectionHeaderVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             <p className="text-sm font-bold text-white/80">Layanan unggulan</p>
             <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Solusi strategis kami</h2>
             <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl">
               Dukungan penuh untuk keberhasilan pengelolaan dapur makan bergizi gratis (MBG).
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
             {[
               { 
                 icon: <Layout className="h-6 w-6 md:h-8 md:w-8" />, 
@@ -411,16 +447,13 @@ export default function Home() {
             ].map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                variants={itemVariants}
                 className={cn(i === 2 && "sm:col-span-2 lg:col-span-1")}
               >
                 <Card className="bg-white/10 border-white/20 text-white overflow-hidden group hover:bg-white/20 transition-all duration-300 rounded-xl md:rounded-2xl shadow-none h-full flex flex-col">
                   <CardContent className="p-0 flex flex-col h-full">
                     <div className="relative h-32 md:h-40 w-full opacity-40 group-hover:opacity-100 transition-opacity">
-                      {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" data-ai-hint="kitchen planning" />}
+                      {service.img && <Image src={service.img} alt={service.title} fill className="object-cover" />}
                       <div className="absolute inset-0 bg-accent/40"></div>
                     </div>
                     <div className="p-6 md:p-8 space-y-3 md:space-y-4 flex-1 flex flex-col">
@@ -439,23 +472,23 @@ export default function Home() {
                 </Card>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       {/* --- ABOUT US SECTION --- */}
-      <motion.section 
-        className="py-16 md:py-24"
-        {...fadeIn}
-      >
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-muted/30 rounded-2xl md:rounded-[2rem] p-6 md:p-10 overflow-hidden max-w-6xl mx-auto">
+          <motion.div 
+            className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-muted/30 rounded-2xl md:rounded-[2rem] p-6 md:p-10 overflow-hidden max-w-6xl mx-auto"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
             <motion.div 
               className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer border bg-black/5 w-full shadow-sm"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              variants={itemVariants}
             >
               <video 
                 autoPlay 
@@ -473,10 +506,7 @@ export default function Home() {
 
             <motion.div 
               className="space-y-4 md:space-y-6 max-w-lg"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              variants={itemVariants}
             >
               <div className="space-y-1 md:space-y-2">
                 <p className="text-[10px] md:text-xs font-bold text-accent">Tentang kami</p>
@@ -517,9 +547,9 @@ export default function Home() {
                 </Item>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
     </div>
   )
 }
