@@ -23,18 +23,24 @@ export default function BeritaPage({
 }) {
   const isMobile = useIsMobile()
 
-  // ✅ Unwrap proxy safely for Next.js 15
+  // ✅ Unwrap proxy safely
   const rawParams = React.use(searchParams)
-  
-  // ✅ Convert proxy to plain object to avoid enumeration warnings
-  const resolvedParams = Object.fromEntries(
-    Object.entries(rawParams).map(([key, value]) => [
-      key,
-      Array.isArray(value) ? value[0] : value ?? "",
-    ])
-  )
 
-  const categoryFromQuery = resolvedParams.category || "Semua"
+  // ✅ Convert to URLSearchParams using for...in loop to avoid enumeration warnings in Turbopack
+  const resolvedParams = React.useMemo(() => {
+    const safeParams: Record<string, string> = {}
+
+    if (typeof rawParams === "object" && rawParams !== null) {
+      for (const key in rawParams) {
+        const value = rawParams[key]
+        safeParams[key] = Array.isArray(value) ? value[0] : value ?? ""
+      }
+    }
+
+    return new URLSearchParams(safeParams)
+  }, [rawParams])
+
+  const categoryFromQuery = resolvedParams.get("category") || "Semua"
 
   const [activeCategory, setActiveCategory] = React.useState(categoryFromQuery)
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -193,10 +199,10 @@ export default function BeritaPage({
 
                     <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-muted/30 mt-4 pt-4">
                       <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           <Calendar className="h-3.5 w-3.5 text-accent/70" /> {article.date}
                         </div>
-                        <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           <User className="h-3.5 w-3.5 text-accent/70" /> {article.author}
                         </div>
                       </div>
