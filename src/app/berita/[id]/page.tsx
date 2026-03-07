@@ -3,17 +3,15 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams } from "next/navigation"
 import { Calendar, User, Tag, ArrowLeft, Share2, Copy, Check, ArrowRight, Clock } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { MorphButton } from "@/components/ui/morph-button"
 import { SocialIcon } from "react-social-icons"
 import { cn } from "@/lib/utils"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import {
   Popover,
   PopoverContent,
@@ -103,9 +101,8 @@ const articlesData = [
   }
 ]
 
-export default function BeritaDetailPage() {
-  const params = useParams()
-  const id = params.id as string
+export default function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = React.use(params)
   const [copied, setCopied] = React.useState(false)
   const [currentUrl, setCurrentUrl] = React.useState("")
 
@@ -113,7 +110,10 @@ export default function BeritaDetailPage() {
     setCurrentUrl(window.location.href)
   }, [])
 
-  const article = articlesData.find(a => a.id === id) || articlesData[0]
+  const article = React.useMemo(() => {
+    return articlesData.find(a => a.id === id) || articlesData[0]
+  }, [id])
+
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
 
