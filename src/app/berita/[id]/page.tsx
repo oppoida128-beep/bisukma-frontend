@@ -9,7 +9,7 @@ import RecentNews from "./RecentNews"
 import articlesData from "@/data/articles.json"
 
 export default async function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  // Safe unwrap for Next.js 15 Server Component
+  // Standar Next.js 15: Unwrap params di Server Component menggunakan await
   const { id } = await params
   
   const article = articlesData.find(a => a.id === id) || articlesData[0]
@@ -23,7 +23,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
         <div className="max-w-6xl mx-auto space-y-6">
           <Link href="/berita" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-accent transition-colors group">
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Kembali Ke Berita
+            Kembali ke berita
           </Link>
 
           <div className="space-y-4">
@@ -45,7 +45,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Clock className="h-3.5 w-3.5 text-accent" />
-                <span>5 Menit Baca</span>
+                <span>5 Menit baca</span>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
                 {additionalImage?.imageUrl && (
                   <Image 
                     src={additionalImage.imageUrl} 
-                    alt="Detail Tambahan Artikel" 
+                    alt="Detail tambahan artikel" 
                     fill 
                     className="object-cover"
                   />

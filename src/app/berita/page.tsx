@@ -23,16 +23,14 @@ export default function BeritaPage({
 }) {
   const isMobile = useIsMobile()
 
-  // Solusi stabil untuk Next.js 15: Ubah proxy menjadi plain object sebelum di-enumerate
+  // Solusi Paling Stabil untuk Next.js 15: Konversi proxy langsung di bodi komponen
   const rawParams = React.use(searchParams)
-  const resolvedParams = React.useMemo(() => {
-    return Object.fromEntries(
-      Object.entries(rawParams).map(([key, value]) => [
-        key,
-        Array.isArray(value) ? value[0] : (value ?? ""),
-      ])
-    )
-  }, [rawParams])
+  const resolvedParams = Object.fromEntries(
+    Object.entries(rawParams).map(([key, value]) => [
+      key,
+      Array.isArray(value) ? value[0] : (value ?? ""),
+    ])
+  )
 
   // Ambil kategori awal dari query string atau default ke "Semua"
   const categoryFromQuery = resolvedParams.category || "Semua"
@@ -41,9 +39,11 @@ export default function BeritaPage({
   const [searchQuery, setSearchQuery] = React.useState("")
   const [isExpanded, setIsExpanded] = React.useState(false)
 
-  // Sinkronisasi state jika URL berubah secara eksternal (misal dari navigasi header)
+  // Sinkronisasi state jika URL berubah secara eksternal
   React.useEffect(() => {
-    setActiveCategory(categoryFromQuery)
+    if (categoryFromQuery) {
+      setActiveCategory(categoryFromQuery)
+    }
   }, [categoryFromQuery])
 
   const filteredArticles = React.useMemo(() => {

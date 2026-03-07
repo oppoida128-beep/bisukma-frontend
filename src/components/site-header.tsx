@@ -158,7 +158,7 @@ export function SiteHeader() {
                           href="/berita" 
                           className="flex items-center justify-center gap-2 text-xs font-bold text-accent hover:text-accent/80 transition-colors py-2 group"
                         >
-                          Lihat Semua Berita <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                          Lihat semua berita <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       </div>
                     </div>
@@ -183,7 +183,7 @@ export function SiteHeader() {
           {/* Action Button */}
           <div className="flex flex-1 md:w-1/4 justify-end shrink-0 items-center gap-2">
             <div className="hidden md:block">
-              <MorphButton text="Daftar Mitra" icon={SquareArrowUpRight} />
+              <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
             </div>
 
             {/* Mobile Nav Toggle Button */}
@@ -207,7 +207,7 @@ export function SiteHeader() {
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               </div>
-              <span className="sr-only">Toggle Menu</span>
+              <span className="sr-only">Toggle menu</span>
             </Button>
           </div>
         </div>
@@ -282,7 +282,7 @@ export function SiteHeader() {
                           href="/berita" 
                           className="text-sm font-bold text-accent hover:text-accent/80 flex items-center justify-between group pt-2"
                         >
-                          Lihat Semua Berita
+                          Lihat semua berita
                           <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       </div>
@@ -320,7 +320,7 @@ export function SiteHeader() {
                     asChild
                   >
                     <Link href="/mitra">
-                      Daftar Kemitraan
+                      Daftar kemitraan
                       <SquareArrowUpRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
