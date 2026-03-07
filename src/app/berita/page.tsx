@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, User, Search as SearchIcon, ChevronRight, X } from "lucide-react"
+import { Calendar, User, Search as SearchIcon, X, ChevronRight } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -16,41 +16,39 @@ import articles from "@/data/articles.json"
 
 const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain", "Event"]
 
-export default function BeritaPage({ 
-  searchParams 
-}: { 
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
+export default function BeritaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const isMobile = useIsMobile()
 
-  // Solusi Paling Stabil untuk Next.js 15: Konversi proxy langsung di bodi komponen
+  // ✅ Unwrap proxy safely for Next.js 15
   const rawParams = React.use(searchParams)
+  
+  // ✅ Convert proxy to plain object to avoid enumeration warnings
   const resolvedParams = Object.fromEntries(
     Object.entries(rawParams).map(([key, value]) => [
       key,
-      Array.isArray(value) ? value[0] : (value ?? ""),
+      Array.isArray(value) ? value[0] : value ?? "",
     ])
   )
 
-  // Ambil kategori awal dari objek hasil konversi
   const categoryFromQuery = resolvedParams.category || "Semua"
 
   const [activeCategory, setActiveCategory] = React.useState(categoryFromQuery)
   const [searchQuery, setSearchQuery] = React.useState("")
   const [isExpanded, setIsExpanded] = React.useState(false)
 
-  // Sinkronisasi state jika URL berubah secara eksternal
   React.useEffect(() => {
-    if (categoryFromQuery) {
-      setActiveCategory(categoryFromQuery)
-    }
+    setActiveCategory(categoryFromQuery)
   }, [categoryFromQuery])
 
   const filteredArticles = React.useMemo(() => {
     return articles.filter(article => {
       const matchesCategory = activeCategory === "Semua" || article.category === activeCategory
-      const matchesSearch = 
-        article.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      const matchesSearch =
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
       return matchesCategory && matchesSearch
     })
@@ -195,10 +193,10 @@ export default function BeritaPage({
 
                     <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-muted/30 mt-4 pt-4">
                       <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground">
                           <Calendar className="h-3.5 w-3.5 text-accent/70" /> {article.date}
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground">
                           <User className="h-3.5 w-3.5 text-accent/70" /> {article.author}
                         </div>
                       </div>
