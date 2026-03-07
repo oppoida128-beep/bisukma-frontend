@@ -240,10 +240,10 @@ export default function BeritaPage() {
                         {article.category}
                       </Badge>
                     </CardHeader>
-                    <CardContent className="p-6 md:p-8 space-y-3 flex-1">
-                      <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground/60 tracking-wider">
-                        <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-accent" /> {article.date}</span>
-                        <span className="flex items-center gap-1.5"><User className="h-3 w-3 text-accent" /> {article.author}</span>
+                    <CardContent className="p-6 md:p-8 space-y-4 flex-1">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-accent" /> {article.date}</span>
+                        <span className="flex items-center gap-1.5"><User className="h-4 w-4 text-accent" /> {article.author}</span>
                       </div>
                       <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors">
                         {article.title}
@@ -275,7 +275,7 @@ export default function BeritaPage() {
             </div>
             <p className="text-lg font-bold text-primary">Tidak ada hasil ditemukan</p>
             <p className="text-muted-foreground text-sm max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
-            <Button variant="outline" onClick={() => {setQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-2 text-xs">
+            <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-2 text-xs">
               Atur ulang filter
             </Button>
           </motion.div>
