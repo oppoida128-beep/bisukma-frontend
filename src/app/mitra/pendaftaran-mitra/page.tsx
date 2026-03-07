@@ -1,10 +1,11 @@
+
 'use client'
 
 import * as React from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { 
   Send, 
   Loader2, 
@@ -14,7 +15,12 @@ import {
   Mail, 
   Phone, 
   User,
-  LayoutGrid
+  MapPin,
+  Home,
+  Paperclip,
+  ChevronRight,
+  ChevronLeft,
+  Calendar
 } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -25,6 +31,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -37,19 +44,40 @@ import {
 } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 
 const pendaftaranSchema = z.object({
+  // Step 1: Data Diri
   fullName: z.string().min(2, { message: "Nama lengkap minimal 2 karakter." }),
   companyName: z.string().min(2, { message: "Nama perusahaan minimal 2 karakter." }),
   email: z.string().email({ message: "Format email tidak valid." }),
   phone: z.string().min(10, { message: "Nomor telepon tidak valid." }),
-  category: z.string().min(1, { message: "Silakan pilih kategori kemitraan." }),
-  message: z.string().min(10, { message: "Pesan minimal 10 karakter." }),
+  
+  // Step 2: Lokasi
+  province: z.string().min(1, { message: "Pilih provinsi." }),
+  city: z.string().min(1, { message: "Pilih kota/kabupaten." }),
+  district: z.string().min(1, { message: "Pilih kecamatan." }),
+  village: z.string().min(1, { message: "Pilih desa/kelurahan." }),
+  hasBuilding: z.string().min(1, { message: "Pilih status bangunan." }),
+
+  // Step 3: Detail Bangunan (Conditional)
+  buildingSize: z.string().optional(),
+  buildingType: z.string().optional(),
+  progress: z.string().optional(),
+  estimation: z.string().optional(),
+  photo: z.any().optional(),
 })
 
 type PendaftaranFormValues = z.infer<typeof pendaftaranSchema>
 
+const steps = [
+  { id: 1, title: "Data Diri", icon: User },
+  { id: 2, title: "Lokasi Tanah", icon: MapPin },
+  { id: 3, title: "Detail Bangunan", icon: Home },
+]
+
 export default function PendaftaranMitraPage() {
+  const [currentStep, setCurrentStep] = React.useState(1)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
   const { toast } = useToast()
@@ -61,24 +89,43 @@ export default function PendaftaranMitraPage() {
       companyName: "",
       email: "",
       phone: "",
-      category: "",
-      message: "",
+      province: "",
+      city: "",
+      district: "",
+      village: "",
+      hasBuilding: "",
+      buildingSize: "",
+      buildingType: "",
+      progress: "0",
+      estimation: "",
     },
   })
+
+  const hasBuilding = form.watch("hasBuilding")
+  const progressValue = parseInt(form.watch("progress") || "0")
+
+  function nextStep() {
+    // Basic validation per step can be added here
+    setCurrentStep((prev) => Math.min(prev + 1, 3))
+  }
+
+  function prevStep() {
+    setCurrentStep((prev) => Math.max(prev - 1, 1))
+  }
 
   function onSubmit(data: PendaftaranFormValues) {
     setIsSubmitting(true)
     
     setTimeout(() => {
-      console.log("Partner Registration Data:", data)
+      console.log("Partner Registration Full Data:", data)
       setIsSubmitting(false)
       setIsSuccess(true)
       
       toast({
         title: "Pendaftaran Berhasil Terkirim",
-        description: "Terima kasih telah mendaftar. Tim kami akan segera menghubungi Anda.",
+        description: "Data kemitraan strategis Anda telah kami terima.",
       })
-    }, 1500)
+    }, 2000)
   }
 
   if (isSuccess) {
@@ -106,7 +153,6 @@ export default function PendaftaranMitraPage() {
 
   return (
     <div className="min-h-screen bg-white pb-24">
-      {/* Header Minimalist */}
       <section className="bg-primary py-12 md:py-16 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.1)_0%,transparent_70%)] opacity-30"></div>
         <div className="container mx-auto px-4 relative z-10">
@@ -119,187 +165,436 @@ export default function PendaftaranMitraPage() {
               Pendaftaran Mitra <span className="text-accent italic font-medium">Strategis</span>
             </h1>
             <p className="text-white/60 text-sm md:text-base font-medium leading-relaxed max-w-lg">
-              Bergabunglah dalam ekosistem digital Bisukma Group. Silakan lengkapi formulir pendaftaran di bawah ini.
+              Bergabunglah dalam ekosistem digital Bisukma Group. Silakan lengkapi formulir pendaftaran 3 tahap di bawah ini.
             </p>
           </div>
         </div>
       </section>
 
       <section className="container mx-auto px-4 mt-12 md:mt-16">
-        <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="lg:col-span-7"
-          >
-            <Card className="border-none shadow-2xl shadow-primary/5 rounded-[2rem] bg-white overflow-hidden">
-              <CardContent className="p-6 md:p-10">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <FormField
-                        control={form.control}
-                        name="fullName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                              <User className="h-3.5 w-3.5" /> Nama Lengkap
-                            </FormLabel>
-                            <FormControl>
-                              <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
-                            </FormControl>
-                            <FormMessage className="text-[10px]" />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="companyName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                              <Building2 className="h-3.5 w-3.5" /> Nama Perusahaan
-                            </FormLabel>
-                            <FormControl>
-                              <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
-                            </FormControl>
-                            <FormMessage className="text-[10px]" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                              <Mail className="h-3.5 w-3.5" /> Email Resmi
-                            </FormLabel>
-                            <FormControl>
-                              <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
-                            </FormControl>
-                            <FormMessage className="text-[10px]" />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                              <Phone className="h-3.5 w-3.5" /> No. Telepon
-                            </FormLabel>
-                            <FormControl>
-                              <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
-                            </FormControl>
-                            <FormMessage className="text-[10px]" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="category"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                            <LayoutGrid className="h-3.5 w-3.5" /> Kategori Kemitraan
-                          </FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all">
-                                <SelectValue placeholder="Pilih kategori kerja sama" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="rounded-xl border-none shadow-2xl">
-                              <SelectItem value="pangan">Pemasok Pangan Lokal</SelectItem>
-                              <SelectItem value="teknologi">Mitra Teknologi & Digitalisasi</SelectItem>
-                              <SelectItem value="logistik">Layanan Logistik & Distribusi</SelectItem>
-                              <SelectItem value="pemerintah">Lembaga Pemerintah / CSR</SelectItem>
-                              <SelectItem value="umkm">Pemberdayaan UMKM Daerah</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage className="text-[10px]" />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="font-semibold text-xs text-muted-foreground">Deskripsi Kolaborasi</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              placeholder="Ceritakan singkat rencana kerja sama Anda..." 
-                              className="min-h-[120px] rounded-xl border-muted-foreground/10 bg-white resize-none text-sm p-4 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" 
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormMessage className="text-[10px]" />
-                        </FormItem>
-                      )}
-                    />
-
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-12 shadow-lg shadow-accent/20 transition-all text-xs uppercase tracking-wider border-none"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Memproses...
-                        </>
-                      ) : (
-                        <>
-                          Kirim Pendaftaran
-                          <Send className="ml-2 h-3.5 w-3.5" />
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <aside className="lg:col-span-5 space-y-6 lg:pt-8">
-            <div className="space-y-4">
-              <h2 className="text-xl font-bold text-primary tracking-tight">Persyaratan Umum</h2>
-              <div className="space-y-3">
-                {[
-                  "Memiliki legalitas yang jelas.",
-                  "Komitmen pada kualitas and integritas.",
-                  "Mendukung kemandirian pangan.",
-                  "Mengikuti standar Bisukma Group.",
-                  "Terbuka pada sistem digitalisasi."
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-3 items-start p-3 rounded-xl bg-muted/30 border border-muted-foreground/5">
-                    <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
-                    <p className="text-xs font-semibold text-primary/80 leading-relaxed">{item}</p>
+        <div className="max-w-4xl mx-auto">
+          {/* Progress Indicator */}
+          <div className="mb-12">
+            <div className="flex items-center justify-between relative">
+              <div className="absolute top-1/2 left-0 w-full h-0.5 bg-muted -translate-y-1/2 z-0"></div>
+              <div 
+                className="absolute top-1/2 left-0 h-0.5 bg-accent -translate-y-1/2 z-0 transition-all duration-500"
+                style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+              ></div>
+              
+              {steps.map((step) => (
+                <div key={step.id} className="relative z-10 flex flex-col items-center gap-2">
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border-2",
+                    currentStep === step.id ? "bg-accent border-accent text-white" : 
+                    currentStep > step.id ? "bg-accent border-accent text-white" : "bg-white border-muted text-muted-foreground"
+                  )}>
+                    {currentStep > step.id ? <CheckCircle2 className="h-5 w-5" /> : <step.icon className="h-5 w-5" />}
                   </div>
-                ))}
-              </div>
+                  <span className={cn(
+                    "text-[10px] font-bold uppercase tracking-wider",
+                    currentStep >= step.id ? "text-primary" : "text-muted-foreground"
+                  )}>
+                    {step.title}
+                  </span>
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="p-6 rounded-[1.5rem] bg-accent/5 border border-accent/10 space-y-3">
-              <h3 className="text-base font-bold text-primary">Butuh Bantuan?</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed font-medium">
-                Hubungi tim kemitraan kami melalui email resmi jika Anda mengalami kendala pendaftaran.
-              </p>
-              <div className="pt-1">
-                <p className="text-[10px] font-bold text-accent uppercase tracking-widest">Email</p>
-                <p className="text-sm font-bold text-primary truncate">bisukmafoundation@gmail.com</p>
-              </div>
-            </div>
-          </aside>
+          <Card className="border-none shadow-2xl shadow-primary/5 rounded-[2rem] bg-white overflow-hidden">
+            <CardContent className="p-6 md:p-10">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                  <AnimatePresence mode="wait">
+                    {currentStep === 1 && (
+                      <motion.div
+                        key="step1"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="fullName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  <User className="h-3.5 w-3.5" /> Nama Lengkap
+                                </FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="companyName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  <Building2 className="h-3.5 w-3.5" /> Nama Perusahaan
+                                </FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  <Mail className="h-3.5 w-3.5" /> Email Resmi
+                                </FormLabel>
+                                <FormControl>
+                                  <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  <Phone className="h-3.5 w-3.5" /> No. Telepon
+                                </FormLabel>
+                                <FormControl>
+                                  <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {currentStep === 2 && (
+                      <motion.div
+                        key="step2"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="province"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  Provinsi
+                                </FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <FormControl>
+                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm">
+                                      <SelectValue placeholder="Pilih Provinsi" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    <SelectItem value="sumut">Sumatera Utara</SelectItem>
+                                    <SelectItem value="jakarta">DKI Jakarta</SelectItem>
+                                    <SelectItem value="jabar">Jawa Barat</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="city"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  Kota/Kabupaten
+                                </FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <FormControl>
+                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm">
+                                      <SelectValue placeholder="Pilih Kota/Kabupaten" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    <SelectItem value="medan">Medan</SelectItem>
+                                    <SelectItem value="taput">Tapanuli Utara</SelectItem>
+                                    <SelectItem value="toba">Toba</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="district"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  Kecamatan
+                                </FormLabel>
+                                <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="village"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                  Desa/Kelurahan
+                                </FormLabel>
+                                <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <FormField
+                          control={form.control}
+                          name="hasBuilding"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                <Home className="h-3.5 w-3.5" /> Status Lahan
+                              </FormLabel>
+                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm">
+                                    <SelectValue placeholder="Apakah sudah ada bangunan di lahan tersebut?" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="yes">Sudah ada bangunan</SelectItem>
+                                  <SelectItem value="no">Belum ada bangunan / Tanah kosong</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </motion.div>
+                    )}
+
+                    {currentStep === 3 && (
+                      <motion.div
+                        key="step3"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        {hasBuilding === "yes" ? (
+                          <div className="space-y-6">
+                            <div className="grid md:grid-cols-2 gap-6">
+                              <FormField
+                                control={form.control}
+                                name="buildingSize"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Ukuran Bangunan (m2)</FormLabel>
+                                    <FormControl>
+                                      <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                              <FormField
+                                control={form.control}
+                                name="buildingType"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Jenis Bangunan</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                      <FormControl>
+                                        <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm">
+                                          <SelectValue placeholder="Pilih tipe" />
+                                        </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent>
+                                        <SelectItem value="ruko">Ruko / Toko</SelectItem>
+                                        <SelectItem value="rumah">Rumah Tinggal</SelectItem>
+                                        <SelectItem value="gudang">Gudang / Pabrik</SelectItem>
+                                        <SelectItem value="kantor">Kantor</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
+                            <FormField
+                              control={form.control}
+                              name="photo"
+                              render={({ field: { value, onChange, ...field } }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                    <Paperclip className="h-3.5 w-3.5 text-accent" /> Foto Bangunan
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input 
+                                      type="file" 
+                                      accept="image/*"
+                                      onChange={(e) => onChange(e.target.files?.[0])}
+                                      className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm cursor-pointer pt-3" 
+                                      {...field} 
+                                    />
+                                  </FormControl>
+                                  <FormDescription className="text-[10px]">Silakan unggah foto tampak depan bangunan Anda.</FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        ) : (
+                          <div className="space-y-6">
+                            <FormField
+                              control={form.control}
+                              name="progress"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <div className="flex justify-between items-center mb-2">
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Progres Pembangunan (%)</FormLabel>
+                                    <span className="text-xs font-bold text-accent">{field.value}%</span>
+                                  </div>
+                                  <FormControl>
+                                    <Input 
+                                      type="range" 
+                                      min="0" 
+                                      max="100" 
+                                      step="5"
+                                      className="h-2 bg-muted rounded-full appearance-none cursor-pointer accent-accent"
+                                      {...field} 
+                                    />
+                                  </FormControl>
+                                  <FormDescription className="text-[10px]">Geser untuk menentukan sejauh mana progres bangunan Anda.</FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            {progressValue > 0 ? (
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                              >
+                                <FormField
+                                  control={form.control}
+                                  name="photo"
+                                  render={({ field: { value, onChange, ...field } }) => (
+                                    <FormItem>
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                        <Paperclip className="h-3.5 w-3.5 text-accent" /> Lampirkan Foto Progres
+                                      </FormLabel>
+                                      <FormControl>
+                                        <Input 
+                                          type="file" 
+                                          accept="image/*"
+                                          onChange={(e) => onChange(e.target.files?.[0])}
+                                          className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm cursor-pointer pt-3" 
+                                          {...field} 
+                                        />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                              >
+                                <FormField
+                                  control={form.control}
+                                  name="estimation"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                        <Calendar className="h-3.5 w-3.5" /> Estimasi Pembangunan
+                                      </FormLabel>
+                                      <FormControl>
+                                        <Input placeholder="Kapan rencana mulai dibangun? (Contoh: Kuartal 3 2024)" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </motion.div>
+                            )}
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="flex items-center justify-between pt-6 border-t border-muted/50">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={prevStep}
+                      disabled={currentStep === 1}
+                      className={cn(
+                        "rounded-xl font-bold h-12 px-6",
+                        currentStep === 1 && "opacity-0 pointer-events-none"
+                      )}
+                    >
+                      <ChevronLeft className="mr-2 h-4 w-4" />
+                      Sebelumnya
+                    </Button>
+
+                    {currentStep < 3 ? (
+                      <Button
+                        type="button"
+                        onClick={nextStep}
+                        className="bg-primary hover:bg-primary/90 text-white rounded-xl font-bold h-12 px-8"
+                      >
+                        Selanjutnya
+                        <ChevronRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    ) : (
+                      <Button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-12 px-10 shadow-lg shadow-accent/20 border-none"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Mengirim...
+                          </>
+                        ) : (
+                          <>
+                            Kirim Pendaftaran
+                            <Send className="ml-2 h-3.5 w-3.5" />
+                          </>
+                        )}
+                      </Button>
+                    )}
+                  </div>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>
