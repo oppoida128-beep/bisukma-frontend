@@ -159,16 +159,16 @@ export default function Home() {
           </motion.h1>
           
           <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4">
-            Bisukma Digital Adalah Katalisator Transformasi Anda. Kami Menghadirkan Solusi Teknologi Presisi Tinggi Untuk Skala Global.
+            Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center gap-6">
             <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto transition-all">
-              Konsultasi gratis
+              Konsultasi Gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link href="/layanan" className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all border-b border-transparent hover:border-muted-foreground pb-1">
-              Lihat katalog produk
+              Lihat Katalog Produk
             </Link>
           </motion.div>
 
@@ -241,7 +241,7 @@ export default function Home() {
                             {post.excerpt}
                           </p>
                           <div className="pt-2 flex items-center gap-2 text-white font-bold text-xs md:text-sm">
-                            Baca artikel <ArrowUpRight className="h-4 w-4" />
+                            Baca Artikel <ArrowUpRight className="h-4 w-4" />
                           </div>
                         </div>
                       </Link>
@@ -261,7 +261,7 @@ export default function Home() {
                         "h-1 md:h-1.5 rounded-full transition-all duration-300",
                         current === i ? "w-6 md:w-8 bg-accent" : "w-1 md:w-1.5 bg-white/40 hover:bg-white/60"
                       )}
-                      aria-label={`Buka slide ${i + 1}`}
+                      aria-label={`Buka Slide ${i + 1}`}
                     />
                   ))}
                 </div>
@@ -310,7 +310,7 @@ export default function Home() {
               <motion.div variants={itemVariants} className="pt-2">
                 <Button variant="link" className="p-0 h-auto text-accent font-bold group/more text-sm" asChild>
                   <Link href="/berita">
-                    Lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
+                    Lihat Berita Lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
@@ -336,7 +336,7 @@ export default function Home() {
             </div>
             <h2 className="scroll-m-20 text-2xl md:text-4xl font-extrabold tracking-tight text-primary">Langkah Nyata Membangun Bangsa</h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base font-medium">
-              Langkah Nyata Bisukma Group Dalam Membangun Kemandirian Dan Kecerdasan Bangsa Melalui Pilar-Pilar Strategis.
+              Langkah nyata Bisukma Group dalam membangun kemandirian dan kecerdasan bangsa melalui pilar-pilar strategis.
             </p>
           </motion.div>
 
@@ -403,7 +403,7 @@ export default function Home() {
             <p className="text-sm font-bold text-white/80">Layanan Unggulan</p>
             <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Solusi Strategis Kami</h2>
             <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl">
-              Dukungan Penuh Untuk Keberhasilan Pengelolaan Dapur Makan Bergizi Gratis (MBG).
+              Dukungan penuh untuk keberhasilan pengelolaan dapur Makan Bergizi Gratis (MBG).
             </p>
           </motion.div>
 
@@ -453,7 +453,7 @@ export default function Home() {
                       </p>
                       <div className="pt-4">
                         <Link href="/layanan" className="inline-flex items-center gap-2 text-white font-bold text-xs md:text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all group/btn">
-                          Detail layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
+                          Detail Layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                         </Link>
                       </div>
                     </div>
@@ -487,7 +487,7 @@ export default function Home() {
                 poster={PlaceHolderImages.find(img => img.id === 'profile')?.imageUrl}
               >
                 <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
-                Browser Anda Tidak Mendukung Tag Video.
+                Browser Anda tidak mendukung tag video.
               </video>
               <div className="absolute inset-0 bg-black/10"></div>
             </motion.div>
@@ -501,16 +501,16 @@ export default function Home() {
                 <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl text-primary">Katalis Inovasi Digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-medium">
-                Bisukma Digital Adalah Mitra Transformasi Teknologi Yang Berfokus Pada Inovasi Dan Kualitas. Kami Membantu Bisnis Dari Berbagai Skala Untuk Tumbuh Di Era Digital Melalui Solusi Perangkat Lunak Yang Cerdas Dan Infrastruktur Cloud Yang Andal.
+                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
               </p>
               
               <div className="flex w-full flex-col gap-3 pt-2">
                 <Item asChild variant="default" className="p-3 hover:bg-accent/5 transition-colors">
                   <Link href="/profil/tentang-kami">
                     <ItemContent>
-                      <ItemTitle className="text-xs md:text-sm">Kunjungi dokumentasi profil</ItemTitle>
+                      <ItemTitle className="text-xs md:text-sm">Kunjungi Dokumentasi Profil</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
-                        Pelajari Bagaimana Kami Memulai Dan Nilai-Nilai Inti Kami.
+                        Pelajari bagaimana kami memulai dan nilai-nilai inti kami.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
@@ -521,9 +521,9 @@ export default function Home() {
                 <Item variant="outline" asChild className="p-3 hover:bg-accent/5 transition-colors">
                   <a href="/layanan" target="_blank" rel="noopener noreferrer">
                     <ItemContent>
-                      <ItemTitle className="text-xs md:text-sm">Sumber daya eksternal</ItemTitle>
+                      <ItemTitle className="text-xs md:text-sm">Sumber Daya Eksternal</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
-                        Lihat Katalog Layanan Lengkap Kami Di Tab Baru.
+                        Lihat katalog layanan lengkap kami di tab baru.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>

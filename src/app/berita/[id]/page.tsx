@@ -101,13 +101,16 @@ const articlesData = [
   }
 ]
 
-export default function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params)
+export default function BeritaDetailPage(props: { params: Promise<{ id: string }> }) {
+  const params = React.use(props.params)
+  const id = params.id
   const [copied, setCopied] = React.useState(false)
   const [currentUrl, setCurrentUrl] = React.useState("")
 
   React.useEffect(() => {
-    setCurrentUrl(window.location.href)
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href)
+    }
   }, [])
 
   const article = React.useMemo(() => {
@@ -130,10 +133,10 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
   }
 
   const socialLinks = React.useMemo(() => [
-    { network: "whatsapp", name: "whatsapp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + currentUrl)}` },
-    { network: "facebook", name: "facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` },
-    { network: "x", name: "x (twitter)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(currentUrl)}` },
-    { network: "linkedin", name: "linkedin", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
+    { network: "whatsapp", name: "WhatsApp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + currentUrl)}` },
+    { network: "facebook", name: "Facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` },
+    { network: "x", name: "X (Twitter)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(currentUrl)}` },
+    { network: "linkedin", name: "LinkedIn", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
   ], [article.title, currentUrl])
 
   return (
@@ -147,7 +150,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
         >
           <Link href="/berita" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-accent transition-colors group">
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Kembali ke berita
+            Kembali Ke Berita
           </Link>
 
           <div className="space-y-4">
@@ -169,7 +172,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Clock className="h-3.5 w-3.5 text-accent" />
-                <span>5 Menit baca</span>
+                <span>5 Menit Baca</span>
               </div>
             </div>
           </div>
@@ -210,7 +213,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                 {additionalImage?.imageUrl && (
                   <Image 
                     src={additionalImage.imageUrl} 
-                    alt="Detail tambahan artikel" 
+                    alt="Detail Tambahan Artikel" 
                     fill 
                     className="object-cover"
                   />
@@ -251,7 +254,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                     <PopoverTrigger asChild>
                       <div>
                         <MorphButton 
-                          text="Bagikan artikel" 
+                          text="Bagikan Artikel" 
                           icon={Share2} 
                           className="text-muted-foreground border-none hover:text-accent font-bold"
                         />
@@ -260,7 +263,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                     <PopoverContent align="start" className="w-80 p-0 rounded-2xl border-none shadow-2xl bg-white overflow-hidden">
                       <div className="p-6 space-y-6">
                         <div className="space-y-1">
-                          <h4 className="font-bold text-primary">Bagikan artikel</h4>
+                          <h4 className="font-bold text-primary">Bagikan Artikel</h4>
                           <p className="text-xs text-muted-foreground font-medium">Sebarkan wawasan ini ke jejaring Anda.</p>
                         </div>
                         
@@ -280,7 +283,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                                 as="div"
                               />
                               <span className="text-[9px] font-bold text-muted-foreground group-hover:text-accent transition-colors">
-                                {social.network}
+                                {social.name}
                               </span>
                             </a>
                           ))}
@@ -289,7 +292,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                         <div className="space-y-3 pt-2">
                           <div className="relative">
                             <Separator />
-                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-[9px] font-bold text-muted-foreground/40">Atau salin tautan</span>
+                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-[9px] font-bold text-muted-foreground/40">Atau Salin Tautan</span>
                           </div>
                           <div className="flex items-center gap-2 bg-muted/40 p-1 pl-3 rounded-xl border border-border/50">
                             <p className="flex-1 text-[10px] text-muted-foreground truncate font-medium">
@@ -320,7 +323,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                 <div className="flex items-center justify-between border-b pb-4 mb-6">
                   <h2 className="text-xl font-extrabold tracking-tight text-primary">Berita Terbaru</h2>
                   <Link href="/berita" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
-                    Lihat semua
+                    Lihat Semua
                   </Link>
                 </div>
 
@@ -369,7 +372,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                   <div className="space-y-2">
                     <input 
                       type="email" 
-                      placeholder="Email anda" 
+                      placeholder="Email Anda" 
                       className="w-full bg-white border-muted-foreground/10 rounded-xl px-4 py-2 text-xs font-medium focus:outline-none focus:ring-1 focus:ring-accent"
                     />
                     <Button className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl text-xs font-bold h-9">

@@ -26,17 +26,17 @@ import {
 
 const profilItems: { title: string; href: string; description: string }[] = [
   {
-    title: "Visi & misi",
+    title: "Visi & Misi",
     href: "/profil/visi-misi",
     description: "Tujuan strategis kami untuk merevolusi ekosistem teknologi.",
   },
   {
-    title: "Tentang kami",
+    title: "Tentang Kami",
     href: "/profil/tentang-kami",
     description: "Mengenal sejarah, nilai-nilai inti, dan dedikasi kami.",
   },
   {
-    title: "Nilai inti",
+    title: "Nilai Inti",
     href: "/profil/nilai-inti",
     description: "Prinsip integritas, kolaborasi, dan kualitas kami.",
   },
@@ -103,7 +103,7 @@ export function SiteHeader() {
           <div className="flex flex-1 md:w-1/4 shrink-0">
             <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
               <LayoutGrid className="h-5 w-5 text-accent" />
-              <span>Bisukma<span className="text-accent">digital</span></span>
+              <span>Bisukma<span className="text-accent">Digital</span></span>
             </Link>
           </div>
 
@@ -158,7 +158,7 @@ export function SiteHeader() {
                           href="/berita" 
                           className="flex items-center justify-center gap-2 text-xs font-bold text-accent hover:text-accent/80 transition-colors py-2 group"
                         >
-                          Lihat semua berita <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                          Lihat Semua Berita <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       </div>
                     </div>
@@ -183,7 +183,7 @@ export function SiteHeader() {
           {/* Action Button */}
           <div className="flex flex-1 md:w-1/4 justify-end shrink-0 items-center gap-2">
             <div className="hidden md:block">
-              <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
+              <MorphButton text="Daftar Mitra" icon={SquareArrowUpRight} />
             </div>
 
             {/* Mobile Nav Toggle Button */}
@@ -282,7 +282,7 @@ export function SiteHeader() {
                           href="/berita" 
                           className="text-sm font-bold text-accent hover:text-accent/80 flex items-center justify-between group pt-2"
                         >
-                          Lihat semua berita
+                          Lihat Semua Berita
                           <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       </div>
@@ -320,7 +320,7 @@ export function SiteHeader() {
                     asChild
                   >
                     <Link href="/mitra">
-                      Daftar kemitraan
+                      Daftar Kemitraan
                       <SquareArrowUpRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
