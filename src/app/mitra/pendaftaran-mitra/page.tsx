@@ -69,7 +69,6 @@ export default function PendaftaranMitraPage() {
   function onSubmit(data: PendaftaranFormValues) {
     setIsSubmitting(true)
     
-    // Simulasi pengiriman data
     setTimeout(() => {
       console.log("Partner Registration Data:", data)
       setIsSubmitting(false)
@@ -94,7 +93,7 @@ export default function PendaftaranMitraPage() {
             <CheckCircle2 className="h-16 w-16" />
           </div>
           <div className="space-y-2">
-            <h1 className="text-3xl font-black text-primary tracking-tight">Terima kasih!</h1>
+            <h1 className="text-3xl font-black text-primary tracking-tight">Terima Kasih!</h1>
             <p className="text-muted-foreground font-medium">Pendaftaran kemitraan Anda telah kami terima. Mohon tunggu kabar selanjutnya dari tim strategis Bisukma.</p>
           </div>
           <Button asChild className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold px-8 h-12 border-none">
@@ -107,7 +106,6 @@ export default function PendaftaranMitraPage() {
 
   return (
     <div className="min-h-screen bg-white pb-24">
-      {/* Header Form */}
       <section className="bg-primary py-16 md:py-24 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.15)_0%,transparent_70%)] opacity-50"></div>
         <div className="container mx-auto px-4 relative z-10">
@@ -126,10 +124,8 @@ export default function PendaftaranMitraPage() {
         </div>
       </section>
 
-      {/* Form Content */}
       <section className="container mx-auto px-4 -mt-12">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
-          {/* Form Side */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,7 +145,7 @@ export default function PendaftaranMitraPage() {
                               <User className="h-3 w-3" /> Nama Lengkap
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="Masukkan nama lengkap" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -164,7 +160,7 @@ export default function PendaftaranMitraPage() {
                               <Building2 className="h-3 w-3" /> Nama Perusahaan / Instansi
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="Masukkan nama lembaga" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -258,7 +254,7 @@ export default function PendaftaranMitraPage() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Memproses pendaftaran...
+                          Memproses Pendaftaran...
                         </>
                       ) : (
                         <>
@@ -273,7 +269,6 @@ export default function PendaftaranMitraPage() {
             </Card>
           </motion.div>
 
-          {/* Info Side */}
           <aside className="lg:col-span-5 space-y-8 lg:pt-16">
             <div className="space-y-6">
               <h2 className="text-2xl font-black text-primary tracking-tight">Persyaratan Umum</h2>
@@ -294,7 +289,7 @@ export default function PendaftaranMitraPage() {
             </div>
 
             <div className="p-8 rounded-[2.5rem] bg-accent/5 border border-accent/10 space-y-4">
-              <h3 className="text-lg font-black text-primary">Butuh bantuan cepat?</h3>
+              <h3 className="text-lg font-black text-primary">Butuh Bantuan Cepat?</h3>
               <p className="text-sm text-muted-foreground leading-relaxed font-medium">
                 Jika Anda mengalami kendala dalam proses pendaftaran online, silakan hubungi tim kemitraan kami melalui email resmi.
               </p>

@@ -49,18 +49,17 @@ const categories = [
 ]
 
 const benefits = [
-  "Akses Ke Jaringan Pasar Yang Luas",
-  "Sistem Pembayaran Yang Transparan",
-  "Pendampingan Standarisasi Kualitas",
-  "Dukungan Digitalisasi Bisnis",
-  "Kontribusi Nyata Pada Gizi Nasional",
-  "Peluang Ekspansi Skala Nasional"
+  "Akses ke jaringan pasar yang luas",
+  "Sistem pembayaran yang transparan",
+  "Pendampingan standarisasi kualitas",
+  "Dukungan digitalisasi bisnis",
+  "Kontribusi nyata pada gizi nasional",
+  "Peluang ekspansi skala nasional"
 ]
 
 export default function MitraPage() {
   return (
     <div className="flex flex-col w-full bg-white pb-24">
-      {/* --- HERO SECTION --- */}
       <section className="relative py-24 md:py-32 bg-primary overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.15)_0%,transparent_70%)] opacity-50"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
@@ -102,7 +101,6 @@ export default function MitraPage() {
         </div>
       </section>
 
-      {/* --- PARTNER LOGO GRID --- */}
       <section className="py-20 border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -127,7 +125,6 @@ export default function MitraPage() {
         </div>
       </section>
 
-      {/* --- PARTNERSHIP CATEGORIES --- */}
       <section className="py-24 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
@@ -155,7 +152,6 @@ export default function MitraPage() {
         </div>
       </section>
 
-      {/* --- BENEFITS SECTION --- */}
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -181,7 +177,7 @@ export default function MitraPage() {
             <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10 border-8 border-white bg-muted">
               <Image 
                 src="https://picsum.photos/seed/mitra-collaboration/1000/1000" 
-                alt="Mitra Collaboration" 
+                alt="Mitra Kolaborasi" 
                 fill 
                 className="object-cover"
               />
@@ -193,7 +189,7 @@ export default function MitraPage() {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Bergabung Sekarang</p>
-                    <p className="text-lg font-black text-primary">Jadilah Bagian Dari Perubahan.</p>
+                    <p className="text-lg font-black text-primary">Jadilah Bagian dari Perubahan.</p>
                   </div>
                 </div>
               </div>

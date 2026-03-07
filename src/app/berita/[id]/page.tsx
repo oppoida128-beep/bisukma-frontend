@@ -117,7 +117,6 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
 
-  // Ambil 4 berita terbaru lainnya selain yang sedang dibuka untuk sidebar
   const recentNews = React.useMemo(() => {
     return articlesData.filter(a => a.id !== id).slice(0, 4)
   }, [id])
@@ -139,7 +138,6 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="bg-white min-h-screen pb-20">
-      {/* Header Area */}
       <section className="container mx-auto px-4 pt-8 md:pt-12">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
@@ -160,16 +158,16 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
               {article.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-xs text-muted-foreground">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Calendar className="h-3.5 w-3.5 text-accent" />
                 <span>{article.date}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <User className="h-3.5 w-3.5 text-accent" />
-                <span>oleh {article.author}</span>
+                <span>Oleh {article.author}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Clock className="h-3.5 w-3.5 text-accent" />
                 <span>5 Menit Baca</span>
               </div>
@@ -178,12 +176,9 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
         </motion.div>
       </section>
 
-      {/* Main Content & Sidebar Grid */}
       <section className="container mx-auto px-4 mt-8 md:mt-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
-            {/* LEFT: Main Content Area */}
             <div className="lg:col-span-8">
               <div className="relative aspect-video w-full rounded-xl md:rounded-2xl overflow-hidden bg-muted border shadow-sm mb-10">
                 {mainImage?.imageUrl && (
@@ -215,7 +210,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                 {additionalImage?.imageUrl && (
                   <Image 
                     src={additionalImage.imageUrl} 
-                    alt="detail tambahan artikel" 
+                    alt="Detail tambahan artikel" 
                     fill 
                     className="object-cover"
                   />
@@ -239,7 +234,7 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
               <div className="mt-12 flex flex-wrap gap-2 items-center">
                 <div className="flex items-center gap-2 mr-2 text-muted-foreground">
                   <Tag className="h-4 w-4" />
-                  <span className="text-sm font-semibold">Tags:</span>
+                  <span className="text-sm font-semibold">Tag:</span>
                 </div>
                 {article.tags.map(tag => (
                   <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">
@@ -250,7 +245,6 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
 
               <Separator className="my-10" />
 
-              {/* Footer Actions */}
               <div className="flex items-center justify-between gap-4">
                 <div className="shrink-0">
                   <Popover>
@@ -321,7 +315,6 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
               </div>
             </div>
 
-            {/* RIGHT: Sidebar Area */}
             <aside className="lg:col-span-4 space-y-8">
               <div className="sticky top-24">
                 <div className="flex items-center justify-between border-b pb-4 mb-6">
@@ -368,7 +361,6 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                   })}
                 </div>
 
-                {/* Newsletter Box in Sidebar */}
                 <div className="mt-12 p-6 rounded-2xl bg-muted/30 border border-muted-foreground/5 space-y-4">
                   <h3 className="text-sm font-bold text-primary">Dapatkan Update Mingguan</h3>
                   <p className="text-xs text-muted-foreground font-medium leading-relaxed">
@@ -387,7 +379,6 @@ export default function BeritaDetailPage({ params }: { params: Promise<{ id: str
                 </div>
               </div>
             </aside>
-
           </div>
         </div>
       </section>

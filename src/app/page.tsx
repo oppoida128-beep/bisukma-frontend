@@ -1,10 +1,9 @@
-
 'use client'
 
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Users, ArrowUpRight, Layout, Layers, Monitor, Calendar, ChevronRight, ExternalLink, Sparkles, Utensils, Globe } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Layout, Calendar, ChevronRight, ExternalLink, Sparkles, Utensils, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -23,7 +22,6 @@ import { cn } from "@/lib/utils"
 import { Item, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@/components/ui/item"
 import { ExternalNewsSection } from "@/components/external-news-section"
 
-// Animasi Variants untuk konsistensi
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -75,20 +73,20 @@ export default function Home() {
 
   const popularNews = [
     {
-      title: "Pentingnya Cybersecurity di Era Kerja Remote",
+      title: "Pentingnya Keamanan Siber Di Era Kerja Jarak Jauh",
       category: "Keamanan",
       img: news3Img?.imageUrl,
       excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda."
     },
     {
-      title: "Masa Depan AI dalam Transformasi Bisnis 2024",
+      title: "Masa Depan Kecerdasan Buatan Dalam Transformasi Bisnis 2024",
       category: "Teknologi",
       img: news1Img?.imageUrl,
       excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis sehari-hari secara otomatis."
     },
     {
-      title: "Event Bisukma Digital Conference 2024",
-      category: "Event",
+      title: "Acara Bisukma Digital Conference 2024",
+      category: "Acara",
       img: PlaceHolderImages.find(img => img.id === 'gallery-6')?.imageUrl,
       excerpt: "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri."
     }
@@ -96,25 +94,25 @@ export default function Home() {
 
   const recentlyAddedNews = [
     {
-      title: "Strategi Cloud Computing untuk Startup Berkembang",
+      title: "Strategi Komputasi Awan Untuk Startup Berkembang",
       date: "10 Mei 2024",
       category: "Infrastruktur",
       img: news2Img?.imageUrl,
       excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru..."
     },
     {
-      title: "Trend Desain UI/UX yang Dominan di Tahun Ini",
+      title: "Tren Desain UI/UX Yang Dominan Di Tahun Ini",
       date: "01 Mei 2024",
       category: "Desain",
       img: PlaceHolderImages.find(img => img.id === 'gallery-5')?.imageUrl,
-      excerpt: "Eksplorasi estetika desain minimalis and fungsional yang memberikan pengalaman terbaik..."
+      excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman terbaik..."
     },
     {
-      title: "Implementasi Blockchain untuk Supply Chain",
+      title: "Implementasi Rantai Blok Untuk Rantai Pasok",
       date: "28 April 2024",
       category: "Teknologi",
       img: PlaceHolderImages.find(img => img.id === 'gallery-4')?.imageUrl,
-      excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah and aman dengan teknologi blockchain."
+      excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan teknologi blockchain."
     }
   ]
 
@@ -147,7 +145,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full bg-white">
-      {/* --- HERO SECTION --- */}
       <section className="relative pt-12 pb-16 md:pt-24 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(45%_45%_at_50%_50%,hsl(var(--accent)/0.05)_0%,transparent_100%)]"></div>
         <motion.div 
@@ -162,7 +159,7 @@ export default function Home() {
           </motion.h1>
           
           <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed px-4">
-            Bisukma Digital adalah katalisator transformasi Anda. Kami menghadirkan solusi teknologi presisi tinggi untuk skala global.
+            Bisukma Digital Adalah Katalisator Transformasi Anda. Kami Menghadirkan Solusi Teknologi Presisi Tinggi Untuk Skala Global.
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center gap-6">
@@ -183,7 +180,7 @@ export default function Home() {
               {heroImg?.imageUrl && (
                 <Image 
                   src={heroImg.imageUrl} 
-                  alt="Digital Transformation" 
+                  alt="Transformasi Digital" 
                   fill 
                   className="object-cover"
                   priority
@@ -195,7 +192,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* --- NEWS SECTION --- */}
       <section className="py-16 md:py-24 border-t bg-white">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -265,7 +261,7 @@ export default function Home() {
                         "h-1 md:h-1.5 rounded-full transition-all duration-300",
                         current === i ? "w-6 md:w-8 bg-accent" : "w-1 md:w-1.5 bg-white/40 hover:bg-white/60"
                       )}
-                      aria-label={`Go to slide ${i + 1}`}
+                      aria-label={`Buka slide ${i + 1}`}
                     />
                   ))}
                 </div>
@@ -323,10 +319,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- EXTERNAL NEWS SECTION --- */}
       <ExternalNewsSection />
 
-      {/* --- FEATURED PROGRAMS SECTION (WITH FLIP EFFECT) --- */}
       <section className="py-16 md:py-24 bg-muted/30 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -342,7 +336,7 @@ export default function Home() {
             </div>
             <h2 className="scroll-m-20 text-2xl md:text-4xl font-extrabold tracking-tight text-primary">Langkah Nyata Membangun Bangsa</h2>
             <p className="text-muted-foreground max-w-2xl text-sm md:text-base font-medium">
-              Langkah nyata Bisukma Group dalam membangun kemandirian dan kecerdasan bangsa melalui pilar-pilar strategis.
+              Langkah Nyata Bisukma Group Dalam Membangun Kemandirian Dan Kecerdasan Bangsa Melalui Pilar-Pilar Strategis.
             </p>
           </motion.div>
 
@@ -362,7 +356,6 @@ export default function Home() {
                 <div 
                   className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
                 >
-                  {/* Front Side */}
                   <div className="absolute inset-0 h-full w-full rounded-xl overflow-hidden [backface-visibility:hidden]">
                     {prog.img && (
                       <Image 
@@ -383,7 +376,6 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Back Side */}
                   <div className="absolute inset-0 h-full w-full rounded-xl bg-accent p-8 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center items-center text-center space-y-6">
                     <h3 className="text-2xl font-bold border-b border-white/30 pb-2 w-full">
                       {prog.title}
@@ -399,7 +391,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- CORE SERVICES --- */}
       <section className="py-16 md:py-24 bg-accent text-white">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -412,7 +403,7 @@ export default function Home() {
             <p className="text-sm font-bold text-white/80">Layanan Unggulan</p>
             <h2 className="scroll-m-20 text-2xl md:text-3xl font-extrabold tracking-tight">Solusi Strategis Kami</h2>
             <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl">
-              Dukungan penuh untuk keberhasilan pengelolaan dapur makan bergizi gratis (MBG).
+              Dukungan Penuh Untuk Keberhasilan Pengelolaan Dapur Makan Bergizi Gratis (MBG).
             </p>
           </motion.div>
 
@@ -474,7 +465,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- ABOUT US SECTION --- */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -497,7 +487,7 @@ export default function Home() {
                 poster={PlaceHolderImages.find(img => img.id === 'profile')?.imageUrl}
               >
                 <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
-                your browser does not support the video tag.
+                Browser Anda Tidak Mendukung Tag Video.
               </video>
               <div className="absolute inset-0 bg-black/10"></div>
             </motion.div>
@@ -511,10 +501,7 @@ export default function Home() {
                 <h2 className="scroll-m-20 text-xl font-extrabold tracking-tight md:text-2xl lg:text-3xl text-primary">Katalis Inovasi Digital Anda</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-xs md:text-sm font-medium">
-                Bisukma Digital adalah mitra transformasi teknologi yang berfokus pada inovasi dan kualitas. Kami membantu bisnis dari berbagai skala untuk tumbuh di era digital melalui solusi perangkat lunak yang cerdas dan infrastruktur cloud yang andal.
-              </p>
-              <p className="text-muted-foreground leading-relaxed text-[11px] md:text-xs hidden sm:block">
-                Dengan tim ahli yang berdedikasi, kami menerjemahkan visi bisnis Anda menjadi kenyataan digital yang kompetitif dan skalabel.
+                Bisukma Digital Adalah Mitra Transformasi Teknologi Yang Berfokus Pada Inovasi Dan Kualitas. Kami Membantu Bisnis Dari Berbagai Skala Untuk Tumbuh Di Era Digital Melalui Solusi Perangkat Lunak Yang Cerdas Dan Infrastruktur Cloud Yang Andal.
               </p>
               
               <div className="flex w-full flex-col gap-3 pt-2">
@@ -523,7 +510,7 @@ export default function Home() {
                     <ItemContent>
                       <ItemTitle className="text-xs md:text-sm">Kunjungi Dokumentasi Profil</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
-                        Pelajari bagaimana kami memulai dan nilai-nilai inti kami.
+                        Pelajari Bagaimana Kami Memulai Dan Nilai-Nilai Inti Kami.
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>
@@ -536,8 +523,9 @@ export default function Home() {
                     <ItemContent>
                       <ItemTitle className="text-xs md:text-sm">Sumber Daya Eksternal</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
-                        Lihat katalog layanan lengkap kami di tab baru.
-                      </ItemDescription>                     </ItemContent>
+                        Lihat Katalog Layanan Lengkap Kami Di Tab Baru.
+                      </ItemDescription>
+                    </ItemContent>
                     <ItemActions>
                       <ExternalLink className="size-4" />
                     </ItemActions>
