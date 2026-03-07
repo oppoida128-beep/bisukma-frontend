@@ -49,12 +49,12 @@ const categories = [
 ]
 
 const benefits = [
-  "Akses Ke Jaringan Pasar Yang Luas",
-  "Sistem Pembayaran Yang Transparan",
-  "Pendampingan Standarisasi Kualitas",
-  "Dukungan Digitalisasi Bisnis",
-  "Kontribusi Nyata Pada Gizi Nasional",
-  "Peluang Ekspansi Skala Nasional"
+  "Akses ke jaringan pasar yang luas",
+  "Sistem pembayaran yang transparan",
+  "Pendampingan standarisasi kualitas",
+  "Dukungan digitalisasi bisnis",
+  "Kontribusi nyata pada gizi nasional",
+  "Peluang ekspansi skala nasional"
 ]
 
 export default function MitraPage() {
@@ -68,7 +68,7 @@ export default function MitraPage() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex justify-center mb-6"
           >
-            <Badge variant="outline" className="border-accent/50 text-accent px-4 py-1.5 rounded-full text-[10px] font-bold">
+            <Badge variant="outline" className="border-accent/50 text-accent px-4 py-1.5 rounded-full text-xs font-bold">
               Kolaborasi Strategis
             </Badge>
           </motion.div>

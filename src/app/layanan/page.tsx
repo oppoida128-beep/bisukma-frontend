@@ -14,9 +14,8 @@ import {
   Target
 } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
+import { Card, CardContent } from "@/ui/card"
+import { Button } from "@/ui/button"
 import { motion } from "framer-motion"
 
 const services = [
@@ -118,7 +117,7 @@ export default function LayananPage() {
 
   return (
     <div className="pb-20 bg-white">
-      {/* Minimalist Hero Section */}
+      {/* Hero Section */}
       <section className="bg-white pt-8 md:pt-16 pb-12 text-primary overflow-hidden border-b border-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -133,7 +132,7 @@ export default function LayananPage() {
                   Layanan <span className="text-accent">Kami</span>
                 </h1>
                 <p className="text-left text-base md:text-xl text-muted-foreground font-medium max-w-xl leading-relaxed">
-                  6 Layanan Strategis Bisukma Digital untuk mendukung calon pemilik dapur MBG dalam membangun ekosistem pangan yang mandiri.
+                  Enam layanan strategis Bisukma Digital untuk mendukung calon pemilik dapur MBG dalam membangun ekosistem pangan yang mandiri.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4 pt-2">
@@ -230,7 +229,7 @@ export default function LayananPage() {
                           <Target className="h-4 w-4" />
                         </div>
                         <div className="space-y-1">
-                          <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Output Utama</p>
+                          <p className="text-[10px] font-bold text-accent tracking-widest">Output Utama</p>
                           <p className="text-xs md:text-sm font-semibold text-primary/80 leading-relaxed">
                             {service.output}
                           </p>
