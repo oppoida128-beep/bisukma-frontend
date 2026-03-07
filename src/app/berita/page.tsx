@@ -32,7 +32,7 @@ export default function BeritaPage({
     ])
   )
 
-  // Ambil kategori awal dari query string atau default ke "Semua"
+  // Ambil kategori awal dari objek hasil konversi
   const categoryFromQuery = resolvedParams.category || "Semua"
 
   const [activeCategory, setActiveCategory] = React.useState(categoryFromQuery)

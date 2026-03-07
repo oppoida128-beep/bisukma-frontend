@@ -141,8 +141,8 @@ export default function PendaftaranMitraPage() {
                         name="fullName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <User className="h-3 w-3" /> Nama lengkap
+                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
+                              <User className="h-3 w-3" /> Nama Lengkap
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -156,8 +156,8 @@ export default function PendaftaranMitraPage() {
                         name="companyName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Building2 className="h-3 w-3" /> Nama perusahaan / instansi
+                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
+                              <Building2 className="h-3 w-3" /> Nama Perusahaan / Instansi
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -174,8 +174,8 @@ export default function PendaftaranMitraPage() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Mail className="h-3 w-3" /> Alamat email resmi
+                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
+                              <Mail className="h-3 w-3" /> Alamat Email Resmi
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -189,8 +189,8 @@ export default function PendaftaranMitraPage() {
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Phone className="h-3 w-3" /> Nomor telepon / WhatsApp
+                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
+                              <Phone className="h-3 w-3" /> Nomor Telepon / WhatsApp
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -206,8 +206,8 @@ export default function PendaftaranMitraPage() {
                       name="category"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                            <LayoutGrid className="h-3 w-3" /> Kategori kemitraan
+                          <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
+                            <LayoutGrid className="h-3 w-3" /> Kategori Kemitraan
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -233,7 +233,7 @@ export default function PendaftaranMitraPage() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Deskripsi rencana kolaborasi</FormLabel>
+                          <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground">Deskripsi Rencana Kolaborasi</FormLabel>
                           <FormControl>
                             <Textarea 
                               placeholder="Ceritakan singkat rencana kerja sama Anda dengan Bisukma Digital..." 
@@ -258,7 +258,7 @@ export default function PendaftaranMitraPage() {
                         </>
                       ) : (
                         <>
-                          Kirim formulir pendaftaran
+                          Kirim Formulir Pendaftaran
                           <Send className="ml-2 h-4 w-4" />
                         </>
                       )}

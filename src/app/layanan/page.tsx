@@ -230,7 +230,7 @@ export default function LayananPage() {
                           <Target className="h-4 w-4" />
                         </div>
                         <div className="space-y-1">
-                          <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Output utama</p>
+                          <p className="text-[10px] font-bold text-accent uppercase tracking-[0.2em]">Output Utama</p>
                           <p className="text-xs md:text-sm font-semibold text-primary/80 leading-relaxed">
                             {service.output}
                           </p>
@@ -259,11 +259,11 @@ export default function LayananPage() {
           </div>
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <Button size="lg" className="bg-accent hover:bg-accent/90 text-white rounded-full font-bold px-8 h-12">
-              Jadwalkan konsultasi
+              Jadwalkan Konsultasi
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button size="lg" variant="outline" className="rounded-full font-bold px-8 h-12 border-muted-foreground/20 text-muted-foreground hover:bg-white">
-              Unduh brosur program
+              Unduh Brosur Program
             </Button>
           </div>
         </div>

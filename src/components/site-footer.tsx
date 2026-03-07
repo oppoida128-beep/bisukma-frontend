@@ -14,7 +14,7 @@ export function SiteFooter() {
               <span>Bisukma <span className="text-accent">Digital</span></span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-sm font-medium">
-              Katalisator transformasi digital anda. Kami menghadirkan solusi teknologi presisi tinggi dengan standar kualitas global untuk pertumbuhan bisnis yang berkelanjutan.
+              Katalisator Transformasi Digital Anda. Kami Menghadirkan Solusi Teknologi Presisi Tinggi Dengan Standar Kualitas Global Untuk Pertumbuhan Bisnis Yang Berkelanjutan.
             </p>
             <div className="flex gap-5">
               {[
@@ -41,19 +41,19 @@ export function SiteFooter() {
               <h3 className="text-sm font-bold tracking-wider text-primary uppercase">Eksplorasi</h3>
               <ul className="space-y-3 text-sm text-muted-foreground font-medium">
                 <li><Link href="/profil/tentang-kami" className="hover:text-accent transition-colors">Profil Bisukma</Link></li>
-                <li><Link href="/layanan" className="hover:text-accent transition-colors">Layanan kami</Link></li>
-                <li><Link href="/berita" className="hover:text-accent transition-colors">Berita terbaru</Link></li>
-                <li><Link href="/mitra" className="hover:text-accent transition-colors">Kemitraan strategis</Link></li>
+                <li><Link href="/layanan" className="hover:text-accent transition-colors">Layanan Kami</Link></li>
+                <li><Link href="/berita" className="hover:text-accent transition-colors">Berita Terbaru</Link></li>
+                <li><Link href="/mitra" className="hover:text-accent transition-colors">Kemitraan Strategis</Link></li>
               </ul>
             </div>
 
             <div className="space-y-5">
               <h3 className="text-sm font-bold tracking-wider text-primary uppercase">Layanan Strategis</h3>
               <ul className="space-y-3 text-sm text-muted-foreground font-medium">
-                <li className="hover:text-accent transition-colors cursor-default">Perencanaan dapur MBG</li>
-                <li className="hover:text-accent transition-colors cursor-default">Setup operasional dapur</li>
-                <li className="hover:text-accent transition-colors cursor-default">Rantai pasok pangan</li>
-                <li className="hover:text-accent transition-colors cursor-default">Monitoring & evaluasi</li>
+                <li className="hover:text-accent transition-colors cursor-default">Perencanaan Dapur MBG</li>
+                <li className="hover:text-accent transition-colors cursor-default">Setup Operasional Dapur</li>
+                <li className="hover:text-accent transition-colors cursor-default">Rantai Pasok Pangan</li>
+                <li className="hover:text-accent transition-colors cursor-default">Monitoring & Evaluasi</li>
               </ul>
             </div>
           </div>
@@ -64,7 +64,7 @@ export function SiteFooter() {
             <ul className="space-y-4 text-sm text-muted-foreground font-medium">
               <li className="flex items-start gap-3">
                 <MapPin className="h-4 w-4 text-accent mt-0.5 shrink-0" />
-                <span className="leading-relaxed">Jl. HM Joni no. 50 L, Medan, Sumatera Utara, Indonesia</span>
+                <span className="leading-relaxed">Jl. HM Joni No. 50 L, Medan, Sumatera Utara, Indonesia</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-accent shrink-0" />
@@ -81,10 +81,10 @@ export function SiteFooter() {
         <Separator className="my-10 md:my-16 opacity-50" />
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-muted-foreground uppercase tracking-widest">
-          <p>© {new Date().getFullYear()} Bisukma Digital. Seluruh hak cipta dilindungi.</p>
+          <p>© {new Date().getFullYear()} Bisukma Digital. Seluruh Hak Cipta Dilindungi.</p>
           <div className="flex gap-6">
-            <Link href="#" className="hover:text-accent transition-colors">Kebijakan privasi</Link>
-            <Link href="#" className="hover:text-accent transition-colors">Syarat & ketentuan</Link>
+            <Link href="#" className="hover:text-accent transition-colors">Kebijakan Privasi</Link>
+            <Link href="#" className="hover:text-accent transition-colors">Syarat & Ketentuan</Link>
           </div>
         </div>
       </div>

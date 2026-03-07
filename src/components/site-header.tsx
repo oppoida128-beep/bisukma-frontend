@@ -183,7 +183,7 @@ export function SiteHeader() {
           {/* Action Button */}
           <div className="flex flex-1 md:w-1/4 justify-end shrink-0 items-center gap-2">
             <div className="hidden md:block">
-              <MorphButton text="Daftar mitra" icon={SquareArrowUpRight} />
+              <MorphButton text="Daftar Mitra" icon={SquareArrowUpRight} />
             </div>
 
             {/* Mobile Nav Toggle Button */}
@@ -320,7 +320,7 @@ export function SiteHeader() {
                     asChild
                   >
                     <Link href="/mitra">
-                      Daftar kemitraan
+                      Daftar Kemitraan
                       <SquareArrowUpRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
