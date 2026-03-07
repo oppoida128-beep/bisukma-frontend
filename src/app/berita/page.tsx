@@ -1,3 +1,4 @@
+
 'use client'
 
 import * as React from "react"
@@ -13,63 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useIsMobile } from "@/hooks/use-mobile"
-
-const articles = [
-  {
-    id: "news-1",
-    title: "Masa depan AI dalam transformasi bisnis 2024",
-    excerpt: "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis sehari-hari secara otomatis.",
-    date: "12 Mei 2024",
-    author: "Budi Santoso",
-    category: "Teknologi",
-    imgId: "news-1"
-  },
-  {
-    id: "news-2",
-    title: "Strategi cloud computing untuk startup berkembang",
-    excerpt: "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif.",
-    date: "10 Mei 2024",
-    author: "Siti Aminah",
-    category: "Infrastruktur",
-    imgId: "news-2"
-  },
-  {
-    id: "news-3",
-    title: "Pentingnya cybersecurity di era kerja remote",
-    excerpt: "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda.",
-    date: "05 Mei 2024",
-    author: "Andi Wijaya",
-    category: "Keamanan",
-    imgId: "news-3"
-  },
-  {
-    id: "news-4",
-    title: "Trend desain UI/UX yang dominan di tahun ini",
-    excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman pengguna terbaik di perangkat mobile.",
-    date: "01 Mei 2024",
-    author: "Dewi Lestari",
-    category: "Desain",
-    imgId: "gallery-5"
-  },
-  {
-    id: "news-5",
-    title: "Implementasi blockchain untuk supply chain",
-    excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan pemanfaatan teknologi buku besar terdistribusi.",
-    date: "28 April 2024",
-    author: "Reza Fahlevi",
-    category: "Teknologi",
-    imgId: "gallery-4"
-  },
-  {
-    id: "news-6",
-    title: "Event Bisukma digital conference 2024",
-    excerpt: "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri dan pakar teknologi ternama.",
-    date: "20 April 2024",
-    author: "Admin Bisukma",
-    category: "Event",
-    imgId: "gallery-6"
-  }
-]
+import articles from "@/data/articles.json"
 
 const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain", "Event"]
 
@@ -103,7 +48,7 @@ export default function BeritaPage() {
         >
           <div className="max-w-4xl space-y-4">
             <h1 className="text-3xl md:text-5xl font-black text-left tracking-tight">
-              Berita & <span className="text-accent">update</span>
+              Berita & <span className="text-accent">Update</span>
             </h1>
             <p className="text-left text-sm md:text-lg text-muted-foreground font-medium max-w-2xl leading-relaxed">
               Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
@@ -216,7 +161,7 @@ export default function BeritaPage() {
         >
           <AnimatePresence mode="popLayout">
             {filteredArticles.map((article) => {
-              const img = PlaceHolderImages.find(item => item.id === article.imgId)
+              const img = PlaceHolderImages.find(item => item.id === article.mainImgId)
               return (
                 <motion.div
                   key={article.id}
@@ -254,7 +199,7 @@ export default function BeritaPage() {
                     </CardContent>
                     <CardFooter className="p-6 md:p-8 pt-0">
                       <Link href={`/berita/${article.id}`} className="text-xs md:text-sm font-bold flex items-center text-accent group/link">
-                        Baca selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
+                        Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1.5 transition-transform" />
                       </Link>
                     </CardFooter>
                   </Card>
@@ -273,10 +218,10 @@ export default function BeritaPage() {
             <div className="inline-flex p-6 rounded-full bg-muted/50 mb-2">
               <SearchIcon className="h-6 w-6 text-muted-foreground/40" />
             </div>
-            <p className="text-lg font-bold text-primary">Tidak ada hasil ditemukan</p>
+            <p className="text-lg font-bold text-primary">Tidak Ada Hasil Ditemukan</p>
             <p className="text-muted-foreground text-sm max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
             <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} className="rounded-full mt-2 text-xs">
-              Atur ulang filter
+              Atur Ulang Filter
             </Button>
           </motion.div>
         )}
