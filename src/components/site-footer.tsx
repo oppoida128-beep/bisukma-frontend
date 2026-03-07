@@ -23,7 +23,7 @@ export function SiteFooter() {
               />
               <div className="flex items-center">
                 <span className="text-accent font-black tracking-tight">BISUKMA</span>
-                <Badge className="ml-2 bg-primary text-white text-[11px] px-2 py-0.5 border-none font-black rounded-md flex items-center justify-center">GROUP</Badge>
+                <Badge className="ml-2 bg-primary/10 text-primary/80 text-[10px] px-1.5 py-0.5 h-auto border-none font-bold rounded-sm flex items-center justify-center">GROUP</Badge>
               </div>
             </Link>
             <p className="text-sm md:text-base text-muted-foreground/80 leading-relaxed max-w-sm font-medium">

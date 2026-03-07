@@ -113,7 +113,7 @@ export function SiteHeader() {
               />
               <div className="flex items-center">
                 <span className="text-accent font-black tracking-tight">BISUKMA</span>
-                <Badge className="ml-1.5 bg-primary text-white text-[9px] px-1.5 py-0 h-4 border-none font-black rounded-sm flex items-center justify-center">GROUP</Badge>
+                <Badge className="ml-1.5 bg-primary/10 text-primary/80 text-[8px] px-1.5 py-0.5 h-auto border-none font-bold rounded-sm flex items-center justify-center">GROUP</Badge>
               </div>
             </Link>
           </div>
