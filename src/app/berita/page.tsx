@@ -23,19 +23,19 @@ export default function BeritaPage({
 }) {
   const isMobile = useIsMobile()
 
-  // Solusi Final: Konversi ke URLSearchParams setelah React.use() untuk menghindari error enumerasi proxy Next.js 15
+  // Solusi stabil untuk Next.js 15: Ubah proxy menjadi plain object sebelum di-enumerate
   const rawParams = React.use(searchParams)
   const resolvedParams = React.useMemo(() => {
-    // Kita ubah proxy asinkron menjadi plain object yang aman untuk di-enumerate
-    const plainParams = Object.entries(rawParams).reduce((acc, [key, value]) => {
-      acc[key] = Array.isArray(value) ? value[0] : (value ?? "")
-      return acc
-    }, {} as Record<string, string>)
-    return new URLSearchParams(plainParams)
+    return Object.fromEntries(
+      Object.entries(rawParams).map(([key, value]) => [
+        key,
+        Array.isArray(value) ? value[0] : (value ?? ""),
+      ])
+    )
   }, [rawParams])
 
   // Ambil kategori awal dari query string atau default ke "Semua"
-  const categoryFromQuery = resolvedParams.get("category") || "Semua"
+  const categoryFromQuery = resolvedParams.category || "Semua"
 
   const [activeCategory, setActiveCategory] = React.useState(categoryFromQuery)
   const [searchQuery, setSearchQuery] = React.useState("")
