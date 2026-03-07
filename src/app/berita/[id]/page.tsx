@@ -1,3 +1,4 @@
+
 import Image from "next/image"
 import Link from "next/link"
 import { Calendar, User, Clock, ArrowLeft } from "lucide-react"
@@ -9,7 +10,6 @@ import RecentNews from "./RecentNews"
 import articlesData from "@/data/articles.json"
 
 export default async function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  // Standar Next.js 15: Unwrap params di Server Component menggunakan await
   const { id } = await params
   
   const article = articlesData.find(a => a.id === id) || articlesData[0]
@@ -35,15 +35,15 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
             </h1>
             
             <div className="flex flex-wrap items-center gap-4 md:gap-6">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground font-medium">
                 <Calendar className="h-3.5 w-3.5 text-accent" />
                 <span>{article.date}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground font-medium">
                 <User className="h-3.5 w-3.5 text-accent" />
                 <span>Oleh {article.author}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground font-medium">
                 <Clock className="h-3.5 w-3.5 text-accent" />
                 <span>5 Menit baca</span>
               </div>
@@ -56,15 +56,22 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-8">
-              <div className="relative aspect-video w-full rounded-xl md:rounded-2xl overflow-hidden bg-muted border shadow-sm mb-10">
-                {mainImage?.imageUrl && (
-                  <Image 
-                    src={mainImage.imageUrl} 
-                    alt={article.title} 
-                    fill 
-                    className="object-cover"
-                    priority
-                  />
+              <div className="space-y-3 mb-10">
+                <div className="relative aspect-video w-full rounded-xl md:rounded-2xl overflow-hidden bg-muted border shadow-sm">
+                  {mainImage?.imageUrl && (
+                    <Image 
+                      src={mainImage.imageUrl} 
+                      alt={article.title} 
+                      fill 
+                      className="object-cover"
+                      priority
+                    />
+                  )}
+                </div>
+                {article.mainImgCaption && (
+                  <p className="text-[11px] md:text-xs text-muted-foreground italic font-medium leading-relaxed px-1">
+                    {article.mainImgCaption}
+                  </p>
                 )}
               </div>
 
@@ -72,19 +79,21 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
                 {article.contentPart1}
               </div>
 
-              <div className="my-8 md:my-10 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm">
-                {additionalImage?.imageUrl && (
-                  <Image 
-                    src={additionalImage.imageUrl} 
-                    alt="Detail tambahan artikel" 
-                    fill 
-                    className="object-cover"
-                  />
-                )}
-                {additionalImage?.description && (
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                    <p className="text-white text-xs font-medium opacity-90">{additionalImage.description}</p>
-                  </div>
+              <div className="space-y-3 my-8 md:my-10">
+                <div className="relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm">
+                  {additionalImage?.imageUrl && (
+                    <Image 
+                      src={additionalImage.imageUrl} 
+                      alt="Detail tambahan artikel" 
+                      fill 
+                      className="object-cover"
+                    />
+                  )}
+                </div>
+                {(article.additionalImgCaption || additionalImage?.description) && (
+                  <p className="text-[11px] md:text-xs text-muted-foreground italic font-medium leading-relaxed px-1">
+                    {article.additionalImgCaption || additionalImage?.description}
+                  </p>
                 )}
               </div>
 
@@ -95,7 +104,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
               <div className="mt-12 flex flex-wrap gap-2 items-center">
                 <div className="flex items-center gap-2 mr-2 text-muted-foreground">
                   <User className="h-4 w-4" />
-                  <span className="text-sm font-semibold">Tag:</span>
+                  <span className="text-xs font-semibold">Tag:</span>
                 </div>
                 {article.tags.map(tag => (
                   <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">

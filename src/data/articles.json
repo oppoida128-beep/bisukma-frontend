@@ -11,7 +11,9 @@
     "category": "Teknologi",
     "tags": ["Artificial Intelligence", "Digital Transformation", "Business Strategy"],
     "mainImgId": "news-1",
-    "additionalImgId": "gallery-5"
+    "mainImgCaption": "Ilustrasi pemanfaatan kecerdasan buatan dalam lingkungan kerja modern untuk efisiensi bisnis.",
+    "additionalImgId": "gallery-5",
+    "additionalImgCaption": "Proses desain antarmuka berbasis AI yang sedang dikembangkan oleh tim Bisukma Digital."
   },
   {
     "id": "news-2",
@@ -24,7 +26,9 @@
     "category": "Infrastruktur",
     "tags": ["Cloud", "AWS", "Startup"],
     "mainImgId": "news-2",
-    "additionalImgId": "gallery-4"
+    "mainImgCaption": "Pusat data modern yang menjadi tulang punggung layanan cloud computing Bisukma.",
+    "additionalImgId": "gallery-4",
+    "additionalImgCaption": "Arsitektur server yang dioptimalkan untuk skalabilitas tinggi bagi perusahaan rintisan."
   },
   {
     "id": "news-3",
@@ -37,7 +41,9 @@
     "category": "Keamanan",
     "tags": ["Cybersecurity", "Remote Work", "Data Protection"],
     "mainImgId": "news-3",
-    "additionalImgId": "gallery-3"
+    "mainImgCaption": "Visualisasi perlindungan data berlapis dalam sistem keamanan siber perusahaan.",
+    "additionalImgId": "gallery-3",
+    "additionalImgCaption": "Kolaborasi tim IT dalam memantau ancaman keamanan siber secara real-time."
   },
   {
     "id": "news-4",
@@ -50,32 +56,8 @@
     "category": "Desain",
     "tags": ["UI/UX", "Mobile App", "Design Trends"],
     "mainImgId": "gallery-5",
-    "additionalImgId": "gallery-2"
-  },
-  {
-    "id": "news-5",
-    "title": "Implementasi Blockchain Untuk Supply Chain",
-    "excerpt": "Transparansi dan pelacakan aset menjadi lebih mudah and aman dengan pemanfaatan teknologi buku besar terdistribusi.",
-    "contentPart1": "Blockchain memberikan tingkat transparansi yang belum pernah ada sebelumnya dalam rantai pasok global. Setiap perpindahan barang tercatat secara permanen dan tidak dapat diubah.",
-    "contentPart2": "Ini membantu produsen dan konsumen untuk melacak asal-usul produk mereka, memastikan keaslian, dan meningkatkan kepercayaan di seluruh ekosistem bisnis.",
-    "date": "28 April 2024",
-    "author": "Reza Fahlevi",
-    "category": "Teknologi",
-    "tags": ["Blockchain", "Supply Chain", "Technology"],
-    "mainImgId": "gallery-4",
-    "additionalImgId": "gallery-1"
-  },
-  {
-    "id": "news-6",
-    "title": "Event Bisukma Digital Conference 2024",
-    "excerpt": "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri dan pakar teknologi ternama.",
-    "contentPart1": "Konferensi tahun ini merupakan yang terbesar sepanjang sejarah Bisukma. Kami menghadirkan lebih dari 20 pembicara internasional yang berbagi wawasan tentang masa depan teknologi di Indonesia.",
-    "contentPart2": "Terima kasih kepada seluruh mitra and peserta yang telah hadir. Kami berharap wawasan yang didapatkan dapat menjadi katalisator bagi transformasi digital di perusahaan masing-masing.",
-    "date": "20 April 2024",
-    "author": "Admin Bisukma",
-    "category": "Event",
-    "tags": ["Conference", "Tech Event", "Networking"],
-    "mainImgId": "gallery-6",
-    "additionalImgId": "gallery-5"
+    "mainImgCaption": "Eksplorasi warna dan tipografi dalam tren desain UI terbaru tahun 2024.",
+    "additionalImgId": "gallery-2",
+    "additionalImgCaption": "Ruang kerja kolaboratif para desainer Bisukma dalam merancang pengalaman pengguna."
   }
 ]
