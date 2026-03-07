@@ -146,7 +146,7 @@ export default function PendaftaranMitraPage() {
                               <User className="h-3.5 w-3.5" /> Nama Lengkap
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -161,7 +161,7 @@ export default function PendaftaranMitraPage() {
                               <Building2 className="h-3.5 w-3.5" /> Nama Perusahaan
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -179,7 +179,7 @@ export default function PendaftaranMitraPage() {
                               <Mail className="h-3.5 w-3.5" /> Email Resmi
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -194,7 +194,7 @@ export default function PendaftaranMitraPage() {
                               <Phone className="h-3.5 w-3.5" /> No. Telepon
                             </FormLabel>
                             <FormControl>
-                              <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
+                              <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" {...field} />
                             </FormControl>
                             <FormMessage className="text-[10px]" />
                           </FormItem>
@@ -212,7 +212,7 @@ export default function PendaftaranMitraPage() {
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm">
+                              <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all">
                                 <SelectValue placeholder="Pilih kategori kerja sama" />
                               </SelectTrigger>
                             </FormControl>
@@ -238,7 +238,7 @@ export default function PendaftaranMitraPage() {
                           <FormControl>
                             <Textarea 
                               placeholder="Ceritakan singkat rencana kerja sama Anda..." 
-                              className="min-h-[120px] rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white resize-none text-sm p-4" 
+                              className="min-h-[120px] rounded-xl border-muted-foreground/10 bg-white resize-none text-sm p-4 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" 
                               {...field} 
                             />
                           </FormControl>
