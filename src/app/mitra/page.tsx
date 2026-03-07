@@ -1,3 +1,4 @@
+
 'use client'
 
 import * as React from "react"
@@ -42,7 +43,7 @@ const categories = [
   },
   {
     title: "Lembaga Pemerintah & Sosial",
-    description: "Sinergi bersama instansi pemerintah dan organisasi non-profit dalam menyukseskan program strategis nasional.",
+    description: "Sinergi bersama instansi pemerintah and organisasi non-profit dalam menyukseskan program strategis nasional.",
     icon: <Building2 className="h-8 w-8" />,
     color: "bg-accent/10 text-accent"
   }

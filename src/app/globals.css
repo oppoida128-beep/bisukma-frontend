@@ -48,9 +48,9 @@
     text-wrap: balance;
   }
 
-  /* Article Content Styles for Embedded Images */
+  /* Article Content Styles for Embedded Images from CMS */
   .article-content img {
-    @apply block w-full h-auto rounded-2xl border my-10 shadow-sm;
+    @apply block w-full h-auto rounded-xl md:rounded-2xl border my-10 shadow-sm mx-auto object-cover;
   }
   
   .article-content p {
@@ -63,6 +63,18 @@
 
   .article-content h3 {
     @apply text-xl font-bold text-primary mt-10 mb-4;
+  }
+
+  .article-content a {
+    @apply text-accent font-bold hover:underline;
+  }
+
+  .article-content ul, .article-content ol {
+    @apply mb-6 ml-6;
+  }
+
+  .article-content li {
+    @apply mb-2;
   }
 }
 
