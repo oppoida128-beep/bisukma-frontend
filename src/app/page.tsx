@@ -164,11 +164,11 @@ export default function Home() {
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center items-center gap-6">
             <Button size="lg" className="bg-accent hover:bg-accent/90 h-12 px-8 rounded-full font-semibold group border-none shadow-none w-full sm:w-auto transition-all">
-              Konsultasi Gratis
+              Konsultasi gratis
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Link href="/layanan" className="text-sm font-medium leading-none text-muted-foreground cursor-pointer hover:text-primary transition-all border-b border-transparent hover:border-muted-foreground pb-1">
-              Lihat Katalog Produk
+              Lihat katalog produk
             </Link>
           </motion.div>
 
@@ -241,7 +241,7 @@ export default function Home() {
                             {post.excerpt}
                           </p>
                           <div className="pt-2 flex items-center gap-2 text-white font-bold text-xs md:text-sm">
-                            Baca Artikel <ArrowUpRight className="h-4 w-4" />
+                            Baca artikel <ArrowUpRight className="h-4 w-4" />
                           </div>
                         </div>
                       </Link>
@@ -310,7 +310,7 @@ export default function Home() {
               <motion.div variants={itemVariants} className="pt-2">
                 <Button variant="link" className="p-0 h-auto text-accent font-bold group/more text-sm" asChild>
                   <Link href="/berita">
-                    Lihat Berita Lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
+                    Lihat berita lainnya <ArrowUpRight className="ml-1 h-4 w-4 group-hover/more:translate-x-0.5 group-hover/more:-translate-y-0.5 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
@@ -453,7 +453,7 @@ export default function Home() {
                       </p>
                       <div className="pt-4">
                         <Link href="/layanan" className="inline-flex items-center gap-2 text-white font-bold text-xs md:text-sm border border-white/40 px-4 py-1.5 rounded-full hover:bg-white/20 transition-all group/btn">
-                          Detail Layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
+                          Detail layanan <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4" />
                         </Link>
                       </div>
                     </div>
@@ -508,7 +508,7 @@ export default function Home() {
                 <Item asChild variant="default" className="p-3 hover:bg-accent/5 transition-colors">
                   <Link href="/profil/tentang-kami">
                     <ItemContent>
-                      <ItemTitle className="text-xs md:text-sm">Kunjungi Dokumentasi Profil</ItemTitle>
+                      <ItemTitle className="text-xs md:text-sm">Kunjungi dokumentasi profil</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
                         Pelajari Bagaimana Kami Memulai Dan Nilai-Nilai Inti Kami.
                       </ItemDescription>
@@ -521,7 +521,7 @@ export default function Home() {
                 <Item variant="outline" asChild className="p-3 hover:bg-accent/5 transition-colors">
                   <a href="/layanan" target="_blank" rel="noopener noreferrer">
                     <ItemContent>
-                      <ItemTitle className="text-xs md:text-sm">Sumber Daya Eksternal</ItemTitle>
+                      <ItemTitle className="text-xs md:text-sm">Sumber daya eksternal</ItemTitle>
                       <ItemDescription className="text-[10px] md:text-xs">
                         Lihat Katalog Layanan Lengkap Kami Di Tab Baru.
                       </ItemDescription>

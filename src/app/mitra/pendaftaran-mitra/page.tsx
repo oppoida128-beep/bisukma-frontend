@@ -97,7 +97,7 @@ export default function PendaftaranMitraPage() {
             <p className="text-muted-foreground font-medium">Pendaftaran kemitraan Anda telah kami terima. Mohon tunggu kabar selanjutnya dari tim strategis Bisukma.</p>
           </div>
           <Button asChild className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold px-8 h-12 border-none">
-            <Link href="/mitra">Kembali Ke Halaman Mitra</Link>
+            <Link href="/mitra">Kembali ke halaman mitra</Link>
           </Button>
         </motion.div>
       </div>
@@ -111,7 +111,7 @@ export default function PendaftaranMitraPage() {
         <div className="container mx-auto px-4 relative z-10">
           <Link href="/mitra" className="inline-flex items-center text-sm font-bold text-white/60 hover:text-accent transition-colors mb-8 group">
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Kembali Ke Informasi Mitra
+            Kembali ke informasi mitra
           </Link>
           <div className="max-w-3xl space-y-4">
             <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
@@ -142,7 +142,7 @@ export default function PendaftaranMitraPage() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <User className="h-3 w-3" /> Nama Lengkap
+                              <User className="h-3 w-3" /> Nama lengkap
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -157,7 +157,7 @@ export default function PendaftaranMitraPage() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Building2 className="h-3 w-3" /> Nama Perusahaan / Instansi
+                              <Building2 className="h-3 w-3" /> Nama perusahaan / instansi
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -175,7 +175,7 @@ export default function PendaftaranMitraPage() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Mail className="h-3 w-3" /> Alamat Email Resmi
+                              <Mail className="h-3 w-3" /> Alamat email resmi
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -190,7 +190,7 @@ export default function PendaftaranMitraPage() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Phone className="h-3 w-3" /> Nomor Telepon / WhatsApp
+                              <Phone className="h-3 w-3" /> Nomor telepon / WhatsApp
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -207,7 +207,7 @@ export default function PendaftaranMitraPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                            <LayoutGrid className="h-3 w-3" /> Kategori Kemitraan
+                            <LayoutGrid className="h-3 w-3" /> Kategori kemitraan
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -233,7 +233,7 @@ export default function PendaftaranMitraPage() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Deskripsi Rencana Kolaborasi</FormLabel>
+                          <FormLabel className="font-bold text-[10px] uppercase tracking-widest text-muted-foreground">Deskripsi rencana kolaborasi</FormLabel>
                           <FormControl>
                             <Textarea 
                               placeholder="Ceritakan singkat rencana kerja sama Anda dengan Bisukma Digital..." 
@@ -249,16 +249,16 @@ export default function PendaftaranMitraPage() {
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-14 shadow-xl shadow-accent/20 transition-all text-sm uppercase tracking-wider border-none"
+                      className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-14 shadow-xl shadow-accent/20 transition-all text-sm tracking-wider border-none"
                     >
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Memproses Pendaftaran...
+                          Memproses pendaftaran...
                         </>
                       ) : (
                         <>
-                          Kirim Formulir Pendaftaran
+                          Kirim formulir pendaftaran
                           <Send className="ml-2 h-4 w-4" />
                         </>
                       )}
@@ -294,7 +294,7 @@ export default function PendaftaranMitraPage() {
                 Jika Anda mengalami kendala dalam proses pendaftaran online, silakan hubungi tim kemitraan kami melalui email resmi.
               </p>
               <div className="pt-2">
-                <p className="text-xs font-bold text-accent uppercase tracking-widest">Email Kemitraan</p>
+                <p className="text-xs font-bold text-accent uppercase tracking-widest">Email kemitraan</p>
                 <p className="text-primary font-extrabold">bisukmafoundation@gmail.com</p>
               </div>
             </div>

@@ -103,7 +103,7 @@ export default function BeritaPage() {
         >
           <div className="max-w-4xl space-y-4">
             <h1 className="text-3xl md:text-5xl font-black text-left tracking-tight">
-              Berita & <span className="text-accent">Update</span>
+              Berita & <span className="text-accent">update</span>
             </h1>
             <p className="text-left text-sm md:text-lg text-muted-foreground font-medium max-w-2xl leading-relaxed">
               Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
