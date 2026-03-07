@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,6 +46,23 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Article Content Styles for Embedded Images */
+  .article-content img {
+    @apply block w-full h-auto rounded-2xl border my-10 shadow-sm;
+  }
+  
+  .article-content p {
+    @apply mb-6;
+  }
+
+  .article-content h2 {
+    @apply text-2xl font-bold text-primary mt-12 mb-6;
+  }
+
+  .article-content h3 {
+    @apply text-xl font-bold text-primary mt-10 mb-4;
   }
 }
 

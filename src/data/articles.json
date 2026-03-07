@@ -4,60 +4,48 @@
     "id": "news-1",
     "title": "Masa Depan AI Dalam Transformasi Bisnis 2024",
     "excerpt": "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis sehari-hari secara otomatis.",
-    "contentPart1": "Kecerdasan Buatan (AI) bukan lagi sekadar tren teknologi, melainkan fondasi baru bagi efisiensi operasional bisnis. Di tahun 2024, kita melihat pergeseran dari sekadar eksperimen menjadi integrasi penuh dalam proses pengambilan keputusan. \n\nBisukma Digital berkomitmen untuk menjembatani kesenjangan teknologi ini dengan menghadirkan solusi cerdas yang dapat diadaptasi oleh berbagai skala industri. Dengan pemanfaatan model bahasa besar dan analitik prediktif, perusahaan dapat menghemat waktu hingga 40% dalam tugas-tugas administratif yang repetitif.",
-    "contentPart2": "Ke depannya, fokus utama akan beralih pada etika penggunaan AI dan keamanan data. Kami percaya bahwa transparansi adalah kunci dalam membangun kepercayaan antara penyedia teknologi and pengguna akhir. Melalui pendekatan yang berpusat pada manusia, AI akan menjadi mitra pendamping yang memperkuat kapabilitas tim Anda, bukan menggantikannya.",
+    "content": "<p>Kecerdasan Buatan (AI) bukan lagi sekadar tren teknologi, melainkan fondasi baru bagi efisiensi operasional bisnis. Di tahun 2024, kita melihat pergeseran dari sekadar eksperimen menjadi integrasi penuh dalam proses pengambilan keputusan.</p>\n\n<p>Bisukma Digital berkomitmen untuk menjembatani kesenjangan teknologi ini dengan menghadirkan solusi cerdas yang dapat diadaptasi oleh berbagai skala industri. Dengan pemanfaatan model bahasa besar dan analitik prediktif, perusahaan dapat menghemat waktu hingga 40% dalam tugas-tugas administratif yang repetitif.</p>\n\n<img src=\"https://picsum.photos/seed/ai-dev/1200/800\" alt=\"AI Development\" />\n\n<p>Ke depannya, fokus utama akan beralih pada etika penggunaan AI dan keamanan data. Kami percaya bahwa transparansi adalah kunci dalam membangun kepercayaan antara penyedia teknologi and pengguna akhir. Melalui pendekatan yang berpusat pada manusia, AI akan menjadi mitra pendamping yang memperkuat kapabilitas tim Anda, bukan menggantikannya.</p>",
     "date": "12 Mei 2024",
     "author": "Budi Santoso",
     "category": "Teknologi",
     "tags": ["Artificial Intelligence", "Digital Transformation", "Business Strategy"],
     "mainImgId": "news-1",
-    "mainImgCaption": "Ilustrasi pemanfaatan kecerdasan buatan dalam lingkungan kerja modern untuk efisiensi bisnis.",
-    "additionalImgId": "gallery-5",
-    "additionalImgCaption": "Proses desain antarmuka berbasis AI yang sedang dikembangkan oleh tim Bisukma Digital."
+    "mainImgCaption": "Ilustrasi pemanfaatan kecerdasan buatan dalam lingkungan kerja modern untuk efisiensi bisnis."
   },
   {
     "id": "news-2",
     "title": "Strategi Cloud Computing Untuk Startup Berkembang",
     "excerpt": "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif.",
-    "contentPart1": "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif. Dengan model pay-as-you-go, perusahaan baru dapat mengelola anggaran dengan lebih fleksibel tanpa mengorbankan performa sistem.",
-    "contentPart2": "Selain efisiensi biaya, keamanan data di cloud juga menjadi prioritas utama. Implementasi sistem backup otomatis dan enkripsi end-to-end akan memberikan rasa aman bagi pelanggan startup dalam menitipkan data mereka.",
+    "content": "<p>Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif. Dengan model pay-as-you-go, perusahaan baru dapat mengelola anggaran dengan lebih fleksibel tanpa mengorbankan performa sistem.</p>\n\n<img src=\"https://picsum.photos/seed/cloud-infra/1200/800\" alt=\"Cloud Infrastructure\" />\n\n<p>Selain efisiensi biaya, keamanan data di cloud juga menjadi prioritas utama. Implementasi sistem backup otomatis dan enkripsi end-to-end akan memberikan rasa aman bagi pelanggan startup dalam menitipkan data mereka.</p>",
     "date": "10 Mei 2024",
     "author": "Siti Aminah",
     "category": "Infrastruktur",
     "tags": ["Cloud", "AWS", "Startup"],
     "mainImgId": "news-2",
-    "mainImgCaption": "Pusat data modern yang menjadi tulang punggung layanan cloud computing Bisukma.",
-    "additionalImgId": "gallery-4",
-    "additionalImgCaption": "Arsitektur server yang dioptimalkan untuk skalabilitas tinggi bagi perusahaan rintisan."
+    "mainImgCaption": "Pusat data modern yang menjadi tulang punggung layanan cloud computing Bisukma."
   },
   {
     "id": "news-3",
     "title": "Pentingnya Cybersecurity Di Era Kerja Remote",
     "excerpt": "Melindungi data sensitif perusahaan menjadi tantangan utama saat karyawan bekerja dari berbagai lokasi yang berbeda.",
-    "contentPart1": "Di era digital saat ini, keamanan siber bukan lagi pilihan melainkan keharusan. Bekerja secara remote memberikan fleksibilitas, namun juga membuka celah keamanan baru bagi infrastruktur perusahaan.",
-    "contentPart2": "Kami menyarankan implementasi Zero Trust Architecture untuk memastikan setiap akses ke data perusahaan terverifikasi dengan ketat, terlepas dari mana pun lokasi karyawan berada.",
+    "content": "<p>Di era digital saat ini, keamanan siber bukan lagi pilihan melainkan keharusan. Bekerja secara remote memberikan fleksibilitas, namun juga membuka celah keamanan baru bagi infrastruktur perusahaan.</p>\n\n<img src=\"https://picsum.photos/seed/cyber-sec/1200/800\" alt=\"Cyber Security\" />\n\n<p>Kami menyarankan implementasi Zero Trust Architecture untuk memastikan setiap akses ke data perusahaan terverifikasi dengan ketat, terlepas dari mana pun lokasi karyawan berada.</p>",
     "date": "05 Mei 2024",
     "author": "Andi Wijaya",
     "category": "Keamanan",
     "tags": ["Cybersecurity", "Remote Work", "Data Protection"],
     "mainImgId": "news-3",
-    "mainImgCaption": "Visualisasi perlindungan data berlapis dalam sistem keamanan siber perusahaan.",
-    "additionalImgId": "gallery-3",
-    "additionalImgCaption": "Kolaborasi tim IT dalam memantau ancaman keamanan siber secara real-time."
+    "mainImgCaption": "Visualisasi perlindungan data berlapis dalam sistem keamanan siber perusahaan."
   },
   {
     "id": "news-4",
     "title": "Trend Desain UI/UX Yang Dominan Di Tahun Ini",
     "excerpt": "Eksplorasi estetika desain minimalis and fungsional yang memberikan pengalaman pengguna terbaik di perangkat mobile.",
-    "contentPart1": "Desain yang baik adalah desain yang tidak terlihat. Tahun ini, fokus utama UI/UX adalah pada inklusivitas dan aksesibilitas, memastikan aplikasi dapat digunakan oleh siapa saja dengan mudah.",
-    "contentPart2": "Penggunaan mikro-interaksi yang halus dan tipografi yang berani menjadi kunci untuk menarik perhatian pengguna tanpa membuat mereka merasa kewalahan.",
+    "content": "<p>Desain yang baik adalah desain yang tidak terlihat. Tahun ini, fokus utama UI/UX adalah pada inklusivitas dan aksesibilitas, memastikan aplikasi dapat digunakan oleh siapa saja dengan mudah.</p>\n\n<img src=\"https://picsum.photos/seed/ui-ux-trend/1200/800\" alt=\"UI UX Trends\" />\n\n<p>Penggunaan mikro-interaksi yang halus dan tipografi yang berani menjadi kunci untuk menarik perhatian pengguna tanpa membuat mereka merasa kewalahan.</p>",
     "date": "01 Mei 2024",
     "author": "Dewi Lestari",
     "category": "Desain",
     "tags": ["UI/UX", "Mobile App", "Design Trends"],
     "mainImgId": "gallery-5",
-    "mainImgCaption": "Eksplorasi warna dan tipografi dalam tren desain UI terbaru tahun 2024.",
-    "additionalImgId": "gallery-2",
-    "additionalImgCaption": "Ruang kerja kolaboratif para desainer Bisukma dalam merancang pengalaman pengguna."
+    "mainImgCaption": "Eksplorasi warna dan tipografi dalam tren desain UI terbaru tahun 2024."
   }
 ]

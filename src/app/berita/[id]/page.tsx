@@ -14,7 +14,6 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
   
   const article = articlesData.find(a => a.id === id) || articlesData[0]
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
-  const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
   const recentNewsItems = articlesData.filter(a => a.id !== id).slice(0, 4)
 
   return (
@@ -35,15 +34,15 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
             </h1>
             
             <div className="flex flex-wrap items-center gap-4 md:gap-6">
-              <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground font-medium">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
                 <Calendar className="h-3.5 w-3.5 text-accent" />
                 <span>{article.date}</span>
               </div>
-              <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground font-medium">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
                 <User className="h-3.5 w-3.5 text-accent" />
                 <span>Oleh {article.author}</span>
               </div>
-              <div className="flex items-center gap-2 text-[10px] md:text-xs text-muted-foreground font-medium">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
                 <Clock className="h-3.5 w-3.5 text-accent" />
                 <span>5 Menit baca</span>
               </div>
@@ -69,37 +68,17 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
                   )}
                 </div>
                 {article.mainImgCaption && (
-                  <p className="text-[11px] md:text-xs text-muted-foreground italic font-medium leading-relaxed px-1">
+                  <p className="text-xs text-muted-foreground italic font-medium leading-relaxed px-1">
                     {article.mainImgCaption}
                   </p>
                 )}
               </div>
 
-              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg mb-8">
-                {article.contentPart1}
-              </div>
-
-              <div className="space-y-3 my-8 md:my-10">
-                <div className="relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm">
-                  {additionalImage?.imageUrl && (
-                    <Image 
-                      src={additionalImage.imageUrl} 
-                      alt="Detail tambahan artikel" 
-                      fill 
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-                {(article.additionalImgCaption || additionalImage?.description) && (
-                  <p className="text-[11px] md:text-xs text-muted-foreground italic font-medium leading-relaxed px-1">
-                    {article.additionalImgCaption || additionalImage?.description}
-                  </p>
-                )}
-              </div>
-
-              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg">
-                {article.contentPart2}
-              </div>
+              {/* Render HTML Content Directly */}
+              <div 
+                className="article-content prose prose-lg max-w-none text-muted-foreground leading-relaxed text-base md:text-lg mb-8"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
 
               <div className="mt-12 flex flex-wrap gap-2 items-center">
                 <div className="flex items-center gap-2 mr-2 text-muted-foreground">
@@ -107,7 +86,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
                   <span className="text-xs font-semibold">Tag:</span>
                 </div>
                 {article.tags.map(tag => (
-                  <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-[10px] md:text-xs">
+                  <Badge key={tag} variant="secondary" className="bg-muted hover:bg-accent/10 hover:text-accent transition-colors border-none shadow-none font-medium px-3 py-1 text-xs">
                     {tag}
                   </Badge>
                 ))}
