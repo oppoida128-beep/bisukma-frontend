@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { LayoutGrid, Mail, Phone, MapPin, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react"
+import Image from "next/image"
+import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
 export function SiteFooter() {
@@ -12,9 +13,13 @@ export function SiteFooter() {
           {/* Brand Section */}
           <div className="lg:col-span-4 space-y-8">
             <Link href="/" className="flex items-center gap-2.5 font-headline text-2xl font-black text-primary">
-              <div className="bg-accent/10 p-2 rounded-xl">
-                <LayoutGrid className="h-6 w-6 text-accent" />
-              </div>
+              <Image 
+                src="/BISUKMAGROUP.svg" 
+                alt="Bisukma Logo" 
+                width={40} 
+                height={40} 
+                className="h-10 w-auto"
+              />
               <span>Bisukma <span className="text-accent">Digital</span></span>
             </Link>
             <p className="text-sm md:text-base text-muted-foreground/80 leading-relaxed max-w-sm font-medium">
@@ -86,17 +91,17 @@ export function SiteFooter() {
             <h3 className="text-[10px] font-bold tracking-[0.2em] text-primary/30 uppercase">Hubungi Kami</h3>
             <ul className="space-y-5">
               <li className="flex items-start gap-3 group">
-                <MapPin className="h-4 w-4 text-accent/60 shrink-0 mt-0.5 group-hover:text-accent transition-colors" />
+                <MapPin className="h-4 w-4 text-accent/60 shrink-0 mt-0.5" />
                 <span className="text-sm font-medium text-muted-foreground/80 leading-relaxed">
                   Jl. HM Joni No. 50 L, Medan, Sumatera Utara, Indonesia
                 </span>
               </li>
               <li className="flex items-center gap-3 group">
-                <Phone className="h-4 w-4 text-accent/60 shrink-0 group-hover:text-accent transition-colors" />
+                <Phone className="h-4 w-4 text-accent/60 shrink-0" />
                 <span className="text-sm font-medium text-muted-foreground/80">+62 812 3456 7890</span>
               </li>
               <li className="flex items-center gap-3 group">
-                <Mail className="h-4 w-4 text-accent/60 shrink-0 group-hover:text-accent transition-colors" />
+                <Mail className="h-4 w-4 text-accent/60 shrink-0" />
                 <span className="text-sm font-medium text-muted-foreground/80 truncate">bisukmafoundation@gmail.com</span>
               </li>
             </ul>

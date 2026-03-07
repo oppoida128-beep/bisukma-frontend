@@ -2,8 +2,9 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { LayoutGrid, SquareArrowUpRight, ChevronRight, ArrowRight } from "lucide-react"
+import { SquareArrowUpRight, ChevronRight, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { MorphButton } from "@/components/ui/morph-button"
@@ -101,8 +102,14 @@ export function SiteHeader() {
         <div className="container mx-auto flex h-full items-center px-4 relative z-[70]">
           {/* Logo */}
           <div className="flex flex-1 md:w-1/4 shrink-0">
-            <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
-              <LayoutGrid className="h-5 w-5 text-accent" />
+            <Link href="/" className="flex items-center gap-2.5 font-headline text-lg md:text-xl font-bold text-primary">
+              <Image 
+                src="/BISUKMAGROUP.svg" 
+                alt="Bisukma Logo" 
+                width={28} 
+                height={28} 
+                className="h-7 w-auto"
+              />
               <span>Bisukma <span className="text-accent">Digital</span></span>
             </Link>
           </div>
