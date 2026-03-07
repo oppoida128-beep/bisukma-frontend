@@ -8,6 +8,7 @@ import { SquareArrowUpRight, ChevronRight, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { MorphButton } from "@/components/ui/morph-button"
+import { Badge } from "@/components/ui/badge"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   NavigationMenu,
@@ -102,7 +103,7 @@ export function SiteHeader() {
         <div className="container mx-auto flex h-full items-center px-4 relative z-[70]">
           {/* Logo */}
           <div className="flex flex-1 md:w-1/4 shrink-0">
-            <Link href="/" className="flex items-center gap-2.5 font-headline text-lg md:text-xl font-bold text-primary">
+            <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold">
               <Image 
                 src="/BISUKMAGROUP.svg" 
                 alt="Bisukma Logo" 
@@ -110,7 +111,10 @@ export function SiteHeader() {
                 height={28} 
                 className="h-7 w-auto"
               />
-              <span>Bisukma <span className="text-accent">Digital</span></span>
+              <div className="flex items-center">
+                <span className="text-accent font-black tracking-tight">BISUKMA</span>
+                <Badge className="ml-1.5 bg-primary text-white text-[9px] px-1.5 py-0 h-4 border-none font-black rounded-sm flex items-center justify-center">GROUP</Badge>
+              </div>
             </Link>
           </div>
 
@@ -378,5 +382,5 @@ function ListItem({
         </Link>
       </NavigationMenuLink>
     </li>
-  )
+  );
 }

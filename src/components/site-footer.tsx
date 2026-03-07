@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()
@@ -12,7 +13,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand Section */}
           <div className="lg:col-span-4 space-y-8">
-            <Link href="/" className="flex items-center gap-2.5 font-headline text-2xl font-black text-primary">
+            <Link href="/" className="flex items-center gap-2 font-headline text-2xl font-black">
               <Image 
                 src="/BISUKMAGROUP.svg" 
                 alt="Bisukma Logo" 
@@ -20,7 +21,10 @@ export function SiteFooter() {
                 height={40} 
                 className="h-10 w-auto"
               />
-              <span>Bisukma <span className="text-accent">Digital</span></span>
+              <div className="flex items-center">
+                <span className="text-accent font-black tracking-tight">BISUKMA</span>
+                <Badge className="ml-2 bg-primary text-white text-[11px] px-2 py-0.5 border-none font-black rounded-md flex items-center justify-center">GROUP</Badge>
+              </div>
             </Link>
             <p className="text-sm md:text-base text-muted-foreground/80 leading-relaxed max-w-sm font-medium">
               Katalisator transformasi digital terpercaya. Kami menghadirkan solusi teknologi presisi tinggi dengan standar kualitas global untuk pertumbuhan bisnis yang berkelanjutan.
@@ -112,7 +116,7 @@ export function SiteFooter() {
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[11px] font-medium text-muted-foreground/40 tracking-tight order-2 md:order-1">
-            © {currentYear} Bisukma Digital. Seluruh Hak Cipta Dilindungi.
+            © {currentYear} BISUKMA GROUP. Seluruh Hak Cipta Dilindungi.
           </p>
           <div className="flex gap-8 order-1 md:order-2">
             <Link href="#" className="text-[11px] font-medium text-muted-foreground/30 hover:text-accent transition-colors">Kebijakan Privasi</Link>
