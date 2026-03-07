@@ -1,22 +1,11 @@
-'use client'
-
-import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, User, Tag, ArrowLeft, Share2, Copy, Check, ArrowRight, Clock } from "lucide-react"
+import { Calendar, User, Clock, ArrowLeft } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { motion } from "framer-motion"
-import { MorphButton } from "@/components/ui/morph-button"
-import { SocialIcon } from "react-social-icons"
-import { cn } from "@/lib/utils"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import ShareButton from "./ShareButton"
+import RecentNews from "./RecentNews"
 
 const articlesData = [
   {
@@ -101,53 +90,18 @@ const articlesData = [
   }
 ]
 
-export default function BeritaDetailPage(props: { params: Promise<{ id: string }> }) {
-  const params = React.use(props.params)
-  const id = params.id
-  const [copied, setCopied] = React.useState(false)
-  const [currentUrl, setCurrentUrl] = React.useState("")
-
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setCurrentUrl(window.location.href)
-    }
-  }, [])
-
-  const article = React.useMemo(() => {
-    return articlesData.find(a => a.id === id) || articlesData[0]
-  }, [id])
-
+export default async function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  
+  const article = articlesData.find(a => a.id === id) || articlesData[0]
   const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
   const additionalImage = PlaceHolderImages.find(img => img.id === article.additionalImgId)
-
-  const recentNews = React.useMemo(() => {
-    return articlesData.filter(a => a.id !== id).slice(0, 4)
-  }, [id])
-
-  const handleCopyLink = () => {
-    if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-  }
-
-  const socialLinks = React.useMemo(() => [
-    { network: "whatsapp", name: "WhatsApp", url: `https://wa.me/?text=${encodeURIComponent(article.title + " " + currentUrl)}` },
-    { network: "facebook", name: "Facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` },
-    { network: "x", name: "X (Twitter)", url: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(currentUrl)}` },
-    { network: "linkedin", name: "LinkedIn", url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` },
-  ], [article.title, currentUrl])
+  const recentNewsItems = articlesData.filter(a => a.id !== id).slice(0, 4)
 
   return (
     <div className="bg-white min-h-screen pb-20">
       <section className="container mx-auto px-4 pt-8 md:pt-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-6xl mx-auto space-y-6"
-        >
+        <div className="max-w-6xl mx-auto space-y-6">
           <Link href="/berita" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-accent transition-colors group">
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Kembali Ke Berita
@@ -176,7 +130,7 @@ export default function BeritaDetailPage(props: { params: Promise<{ id: string }
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       <section className="container mx-auto px-4 mt-8 md:mt-12">
@@ -195,21 +149,11 @@ export default function BeritaDetailPage(props: { params: Promise<{ id: string }
                 )}
               </div>
 
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg mb-8"
-              >
+              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg mb-8">
                 {article.contentPart1}
-              </motion.div>
+              </div>
 
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="my-8 md:my-10 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm"
-              >
+              <div className="my-8 md:my-10 relative aspect-[16/10] w-full rounded-xl md:rounded-2xl overflow-hidden border bg-muted shadow-sm">
                 {additionalImage?.imageUrl && (
                   <Image 
                     src={additionalImage.imageUrl} 
@@ -223,20 +167,15 @@ export default function BeritaDetailPage(props: { params: Promise<{ id: string }
                     <p className="text-white text-xs font-medium opacity-90">{additionalImage.description}</p>
                   </div>
                 )}
-              </motion.div>
+              </div>
 
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg"
-              >
+              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed whitespace-pre-line text-base md:text-lg">
                 {article.contentPart2}
-              </motion.div>
+              </div>
 
               <div className="mt-12 flex flex-wrap gap-2 items-center">
                 <div className="flex items-center gap-2 mr-2 text-muted-foreground">
-                  <Tag className="h-4 w-4" />
+                  <User className="h-4 w-4" />
                   <span className="text-sm font-semibold">Tag:</span>
                 </div>
                 {article.tags.map(tag => (
@@ -249,138 +188,12 @@ export default function BeritaDetailPage(props: { params: Promise<{ id: string }
               <Separator className="my-10" />
 
               <div className="flex items-center justify-between gap-4">
-                <div className="shrink-0">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <div>
-                        <MorphButton 
-                          text="Bagikan Artikel" 
-                          icon={Share2} 
-                          className="text-muted-foreground border-none hover:text-accent font-bold"
-                        />
-                      </div>
-                    </PopoverTrigger>
-                    <PopoverContent align="start" className="w-80 p-0 rounded-2xl border-none shadow-2xl bg-white overflow-hidden">
-                      <div className="p-6 space-y-6">
-                        <div className="space-y-1">
-                          <h4 className="font-bold text-primary">Bagikan Artikel</h4>
-                          <p className="text-xs text-muted-foreground font-medium">Sebarkan wawasan ini ke jejaring Anda.</p>
-                        </div>
-                        
-                        <div className="grid grid-cols-4 gap-2">
-                          {socialLinks.map((social) => (
-                            <a
-                              key={social.network}
-                              href={social.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex flex-col items-center gap-2 group p-2 rounded-xl hover:bg-muted/50 transition-colors"
-                            >
-                              <SocialIcon 
-                                network={social.network} 
-                                fgColor="#fff" 
-                                style={{ height: 32, width: 32 }}
-                                as="div"
-                              />
-                              <span className="text-[9px] font-bold text-muted-foreground group-hover:text-accent transition-colors">
-                                {social.name}
-                              </span>
-                            </a>
-                          ))}
-                        </div>
-
-                        <div className="space-y-3 pt-2">
-                          <div className="relative">
-                            <Separator />
-                            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-[9px] font-bold text-muted-foreground/40">Atau Salin Tautan</span>
-                          </div>
-                          <div className="flex items-center gap-2 bg-muted/40 p-1 pl-3 rounded-xl border border-border/50">
-                            <p className="flex-1 text-[10px] text-muted-foreground truncate font-medium">
-                              {currentUrl}
-                            </p>
-                            <Button 
-                              size="sm" 
-                              onClick={handleCopyLink}
-                              className={cn(
-                                "h-7 px-3 rounded-lg text-[10px] font-bold shadow-none transition-all duration-300",
-                                copied ? "bg-green-500 text-white" : "bg-accent text-white"
-                              )}
-                            >
-                              {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
-                              {copied ? "Tersalin" : "Salin"}
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+                <ShareButton title={article.title} />
               </div>
             </div>
 
-            <aside className="lg:col-span-4 space-y-8">
-              <div className="sticky top-24">
-                <div className="flex items-center justify-between border-b pb-4 mb-6">
-                  <h2 className="text-xl font-extrabold tracking-tight text-primary">Berita Terbaru</h2>
-                  <Link href="/berita" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
-                    Lihat Semua
-                  </Link>
-                </div>
-
-                <div className="flex flex-col gap-6">
-                  {recentNews.map((recent) => {
-                    const img = PlaceHolderImages.find(item => item.id === recent.mainImgId)
-                    return (
-                      <motion.div
-                        key={recent.id}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Link href={`/berita/${recent.id}`} className="group flex gap-4 items-start">
-                          <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-muted border">
-                            {img?.imageUrl && (
-                              <Image 
-                                src={img.imageUrl} 
-                                alt={recent.title} 
-                                fill 
-                                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                              />
-                            )}
-                          </div>
-                          <div className="flex flex-col gap-1.5 flex-1">
-                            <div className="flex items-center gap-2">
-                              <span className="text-accent font-bold text-[10px] tracking-wider">{recent.category}</span>
-                            </div>
-                            <h3 className="text-sm font-bold leading-snug group-hover:text-accent transition-colors line-clamp-2">
-                              {recent.title}
-                            </h3>
-                            <div className="flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground/60">
-                              <Calendar className="h-3 w-3" /> {recent.date}
-                            </div>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    )
-                  })}
-                </div>
-
-                <div className="mt-12 p-6 rounded-2xl bg-muted/30 border border-muted-foreground/5 space-y-4">
-                  <h3 className="text-sm font-bold text-primary">Dapatkan Update Mingguan</h3>
-                  <p className="text-xs text-muted-foreground font-medium leading-relaxed">
-                    Berlangganan buletin kami untuk mendapatkan wawasan teknologi terbaru langsung di email Anda.
-                  </p>
-                  <div className="space-y-2">
-                    <input 
-                      type="email" 
-                      placeholder="Email Anda" 
-                      className="w-full bg-white border-muted-foreground/10 rounded-xl px-4 py-2 text-xs font-medium focus:outline-none focus:ring-1 focus:ring-accent"
-                    />
-                    <Button className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl text-xs font-bold h-9">
-                      Berlangganan
-                    </Button>
-                  </div>
-                </div>
-              </div>
+            <aside className="lg:col-span-4">
+              <RecentNews recentNews={recentNewsItems} />
             </aside>
           </div>
         </div>
