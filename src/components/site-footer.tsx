@@ -2,7 +2,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, MapPin, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
 
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()
@@ -23,7 +22,9 @@ export function SiteFooter() {
               />
               <div className="flex items-center">
                 <span className="text-accent font-black tracking-tight">BISUKMA</span>
-                <Badge className="ml-2 bg-primary/10 text-primary/80 text-[10px] px-1.5 py-0.5 h-auto border-none font-bold rounded-sm flex items-center justify-center">GROUP</Badge>
+                <span className="ml-1.5 bg-primary/5 text-primary/50 text-[7px] font-black px-1.5 py-0.5 rounded-[2px] leading-none tracking-widest flex items-center justify-center">
+                  GROUP
+                </span>
               </div>
             </Link>
             <p className="text-sm md:text-base text-muted-foreground/80 leading-relaxed max-w-sm font-medium">
