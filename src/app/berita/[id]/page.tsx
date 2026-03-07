@@ -13,8 +13,14 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
   const { id } = await params
   
   const article = articlesData.find(a => a.id === id) || articlesData[0]
-  const mainImage = PlaceHolderImages.find(img => img.id === article.mainImgId)
-  const recentNewsItems = articlesData.filter(a => a.id !== id).slice(0, 4)
+  const mainImage = PlaceHolderImages.find(img => img.id === article.featuredImage)
+  const recentNewsItems = articlesData.filter(a => a.id !== id).slice(0, 4).map(item => ({
+    id: item.id,
+    title: item.title,
+    date: item.publishDate,
+    category: item.category,
+    mainImgId: item.featuredImage
+  }))
 
   return (
     <div className="bg-white min-h-screen pb-20">
@@ -36,7 +42,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
             <div className="flex flex-wrap items-center gap-4 md:gap-6">
               <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
                 <Calendar className="h-3.5 w-3.5 text-accent" />
-                <span>{article.date}</span>
+                <span>{article.publishDate}</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium">
                 <User className="h-3.5 w-3.5 text-accent" />
@@ -67,14 +73,14 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ i
                     />
                   )}
                 </div>
-                {article.mainImgCaption && (
+                {article.featuredImageCaption && (
                   <p className="text-xs text-muted-foreground italic font-medium leading-relaxed px-1">
-                    {article.mainImgCaption}
+                    {article.featuredImageCaption}
                   </p>
                 )}
               </div>
 
-              {/* Render HTML Content Directly */}
+              {/* Render HTML Content Directly from the single 'content' field */}
               <div 
                 className="article-content prose prose-lg max-w-none text-muted-foreground leading-relaxed text-base md:text-lg mb-8"
                 dangerouslySetInnerHTML={{ __html: article.content }}

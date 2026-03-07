@@ -1,3 +1,4 @@
+
 'use client'
 
 import * as React from "react"
@@ -22,21 +23,16 @@ export default function BeritaPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const isMobile = useIsMobile()
-
-  // Unwrap params safely for Next.js 15
   const rawParams = React.use(searchParams)
 
-  // Use for...in loop to avoid proxy enumeration warnings in Turbopack
   const resolvedParams = React.useMemo(() => {
     const safeParams: Record<string, string> = {}
-
     if (typeof rawParams === "object" && rawParams !== null) {
       for (const key in rawParams) {
         const value = rawParams[key]
         safeParams[key] = Array.isArray(value) ? value[0] : value ?? ""
       }
     }
-
     return new URLSearchParams(safeParams)
   }, [rawParams])
 
@@ -65,7 +61,6 @@ export default function BeritaPage({
 
   return (
     <div className="pb-20 bg-white">
-      {/* Header Halaman */}
       <section className="bg-white pt-8 md:pt-12 pb-4">
         <motion.div 
           className="container mx-auto px-4"
@@ -85,7 +80,6 @@ export default function BeritaPage({
       </section>
 
       <section className="container mx-auto px-4 mt-6">
-        {/* Kontrol Navigasi Kategori & Pencarian */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div className="flex flex-wrap items-center gap-2">
             <Tabs 
@@ -156,14 +150,13 @@ export default function BeritaPage({
           </div>
         </div>
 
-        {/* Grid Daftar Berita */}
         <motion.div 
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
             {filteredArticles.map((article) => {
-              const img = PlaceHolderImages.find(item => item.id === article.mainImgId)
+              const img = PlaceHolderImages.find(item => item.id === article.featuredImage)
               return (
                 <motion.div
                   key={article.id}
@@ -200,7 +193,7 @@ export default function BeritaPage({
                     <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-muted/30 mt-4 pt-4">
                       <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <Calendar className="h-3.5 w-3.5 text-accent/70" /> {article.date}
+                          <Calendar className="h-3.5 w-3.5 text-accent/70" /> {article.publishDate}
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground">
                           <User className="h-3.5 w-3.5 text-accent/70" /> {article.author}
@@ -220,28 +213,6 @@ export default function BeritaPage({
             })}
           </AnimatePresence>
         </motion.div>
-        
-        {/* State Kosong */}
-        {filteredArticles.length === 0 && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="py-24 text-center space-y-4"
-          >
-            <div className="inline-flex p-6 rounded-full bg-muted/50 mb-2">
-              <SearchIcon className="h-6 w-6 text-muted-foreground/40" />
-            </div>
-            <p className="text-lg font-bold text-primary">Tidak ada hasil ditemukan</p>
-            <p className="text-muted-foreground text-sm max-w-xs mx-auto">Kami tidak dapat menemukan berita yang cocok dengan kriteria pencarian Anda.</p>
-            <Button 
-              variant="outline" 
-              onClick={() => {setSearchQuery(""); setActiveCategory("Semua")}} 
-              className="rounded-full mt-2 text-xs font-bold border-muted-foreground/20"
-            >
-              Atur ulang filter
-            </Button>
-          </motion.div>
-        )}
       </section>
     </div>
   )
