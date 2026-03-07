@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -105,7 +104,6 @@ export default function PendaftaranMitraPage() {
   const progressValue = parseInt(form.watch("progress") || "0")
 
   function nextStep() {
-    // Basic validation per step can be added here
     setCurrentStep((prev) => Math.min(prev + 1, 3))
   }
 
@@ -221,8 +219,8 @@ export default function PendaftaranMitraPage() {
                             name="fullName"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                  <User className="h-3.5 w-3.5" /> Nama Lengkap
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                  Nama Lengkap
                                 </FormLabel>
                                 <FormControl>
                                   <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
@@ -236,8 +234,8 @@ export default function PendaftaranMitraPage() {
                             name="companyName"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                  <Building2 className="h-3.5 w-3.5" /> Nama Perusahaan
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                  Nama Perusahaan
                                 </FormLabel>
                                 <FormControl>
                                   <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
@@ -253,8 +251,8 @@ export default function PendaftaranMitraPage() {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                  <Mail className="h-3.5 w-3.5" /> Email Resmi
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                  Email Resmi
                                 </FormLabel>
                                 <FormControl>
                                   <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
@@ -268,8 +266,8 @@ export default function PendaftaranMitraPage() {
                             name="phone"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                  <Phone className="h-3.5 w-3.5" /> No. Telepon
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                  No. Telepon
                                 </FormLabel>
                                 <FormControl>
                                   <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
@@ -296,7 +294,7 @@ export default function PendaftaranMitraPage() {
                             name="province"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
                                   Provinsi
                                 </FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -320,7 +318,7 @@ export default function PendaftaranMitraPage() {
                             name="city"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
                                   Kota/Kabupaten
                                 </FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -346,7 +344,7 @@ export default function PendaftaranMitraPage() {
                             name="district"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
                                   Kecamatan
                                 </FormLabel>
                                 <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
@@ -359,7 +357,7 @@ export default function PendaftaranMitraPage() {
                             name="village"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                <FormLabel className="font-semibold text-xs text-muted-foreground">
                                   Desa/Kelurahan
                                 </FormLabel>
                                 <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent" {...field} />
@@ -373,8 +371,8 @@ export default function PendaftaranMitraPage() {
                           name="hasBuilding"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                <Home className="h-3.5 w-3.5" /> Status Lahan
+                              <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                Status Lahan
                               </FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
@@ -447,8 +445,8 @@ export default function PendaftaranMitraPage() {
                               name="photo"
                               render={({ field: { value, onChange, ...field } }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                    <Paperclip className="h-3.5 w-3.5 text-accent" /> Foto Bangunan
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Foto Bangunan
                                   </FormLabel>
                                   <FormControl>
                                     <Input 
@@ -502,8 +500,8 @@ export default function PendaftaranMitraPage() {
                                   name="photo"
                                   render={({ field: { value, onChange, ...field } }) => (
                                     <FormItem>
-                                      <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                        <Paperclip className="h-3.5 w-3.5 text-accent" /> Lampirkan Foto Progres
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                        Lampirkan Foto Progres
                                       </FormLabel>
                                       <FormControl>
                                         <Input 
@@ -529,8 +527,8 @@ export default function PendaftaranMitraPage() {
                                   name="estimation"
                                   render={({ field }) => (
                                     <FormItem>
-                                      <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                        <Calendar className="h-3.5 w-3.5" /> Estimasi Pembangunan
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                        Estimasi Pembangunan
                                       </FormLabel>
                                       <FormControl>
                                         <Input placeholder="Kapan rencana mulai dibangun? (Contoh: Kuartal 3 2024)" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm" {...field} />
