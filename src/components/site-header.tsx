@@ -103,7 +103,7 @@ export function SiteHeader() {
           <div className="flex flex-1 md:w-1/4 shrink-0">
             <Link href="/" className="flex items-center gap-2 font-headline text-lg md:text-xl font-bold text-primary">
               <LayoutGrid className="h-5 w-5 text-accent" />
-              <span>Bisukma<span className="text-accent">Digital</span></span>
+              <span>Bisukma <span className="text-accent">Digital</span></span>
             </Link>
           </div>
 
