@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -18,11 +17,28 @@ import articles from "@/data/articles.json"
 
 const categories = ["Semua", "Teknologi", "Infrastruktur", "Keamanan", "Desain", "Event"]
 
-export default function BeritaPage() {
-  const [activeCategory, setActiveCategory] = React.useState("Semua")
+export default function BeritaPage({ 
+  searchParams 
+}: { 
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
+}) {
+  // Unwrap searchParams correctly for Next.js 15
+  const resolvedParams = React.use(searchParams)
+  const categoryFromQuery = typeof resolvedParams.category === 'string' ? resolvedParams.category : "Semua"
+
+  const [activeCategory, setActiveCategory] = React.useState(categoryFromQuery)
   const [searchQuery, setSearchQuery] = React.useState("")
   const [isExpanded, setIsExpanded] = React.useState(false)
   const isMobile = useIsMobile()
+
+  // Sync state if URL search param changes (e.g. from navigation header)
+  React.useEffect(() => {
+    if (typeof resolvedParams.category === 'string') {
+      setActiveCategory(resolvedParams.category)
+    } else {
+      setActiveCategory("Semua")
+    }
+  }, [resolvedParams.category])
 
   const filteredArticles = React.useMemo(() => {
     return articles.filter(article => {
@@ -121,7 +137,6 @@ export default function BeritaPage() {
             )}
           </div>
 
-          {/* Collapsible Content with Framer Motion for Smoothness */}
           <AnimatePresence>
             {isExpanded && isMobile && (
               <motion.div

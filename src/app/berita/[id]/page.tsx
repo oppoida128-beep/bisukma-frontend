@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import Link from "next/link"
 import { Calendar, User, Clock, ArrowLeft } from "lucide-react"
@@ -10,6 +9,7 @@ import RecentNews from "./RecentNews"
 import articlesData from "@/data/articles.json"
 
 export default async function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  // Safe unwrap for Next.js 15 Server Component
   const { id } = await params
   
   const article = articlesData.find(a => a.id === id) || articlesData[0]
