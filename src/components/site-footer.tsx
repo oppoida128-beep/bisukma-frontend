@@ -112,12 +112,12 @@ export function SiteFooter() {
         <Separator className="my-12 md:my-16 opacity-50" />
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-xs font-bold text-muted-foreground tracking-tight order-2 md:order-1">
+          <p className="text-xs font-medium text-muted-foreground/60 tracking-tight order-2 md:order-1">
             © {currentYear} Bisukma Digital. Seluruh Hak Cipta Dilindungi.
           </p>
           <div className="flex gap-8 order-1 md:order-2">
-            <Link href="#" className="text-xs font-bold text-muted-foreground hover:text-accent transition-colors">Kebijakan Privasi</Link>
-            <Link href="#" className="text-xs font-bold text-muted-foreground hover:text-accent transition-colors">Syarat & Ketentuan</Link>
+            <Link href="#" className="text-xs font-medium text-muted-foreground/60 hover:text-accent transition-colors">Kebijakan Privasi</Link>
+            <Link href="#" className="text-xs font-medium text-muted-foreground/60 hover:text-accent transition-colors">Syarat & Ketentuan</Link>
           </div>
         </div>
       </div>
