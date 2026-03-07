@@ -21,12 +21,21 @@ export default function BeritaPage({
 }: { 
   searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
 }) {
-  // Unwrap searchParams untuk Next.js 15
-  const resolvedParams = React.use(searchParams)
   const isMobile = useIsMobile()
 
+  // Solusi Final: Konversi ke URLSearchParams setelah React.use() untuk menghindari error enumerasi proxy Next.js 15
+  const rawParams = React.use(searchParams)
+  const resolvedParams = React.useMemo(() => {
+    // Kita ubah proxy asinkron menjadi plain object yang aman untuk di-enumerate
+    const plainParams = Object.entries(rawParams).reduce((acc, [key, value]) => {
+      acc[key] = Array.isArray(value) ? value[0] : (value ?? "")
+      return acc
+    }, {} as Record<string, string>)
+    return new URLSearchParams(plainParams)
+  }, [rawParams])
+
   // Ambil kategori awal dari query string atau default ke "Semua"
-  const categoryFromQuery = typeof resolvedParams.category === 'string' ? resolvedParams.category : "Semua"
+  const categoryFromQuery = resolvedParams.get("category") || "Semua"
 
   const [activeCategory, setActiveCategory] = React.useState(categoryFromQuery)
   const [searchQuery, setSearchQuery] = React.useState("")
@@ -34,12 +43,8 @@ export default function BeritaPage({
 
   // Sinkronisasi state jika URL berubah secara eksternal (misal dari navigasi header)
   React.useEffect(() => {
-    if (typeof resolvedParams.category === 'string') {
-      setActiveCategory(resolvedParams.category)
-    } else {
-      setActiveCategory("Semua")
-    }
-  }, [resolvedParams.category])
+    setActiveCategory(categoryFromQuery)
+  }, [categoryFromQuery])
 
   const filteredArticles = React.useMemo(() => {
     return articles.filter(article => {
@@ -190,11 +195,11 @@ export default function BeritaPage({
 
                     <CardFooter className="p-6 pt-0 flex items-center justify-between border-t border-muted/30 mt-4 pt-4">
                       <div className="flex flex-col gap-1">
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground/60">
-                          <Calendar className="h-3 w-3 text-accent/70" /> {article.date}
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Calendar className="h-3.5 w-3.5 text-accent/70" /> {article.date}
                         </div>
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground/60">
-                          <User className="h-3 w-3 text-accent/70" /> {article.author}
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <User className="h-3.5 w-3.5 text-accent/70" /> {article.author}
                         </div>
                       </div>
                       <Link 
