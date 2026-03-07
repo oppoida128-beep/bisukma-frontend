@@ -112,7 +112,7 @@ export function SiteHeader() {
               />
               <div className="flex items-center">
                 <span className="text-accent font-black tracking-tight">BISUKMA</span>
-                <span className="ml-1.5 bg-primary/5 text-primary/50 text-[7px] font-black px-1.5 py-1 rounded-[2px] leading-none tracking-widest flex items-center justify-center">
+                <span className="ml-1.5 bg-primary/5 text-primary/50 text-[7px] font-black px-1.5 py-1 rounded-full leading-none tracking-widest flex items-center justify-center">
                   GROUP
                 </span>
               </div>
