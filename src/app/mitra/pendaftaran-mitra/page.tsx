@@ -125,7 +125,7 @@ export default function PendaftaranMitraPage() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 -mt-8">
+      <section className="container mx-auto px-4 mt-12 md:mt-16">
         <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
