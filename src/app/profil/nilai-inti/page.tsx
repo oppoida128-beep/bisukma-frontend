@@ -88,11 +88,11 @@ export default function NilaiIntiPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Nilai Inti <span className="text-accent">BISUKMA GROUP</span>
+              Nilai Inti <span className="text-accent">Bisukma Group</span>
             </motion.h1>
             
             <motion.p 
-              className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto"
+              className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto font-medium"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -104,24 +104,24 @@ export default function NilaiIntiPage() {
       </section>
 
       {/* --- VALUES GRID --- */}
-      <section className="py-24 relative">
+      <section className="py-24 relative bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {values.map((val, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
               >
-                <Card className="h-full border border-muted shadow-none hover:border-accent/40 transition-all duration-500 group rounded-[2rem] bg-white overflow-hidden">
-                  <CardContent className="p-10 space-y-6">
-                    <div className={cn("inline-flex p-4 rounded-2xl transition-transform group-hover:scale-110 duration-500", val.color)}>
+                <Card className="h-full border border-muted shadow-none hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 group rounded-[2.5rem] bg-white overflow-hidden">
+                  <CardContent className="p-10 md:p-12 space-y-8">
+                    <div className={cn("inline-flex p-5 rounded-[1.5rem] transition-transform group-hover:scale-110 duration-500 shadow-sm", val.color)}>
                       {val.icon}
                     </div>
-                    <div className="space-y-3">
-                      <h3 className="text-2xl font-black text-primary tracking-tight">{val.title}</h3>
+                    <div className="space-y-4">
+                      <h3 className="text-2xl font-black text-primary tracking-tight leading-tight">{val.title}</h3>
                       <p className="text-muted-foreground leading-relaxed font-medium text-sm md:text-base">
                         {val.desc}
                       </p>
@@ -137,7 +137,10 @@ export default function NilaiIntiPage() {
       {/* --- CULTURE SECTION --- */}
       <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto bg-white rounded-[3rem] p-8 md:p-20 shadow-2xl shadow-primary/5 border border-white flex flex-col md:flex-row items-center gap-12">
+          <motion.div 
+            className="max-w-5xl mx-auto bg-white rounded-[3rem] p-8 md:p-20 shadow-2xl shadow-primary/5 border border-white flex flex-col md:flex-row items-center gap-12"
+            {...fadeIn}
+          >
             <div className="relative size-48 md:size-64 shrink-0">
               <Image 
                 src="/layanan-assets/2.svg" 
@@ -151,22 +154,20 @@ export default function NilaiIntiPage() {
               <p className="text-lg text-muted-foreground leading-relaxed font-medium">
                 Di Bisukma Group, nilai-nilai ini bukanlah sekadar teks di dinding kantor. Mereka adalah DNA yang mengalir dalam setiap proyek dan keputusan yang kami ambil. Kami bangga membangun tempat kerja yang inklusif, inovatif, dan penuh integritas.
               </p>
-              <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="size-2 rounded-full bg-accent"></div>
-                  <span className="text-xs font-bold text-primary/60">Transparansi</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="size-2 rounded-full bg-accent"></div>
-                  <span className="text-xs font-bold text-primary/60">Dedikasi</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="size-2 rounded-full bg-accent"></div>
-                  <span className="text-xs font-bold text-primary/60">Empati</span>
-                </div>
+              <div className="flex flex-wrap justify-center md:justify-start gap-6 pt-2">
+                {[
+                  "Transparansi",
+                  "Dedikasi",
+                  "Empati"
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2">
+                    <div className="size-2 rounded-full bg-accent"></div>
+                    <span className="text-xs font-bold text-primary/60 tracking-wider uppercase">{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
