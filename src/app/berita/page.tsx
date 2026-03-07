@@ -23,10 +23,10 @@ export default function BeritaPage({
 }) {
   const isMobile = useIsMobile()
 
-  // ✅ Unwrap proxy safely
+  // Unwrap params safely for Next.js 15
   const rawParams = React.use(searchParams)
 
-  // ✅ Convert to URLSearchParams using for...in loop to avoid enumeration warnings in Turbopack
+  // Use for...in loop to avoid proxy enumeration warnings in Turbopack
   const resolvedParams = React.useMemo(() => {
     const safeParams: Record<string, string> = {}
 

@@ -141,8 +141,8 @@ export default function PendaftaranMitraPage() {
                         name="fullName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
-                              <User className="h-3 w-3" /> Nama Lengkap
+                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                              <User className="h-3.5 w-3.5" /> Nama Lengkap
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -156,8 +156,8 @@ export default function PendaftaranMitraPage() {
                         name="companyName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Building2 className="h-3 w-3" /> Nama Perusahaan / Instansi
+                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                              <Building2 className="h-3.5 w-3.5" /> Nama Perusahaan / Instansi
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -174,8 +174,8 @@ export default function PendaftaranMitraPage() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Mail className="h-3 w-3" /> Alamat Email Resmi
+                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                              <Mail className="h-3.5 w-3.5" /> Alamat Email Resmi
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -189,8 +189,8 @@ export default function PendaftaranMitraPage() {
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
-                              <Phone className="h-3 w-3" /> Nomor Telepon / WhatsApp
+                            <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                              <Phone className="h-3.5 w-3.5" /> Nomor Telepon / WhatsApp
                             </FormLabel>
                             <FormControl>
                               <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-muted/30 focus:bg-white h-12 text-sm" {...field} />
@@ -206,8 +206,8 @@ export default function PendaftaranMitraPage() {
                       name="category"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground flex items-center gap-2">
-                            <LayoutGrid className="h-3 w-3" /> Kategori Kemitraan
+                          <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                            <LayoutGrid className="h-3.5 w-3.5" /> Kategori Kemitraan
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
@@ -233,7 +233,7 @@ export default function PendaftaranMitraPage() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-bold text-[10px] tracking-widest text-muted-foreground">Deskripsi Rencana Kolaborasi</FormLabel>
+                          <FormLabel className="font-semibold text-xs text-muted-foreground">Deskripsi Rencana Kolaborasi</FormLabel>
                           <FormControl>
                             <Textarea 
                               placeholder="Ceritakan singkat rencana kerja sama Anda dengan Bisukma Digital..." 
@@ -249,7 +249,7 @@ export default function PendaftaranMitraPage() {
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-14 shadow-xl shadow-accent/20 transition-all text-sm tracking-wider border-none"
+                      className="w-full bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-14 shadow-xl shadow-accent/20 transition-all text-sm border-none"
                     >
                       {isSubmitting ? (
                         <>
@@ -294,7 +294,7 @@ export default function PendaftaranMitraPage() {
                 Jika Anda mengalami kendala dalam proses pendaftaran online, silakan hubungi tim kemitraan kami melalui email resmi.
               </p>
               <div className="pt-2">
-                <p className="text-xs font-bold text-accent uppercase tracking-widest">Email kemitraan</p>
+                <p className="text-xs font-bold text-accent">Email kemitraan</p>
                 <p className="text-primary font-extrabold">bisukmafoundation@gmail.com</p>
               </div>
             </div>

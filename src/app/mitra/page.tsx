@@ -68,7 +68,7 @@ export default function MitraPage() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex justify-center mb-6"
           >
-            <Badge variant="outline" className="border-accent/50 text-accent px-4 py-1.5 rounded-full tracking-widest text-[10px] font-bold">
+            <Badge variant="outline" className="border-accent/50 text-accent px-4 py-1.5 rounded-full text-[10px] font-bold">
               Kolaborasi Strategis
             </Badge>
           </motion.div>
@@ -104,7 +104,7 @@ export default function MitraPage() {
       <section className="py-20 border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.2em] mb-2">Telah Berkolaborasi Bersama</p>
+            <p className="text-xs font-bold text-muted-foreground mb-2">Telah Berkolaborasi Bersama</p>
             <h2 className="text-2xl font-extrabold text-primary">Jaringan Kemitraan Kami</h2>
           </div>
           
@@ -157,7 +157,7 @@ export default function MitraPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <Badge className="bg-accent/10 text-accent border-none px-4 py-1 text-xs font-bold tracking-widest">Manfaat Kemitraan</Badge>
+                <Badge className="bg-accent/10 text-accent border-none px-4 py-1 text-xs font-bold">Manfaat Kemitraan</Badge>
                 <h2 className="text-3xl md:text-5xl font-black text-primary leading-tight">Mengapa Menjadi Mitra <br /><span className="text-accent">Bisukma Digital?</span></h2>
                 <p className="text-muted-foreground text-lg font-medium leading-relaxed">Kami memberikan dukungan penuh bagi setiap mitra untuk tumbuh dan berkembang bersama dalam ekosistem yang sehat.</p>
               </div>
@@ -188,7 +188,7 @@ export default function MitraPage() {
                     <Handshake className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Bergabung Sekarang</p>
+                    <p className="text-xs font-bold text-muted-foreground">Bergabung Sekarang</p>
                     <p className="text-lg font-black text-primary">Jadilah Bagian Dari Perubahan.</p>
                   </div>
                 </div>
