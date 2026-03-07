@@ -28,7 +28,7 @@ const articlesData = [
     contentPart1: `Kecerdasan Buatan (AI) bukan lagi sekadar tren teknologi, melainkan fondasi baru bagi efisiensi operasional bisnis. Di tahun 2024, kita melihat pergeseran dari sekadar eksperimen menjadi integrasi penuh dalam proses pengambilan keputusan. 
     
     Bisukma Digital berkomitmen untuk menjembatani kesenjangan teknologi ini dengan menghadirkan solusi cerdas yang dapat diadaptasi oleh berbagai skala industri. Dengan pemanfaatan model bahasa besar dan analitik prediktif, perusahaan dapat menghemat waktu hingga 40% dalam tugas-tugas administratif yang repetitif.`,
-    contentPart2: `Ke depannya, fokus utama akan beralih pada etika penggunaan AI dan keamanan data. Kami percaya bahwa transparansi adalah kunci dalam membangun kepercayaan antara penyedia teknologi dan pengguna akhir. Melalui pendekatan yang berpusat pada manusia, AI akan menjadi mitra pendamping yang memperkuat kapabilitas tim Anda, bukan menggantikannya.`,
+    contentPart2: `Ke depannya, fokus utama akan beralih pada etika penggunaan AI dan keamanan data. Kami percaya bahwa transparansi adalah kunci dalam membangun kepercayaan antara penyedia teknologi and pengguna akhir. Melalui pendekatan yang berpusat pada manusia, AI akan menjadi mitra pendamping yang memperkuat kapabilitas tim Anda, bukan menggantikannya.`,
     date: "12 Mei 2024",
     author: "Budi Santoso",
     category: "Teknologi",
@@ -65,7 +65,7 @@ const articlesData = [
   {
     id: "news-4",
     title: "Trend Desain UI/UX Yang Dominan Di Tahun Ini",
-    excerpt: "Eksplorasi estetika desain minimalis dan fungsional yang memberikan pengalaman pengguna terbaik di perangkat mobile.",
+    excerpt: "Eksplorasi estetika desain minimalis and fungsional yang memberikan pengalaman pengguna terbaik di perangkat mobile.",
     contentPart1: "Desain yang baik adalah desain yang tidak terlihat. Tahun ini, fokus utama UI/UX adalah pada inklusivitas dan aksesibilitas, memastikan aplikasi dapat digunakan oleh siapa saja dengan mudah.",
     contentPart2: "Penggunaan mikro-interaksi yang halus dan tipografi yang berani menjadi kunci untuk menarik perhatian pengguna tanpa membuat mereka merasa kewalahan.",
     date: "01 Mei 2024",
@@ -78,7 +78,7 @@ const articlesData = [
   {
     id: "news-5",
     title: "Implementasi Blockchain Untuk Supply Chain",
-    excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah dan aman dengan pemanfaatan teknologi buku besar terdistribusi.",
+    excerpt: "Transparansi dan pelacakan aset menjadi lebih mudah and aman dengan pemanfaatan teknologi buku besar terdistribusi.",
     contentPart1: "Blockchain memberikan tingkat transparansi yang belum pernah ada sebelumnya dalam rantai pasok global. Setiap perpindahan barang tercatat secara permanen dan tidak dapat diubah.",
     contentPart2: "Ini membantu produsen dan konsumen untuk melacak asal-usul produk mereka, memastikan keaslian, dan meningkatkan kepercayaan di seluruh ekosistem bisnis.",
     date: "28 April 2024",
@@ -93,7 +93,7 @@ const articlesData = [
     title: "Event Bisukma Digital Conference 2024",
     excerpt: "Rangkuman keseruan acara tahunan kami yang dihadiri oleh ratusan pemimpin industri dan pakar teknologi ternama.",
     contentPart1: "Konferensi tahun ini merupakan yang terbesar sepanjang sejarah Bisukma. Kami menghadirkan lebih dari 20 pembicara internasional yang berbagi wawasan tentang masa depan teknologi di Indonesia.",
-    contentPart2: "Terima kasih kepada seluruh mitra dan peserta yang telah hadir. Kami berharap wawasan yang didapatkan dapat menjadi katalisator bagi transformasi digital di perusahaan masing-masing.",
+    contentPart2: "Terima kasih kepada seluruh mitra and peserta yang telah hadir. Kami berharap wawasan yang didapatkan dapat menjadi katalisator bagi transformasi digital di perusahaan masing-masing.",
     date: "20 April 2024",
     author: "Admin Bisukma",
     category: "Event",
@@ -160,17 +160,17 @@ export default function BeritaDetailPage() {
               {article.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-xs text-muted-foreground">
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-accent" />
+                <Calendar className="h-3.5 w-3.5 text-accent" />
                 <span>{article.date}</span>
               </div>
               <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-accent" />
+                <User className="h-3.5 w-3.5 text-accent" />
                 <span>oleh {article.author}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-accent" />
+                <Clock className="h-3.5 w-3.5 text-accent" />
                 <span>5 Menit Baca</span>
               </div>
             </div>
@@ -353,13 +353,13 @@ export default function BeritaDetailPage() {
                           </div>
                           <div className="flex flex-col gap-1.5 flex-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-accent font-bold text-[10px] uppercase tracking-wider">{recent.category}</span>
+                              <span className="text-accent font-bold text-[10px] tracking-wider">{recent.category}</span>
                             </div>
                             <h3 className="text-sm font-bold leading-snug group-hover:text-accent transition-colors line-clamp-2">
                               {recent.title}
                             </h3>
-                            <div className="flex items-center gap-1.5 text-[9px] font-bold text-muted-foreground/60 uppercase">
-                              <Calendar className="h-2.5 w-2.5" /> {recent.date}
+                            <div className="flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground/60">
+                              <Calendar className="h-3 w-3" /> {recent.date}
                             </div>
                           </div>
                         </Link>

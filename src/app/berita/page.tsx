@@ -103,7 +103,7 @@ export default function BeritaPage() {
         >
           <div className="max-w-4xl space-y-4">
             <h1 className="text-3xl md:text-5xl font-black text-left tracking-tight">
-              Berita & <span className="text-accent">update</span>
+              Berita & <span className="text-accent">Update</span>
             </h1>
             <p className="text-left text-sm md:text-lg text-muted-foreground font-medium max-w-2xl leading-relaxed">
               Wawasan terbaru seputar teknologi, tren industri, dan kabar terkini dari Bisukma Digital.
@@ -241,9 +241,9 @@ export default function BeritaPage() {
                       </Badge>
                     </CardHeader>
                     <CardContent className="p-6 md:p-8 space-y-4 flex-1">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-accent" /> {article.date}</span>
-                        <span className="flex items-center gap-1.5"><User className="h-4 w-4 text-accent" /> {article.author}</span>
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5 text-accent" /> {article.date}</span>
+                        <span className="flex items-center gap-1.5"><User className="h-3.5 w-3.5 text-accent" /> {article.author}</span>
                       </div>
                       <h3 className="text-lg md:text-xl font-extrabold leading-tight group-hover:text-accent transition-colors">
                         {article.title}
