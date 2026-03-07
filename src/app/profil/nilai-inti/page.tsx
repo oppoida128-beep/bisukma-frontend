@@ -4,6 +4,7 @@ import * as React from "react"
 import { Award, Shield, Users, Target, Zap, Heart } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 export default function NilaiIntiPage() {
   const fadeIn = {
