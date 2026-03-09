@@ -141,7 +141,7 @@ export default function PendaftaranMitraPage() {
             <h1 className="text-3xl font-black text-primary tracking-tight">Terima Kasih!</h1>
             <p className="text-muted-foreground font-medium">Pendaftaran kemitraan Anda telah kami terima. Mohon tunggu kabar selanjutnya dari tim strategis Bisukma.</p>
           </div>
-          <Button asChild className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold px-8 h-12 border-none">
+          <Button asChild className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold px-8 h-10 border-none">
             <Link href="/mitra">Kembali ke halaman mitra</Link>
           </Button>
         </motion.div>
@@ -591,7 +591,7 @@ export default function PendaftaranMitraPage() {
                       onClick={prevStep}
                       disabled={currentStep === 1}
                       className={cn(
-                        "rounded-xl font-bold h-12 px-6",
+                        "rounded-xl font-bold h-10 px-4",
                         currentStep === 1 && "opacity-0 pointer-events-none"
                       )}
                     >
@@ -603,7 +603,7 @@ export default function PendaftaranMitraPage() {
                       <Button
                         type="button"
                         onClick={nextStep}
-                        className="bg-primary hover:bg-primary/90 text-white rounded-xl font-bold h-12 px-8"
+                        className="bg-primary hover:bg-primary/90 text-white rounded-xl font-bold h-10 px-6"
                       >
                         Selanjutnya
                         <ChevronRight className="ml-2 h-4 w-4" />
@@ -612,7 +612,7 @@ export default function PendaftaranMitraPage() {
                       <Button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-12 px-10 shadow-lg shadow-accent/20 border-none"
+                        className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-10 px-8 shadow-lg shadow-accent/20 border-none"
                       >
                         {isSubmitting ? (
                           <>
