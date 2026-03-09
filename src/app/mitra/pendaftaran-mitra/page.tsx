@@ -260,7 +260,7 @@ export default function PendaftaranMitraPage() {
                                   Nama Lengkap
                                 </FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -275,7 +275,7 @@ export default function PendaftaranMitraPage() {
                                   Nama Perusahaan
                                 </FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -292,7 +292,7 @@ export default function PendaftaranMitraPage() {
                                   Email Resmi
                                 </FormLabel>
                                 <FormControl>
-                                  <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -307,7 +307,7 @@ export default function PendaftaranMitraPage() {
                                   No. Telepon
                                 </FormLabel>
                                 <FormControl>
-                                  <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -336,7 +336,7 @@ export default function PendaftaranMitraPage() {
                                 </FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                   <FormControl>
-                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus:ring-accent focus:ring-2">
+                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
                                       <SelectValue placeholder="Pilih Provinsi" />
                                     </SelectTrigger>
                                   </FormControl>
@@ -360,7 +360,7 @@ export default function PendaftaranMitraPage() {
                                 </FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                   <FormControl>
-                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus:ring-accent focus:ring-2">
+                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
                                       <SelectValue placeholder="Pilih Kota/Kabupaten" />
                                     </SelectTrigger>
                                   </FormControl>
@@ -384,7 +384,7 @@ export default function PendaftaranMitraPage() {
                                 <FormLabel className="font-semibold text-xs text-muted-foreground">
                                   Kecamatan
                                 </FormLabel>
-                                <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -397,7 +397,7 @@ export default function PendaftaranMitraPage() {
                                 <FormLabel className="font-semibold text-xs text-muted-foreground">
                                   Desa/Kelurahan
                                 </FormLabel>
-                                <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                 <FormMessage />
                               </FormItem>
                             )}
@@ -413,7 +413,7 @@ export default function PendaftaranMitraPage() {
                               </FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus:ring-accent focus:ring-2">
+                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
                                     <SelectValue placeholder="Apakah sudah ada bangunan di lahan tersebut?" />
                                   </SelectTrigger>
                                 </FormControl>
@@ -447,7 +447,7 @@ export default function PendaftaranMitraPage() {
                                   <FormItem>
                                     <FormLabel className="font-semibold text-xs text-muted-foreground">Ukuran Bangunan (m2)</FormLabel>
                                     <FormControl>
-                                      <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm shadow-none" {...field} />
+                                      <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                   </FormItem>
@@ -461,7 +461,7 @@ export default function PendaftaranMitraPage() {
                                     <FormLabel className="font-semibold text-xs text-muted-foreground">Jenis Bangunan</FormLabel>
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                       <FormControl>
-                                        <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus:ring-accent focus:ring-2">
+                                        <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
                                           <SelectValue placeholder="Pilih tipe" />
                                         </SelectTrigger>
                                       </FormControl>
@@ -490,7 +490,7 @@ export default function PendaftaranMitraPage() {
                                       type="file" 
                                       accept="image/*"
                                       onChange={(e) => onChange(e.target.files?.[0])}
-                                      className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm cursor-pointer pt-3 shadow-none" 
+                                      className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm cursor-pointer pt-2 shadow-none" 
                                       {...field} 
                                     />
                                   </FormControl>
@@ -546,7 +546,7 @@ export default function PendaftaranMitraPage() {
                                           type="file" 
                                           accept="image/*"
                                           onChange={(e) => onChange(e.target.files?.[0])}
-                                          className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm cursor-pointer pt-3 shadow-none" 
+                                          className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm cursor-pointer pt-2 shadow-none" 
                                           {...field} 
                                         />
                                       </FormControl>
@@ -570,7 +570,7 @@ export default function PendaftaranMitraPage() {
                                         Estimasi Pembangunan
                                       </FormLabel>
                                       <FormControl>
-                                        <Input placeholder="Kapan rencana mulai dibangun? (Contoh: Kuartal 3 2024)" className="rounded-xl border-muted-foreground/10 bg-white h-12 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                        <Input placeholder="Kapan rencana mulai dibangun? (Contoh: Kuartal 3 2024)" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                       </FormControl>
                                       <FormMessage />
                                     </FormItem>
