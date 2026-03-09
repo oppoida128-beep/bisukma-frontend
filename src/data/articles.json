@@ -1,11 +1,10 @@
-
 [
   {
     "id": "news-1",
     "title": "Masa Depan AI Dalam Transformasi Bisnis 2024",
     "slug": "masa-depan-ai-2024",
     "excerpt": "Bagaimana kecerdasan buatan mengubah cara kita bekerja dan mengelola operasi bisnis sehari-hari secara otomatis.",
-    "content": "<p>Kecerdasan Buatan (AI) bukan lagi sekadar tren teknologi, melainkan fondasi baru bagi efisiensi operasional bisnis. Di tahun 2024, kita melihat pergeseran dari sekadar eksperimen menjadi integrasi penuh dalam proses pengambilan keputusan.</p>\n\n<p>Bisukma Digital berkomitmen untuk menjembatani kesenjangan teknologi ini dengan menghadirkan solusi cerdas yang dapat diadaptasi oleh berbagai skala industri. Dengan pemanfaatan model bahasa besar dan analitik prediktif, perusahaan dapat menghemat waktu hingga 40% dalam tugas-tugas administratif yang repetitif.</p>\n\n<img src=\"https://picsum.photos/seed/ai-dev/1200/800\" alt=\"AI Development\" />\n\n<p>Ke depannya, fokus utama akan beralih pada etika penggunaan AI dan keamanan data. Kami percaya bahwa transparansi adalah kunci dalam membangun kepercayaan antara penyedia teknologi dan pengguna akhir. Melalui pendekatan yang berocust pada manusia, AI akan menjadi mitra pendamping yang memperkuat kapabilitas tim Anda, bukan menggantikannya.</p>",
+    "content": "<p>Kecerdasan Buatan (AI) bukan lagi sekadar tren teknologi, melainkan fondasi baru bagi efisiensi operasional bisnis. Di tahun 2024, kita melihat pergeseran dari sekadar eksperimen menjadi integrasi penuh dalam proses pengambilan keputusan.</p>\n\n<p>Bisukma Digital berkomitmen untuk menjembatani kesenjangan teknologi ini dengan menghadirkan solusi cerdas yang dapat diadaptasi oleh berbagai skala industri. Dengan pemanfaatan model bahasa besar dan analitik prediktif, perusahaan dapat menghemat waktu hingga 40% dalam tugas-tugas administratif yang repetitif.</p>\n\n<figure>\n  <img src=\"https://picsum.photos/seed/ai-dev/1200/800\" alt=\"AI Development\" />\n  <figcaption>Penerapan teknologi kecerdasan buatan dalam memproses data besar secara real-time di pusat operasi Bisukma Digital.</figcaption>\n</figure>\n\n<p>Ke depannya, fokus utama akan beralih pada etika penggunaan AI dan keamanan data. Kami percaya bahwa transparansi adalah kunci dalam membangun kepercayaan antara penyedia teknologi dan pengguna akhir. Melalui pendekatan yang berocust pada manusia, AI akan menjadi mitra pendamping yang memperkuat kapabilitas tim Anda, bukan menggantikannya.</p>",
     "publishDate": "12 Mei 2024",
     "author": "Budi Santoso",
     "category": "Teknologi",
@@ -21,7 +20,7 @@
     "title": "Strategi Cloud Computing Untuk Startup Berkembang",
     "slug": "strategi-cloud-startup",
     "excerpt": "Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif.",
-    "content": "<p>Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif. Dengan model pay-as-you-go, perusahaan baru dapat mengelola anggaran dengan lebih fleksibel tanpa mengorbankan performa sistem.</p>\n\n<img src=\"https://picsum.photos/seed/cloud-infra/1200/800\" alt=\"Cloud Infrastructure\" />\n\n<p>Selain efisiensi biaya, keamanan data di cloud juga menjadi prioritas utama. Implementasi sistem backup otomatis dan enkripsi end-to-end akan memberikan rasa aman bagi pelanggan startup dalam menitipkan data mereka.</p>",
+    "content": "<p>Memilih infrastruktur cloud yang tepat adalah kunci skalabilitas bagi startup yang baru memasuki pasar kompetitif. Dengan model pay-as-you-go, perusahaan baru dapat mengelola anggaran dengan lebih fleksibel tanpa mengorbankan performa sistem.</p>\n\n<figure>\n  <img src=\"https://picsum.photos/seed/cloud-infra/1200/800\" alt=\"Cloud Infrastructure\" />\n  <figcaption>Infrastruktur cloud yang skalabel memungkinkan startup untuk tumbuh tanpa hambatan teknis yang berarti.</figcaption>\n</figure>\n\n<p>Selain efisiensi biaya, keamanan data di cloud juga menjadi prioritas utama. Implementasi sistem backup otomatis dan enkripsi end-to-end akan memberikan rasa aman bagi pelanggan startup dalam menitipkan data mereka.</p>",
     "publishDate": "10 Mei 2024",
     "author": "Siti Aminah",
     "category": "Infrastruktur",
