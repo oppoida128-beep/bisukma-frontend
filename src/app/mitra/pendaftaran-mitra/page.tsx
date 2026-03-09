@@ -10,8 +10,6 @@ import {
   Loader2, 
   ArrowLeft, 
   CheckCircle2, 
-  Mail, 
-  Phone, 
   User,
   MapPin,
   Home,
@@ -49,19 +47,14 @@ interface Region {
 }
 
 const pendaftaranSchema = z.object({
-  // Step 1: Data Diri
   fullName: z.string().min(2, { message: "Nama lengkap minimal 2 karakter." }),
   email: z.string().email({ message: "Format email tidak valid." }),
   phone: z.string().min(10, { message: "Nomor telepon tidak valid." }),
-  
-  // Step 2: Lokasi
   province: z.string().min(1, { message: "Pilih provinsi." }),
   city: z.string().min(1, { message: "Pilih kota/kabupaten." }),
   district: z.string().min(1, { message: "Pilih kecamatan." }),
   village: z.string().min(1, { message: "Pilih desa/kelurahan." }),
-  hasBuilding: z.string().min(1, { message: "Pilih status bangunan." }),
-
-  // Step 3: Detail Bangunan (Conditional)
+  hasBuilding: z.string().min(1, { message: "Pilih status lahan." }),
   buildingSize: z.string().optional(),
   buildingType: z.string().optional(),
   progress: z.string().optional(),
@@ -83,7 +76,6 @@ export default function PendaftaranMitraPage() {
   const [isSuccess, setIsSuccess] = React.useState(false)
   const { toast } = useToast()
 
-  // States for regional data
   const [provinces, setProvinces] = React.useState<Region[]>([])
   const [cities, setCities] = React.useState<Region[]>([])
   const [districts, setDistricts] = React.useState<Region[]>([])
@@ -109,50 +101,45 @@ export default function PendaftaranMitraPage() {
 
   const hasBuilding = form.watch("hasBuilding")
   const progressValue = parseInt(form.watch("progress") || "0")
-  
   const selectedProvince = form.watch("province")
   const selectedCity = form.watch("city")
   const selectedDistrict = form.watch("district")
 
-  // Fetch Provinces on mount
   React.useEffect(() => {
     fetch("/data_wilayah/provinces.json")
-      .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+      .then(res => res.ok ? res.json() : Promise.reject("Data provinsi tidak ditemukan"))
       .then(data => setProvinces(data))
       .catch(err => console.error("Error fetching provinces:", err))
   }, [])
 
-  // Fetch Cities when province changes
   React.useEffect(() => {
     if (selectedProvince) {
       fetch(`/data_wilayah/regencies/${selectedProvince}.json`)
-        .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+        .then(res => res.ok ? res.json() : Promise.reject("Data kota tidak ditemukan"))
         .then(data => setCities(data))
-        .catch(err => setCities([]))
+        .catch(() => setCities([]))
     } else {
       setCities([])
     }
   }, [selectedProvince])
 
-  // Fetch Districts when city changes
   React.useEffect(() => {
     if (selectedCity) {
       fetch(`/data_wilayah/districts/${selectedCity}.json`)
-        .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+        .then(res => res.ok ? res.json() : Promise.reject("Data kecamatan tidak ditemukan"))
         .then(data => setDistricts(data))
-        .catch(err => setDistricts([]))
+        .catch(() => setDistricts([]))
     } else {
       setDistricts([])
     }
   }, [selectedCity])
 
-  // Fetch Villages when district changes
   React.useEffect(() => {
     if (selectedDistrict) {
       fetch(`/data_wilayah/villages/${selectedDistrict}.json`)
-        .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+        .then(res => res.ok ? res.json() : Promise.reject("Data desa tidak ditemukan"))
         .then(data => setVillages(data))
-        .catch(err => setVillages([]))
+        .catch(() => setVillages([]))
     } else {
       setVillages([])
     }
@@ -168,15 +155,13 @@ export default function PendaftaranMitraPage() {
 
   function onSubmit(data: PendaftaranFormValues) {
     setIsSubmitting(true)
-    
     setTimeout(() => {
-      console.log("Partner Registration Full Data:", data)
+      console.log("Partner Registration Data:", data)
       setIsSubmitting(false)
       setIsSuccess(true)
-      
       toast({
-        title: "Pendaftaran Berhasil Terkirim",
-        description: "Data kemitraan strategis Anda telah kami terima.",
+        title: "Pendaftaran Berhasil",
+        description: "Terima kasih, data kemitraan Anda telah kami terima.",
       })
     }, 2000)
   }
@@ -194,7 +179,7 @@ export default function PendaftaranMitraPage() {
           </div>
           <div className="space-y-2">
             <h1 className="text-3xl font-black text-primary tracking-tight">Terima Kasih!</h1>
-            <p className="text-muted-foreground font-medium">Pendaftaran kemitraan Anda telah kami terima. Mohon tunggu kabar selanjutnya dari tim strategis Bisukma.</p>
+            <p className="text-muted-foreground font-medium">Pendaftaran kemitraan Anda telah kami terima. Mohon tunggu kabar selanjutnya dari tim Bisukma.</p>
           </div>
           <Button asChild className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold px-8 h-10 border-none">
             <Link href="/mitra">Kembali ke halaman mitra</Link>
@@ -218,7 +203,7 @@ export default function PendaftaranMitraPage() {
               Pendaftaran Mitra <span className="text-accent italic font-medium">Strategis</span>
             </h1>
             <p className="text-white/60 text-sm md:text-base font-medium leading-relaxed max-w-lg">
-              Bergabunglah dalam ekosistem digital Bisukma Group. Silakan lengkapi formulir pendaftaran 3 tahap di bawah ini.
+              Lengkapi formulir 3 tahap di bawah ini untuk bergabung dalam ekosistem Bisukma Group.
             </p>
           </div>
         </div>
@@ -226,33 +211,34 @@ export default function PendaftaranMitraPage() {
 
       <section className="container mx-auto px-4 mt-12 md:mt-16">
         <div className="max-w-4xl mx-auto">
-          {/* Progress Indicator */}
+          {/* Custom Animated Progress Indicator */}
           <div className="mb-16">
-            <div className="flex items-start justify-between max-w-2xl mx-auto">
+            <div className="flex items-center justify-between max-w-2xl mx-auto relative">
               {steps.map((step, index) => (
                 <React.Fragment key={step.id}>
-                  <div className="flex flex-col items-center gap-3 relative group">
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        backgroundColor: currentStep >= step.id ? "hsl(var(--accent))" : "white",
-                        borderColor: currentStep >= step.id ? "hsl(var(--accent))" : "hsl(var(--muted))",
-                        scale: currentStep === step.id ? 1.1 : 1,
-                      }}
-                      className={cn(
-                        "w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-500 shadow-sm z-10 relative",
-                        currentStep === step.id && "shadow-lg shadow-accent/20"
-                      )}
-                    >
-                      {currentStep > step.id ? (
-                        <CheckCircle2 className="h-6 w-6 text-white" />
-                      ) : (
-                        <step.icon className={cn(
-                          "h-5 w-5 transition-colors duration-500",
-                          currentStep >= step.id ? "text-white" : "text-muted-foreground"
-                        )} />
-                      )}
-
+                  <div className="flex flex-col items-center gap-3 relative z-10">
+                    <div className="relative">
+                      <motion.div
+                        initial={false}
+                        animate={{
+                          backgroundColor: currentStep >= step.id ? "hsl(var(--accent))" : "white",
+                          borderColor: currentStep >= step.id ? "hsl(var(--accent))" : "hsl(var(--muted))",
+                        }}
+                        className={cn(
+                          "w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-500 shadow-sm",
+                          currentStep === step.id && "shadow-lg shadow-accent/20"
+                        )}
+                      >
+                        {currentStep > step.id ? (
+                          <CheckCircle2 className="h-6 w-6 text-white" />
+                        ) : (
+                          <step.icon className={cn(
+                            "h-5 w-5 transition-colors duration-500",
+                            currentStep >= step.id ? "text-white" : "text-muted-foreground"
+                          )} />
+                        )}
+                      </motion.div>
+                      
                       {currentStep === step.id && (
                         <motion.div
                           className="absolute inset-0 rounded-full bg-accent/20 -z-10"
@@ -261,8 +247,7 @@ export default function PendaftaranMitraPage() {
                           transition={{ repeat: Infinity, duration: 2, repeatType: "reverse" }}
                         />
                       )}
-                    </motion.div>
-                    
+                    </div>
                     <span className={cn(
                       "text-xs font-medium transition-colors duration-500",
                       currentStep >= step.id ? "text-primary" : "text-muted-foreground"
@@ -272,7 +257,7 @@ export default function PendaftaranMitraPage() {
                   </div>
 
                   {index < steps.length - 1 && (
-                    <div className="flex-1 mx-4 md:mx-8 h-[2px] bg-muted rounded-full overflow-hidden relative min-w-[40px] mt-6">
+                    <div className="flex-1 mx-4 md:mx-8 h-[2px] bg-muted rounded-full overflow-hidden relative min-w-[40px] mt-[-20px] self-center">
                       <motion.div
                         initial={false}
                         animate={{
@@ -303,7 +288,7 @@ export default function PendaftaranMitraPage() {
                       >
                         <div className="space-y-1 mb-8">
                           <h4 className="text-lg font-bold text-primary">Informasi Identitas</h4>
-                          <p className="text-sm text-muted-foreground">Masukkan data diri dan instansi yang Anda wakili.</p>
+                          <p className="text-sm text-muted-foreground">Masukkan data diri dan kontak resmi Anda.</p>
                         </div>
 
                         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
@@ -313,11 +298,9 @@ export default function PendaftaranMitraPage() {
                               name="fullName"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Nama Lengkap
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">Nama Lengkap</FormLabel>
                                   <FormControl>
-                                    <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                    <Input placeholder="Nama sesuai identitas" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -328,11 +311,9 @@ export default function PendaftaranMitraPage() {
                               name="email"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Email Resmi
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">Email Resmi</FormLabel>
                                   <FormControl>
-                                    <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                    <Input placeholder="email@contoh.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                   </FormControl>
                                   <FormMessage />
                                 </FormItem>
@@ -348,9 +329,7 @@ export default function PendaftaranMitraPage() {
                               name="phone"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    No. Telepon
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">No. Telepon</FormLabel>
                                   <FormControl>
                                     <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
                                   </FormControl>
@@ -373,7 +352,7 @@ export default function PendaftaranMitraPage() {
                       >
                         <div className="space-y-1 mb-8">
                           <h4 className="text-lg font-bold text-primary">Detail Lokasi</h4>
-                          <p className="text-sm text-muted-foreground">Berikan informasi alamat lengkap mengenai lahan atau bangunan Anda.</p>
+                          <p className="text-sm text-muted-foreground">Informasikan letak lahan atau bangunan yang akan didaftarkan.</p>
                         </div>
 
                         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
@@ -383,20 +362,18 @@ export default function PendaftaranMitraPage() {
                               name="province"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Provinsi
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">Provinsi</FormLabel>
                                   <Select 
                                     onValueChange={(val) => {
-                                      field.onChange(val);
-                                      form.setValue("city", "");
-                                      form.setValue("district", "");
-                                      form.setValue("village", "");
+                                      field.onChange(val)
+                                      form.setValue("city", "")
+                                      form.setValue("district", "")
+                                      form.setValue("village", "")
                                     }} 
                                     value={field.value}
                                   >
                                     <FormControl>
-                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
                                         <SelectValue placeholder="Pilih Provinsi" />
                                       </SelectTrigger>
                                     </FormControl>
@@ -415,19 +392,17 @@ export default function PendaftaranMitraPage() {
                               name="district"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Kecamatan
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">Kecamatan</FormLabel>
                                   <Select 
                                     onValueChange={(val) => {
-                                      field.onChange(val);
-                                      form.setValue("village", "");
+                                      field.onChange(val)
+                                      form.setValue("village", "")
                                     }} 
                                     value={field.value}
                                     disabled={!selectedCity}
                                   >
                                     <FormControl>
-                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
                                         <SelectValue placeholder="Pilih Kecamatan" />
                                       </SelectTrigger>
                                     </FormControl>
@@ -451,20 +426,18 @@ export default function PendaftaranMitraPage() {
                               name="city"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Kota/Kabupaten
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">Kota/Kabupaten</FormLabel>
                                   <Select 
                                     onValueChange={(val) => {
-                                      field.onChange(val);
-                                      form.setValue("district", "");
-                                      form.setValue("village", "");
+                                      field.onChange(val)
+                                      form.setValue("district", "")
+                                      form.setValue("village", "")
                                     }} 
                                     value={field.value}
                                     disabled={!selectedProvince}
                                   >
                                     <FormControl>
-                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
                                         <SelectValue placeholder="Pilih Kota/Kabupaten" />
                                       </SelectTrigger>
                                     </FormControl>
@@ -483,16 +456,14 @@ export default function PendaftaranMitraPage() {
                               name="village"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Desa/Kelurahan
-                                  </FormLabel>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">Desa/Kelurahan</FormLabel>
                                   <Select 
                                     onValueChange={field.onChange} 
                                     value={field.value}
                                     disabled={!selectedDistrict}
                                   >
                                     <FormControl>
-                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
                                         <SelectValue placeholder="Pilih Desa/Kelurahan" />
                                       </SelectTrigger>
                                     </FormControl>
@@ -514,18 +485,16 @@ export default function PendaftaranMitraPage() {
                           name="hasBuilding"
                           render={({ field }) => (
                             <FormItem className="pt-4">
-                              <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                Status Lahan
-                              </FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormLabel className="font-semibold text-xs text-muted-foreground">Status Lahan</FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value}>
                                 <FormControl>
-                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
-                                    <SelectValue placeholder="Apakah sudah ada bangunan di lahan tersebut?" />
+                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
+                                    <SelectValue placeholder="Apakah sudah ada bangunan di lahan?" />
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
                                   <SelectItem value="yes">Sudah ada bangunan</SelectItem>
-                                  <SelectItem value="no">Belum ada bangunan / Tanah kosong</SelectItem>
+                                  <SelectItem value="no">Tanah kosong</SelectItem>
                                 </SelectContent>
                               </Select>
                               <FormMessage />
@@ -545,78 +514,51 @@ export default function PendaftaranMitraPage() {
                       >
                         <div className="space-y-1 mb-8">
                           <h4 className="text-lg font-bold text-primary">Kondisi Fisik</h4>
-                          <p className="text-sm text-muted-foreground">Informasi mengenai luas bangunan dan progres pembangunan saat ini.</p>
+                          <p className="text-sm text-muted-foreground">Informasi teknis mengenai properti kemitraan.</p>
                         </div>
 
                         {hasBuilding === "yes" ? (
-                          <div className="space-y-6">
-                            <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
-                              <div className="space-y-6">
-                                <FormField
-                                  control={form.control}
-                                  name="buildingSize"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="font-semibold text-xs text-muted-foreground">Ukuran Bangunan (m2)</FormLabel>
-                                      <FormControl>
-                                        <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              </div>
-
-                              <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
-
-                              <div className="space-y-6">
-                                <FormField
-                                  control={form.control}
-                                  name="buildingType"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="font-semibold text-xs text-muted-foreground">Jenis Bangunan</FormLabel>
-                                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                        <FormControl>
-                                          <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
-                                            <SelectValue placeholder="Pilih tipe" />
-                                          </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent>
-                                          <SelectItem value="ruko">Ruko / Toko</SelectItem>
-                                          <SelectItem value="rumah">Rumah Tinggal</SelectItem>
-                                          <SelectItem value="gudang">Gudang / Pabrik</SelectItem>
-                                          <SelectItem value="kantor">Kantor</SelectItem>
-                                        </SelectContent>
-                                      </Select>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              </div>
+                          <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
+                            <div className="space-y-6">
+                              <FormField
+                                control={form.control}
+                                name="buildingSize"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Luas (m2)</FormLabel>
+                                    <FormControl>
+                                      <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
                             </div>
-                            <FormField
-                              control={form.control}
-                              name="photo"
-                              render={({ field: { value, onChange, ...field } }) => (
-                                <FormItem className="pt-4">
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Foto Bangunan
-                                  </FormLabel>
-                                  <FormControl>
-                                    <Input 
-                                      type="file" 
-                                      accept="image/*"
-                                      onChange={(e) => onChange(e.target.files?.[0])}
-                                      className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm cursor-pointer pt-2 shadow-none" 
-                                      {...field} 
-                                    />
-                                  </FormControl>
-                                  <FormDescription className="text-[10px]">Silakan unggah foto tampak depan bangunan Anda.</FormDescription>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
+                            <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
+                            <div className="space-y-6">
+                              <FormField
+                                control={form.control}
+                                name="buildingType"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Tipe Bangunan</FormLabel>
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                      <FormControl>
+                                        <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
+                                          <SelectValue placeholder="Pilih tipe" />
+                                        </SelectTrigger>
+                                      </FormControl>
+                                      <SelectContent>
+                                        <SelectItem value="ruko">Ruko</SelectItem>
+                                        <SelectItem value="rumah">Rumah</SelectItem>
+                                        <SelectItem value="gudang">Gudang</SelectItem>
+                                      </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </div>
                           </div>
                         ) : (
                           <div className="space-y-6">
@@ -639,62 +581,42 @@ export default function PendaftaranMitraPage() {
                                       {...field} 
                                     />
                                   </FormControl>
-                                  <FormDescription className="text-[10px]">Geser untuk menentukan sejauh mana progres bangunan Anda.</FormDescription>
                                   <FormMessage />
                                 </FormItem>
                               )}
                             />
-
                             {progressValue > 0 ? (
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                              >
-                                <FormField
-                                  control={form.control}
-                                  name="photo"
-                                  render={({ field: { value, onChange, ...field } }) => (
-                                    <FormItem>
-                                      <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                        <Paperclip className="h-3.5 w-3.5 text-accent" />
-                                        Lampirkan Foto Progres
-                                      </FormLabel>
-                                      <FormControl>
-                                        <Input 
-                                          type="file" 
-                                          accept="image/*"
-                                          onChange={(e) => onChange(e.target.files?.[0])}
-                                          className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm cursor-pointer pt-2 shadow-none" 
-                                          {...field} 
-                                        />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              </motion.div>
+                              <FormField
+                                control={form.control}
+                                name="photo"
+                                render={({ field: { value, onChange, ...field } }) => (
+                                  <FormItem>
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                      <Paperclip className="h-3.5 w-3.5 text-accent" /> Foto Progres
+                                    </FormLabel>
+                                    <FormControl>
+                                      <Input type="file" accept="image/*" onChange={(e) => onChange(e.target.files?.[0])} className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
                             ) : (
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                              >
-                                <FormField
-                                  control={form.control}
-                                  name="estimation"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                                        <Calendar className="h-3.5 w-3.5 text-accent" />
-                                        Estimasi Pembangunan
-                                      </FormLabel>
-                                      <FormControl>
-                                        <Input placeholder="Kapan rencana mulai dibangun? (Contoh: Kuartal 3 2024)" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                              </motion.div>
+                              <FormField
+                                control={form.control}
+                                name="estimation"
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                      <Calendar className="h-3.5 w-3.5 text-accent" /> Estimasi Mulai Bangun
+                                    </FormLabel>
+                                    <FormControl>
+                                      <Input placeholder="Contoh: Q3 2024" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
                             )}
                           </div>
                         )}
@@ -713,8 +635,7 @@ export default function PendaftaranMitraPage() {
                         currentStep === 1 && "opacity-0 pointer-events-none"
                       )}
                     >
-                      <ChevronLeft className="mr-2 h-4 w-4" />
-                      Sebelumnya
+                      <ChevronLeft className="mr-2 h-4 w-4" /> Sebelumnya
                     </Button>
 
                     {currentStep < 3 ? (
@@ -723,8 +644,7 @@ export default function PendaftaranMitraPage() {
                         onClick={nextStep}
                         className="bg-primary hover:bg-primary/90 text-white rounded-xl font-bold h-10 px-5"
                       >
-                        Selanjutnya
-                        <ChevronRight className="ml-2 h-4 w-4" />
+                        Selanjutnya <ChevronRight className="ml-2 h-4 w-4" />
                       </Button>
                     ) : (
                       <Button 
@@ -732,17 +652,7 @@ export default function PendaftaranMitraPage() {
                         disabled={isSubmitting}
                         className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-10 px-6 shadow-lg shadow-accent/20 border-none"
                       >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Mengirim...
-                          </>
-                        ) : (
-                          <>
-                            Kirim Pendaftaran
-                            <Send className="ml-2 h-3.5 w-3.5" />
-                          </>
-                        )}
+                        {isSubmitting ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Mengirim...</> : <><Send className="ml-2 h-3.5 w-3.5" /> Kirim Pendaftaran</>}
                       </Button>
                     )}
                   </div>
