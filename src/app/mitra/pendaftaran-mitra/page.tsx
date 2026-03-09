@@ -237,7 +237,7 @@ export default function PendaftaranMitraPage() {
             </div>
           </div>
 
-          <Card className="border-none shadow-2xl shadow-primary/5 rounded-[2rem] bg-white overflow-hidden">
+          <Card className="border border-muted-foreground/10 shadow-sm rounded-[2rem] bg-white overflow-hidden">
             <CardContent className="p-6 md:p-10">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
