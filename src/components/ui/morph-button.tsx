@@ -26,6 +26,9 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
     mass: 1
   }
 
+  // Filter out props that conflict with framer-motion's button props
+  const { onDrag, onDragStart, onDragEnd, onAnimationStart, ...buttonProps } = props as any
+
   return (
     <motion.button
       layout
@@ -37,7 +40,7 @@ export function MorphButton({ text, icon: Icon, className, ...props }: MorphButt
         showText ? "px-5" : "w-10",
         className
       )}
-      {...props}
+      {...buttonProps}
     >
       <motion.div layout className="flex items-center justify-center shrink-0">
         <Icon size={18} />

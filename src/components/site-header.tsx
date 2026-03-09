@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -382,8 +381,9 @@ function ListItem({
   title,
   children,
   href,
+  className,
   ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
+}: React.ComponentPropsWithoutRef<"a"> & { title: string; href: string }) {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -391,7 +391,7 @@ function ListItem({
           href={href}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent/5 hover:text-accent",
-            props.className
+            className
           )}
           {...props}
         >
