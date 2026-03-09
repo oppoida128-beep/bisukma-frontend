@@ -171,7 +171,7 @@ export default function PendaftaranMitraPage() {
 
       <section className="container mx-auto px-4 mt-12 md:mt-16">
         <div className="max-w-4xl mx-auto">
-          {/* Professional Redesigned Progress Indicator */}
+          {/* Professional Progress Indicator */}
           <div className="mb-16">
             <div className="flex items-start justify-between max-w-2xl mx-auto">
               {steps.map((step, index) => (
@@ -219,7 +219,7 @@ export default function PendaftaranMitraPage() {
                     </span>
                   </div>
 
-                  {/* Modern Disconnected Line Segment - Symmetrically centered with icons */}
+                  {/* Disconnected Line Segment */}
                   {index < steps.length - 1 && (
                     <div className="flex-1 mx-4 md:mx-8 h-[2px] bg-muted rounded-full overflow-hidden relative min-w-[40px] mt-6">
                       <motion.div
@@ -602,7 +602,7 @@ export default function PendaftaranMitraPage() {
                     )}
                   </AnimatePresence>
 
-                  <div className="flex items-center justify-between pt-6 border-t border-muted/50">
+                  <div className="flex items-center justify-between pt-6">
                     <Button
                       type="button"
                       variant="outline"
