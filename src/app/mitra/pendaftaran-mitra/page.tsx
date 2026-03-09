@@ -10,7 +10,6 @@ import {
   Loader2, 
   ArrowLeft, 
   CheckCircle2, 
-  Building2, 
   Mail, 
   Phone, 
   User,
@@ -33,7 +32,6 @@ import {
   FormDescription,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import {
   Select,
   SelectContent,
@@ -44,6 +42,11 @@ import {
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+
+interface Region {
+  id: string;
+  name: string;
+}
 
 const pendaftaranSchema = z.object({
   // Step 1: Data Diri
@@ -80,6 +83,12 @@ export default function PendaftaranMitraPage() {
   const [isSuccess, setIsSuccess] = React.useState(false)
   const { toast } = useToast()
 
+  // States for regional data
+  const [provinces, setProvinces] = React.useState<Region[]>([])
+  const [cities, setCities] = React.useState<Region[]>([])
+  const [districts, setDistricts] = React.useState<Region[]>([])
+  const [villages, setVillages] = React.useState<Region[]>([])
+
   const form = useForm<PendaftaranFormValues>({
     resolver: zodResolver(pendaftaranSchema),
     defaultValues: {
@@ -100,6 +109,54 @@ export default function PendaftaranMitraPage() {
 
   const hasBuilding = form.watch("hasBuilding")
   const progressValue = parseInt(form.watch("progress") || "0")
+  
+  const selectedProvince = form.watch("province")
+  const selectedCity = form.watch("city")
+  const selectedDistrict = form.watch("district")
+
+  // Fetch Provinces on mount
+  React.useEffect(() => {
+    fetch("/data_wilayah/provinces.json")
+      .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+      .then(data => setProvinces(data))
+      .catch(err => console.error("Error fetching provinces:", err))
+  }, [])
+
+  // Fetch Cities when province changes
+  React.useEffect(() => {
+    if (selectedProvince) {
+      fetch(`/data_wilayah/regencies/${selectedProvince}.json`)
+        .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+        .then(data => setCities(data))
+        .catch(err => setCities([]))
+    } else {
+      setCities([])
+    }
+  }, [selectedProvince])
+
+  // Fetch Districts when city changes
+  React.useEffect(() => {
+    if (selectedCity) {
+      fetch(`/data_wilayah/districts/${selectedCity}.json`)
+        .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+        .then(data => setDistricts(data))
+        .catch(err => setDistricts([]))
+    } else {
+      setDistricts([])
+    }
+  }, [selectedCity])
+
+  // Fetch Villages when district changes
+  React.useEffect(() => {
+    if (selectedDistrict) {
+      fetch(`/data_wilayah/villages/${selectedDistrict}.json`)
+        .then(res => res.ok ? res.json() : Promise.reject("Not found"))
+        .then(data => setVillages(data))
+        .catch(err => setVillages([]))
+    } else {
+      setVillages([])
+    }
+  }, [selectedDistrict])
 
   function nextStep() {
     setCurrentStep((prev) => Math.min(prev + 1, 3))
@@ -329,16 +386,24 @@ export default function PendaftaranMitraPage() {
                                   <FormLabel className="font-semibold text-xs text-muted-foreground">
                                     Provinsi
                                   </FormLabel>
-                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <Select 
+                                    onValueChange={(val) => {
+                                      field.onChange(val);
+                                      form.setValue("city", "");
+                                      form.setValue("district", "");
+                                      form.setValue("village", "");
+                                    }} 
+                                    value={field.value}
+                                  >
                                     <FormControl>
                                       <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
                                         <SelectValue placeholder="Pilih Provinsi" />
                                       </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                      <SelectItem value="sumut">Sumatera Utara</SelectItem>
-                                      <SelectItem value="jakarta">DKI Jakarta</SelectItem>
-                                      <SelectItem value="jabar">Jawa Barat</SelectItem>
+                                      {provinces.map((p) => (
+                                        <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                                      ))}
                                     </SelectContent>
                                   </Select>
                                   <FormMessage />
@@ -353,7 +418,25 @@ export default function PendaftaranMitraPage() {
                                   <FormLabel className="font-semibold text-xs text-muted-foreground">
                                     Kecamatan
                                   </FormLabel>
-                                  <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <Select 
+                                    onValueChange={(val) => {
+                                      field.onChange(val);
+                                      form.setValue("village", "");
+                                    }} 
+                                    value={field.value}
+                                    disabled={!selectedCity}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                        <SelectValue placeholder="Pilih Kecamatan" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {districts.map((d) => (
+                                        <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
                                   <FormMessage />
                                 </FormItem>
                               )}
@@ -371,16 +454,24 @@ export default function PendaftaranMitraPage() {
                                   <FormLabel className="font-semibold text-xs text-muted-foreground">
                                     Kota/Kabupaten
                                   </FormLabel>
-                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <Select 
+                                    onValueChange={(val) => {
+                                      field.onChange(val);
+                                      form.setValue("district", "");
+                                      form.setValue("village", "");
+                                    }} 
+                                    value={field.value}
+                                    disabled={!selectedProvince}
+                                  >
                                     <FormControl>
                                       <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
                                         <SelectValue placeholder="Pilih Kota/Kabupaten" />
                                       </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
-                                      <SelectItem value="medan">Medan</SelectItem>
-                                      <SelectItem value="taput">Tapanuli Utara</SelectItem>
-                                      <SelectItem value="toba">Toba</SelectItem>
+                                      {cities.map((c) => (
+                                        <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                                      ))}
                                     </SelectContent>
                                   </Select>
                                   <FormMessage />
@@ -395,7 +486,22 @@ export default function PendaftaranMitraPage() {
                                   <FormLabel className="font-semibold text-xs text-muted-foreground">
                                     Desa/Kelurahan
                                   </FormLabel>
-                                  <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <Select 
+                                    onValueChange={field.onChange} 
+                                    value={field.value}
+                                    disabled={!selectedDistrict}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                        <SelectValue placeholder="Pilih Desa/Kelurahan" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      {villages.map((v) => (
+                                        <SelectItem key={v.id} value={v.id}>{v.name}</SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
                                   <FormMessage />
                                 </FormItem>
                               )}
