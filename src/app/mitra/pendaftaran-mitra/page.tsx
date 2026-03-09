@@ -48,7 +48,6 @@ import { cn } from "@/lib/utils"
 const pendaftaranSchema = z.object({
   // Step 1: Data Diri
   fullName: z.string().min(2, { message: "Nama lengkap minimal 2 karakter." }),
-  companyName: z.string().min(2, { message: "Nama perusahaan minimal 2 karakter." }),
   email: z.string().email({ message: "Format email tidak valid." }),
   phone: z.string().min(10, { message: "Nomor telepon tidak valid." }),
   
@@ -85,7 +84,6 @@ export default function PendaftaranMitraPage() {
     resolver: zodResolver(pendaftaranSchema),
     defaultValues: {
       fullName: "",
-      companyName: "",
       email: "",
       phone: "",
       province: "",
@@ -289,21 +287,6 @@ export default function PendaftaranMitraPage() {
                           <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
 
                           <div className="space-y-6">
-                            <FormField
-                              control={form.control}
-                              name="companyName"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                    Nama Perusahaan
-                                  </FormLabel>
-                                  <FormControl>
-                                    <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
                             <FormField
                               control={form.control}
                               name="phone"
