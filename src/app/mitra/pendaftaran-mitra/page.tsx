@@ -587,7 +587,7 @@ export default function PendaftaranMitraPage() {
                   <div className="flex items-center justify-between pt-6 border-t border-muted/50">
                     <Button
                       type="button"
-                      variant="ghost"
+                      variant="outline"
                       onClick={prevStep}
                       disabled={currentStep === 1}
                       className={cn(
@@ -603,7 +603,7 @@ export default function PendaftaranMitraPage() {
                       <Button
                         type="button"
                         onClick={nextStep}
-                        className="bg-primary hover:bg-primary/90 text-white rounded-xl font-bold h-10 px-6"
+                        className="bg-primary hover:bg-primary/90 text-white rounded-xl font-bold h-10 px-5"
                       >
                         Selanjutnya
                         <ChevronRight className="ml-2 h-4 w-4" />
@@ -612,7 +612,7 @@ export default function PendaftaranMitraPage() {
                       <Button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-10 px-8 shadow-lg shadow-accent/20 border-none"
+                        className="bg-accent hover:bg-accent/90 text-white rounded-xl font-bold h-10 px-6 shadow-lg shadow-accent/20 border-none"
                       >
                         {isSubmitting ? (
                           <>
