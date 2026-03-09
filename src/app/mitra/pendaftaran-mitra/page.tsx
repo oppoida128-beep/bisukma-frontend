@@ -174,8 +174,19 @@ export default function PendaftaranMitraPage() {
   React.useEffect(() => { form.setValue("district", ""); form.setValue("village", "") }, [selectedCity])
   React.useEffect(() => { form.setValue("village", "") }, [selectedDistrict])
 
-  function nextStep() {
-    setCurrentStep((prev) => Math.min(prev + 1, 3))
+  async function nextStep() {
+    let fields: (keyof PendaftaranFormValues)[] = []
+
+    if (currentStep === 1) {
+      fields = ["fullName", "email", "phone"]
+    } else if (currentStep === 2) {
+      fields = ["province", "city", "district", "village", "hasBuilding"]
+    }
+
+    const valid = await form.trigger(fields)
+    if (valid) {
+      setCurrentStep((prev) => Math.min(prev + 1, 3))
+    }
   }
 
   function prevStep() {
@@ -268,7 +279,7 @@ export default function PendaftaranMitraPage() {
                       
                       {currentStep === step.id && (
                         <motion.div
-                          className="absolute inset-0 rounded-full bg-accent/20 -z-10 animate-bounce-slow"
+                          className="absolute inset-0 rounded-full bg-accent/20 -z-10"
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1.4, opacity: 1 }}
                           transition={{ 
@@ -305,7 +316,15 @@ export default function PendaftaranMitraPage() {
           <Card className="border border-muted-foreground/10 shadow-sm rounded-2xl bg-white overflow-hidden">
             <CardContent className="p-6 md:p-10">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form 
+                  onSubmit={form.handleSubmit(onSubmit)} 
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault()
+                    }
+                  }}
+                  className="space-y-8"
+                >
                   <AnimatePresence mode="wait">
                     {currentStep === 1 && (
                       <motion.div
@@ -594,7 +613,10 @@ export default function PendaftaranMitraPage() {
                                     <Input 
                                       type="file" 
                                       accept="image/*" 
-                                      onChange={(e) => onChange(e.target.files?.[0])} 
+                                      onChange={(e) => {
+                                        const file = e.target.files?.[0]
+                                        if (file) onChange(file)
+                                      }} 
                                       className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
                                       {...field} 
                                     />
@@ -640,7 +662,16 @@ export default function PendaftaranMitraPage() {
                                       <Paperclip className="h-3.5 w-3.5 text-accent" /> Foto Lampiran Progres
                                     </FormLabel>
                                     <FormControl>
-                                      <Input type="file" accept="image/*" onChange={(e) => onChange(e.target.files?.[0])} className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" {...field} />
+                                      <Input 
+                                        type="file" 
+                                        accept="image/*" 
+                                        onChange={(e) => {
+                                          const file = e.target.files?.[0]
+                                          if (file) onChange(file)
+                                        }} 
+                                        className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
+                                        {...field} 
+                                      />
                                     </FormControl>
                                     <FormDescription className="text-[10px]">Unggah foto lokasi terkini untuk verifikasi.</FormDescription>
                                     <FormMessage />
