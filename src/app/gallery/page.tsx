@@ -51,7 +51,7 @@ export default function GalleryPage() {
 
       <section className="container mx-auto px-4 -mt-10 relative z-20">
         <motion.div 
-          className="flex justify-center mb-16"
+          className="flex justify-center mb-12"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -60,16 +60,16 @@ export default function GalleryPage() {
             defaultValue="Semua" 
             value={activeCategory} 
             onValueChange={setActiveCategory}
-            className="w-full max-w-2xl"
+            className="w-full max-w-xl"
           >
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 h-auto p-1.5 bg-white border shadow-lg rounded-2xl md:rounded-full">
+            <TabsList className="grid grid-cols-2 md:grid-cols-4 h-auto p-1 bg-white border shadow-sm rounded-xl md:rounded-full">
               {categories.map((cat) => (
                 <TabsTrigger 
                   key={cat} 
                   value={cat}
-                  className="rounded-xl md:rounded-full py-2.5 data-[state=active]:bg-accent data-[state=active]:text-white transition-all shadow-none"
+                  className="rounded-lg md:rounded-full py-1.5 data-[state=active]:bg-accent data-[state=active]:text-white transition-all shadow-none"
                 >
-                  <p className="text-xs md:text-sm font-bold m-0">{cat}</p>
+                  <p className="text-xs font-bold m-0">{cat}</p>
                 </TabsTrigger>
               ))}
             </TabsList>
