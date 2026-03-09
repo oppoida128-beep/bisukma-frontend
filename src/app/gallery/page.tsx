@@ -67,9 +67,9 @@ export default function GalleryPage() {
                 <TabsTrigger 
                   key={cat} 
                   value={cat}
-                  className="rounded-xl md:rounded-full py-2.5 text-xs md:text-sm font-bold data-[state=active]:bg-accent data-[state=active]:text-white transition-all"
+                  className="rounded-xl md:rounded-full py-2.5 data-[state=active]:bg-accent data-[state=active]:text-white transition-all shadow-none"
                 >
-                  {cat}
+                  <p className="text-xs md:text-sm font-bold m-0">{cat}</p>
                 </TabsTrigger>
               ))}
             </TabsList>
