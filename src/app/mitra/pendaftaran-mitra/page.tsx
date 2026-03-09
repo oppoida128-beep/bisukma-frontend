@@ -171,12 +171,11 @@ export default function PendaftaranMitraPage() {
 
       <section className="container mx-auto px-4 mt-12 md:mt-16">
         <div className="max-w-4xl mx-auto">
-          {/* Professional Progress Indicator */}
+          {/* Progress Indicator */}
           <div className="mb-16">
             <div className="flex items-start justify-between max-w-2xl mx-auto">
               {steps.map((step, index) => (
                 <React.Fragment key={step.id}>
-                  {/* Step Item */}
                   <div className="flex flex-col items-center gap-3 relative group">
                     <motion.div
                       initial={false}
@@ -199,7 +198,6 @@ export default function PendaftaranMitraPage() {
                         )} />
                       )}
 
-                      {/* Pulse effect for active step */}
                       {currentStep === step.id && (
                         <motion.div
                           layoutId="activeGlow"
@@ -219,7 +217,6 @@ export default function PendaftaranMitraPage() {
                     </span>
                   </div>
 
-                  {/* Disconnected Line Segment */}
                   {index < steps.length - 1 && (
                     <div className="flex-1 mx-4 md:mx-8 h-[2px] bg-muted rounded-full overflow-hidden relative min-w-[40px] mt-6">
                       <motion.div
@@ -250,6 +247,11 @@ export default function PendaftaranMitraPage() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-6"
                       >
+                        <div className="space-y-1 mb-8">
+                          <h4 className="text-lg font-bold text-primary">Informasi Identitas</h4>
+                          <p className="text-sm text-muted-foreground">Masukkan data diri dan instansi yang Anda wakili.</p>
+                        </div>
+
                         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
                           <div className="space-y-6">
                             <FormField
@@ -330,6 +332,11 @@ export default function PendaftaranMitraPage() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-6"
                       >
+                        <div className="space-y-1 mb-8">
+                          <h4 className="text-lg font-bold text-primary">Detail Lokasi</h4>
+                          <p className="text-sm text-muted-foreground">Berikan informasi alamat lengkap mengenai lahan atau bangunan Anda.</p>
+                        </div>
+
                         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
                           <div className="space-y-6">
                             <FormField
@@ -448,6 +455,11 @@ export default function PendaftaranMitraPage() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-6"
                       >
+                        <div className="space-y-1 mb-8">
+                          <h4 className="text-lg font-bold text-primary">Kondisi Fisik</h4>
+                          <p className="text-sm text-muted-foreground">Informasi mengenai luas bangunan dan progres pembangunan saat ini.</p>
+                        </div>
+
                         {hasBuilding === "yes" ? (
                           <div className="space-y-6">
                             <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
