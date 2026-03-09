@@ -184,6 +184,12 @@ export function SiteHeader() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
+                  <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/gallery" && "text-accent")}>
+                    <Link href="/gallery">Galeri</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                   <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), navItemClasses, pathname === "/mitra" && "text-accent")}>
                     <Link href="/mitra">Mitra</Link>
                   </NavigationMenuLink>
@@ -310,6 +316,18 @@ export function SiteHeader() {
                       )}
                     >
                       Layanan
+                    </Link>
+                  </div>
+
+                  <div className="py-2">
+                    <Link 
+                      href="/gallery" 
+                      className={cn(
+                        "flex items-center text-base font-semibold transition-colors py-2",
+                        pathname === "/gallery" ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      )}
+                    >
+                      Galeri
                     </Link>
                   </div>
 

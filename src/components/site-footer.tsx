@@ -58,6 +58,7 @@ export function SiteFooter() {
                 {[
                   { name: "Profil Bisukma", href: "/profil/tentang-kami" },
                   { name: "Layanan Kami", href: "/layanan" },
+                  { name: "Galeri Aktivitas", href: "/gallery" },
                   { name: "Berita Terbaru", href: "/berita" },
                   { name: "Kemitraan Strategis", href: "/mitra" }
                 ].map((link) => (
