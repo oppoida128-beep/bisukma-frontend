@@ -49,9 +49,9 @@ export default function GalleryPage() {
         </motion.div>
       </section>
 
-      <section className="container mx-auto px-4 -mt-10 relative z-20">
+      <section className="container mx-auto px-4 mt-12 relative z-20">
         <motion.div 
-          className="flex justify-center mb-12"
+          className="flex justify-center mb-16"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -67,9 +67,9 @@ export default function GalleryPage() {
                 <TabsTrigger 
                   key={cat} 
                   value={cat}
-                  className="rounded-lg md:rounded-full py-1.5 data-[state=active]:bg-accent data-[state=active]:text-white transition-all shadow-none"
+                  className="rounded-lg md:rounded-full py-1.5 data-[state=active]:bg-accent data-[state=active]:text-white text-muted-foreground transition-all shadow-none"
                 >
-                  <p className="text-xs font-bold m-0">{cat}</p>
+                  <p className="text-[10px] md:text-xs font-bold m-0">{cat}</p>
                 </TabsTrigger>
               ))}
             </TabsList>
