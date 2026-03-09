@@ -173,7 +173,7 @@ export default function PendaftaranMitraPage() {
         <div className="max-w-4xl mx-auto">
           {/* Professional Redesigned Progress Indicator */}
           <div className="mb-16">
-            <div className="flex items-center justify-between max-w-2xl mx-auto">
+            <div className="flex items-start justify-between max-w-2xl mx-auto">
               {steps.map((step, index) => (
                 <React.Fragment key={step.id}>
                   {/* Step Item */}
@@ -186,7 +186,7 @@ export default function PendaftaranMitraPage() {
                         scale: currentStep === step.id ? 1.1 : 1,
                       }}
                       className={cn(
-                        "w-12 h-12 rounded-2xl flex items-center justify-center border-2 transition-all duration-500 shadow-sm z-10 relative",
+                        "w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-500 shadow-sm z-10 relative",
                         currentStep === step.id && "shadow-lg shadow-accent/20"
                       )}
                     >
@@ -203,7 +203,7 @@ export default function PendaftaranMitraPage() {
                       {currentStep === step.id && (
                         <motion.div
                           layoutId="activeGlow"
-                          className="absolute inset-0 rounded-2xl bg-accent/20 -z-10"
+                          className="absolute inset-0 rounded-full bg-accent/20 -z-10"
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1.4, opacity: 1 }}
                           transition={{ repeat: Infinity, duration: 2, repeatType: "reverse" }}
@@ -212,16 +212,16 @@ export default function PendaftaranMitraPage() {
                     </motion.div>
                     
                     <span className={cn(
-                      "text-[10px] font-black uppercase tracking-widest transition-colors duration-500",
-                      currentStep >= step.id ? "text-primary" : "text-muted-foreground/40"
+                      "text-xs font-medium transition-colors duration-500",
+                      currentStep >= step.id ? "text-primary" : "text-muted-foreground"
                     )}>
                       {step.title}
                     </span>
                   </div>
 
-                  {/* Modern Disconnected Line Segment */}
+                  {/* Modern Disconnected Line Segment - Symmetrically centered with icons */}
                   {index < steps.length - 1 && (
-                    <div className="flex-1 mx-4 md:mx-8 h-[2px] bg-muted rounded-full overflow-hidden relative min-w-[40px]">
+                    <div className="flex-1 mx-4 md:mx-8 h-[2px] bg-muted rounded-full overflow-hidden relative min-w-[40px] mt-6">
                       <motion.div
                         initial={false}
                         animate={{
