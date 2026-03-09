@@ -72,11 +72,11 @@ export default function PendaftaranMitraPage() {
   const [isSuccess, setIsSuccess] = React.useState(false)
   const { toast } = useToast()
 
-  // State untuk data wilayah
-  const [provinces, setProvinces] = React.useState<any[]>([])
-  const [cities, setCities] = React.useState<any[]>([])
-  const [districts, setDistricts] = React.useState<any[]>([])
-  const [villages, setVillages] = React.useState<any[]>([])
+  // Master data states (Load Sekali)
+  const [allProvinces, setAllProvinces] = React.useState<any[]>([])
+  const [allCities, setAllCities] = React.useState<any[]>([])
+  const [allDistricts, setAllDistricts] = React.useState<any[]>([])
+  const [allVillages, setAllVillages] = React.useState<any[]>([])
 
   const form = useForm<PendaftaranFormValues>({
     resolver: zodResolver(pendaftaranSchema),
@@ -102,80 +102,72 @@ export default function PendaftaranMitraPage() {
   const selectedCity = form.watch("city")
   const selectedDistrict = form.watch("district")
 
-  /**
-   * Helper untuk menormalisasi data JSON wilayah tanpa mengubah file aslinya.
-   * Memastikan setiap objek memiliki properti 'id' dan 'name'.
-   */
   const normalizeData = (data: any[]) => {
     if (!Array.isArray(data)) return [];
     return data.map(item => ({
       ...item,
-      id: String(item.id || item.kode || item.province_id || item.regency_id || item.district_id || ""),
+      id: String(item.id || item.kode || ""),
       name: String(item.name || item.nama || item.nama_wilayah || "")
     }));
   }
 
-  // Load Provinsi
+  // Effect untuk load master data secara berjenjang (Lazy load master files)
   React.useEffect(() => {
     fetch("/data_wilayah/provinsi.json")
-      .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat provinsi"))
-      .then(data => setProvinces(normalizeData(data)))
-      .catch(err => console.error("Error loading provinces:", err))
+      .then(res => res.json())
+      .then(data => setAllProvinces(normalizeData(data)))
+      .catch(err => console.error("Error load provinsi:", err))
   }, [])
 
-  // Load Kota/Kabupaten berdasarkan Provinsi
   React.useEffect(() => {
-    if (selectedProvince) {
+    if (selectedProvince && allCities.length === 0) {
       fetch("/data_wilayah/kabupaten_kota.json")
-        .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat kota"))
-        .then(data => {
-          const normalized = normalizeData(data);
-          const filtered = normalized.filter((item: any) => String(item.province_id) === String(selectedProvince))
-          setCities(filtered)
-        })
-        .catch(() => setCities([]))
-    } else {
-      setCities([])
+        .then(res => res.json())
+        .then(data => setAllCities(normalizeData(data)))
+        .catch(err => console.error("Error load kabupaten:", err))
     }
-    form.setValue("city", "")
-    form.setValue("district", "")
-    form.setValue("village", "")
-  }, [selectedProvince, form])
+  }, [selectedProvince, allCities.length])
 
-  // Load Kecamatan berdasarkan Kota
   React.useEffect(() => {
-    if (selectedCity) {
+    if (selectedCity && allDistricts.length === 0) {
       fetch("/data_wilayah/kecamatan.json")
-        .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat kecamatan"))
-        .then(data => {
-          const normalized = normalizeData(data);
-          const filtered = normalized.filter((item: any) => String(item.regency_id) === String(selectedCity))
-          setDistricts(filtered)
-        })
-        .catch(() => setDistricts([]))
-    } else {
-      setDistricts([])
+        .then(res => res.json())
+        .then(data => setAllDistricts(normalizeData(data)))
+        .catch(err => console.error("Error load kecamatan:", err))
     }
-    form.setValue("district", "")
-    form.setValue("village", "")
-  }, [selectedCity, form])
+  }, [selectedCity, allDistricts.length])
 
-  // Load Kelurahan berdasarkan Kecamatan
   React.useEffect(() => {
-    if (selectedDistrict) {
+    if (selectedDistrict && allVillages.length === 0) {
       fetch("/data_wilayah/kelurahan.json")
-        .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat kelurahan"))
-        .then(data => {
-          const normalized = normalizeData(data);
-          const filtered = normalized.filter((item: any) => String(item.district_id) === String(selectedDistrict))
-          setVillages(filtered)
-        })
-        .catch(() => setVillages([]))
-    } else {
-      setVillages([])
+        .then(res => res.json())
+        .then(data => setAllVillages(normalizeData(data)))
+        .catch(err => console.error("Error load kelurahan:", err))
     }
-    form.setValue("village", "")
-  }, [selectedDistrict, form])
+  }, [selectedDistrict, allVillages.length])
+
+  // Filtered lists menggunakan Prefix ID logic (startsWith)
+  const provinces = allProvinces
+  
+  const cities = React.useMemo(() => {
+    if (!selectedProvince) return []
+    return allCities.filter(item => item.id.startsWith(selectedProvince))
+  }, [allCities, selectedProvince])
+
+  const districts = React.useMemo(() => {
+    if (!selectedCity) return []
+    return allDistricts.filter(item => item.id.startsWith(selectedCity))
+  }, [allDistricts, selectedCity])
+
+  const villages = React.useMemo(() => {
+    if (!selectedDistrict) return []
+    return allVillages.filter(item => item.id.startsWith(selectedDistrict))
+  }, [allVillages, selectedDistrict])
+
+  // Reset alur bawah jika atas berubah
+  React.useEffect(() => { form.setValue("city", ""); form.setValue("district", ""); form.setValue("village", "") }, [selectedProvince])
+  React.useEffect(() => { form.setValue("district", ""); form.setValue("village", "") }, [selectedCity])
+  React.useEffect(() => { form.setValue("village", "") }, [selectedDistrict])
 
   function nextStep() {
     setCurrentStep((prev) => Math.min(prev + 1, 3))
@@ -223,7 +215,6 @@ export default function PendaftaranMitraPage() {
 
   return (
     <div className="min-h-screen bg-white pb-24">
-      {/* Hero Header */}
       <section className="bg-primary py-12 md:py-16 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.1)_0%,transparent:70%)] opacity-30"></div>
         <div className="container mx-auto px-4 relative z-10">
@@ -244,7 +235,6 @@ export default function PendaftaranMitraPage() {
 
       <section className="container mx-auto px-4 mt-12 md:mt-16">
         <div className="max-w-4xl mx-auto">
-          {/* Custom Animated Progress Indicator */}
           <div className="mb-16">
             <div className="flex items-center justify-between max-w-2xl mx-auto relative">
               {steps.map((step, index) => (
@@ -401,7 +391,7 @@ export default function PendaftaranMitraPage() {
                                     </FormControl>
                                     <SelectContent>
                                       {provinces.map((p) => (
-                                        <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                                        <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -418,12 +408,12 @@ export default function PendaftaranMitraPage() {
                                   <Select onValueChange={field.onChange} value={field.value} disabled={!selectedCity}>
                                     <FormControl>
                                       <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
-                                        <SelectValue placeholder="Pilih Kecamatan" />
+                                        <SelectValue placeholder={allDistricts.length === 0 && selectedCity ? "Memuat..." : "Pilih Kecamatan"} />
                                       </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
                                       {districts.map((d) => (
-                                        <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
+                                        <SelectItem key={d.id} value={String(d.id)}>{d.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -445,12 +435,12 @@ export default function PendaftaranMitraPage() {
                                   <Select onValueChange={field.onChange} value={field.value} disabled={!selectedProvince}>
                                     <FormControl>
                                       <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
-                                        <SelectValue placeholder="Pilih Kota/Kabupaten" />
+                                        <SelectValue placeholder={allCities.length === 0 && selectedProvince ? "Memuat..." : "Pilih Kota/Kabupaten"} />
                                       </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
                                       {cities.map((c) => (
-                                        <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                                        <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -467,12 +457,12 @@ export default function PendaftaranMitraPage() {
                                   <Select onValueChange={field.onChange} value={field.value} disabled={!selectedDistrict}>
                                     <FormControl>
                                       <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
-                                        <SelectValue placeholder="Pilih Desa/Kelurahan" />
+                                        <SelectValue placeholder={allVillages.length === 0 && selectedDistrict ? "Memuat..." : "Pilih Desa/Kelurahan"} />
                                       </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
                                       {villages.map((v) => (
-                                        <SelectItem key={v.id} value={v.id}>{v.name}</SelectItem>
+                                        <SelectItem key={v.id} value={String(v.id)}>{v.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -629,7 +619,6 @@ export default function PendaftaranMitraPage() {
                     )}
                   </AnimatePresence>
 
-                  {/* Navigation Buttons */}
                   <div className="flex items-center justify-between pt-6">
                     <Button
                       type="button"
