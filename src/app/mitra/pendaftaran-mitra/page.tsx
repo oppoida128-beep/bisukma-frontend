@@ -250,69 +250,74 @@ export default function PendaftaranMitraPage() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-6"
                       >
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <FormField
-                            control={form.control}
-                            name="fullName"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Nama Lengkap
-                                </FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="companyName"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Nama Perusahaan
-                                </FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Email Resmi
-                                </FormLabel>
-                                <FormControl>
-                                  <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  No. Telepon
-                                </FormLabel>
-                                <FormControl>
-                                  <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
+                        <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
+                          <div className="space-y-6">
+                            <FormField
+                              control={form.control}
+                              name="fullName"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Nama Lengkap
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="Nama lengkap Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="email"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Email Resmi
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="email@lembaga.com" type="email" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+
+                          <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
+
+                          <div className="space-y-6">
+                            <FormField
+                              control={form.control}
+                              name="companyName"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Nama Perusahaan
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="Nama lembaga Anda" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="phone"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    No. Telepon
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="0812xxxx" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
                         </div>
                       </motion.div>
                     )}
@@ -325,95 +330,101 @@ export default function PendaftaranMitraPage() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-6"
                       >
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <FormField
-                            control={form.control}
-                            name="province"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Provinsi
-                                </FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <FormControl>
-                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
-                                      <SelectValue placeholder="Pilih Provinsi" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    <SelectItem value="sumut">Sumatera Utara</SelectItem>
-                                    <SelectItem value="jakarta">DKI Jakarta</SelectItem>
-                                    <SelectItem value="jabar">Jawa Barat</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="city"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Kota/Kabupaten
-                                </FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <FormControl>
-                                    <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
-                                      <SelectValue placeholder="Pilih Kota/Kabupaten" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    <SelectItem value="medan">Medan</SelectItem>
-                                    <SelectItem value="taput">Tapanuli Utara</SelectItem>
-                                    <SelectItem value="toba">Toba</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
+                        <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
+                          <div className="space-y-6">
+                            <FormField
+                              control={form.control}
+                              name="province"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Provinsi
+                                  </FormLabel>
+                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                        <SelectValue placeholder="Pilih Provinsi" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      <SelectItem value="sumut">Sumatera Utara</SelectItem>
+                                      <SelectItem value="jakarta">DKI Jakarta</SelectItem>
+                                      <SelectItem value="jabar">Jawa Barat</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="district"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Kecamatan
+                                  </FormLabel>
+                                  <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+
+                          <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
+
+                          <div className="space-y-6">
+                            <FormField
+                              control={form.control}
+                              name="city"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Kota/Kabupaten
+                                  </FormLabel>
+                                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                      <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                        <SelectValue placeholder="Pilih Kota/Kabupaten" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      <SelectItem value="medan">Medan</SelectItem>
+                                      <SelectItem value="taput">Tapanuli Utara</SelectItem>
+                                      <SelectItem value="toba">Toba</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="village"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground">
+                                    Desa/Kelurahan
+                                  </FormLabel>
+                                  <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
                         </div>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <FormField
-                            control={form.control}
-                            name="district"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Kecamatan
-                                </FormLabel>
-                                <Input placeholder="Nama Kecamatan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="village"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="font-semibold text-xs text-muted-foreground">
-                                  Desa/Kelurahan
-                                </FormLabel>
-                                <Input placeholder="Nama Desa/Kelurahan" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus-visible:ring-accent shadow-none" {...field} />
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
+
                         <FormField
                           control={form.control}
                           name="hasBuilding"
                           render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="pt-4">
                               <FormLabel className="font-semibold text-xs text-muted-foreground">
                                 Status Lahan
                               </FormLabel>
                               <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
+                                  <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
                                     <SelectValue placeholder="Apakah sudah ada bangunan di lahan tersebut?" />
                                   </SelectTrigger>
                                 </FormControl>
@@ -439,49 +450,56 @@ export default function PendaftaranMitraPage() {
                       >
                         {hasBuilding === "yes" ? (
                           <div className="space-y-6">
-                            <div className="grid md:grid-cols-2 gap-6">
-                              <FormField
-                                control={form.control}
-                                name="buildingSize"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Ukuran Bangunan (m2)</FormLabel>
-                                    <FormControl>
-                                      <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                              <FormField
-                                control={form.control}
-                                name="buildingType"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Jenis Bangunan</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
+                              <div className="space-y-6">
+                                <FormField
+                                  control={form.control}
+                                  name="buildingSize"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground">Ukuran Bangunan (m2)</FormLabel>
                                       <FormControl>
-                                        <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2">
-                                          <SelectValue placeholder="Pilih tipe" />
-                                        </SelectTrigger>
+                                        <Input placeholder="Contoh: 150" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
                                       </FormControl>
-                                      <SelectContent>
-                                        <SelectItem value="ruko">Ruko / Toko</SelectItem>
-                                        <SelectItem value="rumah">Rumah Tinggal</SelectItem>
-                                        <SelectItem value="gudang">Gudang / Pabrik</SelectItem>
-                                        <SelectItem value="kantor">Kantor</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </div>
+
+                              <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
+
+                              <div className="space-y-6">
+                                <FormField
+                                  control={form.control}
+                                  name="buildingType"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground">Jenis Bangunan</FormLabel>
+                                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                          <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent focus:ring-2 shadow-none">
+                                            <SelectValue placeholder="Pilih tipe" />
+                                          </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                          <SelectItem value="ruko">Ruko / Toko</SelectItem>
+                                          <SelectItem value="rumah">Rumah Tinggal</SelectItem>
+                                          <SelectItem value="gudang">Gudang / Pabrik</SelectItem>
+                                          <SelectItem value="kantor">Kantor</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </div>
                             </div>
                             <FormField
                               control={form.control}
                               name="photo"
                               render={({ field: { value, onChange, ...field } }) => (
-                                <FormItem>
+                                <FormItem className="pt-4">
                                   <FormLabel className="font-semibold text-xs text-muted-foreground">
                                     Foto Bangunan
                                   </FormLabel>
