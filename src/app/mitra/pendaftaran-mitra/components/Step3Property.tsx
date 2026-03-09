@@ -104,31 +104,102 @@ export function Step3Property({ onBack, isSubmitting }: { onBack: () => void, is
             </div>
           </div>
 
-          <FormField
-            control={control}
-            name="buildingPhoto"
-            render={({ field: { value, onChange, ...field } }) => (
-              <FormItem>
-                <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
-                  <Camera className="h-3.5 w-3.5 text-accent" /> Foto Tampak Depan Bangunan
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    type="file" 
-                    accept="image/*" 
-                    onChange={(e) => {
-                      const file = e.target.files?.[0]
-                      if (file) onChange(file)
-                    }} 
-                    className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormDescription className="text-[10px]">Unggah foto bangunan agar tim kami dapat melakukan verifikasi awal.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="space-y-4">
+            <h5 className="text-sm font-bold text-primary flex items-center gap-2">
+              <Camera className="h-4 w-4 text-accent" /> Dokumentasi Bangunan
+            </h5>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField
+                control={control}
+                name="buildingPhoto"
+                render={({ field: { value, onChange, ...field } }) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold text-[10px] uppercase tracking-wider text-muted-foreground">Tampak Depan</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) onChange(file)
+                        }} 
+                        className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="buildingPhotoBack"
+                render={({ field: { value, onChange, ...field } }) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold text-[10px] uppercase tracking-wider text-muted-foreground">Tampak Belakang</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) onChange(file)
+                        }} 
+                        className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="buildingPhotoLeft"
+                render={({ field: { value, onChange, ...field } }) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold text-[10px] uppercase tracking-wider text-muted-foreground">Tampak Samping Kiri</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) onChange(file)
+                        }} 
+                        className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="buildingPhotoRight"
+                render={({ field: { value, onChange, ...field } }) => (
+                  <FormItem>
+                    <FormLabel className="font-semibold text-[10px] uppercase tracking-wider text-muted-foreground">Tampak Samping Kanan</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) onChange(file)
+                        }} 
+                        className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormDescription className="text-[10px] pt-2">Unggah foto dari berbagai sisi bangunan untuk keperluan verifikasi kelayakan fasilitas.</FormDescription>
+          </div>
         </div>
       ) : (
         <div className="space-y-6">

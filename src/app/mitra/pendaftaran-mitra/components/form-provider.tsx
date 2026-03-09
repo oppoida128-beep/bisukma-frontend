@@ -22,8 +22,13 @@ export function PendaftaranFormProvider({ children }: { children: React.ReactNod
       buildingLength: "",
       buildingWidth: "",
       buildingType: "",
+      buildingPhoto: null,
+      buildingPhotoLeft: null,
+      buildingPhotoRight: null,
+      buildingPhotoBack: null,
       progress: "0",
       estimation: "",
+      photo: null,
     },
   })
 
