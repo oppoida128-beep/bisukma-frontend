@@ -4,31 +4,23 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { PendaftaranFormProvider } from "./components/form-provider"
 import { Stepper } from "./components/Stepper"
 
 export default function PendaftaranMitraPage() {
-  // Mengambil gambar hero dari pustaka placeholder proyek
-  const bgImg = PlaceHolderImages.find(img => img.id === 'hero')
-
   return (
     <div className="min-h-screen bg-white pb-24">
       {/* Hero Section */}
       <section className="bg-primary py-12 md:py-16 text-white relative overflow-hidden">
         {/* Background Image Layer with low opacity */}
         <div className="absolute inset-0 z-0">
-          {bgImg?.imageUrl && (
-            <Image 
-              src={bgImg.imageUrl} 
-              alt="Pendaftaran Mitra Background" 
-              fill 
-              className="object-cover opacity-15 grayscale brightness-50"
-              priority
-              data-ai-hint="digital technology"
-            />
-          )}
+          <Image 
+            src="/layanan-assets/5.svg" 
+            alt="Pendaftaran Mitra Background" 
+            fill 
+            className="object-cover opacity-15 grayscale brightness-50"
+            priority
+          />
           {/* Subtle gradient overlay to ensure text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-transparent"></div>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--accent)/0.1)_0%,transparent_70%)] opacity-30"></div>
