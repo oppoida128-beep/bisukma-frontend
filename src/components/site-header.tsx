@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -130,7 +131,7 @@ export function SiteHeader() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/profil") && "text-accent")}>
+                  <NavigationMenuTrigger className={cn(navItemClasses, pathname?.startsWith("/profil") && "text-accent")}>
                     Profil
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -149,7 +150,7 @@ export function SiteHeader() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className={cn(navItemClasses, pathname.startsWith("/berita") && "text-accent")}>
+                  <NavigationMenuTrigger className={cn(navItemClasses, pathname?.startsWith("/berita") && "text-accent")}>
                     Berita
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -201,7 +202,7 @@ export function SiteHeader() {
           {/* Action Button */}
           <div className="flex flex-1 md:w-1/4 justify-end shrink-0 items-center gap-2">
             <div className="hidden md:block">
-              <MorphButton text="Daftar Mitra" icon={SquareArrowUpRight} />
+              <MorphButton text="Daftar Mitra" icon={SquareArrowUpRight} onClick={() => window.location.href='/mitra/pendaftaran-mitra'} />
             </div>
 
             {/* Mobile Nav Toggle Button */}
@@ -257,7 +258,7 @@ export function SiteHeader() {
                   <AccordionItem value="profil" className="border-none">
                     <AccordionTrigger className={cn(
                       "py-2 hover:no-underline font-semibold text-base transition-colors",
-                      pathname.startsWith("/profil") ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      pathname?.startsWith("/profil") ? "text-accent" : "text-muted-foreground hover:text-accent"
                     )}>
                       Profil
                     </AccordionTrigger>
@@ -280,7 +281,7 @@ export function SiteHeader() {
                   <AccordionItem value="berita" className="border-none">
                     <AccordionTrigger className={cn(
                       "py-2 hover:no-underline font-semibold text-base transition-colors",
-                      pathname.startsWith("/berita") ? "text-accent" : "text-muted-foreground hover:text-accent"
+                      pathname?.startsWith("/berita") ? "text-accent" : "text-muted-foreground hover:text-accent"
                     )}>
                       Berita
                     </AccordionTrigger>
@@ -349,7 +350,7 @@ export function SiteHeader() {
                     className="w-full h-12 bg-accent hover:bg-accent/90 text-white rounded-xl font-bold"
                     asChild
                   >
-                    <Link href="/mitra">
+                    <Link href="/mitra/pendaftaran-mitra">
                       Daftar Kemitraan
                       <SquareArrowUpRight className="ml-2 h-4 w-4" />
                     </Link>
