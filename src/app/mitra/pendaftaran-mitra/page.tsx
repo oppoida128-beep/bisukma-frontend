@@ -198,7 +198,6 @@ export default function PendaftaranMitraPage() {
 
                       {currentStep === step.id && (
                         <motion.div
-                          layoutId="activeGlow"
                           className="absolute inset-0 rounded-full bg-accent/20 -z-10"
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1.4, opacity: 1 }}

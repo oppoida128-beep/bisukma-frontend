@@ -1,4 +1,3 @@
-
 'use client'
 
 import * as React from "react"
@@ -15,8 +14,8 @@ import {
   Target
 } from "lucide-react"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { Card, CardContent } from "@/ui/card"
-import { Button } from "@/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 
 const services = [
