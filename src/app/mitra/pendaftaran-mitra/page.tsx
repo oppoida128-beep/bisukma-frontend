@@ -591,7 +591,7 @@ export default function PendaftaranMitraPage() {
                       onClick={prevStep}
                       disabled={currentStep === 1}
                       className={cn(
-                        "rounded-xl font-bold h-10 px-4",
+                        "rounded-xl font-bold h-10 px-4 bg-white",
                         currentStep === 1 && "opacity-0 pointer-events-none"
                       )}
                     >
