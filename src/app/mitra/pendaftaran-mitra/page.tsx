@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -101,12 +102,25 @@ export default function PendaftaranMitraPage() {
   const selectedCity = form.watch("city")
   const selectedDistrict = form.watch("district")
 
+  /**
+   * Helper untuk menormalisasi data JSON wilayah tanpa mengubah file aslinya.
+   * Memastikan setiap objek memiliki properti 'id' dan 'name'.
+   */
+  const normalizeData = (data: any[]) => {
+    if (!Array.isArray(data)) return [];
+    return data.map(item => ({
+      ...item,
+      id: String(item.id || item.kode || item.province_id || item.regency_id || item.district_id || ""),
+      name: String(item.name || item.nama || item.nama_wilayah || "")
+    }));
+  }
+
   // Load Provinsi
   React.useEffect(() => {
     fetch("/data_wilayah/provinsi.json")
       .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat provinsi"))
-      .then(data => setProvinces(data))
-      .catch(err => console.error(err))
+      .then(data => setProvinces(normalizeData(data)))
+      .catch(err => console.error("Error loading provinces:", err))
   }, [])
 
   // Load Kota/Kabupaten berdasarkan Provinsi
@@ -115,7 +129,8 @@ export default function PendaftaranMitraPage() {
       fetch("/data_wilayah/kabupaten_kota.json")
         .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat kota"))
         .then(data => {
-          const filtered = data.filter((item: any) => String(item.province_id) === String(selectedProvince))
+          const normalized = normalizeData(data);
+          const filtered = normalized.filter((item: any) => String(item.province_id) === String(selectedProvince))
           setCities(filtered)
         })
         .catch(() => setCities([]))
@@ -133,7 +148,8 @@ export default function PendaftaranMitraPage() {
       fetch("/data_wilayah/kecamatan.json")
         .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat kecamatan"))
         .then(data => {
-          const filtered = data.filter((item: any) => String(item.regency_id) === String(selectedCity))
+          const normalized = normalizeData(data);
+          const filtered = normalized.filter((item: any) => String(item.regency_id) === String(selectedCity))
           setDistricts(filtered)
         })
         .catch(() => setDistricts([]))
@@ -150,7 +166,8 @@ export default function PendaftaranMitraPage() {
       fetch("/data_wilayah/kelurahan.json")
         .then(res => res.ok ? res.json() : Promise.reject("Gagal memuat kelurahan"))
         .then(data => {
-          const filtered = data.filter((item: any) => String(item.district_id) === String(selectedDistrict))
+          const normalized = normalizeData(data);
+          const filtered = normalized.filter((item: any) => String(item.district_id) === String(selectedDistrict))
           setVillages(filtered)
         })
         .catch(() => setVillages([]))
@@ -384,7 +401,7 @@ export default function PendaftaranMitraPage() {
                                     </FormControl>
                                     <SelectContent>
                                       {provinces.map((p) => (
-                                        <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>
+                                        <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -406,7 +423,7 @@ export default function PendaftaranMitraPage() {
                                     </FormControl>
                                     <SelectContent>
                                       {districts.map((d) => (
-                                        <SelectItem key={d.id} value={String(d.id)}>{d.name}</SelectItem>
+                                        <SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -433,7 +450,7 @@ export default function PendaftaranMitraPage() {
                                     </FormControl>
                                     <SelectContent>
                                       {cities.map((c) => (
-                                        <SelectItem key={c.id} value={String(c.id)}>{c.name}</SelectItem>
+                                        <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -455,7 +472,7 @@ export default function PendaftaranMitraPage() {
                                     </FormControl>
                                     <SelectContent>
                                       {villages.map((v) => (
-                                        <SelectItem key={v.id} value={String(v.id)}>{v.name}</SelectItem>
+                                        <SelectItem key={v.id} value={v.id}>{v.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
