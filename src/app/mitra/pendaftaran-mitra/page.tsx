@@ -16,9 +16,11 @@ import {
   Paperclip,
   ChevronRight,
   ChevronLeft,
-  Calendar
+  Calendar,
+  Camera
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -51,8 +53,10 @@ const pendaftaranSchema = z.object({
   district: z.string().min(1, { message: "Pilih kecamatan." }),
   village: z.string().min(1, { message: "Pilih desa/kelurahan." }),
   hasBuilding: z.string().min(1, { message: "Pilih status lahan." }),
-  buildingSize: z.string().optional(),
+  buildingLength: z.string().optional(),
+  buildingWidth: z.string().optional(),
   buildingType: z.string().optional(),
+  buildingPhoto: z.any().optional(),
   progress: z.string().optional(),
   estimation: z.string().optional(),
   photo: z.any().optional(),
@@ -89,7 +93,8 @@ export default function PendaftaranMitraPage() {
       district: "",
       village: "",
       hasBuilding: "",
-      buildingSize: "",
+      buildingLength: "",
+      buildingWidth: "",
       buildingType: "",
       progress: "0",
       estimation: "",
@@ -111,7 +116,7 @@ export default function PendaftaranMitraPage() {
     }));
   }
 
-  // Effect untuk load master data secara berjenjang (Lazy load master files)
+  // Effect untuk load master data secara berjenjang
   React.useEffect(() => {
     fetch("/data_wilayah/provinsi.json")
       .then(res => res.json())
@@ -146,7 +151,7 @@ export default function PendaftaranMitraPage() {
     }
   }, [selectedDistrict, allVillages.length])
 
-  // Filtered lists menggunakan Prefix ID logic (startsWith)
+  // Filtered lists menggunakan Prefix ID logic
   const provinces = allProvinces
   
   const cities = React.useMemo(() => {
@@ -263,10 +268,14 @@ export default function PendaftaranMitraPage() {
                       
                       {currentStep === step.id && (
                         <motion.div
-                          className="absolute inset-0 rounded-full bg-accent/20 -z-10"
+                          className="absolute inset-0 rounded-full bg-accent/20 -z-10 animate-bounce-slow"
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1.4, opacity: 1 }}
-                          transition={{ repeat: Infinity, duration: 2, repeatType: "reverse" }}
+                          transition={{ 
+                            repeat: Infinity, 
+                            duration: 2, 
+                            repeatType: "reverse"
+                          }}
                         />
                       )}
                     </div>
@@ -511,48 +520,90 @@ export default function PendaftaranMitraPage() {
                         </div>
 
                         {hasBuilding === "yes" ? (
-                          <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
-                            <div className="space-y-6">
-                              <FormField
-                                control={form.control}
-                                name="buildingSize"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Estimasi Luas (m2)</FormLabel>
-                                    <FormControl>
-                                      <Input placeholder="Misal: 250" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
+                          <div className="space-y-8">
+                            <div className="grid md:grid-cols-[1fr_auto_1fr] gap-x-10 gap-y-6 items-start">
+                              <div className="space-y-6">
+                                <div className="grid grid-cols-2 gap-4">
+                                  <FormField
+                                    control={form.control}
+                                    name="buildingLength"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel className="font-semibold text-xs text-muted-foreground">Panjang (m)</FormLabel>
+                                        <FormControl>
+                                          <Input placeholder="Panjang" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                  <FormField
+                                    control={form.control}
+                                    name="buildingWidth"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel className="font-semibold text-xs text-muted-foreground">Lebar (m)</FormLabel>
+                                        <FormControl>
+                                          <Input placeholder="Lebar" type="number" className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm shadow-none" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
+
+                              <div className="space-y-6">
+                                <FormField
+                                  control={form.control}
+                                  name="buildingType"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel className="font-semibold text-xs text-muted-foreground">Tipe Fasilitas</FormLabel>
+                                      <Select onValueChange={field.onChange} value={field.value}>
+                                        <FormControl>
+                                          <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
+                                            <SelectValue placeholder="Pilih tipe" />
+                                          </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                          <SelectItem value="ruko">Ruko / Shophouse</SelectItem>
+                                          <SelectItem value="rumah">Rumah Tinggal</SelectItem>
+                                          <SelectItem value="gudang">Gudang / Workshop</SelectItem>
+                                          <SelectItem value="tanah_desa">Fasilitas Desa</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                              </div>
                             </div>
-                            <div className="hidden md:block w-px bg-muted-foreground/10 self-stretch" />
-                            <div className="space-y-6">
-                              <FormField
-                                control={form.control}
-                                name="buildingType"
-                                render={({ field }) => (
-                                  <FormItem>
-                                    <FormLabel className="font-semibold text-xs text-muted-foreground">Tipe Fasilitas</FormLabel>
-                                    <Select onValueChange={field.onChange} value={field.value}>
-                                      <FormControl>
-                                        <SelectTrigger className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm focus:ring-accent shadow-none">
-                                          <SelectValue placeholder="Pilih tipe" />
-                                        </SelectTrigger>
-                                      </FormControl>
-                                      <SelectContent>
-                                        <SelectItem value="ruko">Ruko / Shophouse</SelectItem>
-                                        <SelectItem value="rumah">Rumah Tinggal</SelectItem>
-                                        <SelectItem value="gudang">Gudang / Workshop</SelectItem>
-                                        <SelectItem value="tanah_desa">Fasilitas Desa</SelectItem>
-                                      </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                  </FormItem>
-                                )}
-                              />
-                            </div>
+
+                            <FormField
+                              control={form.control}
+                              name="buildingPhoto"
+                              render={({ field: { value, onChange, ...field } }) => (
+                                <FormItem>
+                                  <FormLabel className="font-semibold text-xs text-muted-foreground flex items-center gap-2">
+                                    <Camera className="h-3.5 w-3.5 text-accent" /> Foto Tampak Depan Bangunan
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input 
+                                      type="file" 
+                                      accept="image/*" 
+                                      onChange={(e) => onChange(e.target.files?.[0])} 
+                                      className="rounded-xl border-muted-foreground/10 bg-white h-10 text-sm pt-2" 
+                                      {...field} 
+                                    />
+                                  </FormControl>
+                                  <FormDescription className="text-[10px]">Unggah foto bangunan agar tim kami dapat melakukan verifikasi awal.</FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                           </div>
                         ) : (
                           <div className="space-y-6">
